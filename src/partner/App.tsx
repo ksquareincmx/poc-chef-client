@@ -1,6 +1,19 @@
 import React from "react";
-import { render } from "react-dom";
-const PartnerApp = () => {
-  return <div>Partner</div>;
+import { Route } from "react-router-dom";
+import CurrentEventsView from "./views/CurrentEventsView";
+
+interface IPartnerAppProps {
+  match: {
+    url: string;
+  };
+}
+
+const PartnerApp: React.SFC<IPartnerAppProps> = props => {
+  return (
+    <div>
+      <Route path={`${props.match.url}/`} component={CurrentEventsView} />
+    </div>
+  );
 };
+
 export default PartnerApp;
