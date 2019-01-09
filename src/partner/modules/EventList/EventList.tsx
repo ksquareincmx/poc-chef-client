@@ -1,9 +1,25 @@
 import React from "react";
 import { IEvent } from "../../interfaces/Event";
+import { css } from "@emotion/core";
 
 interface IEventListProps {
   events: IEvent[];
 }
+
+const eventsContainer = css({
+  marginTop: "-25px",
+  padding: "0 15px 0 15px",
+  height: "100%"
+});
+
+const eventContainer = css({
+  boxShadow: "-2px 2px 10px #bdbdbd",
+  background: "white",
+  width: "100%",
+  borderRadius: "5px",
+  marginBottom: "10px",
+  backgroundColor: "red"
+});
 
 const styles = {
   eventsContainer: {
@@ -65,19 +81,17 @@ const styles = {
 };
 
 const EventList: React.SFC<IEventListProps> = props => {
+  console.log("eventsContainer: ", eventsContainer);
+
   if (props.events.length === 0) {
     return <p>there are not events to show</p>;
   }
 
   return (
-    <div className="events-container" style={styles.eventsContainer}>
+    <div css={eventsContainer}>
       {props.events.map(e => {
         return (
-          <div
-            className="event-container"
-            style={styles.eventContainer}
-            key={e.id}
-          >
+          <div css={eventContainer} key={e.id}>
             <div
               className="event-number-id-row row-data-container"
               style={styles.rowDataContainer}
