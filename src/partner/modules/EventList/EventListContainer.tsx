@@ -25,7 +25,6 @@ class EventListContainer extends React.Component<{}, IEventListContainerState> {
     if (this.state.isLoading) {
       return <p>is loading</p>;
     }
-
     return <EventList events={this.state.events} />;
   }
 }
