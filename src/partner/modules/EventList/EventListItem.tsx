@@ -66,30 +66,21 @@ const EventRowItem = styled.p({
   justifyContent: "space-between"
 });
 
-const styles = {
-  // eventContainer: ,
-  // h1: ,
-  // H2: ,
-  // rowDataContainer: ,
-  // rowData:,
-  // eventRowItem: {,
-  rowTitles: {
-    display: "flex",
-    justifyContent: "space-between"
-  }
-};
-
 const EventListItem: React.SFC<IEventItemProps> = props => {
   return (
     <EventContainer key={props.eventInfo.id}>
       <RowDataContainer>
-        <H1>Event #12</H1>
+        <H1>{props.eventInfo.orderNumber}</H1>
       </RowDataContainer>
       <RowDataContainer>
-        <H2>Tortas para la oficina</H2>
+        <H2>{props.eventInfo.name}</H2>
         <RowData>
-          <EventRowItem>27/07/2018</EventRowItem>
-          <EventRowItem>5:00 PM - 12:00 AM</EventRowItem>
+          <EventRowItem>
+            {`${props.eventInfo.startDate} - ${props.eventInfo.endDate}`}
+          </EventRowItem>
+          <EventRowItem>
+            {`${props.eventInfo.startTime} - ${props.eventInfo.endTime}`}
+          </EventRowItem>
         </RowData>
       </RowDataContainer>
       <RowDataContainer style={{ borderBottom: "0 none" }}>
@@ -118,13 +109,19 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
                 </EventRowItem>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "center" }}>$25</EventRowItem>
+                <EventRowItem style={{ textAlign: "center" }}>{`$${
+                  props.eventInfo.pocChucTortaUnitPrice
+                }`}</EventRowItem>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "center" }}>30</EventRowItem>
+                <EventRowItem style={{ textAlign: "center" }}>{`${
+                  props.eventInfo.pocChucTortaAmount
+                }`}</EventRowItem>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "right" }}>$750</EventRowItem>
+                <EventRowItem style={{ textAlign: "right" }}>
+                  {`$${props.eventInfo.pocChucTotal}`}
+                </EventRowItem>
               </td>
             </tr>
             <tr>
@@ -134,13 +131,19 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
                 </EventRowItem>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "center" }}>$30</EventRowItem>
+                <EventRowItem style={{ textAlign: "center" }}>{`$${
+                  props.eventInfo.shrimpTortaUnitPrice
+                }`}</EventRowItem>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "center" }}>10</EventRowItem>
+                <EventRowItem style={{ textAlign: "center" }}>{`${
+                  props.eventInfo.shrimpTortaAmount
+                }`}</EventRowItem>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "right" }}>$300</EventRowItem>
+                <EventRowItem style={{ textAlign: "right" }}>
+                  {`$${props.eventInfo.shrimpTotal}`}
+                </EventRowItem>
               </td>
             </tr>
           </tbody>
@@ -153,7 +156,7 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
               <td />
               <td>
                 <EventRowItem style={{ textAlign: "right" }}>
-                  $1050
+                  {`$${props.eventInfo.total}`}
                 </EventRowItem>
               </td>
             </tr>
@@ -164,72 +167,4 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
   );
 };
 
-{
-  /* 
-          <TableHead>
-            <tr>
-              <th>
-                <H2 style={{ textAlign: "left" }}>Tortas</H2>
-              </th>
-              <th>
-                <H2 style={{ textAlign: "center" }}>Price</H2>
-              </th>
-              <th>
-                <H2 style={{ textAlign: "center" }}>Units</H2>
-              </th>
-              <th>
-                <H2 style={{ textAlign: "right" }}>Amount</H2>
-              </th>
-            </tr>
-          </TableHead>
-          <tbody>
-            <tr>
-              <td>
-                <EventRowItem style={{ textAlign: "left" }}>
-                  Tortas de Poc Chuc
-                </EventRowItem>
-              </td>
-              <td>
-                <EventRowItem style={{ textAlign: "center" }}>$25</EventRowItem>
-              </td>
-              <td>
-                <EventRowItem style={{ textAlign: "center" }}>30</EventRowItem>
-              </td>
-              <td>
-                <EventRowItem style={{ textAlign: "right" }}>$750</EventRowItem>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <EventRowItem style={{ textAlign: "left" }}>
-                  Tortas de Camarón
-                </EventRowItem>
-              </td>
-              <td>
-                <EventRowItem style={{ textAlign: "center" }}>$30</EventRowItem>
-              </td>
-              <td>
-                <EventRowItem style={{ textAlign: "center" }}>10</EventRowItem>
-              </td>
-              <td>
-                <EventRowItem style={{ textAlign: "right" }}>$300</EventRowItem>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td>
-                <H2 style={{ textAlign: "left" }}>Total</H2>
-              </td>
-              <td />
-              <td />
-              <td>
-                <EventRowItem style={{ textAlign: "right" }}>
-                  $1050
-                </EventRowItem>
-              </td>
-            </tr>
-          </tfoot>
-        */
-}
 export default EventListItem;

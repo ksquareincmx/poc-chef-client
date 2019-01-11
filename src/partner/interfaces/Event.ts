@@ -1,12 +1,17 @@
 export interface IEvent {
   id: string;
+  orderNumber: string;
   name: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  startTime: string;
+  endDate: string;
+  endTime: string;
   pocChucTortaUnitPrice: number;
   pocChucTortaAmount: number;
+  pocChucTotal: number;
   shrimpTortaUnitPrice: number;
   shrimpTortaAmount: number;
+  shrimpTotal: number;
   total: number;
 }
 

@@ -1,16 +1,27 @@
 import { IEvent, IEventDTO } from "../interfaces/Event";
+import moment from "moment";
 
 const toEntity = (dto: IEventDTO): IEvent => {
   return {
-    id: dto.id,
-    name: dto.name,
-    startDate: new Date(dto.start_date),
-    endDate: new Date(dto.end_date),
-    pocChucTortaUnitPrice: dto.poc_chuc_torta_unit_price,
-    pocChucTortaAmount: dto.poc_chuc_torta_amount,
-    shrimpTortaUnitPrice: dto.shrimp_torta_unit_price,
-    shrimpTortaAmount: dto.shrimp_torta_amount,
-    total: dto.total
+    id: String(dto.id),
+    orderNumber: `Event: #${String(dto.id)}`,
+    name: String(dto.name),
+    startDate: moment(new Date(dto.start_date * 1000)).format("	L"),
+    startTime: moment(new Date(dto.start_date * 1000)).format("LT"),
+    endDate: moment(new Date(dto.end_date * 1000)).format("	L"),
+    endTime: moment(new Date(dto.end_date * 1000)).format("LT"),
+    pocChucTortaUnitPrice: Number(dto.poc_chuc_torta_unit_price),
+    pocChucTortaAmount: Number(dto.poc_chuc_torta_amount),
+    pocChucTotal:
+      Number(dto.poc_chuc_torta_unit_price) * Number(dto.poc_chuc_torta_amount),
+    shrimpTortaUnitPrice: Number(dto.shrimp_torta_unit_price),
+    shrimpTortaAmount: Number(dto.shrimp_torta_amount),
+    shrimpTotal:
+      Number(dto.shrimp_torta_unit_price) * Number(dto.shrimp_torta_amount),
+    total:
+      Number(dto.poc_chuc_torta_unit_price) *
+        Number(dto.poc_chuc_torta_amount) +
+      Number(dto.shrimp_torta_unit_price) * Number(dto.shrimp_torta_amount)
   };
 };
 
