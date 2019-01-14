@@ -17,6 +17,13 @@ class EventListContainer extends React.Component<{}, IEventListContainerState> {
   public componentDidMount() {
     this.setState({ isLoading: true });
     eventService.getAll().then(events => {
+      events.sort(function(a, b) {
+        return a.startDate > b.startDate
+          ? -1
+          : a.startDate < b.startDate
+          ? 1
+          : 0;
+      });
       this.setState({ events, isLoading: false });
     });
   }

@@ -10,7 +10,8 @@ interface IEventListProps {
 const EventsContainer = styled.div({
   marginTop: "-25px",
   padding: "0 15px 0 15px",
-  height: "100%"
+  height: "100%",
+  overflowY: "auto"
 });
 
 const EventList: React.SFC<IEventListProps> = props => {

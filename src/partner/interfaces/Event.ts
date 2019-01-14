@@ -2,10 +2,12 @@ export interface IEvent {
   id: string;
   orderNumber: string;
   name: string;
-  startDate: string;
-  startTime: string;
-  endDate: string;
-  endTime: string;
+  startDate: Date;
+  endDate: Date;
+  startDateString: string;
+  starTimeString: string;
+  endDateString: string;
+  endTimeString: string;
   pocChucTortaUnitPrice: number;
   pocChucTortaAmount: number;
   pocChucTotal: number;

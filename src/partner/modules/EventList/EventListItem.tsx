@@ -76,10 +76,14 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
         <H2>{props.eventInfo.name}</H2>
         <RowData>
           <EventRowItem>
-            {`${props.eventInfo.startDate} - ${props.eventInfo.endDate}`}
+            {`${props.eventInfo.startDateString} - ${
+              props.eventInfo.endDateString
+            }`}
           </EventRowItem>
           <EventRowItem>
-            {`${props.eventInfo.startTime} - ${props.eventInfo.endTime}`}
+            {`${props.eventInfo.starTimeString} - ${
+              props.eventInfo.endTimeString
+            }`}
           </EventRowItem>
         </RowData>
       </RowDataContainer>
