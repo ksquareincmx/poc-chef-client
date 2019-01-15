@@ -1,107 +1,25 @@
 import React from "react";
-import styled from "@emotion/styled";
+import {
+  EventContainer,
+  H1,
+  H2Left,
+  H2Center,
+  H2Right,
+  RowDataContainerBordeBottom,
+  RowDataContainerBorderLess,
+  TableContainer,
+  TableHead,
+  TableFoot,
+  RowData,
+  EventRowItemLeft,
+  EventRowItemCenter,
+  EventRowItemRight
+} from "../ui/EventList/EventListUI";
 import { IEvent } from "../../interfaces/Event";
 
 interface IEventItemProps {
   eventInfo: IEvent;
 }
-
-const EventContainer = styled.div({
-  boxShadow: "-2px 2px 10px #bdbdbd",
-  background: "white",
-  width: "100%",
-  borderRadius: "10px",
-  marginBottom: "10px"
-});
-
-const H1 = styled.h1({
-  margin: "0",
-  fontFamily: "unset",
-  fontSize: "16px",
-  fontStyle: "bold"
-});
-
-const H2 = {
-  margin: "0",
-  fontFamily: "unset",
-  fontSize: "12px",
-  fontStyle: "bold",
-  width: "100%"
-};
-
-const H2Left = styled.h2({
-  ...H2,
-  textAlign: "left"
-});
-
-const H2Center = styled.h2({
-  ...H2,
-  textAlign: "center"
-});
-
-const H2Right = styled.h2({
-  ...H2,
-  textAlign: "right"
-});
-
-const RowDataContainer = {
-  width: "100%",
-  padding: "5px 20px"
-};
-const RowDataContainerBordeBottom = styled.div({
-  ...RowDataContainer,
-  borderBottom: "2px solid #f3f3f3"
-});
-
-const RowDataContainerBorderLess = styled.div({
-  ...RowDataContainer
-});
-
-const TableContainer = styled.table({
-  width: "100%",
-  padding: "5px 20px"
-});
-const TableHead = styled.thead({
-  width: "100%",
-  padding: "5px 20px",
-  borderBottom: "2px solid #f3f3f3"
-});
-
-const TableFoot = styled.tfoot({
-  width: "100%",
-  padding: "5px 20px",
-  borderTop: "2px solid #f3f3f3"
-});
-
-const RowData = styled.div({
-  marginTop: "10px",
-  display: "flex",
-  justifyContent: "space-between"
-});
-
-const EventRowItem = {
-  margin: "0",
-  padding: "0",
-  fontFamily: "unset",
-  fontSize: "12px",
-  fontStyle: "bold",
-  justifyContent: "space-between"
-};
-
-const EventRowItemLeft = styled.p({
-  ...EventRowItem,
-  textAlign: "left"
-});
-
-const EventRowItemCenter = styled.p({
-  ...EventRowItem,
-  textAlign: "center"
-});
-
-const EventRowItemRight = styled.p({
-  ...EventRowItem,
-  textAlign: "right"
-});
 
 const EventListItem: React.SFC<IEventItemProps> = props => {
   return (
