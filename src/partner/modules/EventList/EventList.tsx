@@ -22,7 +22,7 @@ const EventList: React.SFC<IEventListProps> = props => {
   return (
     <EventsContainer>
       {props.events.map(e => (
-        <EventListItem eventInfo={e} />
+        <EventListItem key={e.id} eventInfo={e} />
       ))}
     </EventsContainer>
   );
