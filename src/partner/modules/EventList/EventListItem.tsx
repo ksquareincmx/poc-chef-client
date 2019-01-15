@@ -21,18 +21,40 @@ const H1 = styled.h1({
   fontStyle: "bold"
 });
 
-const H2 = styled.h2({
+const H2 = {
   margin: "0",
   fontFamily: "unset",
   fontSize: "12px",
   fontStyle: "bold",
   width: "100%"
+};
+
+const H2Left = styled.h2({
+  ...H2,
+  textAlign: "left"
 });
 
-const RowDataContainer = styled.div({
+const H2Center = styled.h2({
+  ...H2,
+  textAlign: "center"
+});
+
+const H2Right = styled.h2({
+  ...H2,
+  textAlign: "right"
+});
+
+const RowDataContainer = {
   width: "100%",
-  padding: "5px 20px",
+  padding: "5px 20px"
+};
+const RowDataContainerBordeBottom = styled.div({
+  ...RowDataContainer,
   borderBottom: "2px solid #f3f3f3"
+});
+
+const RowDataContainerBorderLess = styled.div({
+  ...RowDataContainer
 });
 
 const TableContainer = styled.table({
@@ -57,116 +79,127 @@ const RowData = styled.div({
   justifyContent: "space-between"
 });
 
-const EventRowItem = styled.p({
+const EventRowItem = {
   margin: "0",
   padding: "0",
   fontFamily: "unset",
   fontSize: "12px",
   fontStyle: "bold",
   justifyContent: "space-between"
+};
+
+const EventRowItemLeft = styled.p({
+  ...EventRowItem,
+  textAlign: "left"
+});
+
+const EventRowItemCenter = styled.p({
+  ...EventRowItem,
+  textAlign: "center"
+});
+
+const EventRowItemRight = styled.p({
+  ...EventRowItem,
+  textAlign: "right"
 });
 
 const EventListItem: React.SFC<IEventItemProps> = props => {
   return (
     <EventContainer key={props.eventInfo.id}>
-      <RowDataContainer>
+      <RowDataContainerBordeBottom>
         <H1>{props.eventInfo.orderNumber}</H1>
-      </RowDataContainer>
-      <RowDataContainer>
-        <H2>{props.eventInfo.name}</H2>
+      </RowDataContainerBordeBottom>
+      <RowDataContainerBordeBottom>
+        <H2Left>{props.eventInfo.name}</H2Left>
         <RowData>
-          <EventRowItem>
+          <EventRowItemLeft>
             {`${props.eventInfo.startDateString} - ${
               props.eventInfo.endDateString
             }`}
-          </EventRowItem>
-          <EventRowItem>
+          </EventRowItemLeft>
+          <EventRowItemRight>
             {`${props.eventInfo.starTimeString} - ${
               props.eventInfo.endTimeString
             }`}
-          </EventRowItem>
+          </EventRowItemRight>
         </RowData>
-      </RowDataContainer>
-      <RowDataContainer style={{ borderBottom: "0 none" }}>
+      </RowDataContainerBordeBottom>
+      <RowDataContainerBorderLess>
         <TableContainer>
           <TableHead>
             <tr>
               <th>
-                <H2 style={{ textAlign: "left" }}>Tortas</H2>
+                <H2Left>Tortas</H2Left>
               </th>
               <th>
-                <H2 style={{ textAlign: "center" }}>Price</H2>
+                <H2Center>Price</H2Center>
               </th>
               <th>
-                <H2 style={{ textAlign: "center" }}>Units</H2>
+                <H2Center>Units</H2Center>
               </th>
               <th>
-                <H2 style={{ textAlign: "right" }}>Amount</H2>
+                <H2Right>Amount</H2Right>
               </th>
             </tr>
           </TableHead>
           <tbody>
             <tr>
               <td>
-                <EventRowItem style={{ textAlign: "left" }}>
-                  Tortas de Poc Chuc
-                </EventRowItem>
+                <EventRowItemLeft>Tortas de Poc Chuc</EventRowItemLeft>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "center" }}>{`$${
+                <EventRowItemCenter>{`$${
                   props.eventInfo.pocChucTortaUnitPrice
-                }`}</EventRowItem>
+                }`}</EventRowItemCenter>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "center" }}>{`${
+                <EventRowItemCenter>{`${
                   props.eventInfo.pocChucTortaAmount
-                }`}</EventRowItem>
+                }`}</EventRowItemCenter>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "right" }}>
+                <EventRowItemRight>
                   {`$${props.eventInfo.pocChucTotal}`}
-                </EventRowItem>
+                </EventRowItemRight>
               </td>
             </tr>
             <tr>
               <td>
-                <EventRowItem style={{ textAlign: "left" }}>
-                  Tortas de Camarón
-                </EventRowItem>
+                <EventRowItemLeft>Tortas de Camarón</EventRowItemLeft>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "center" }}>{`$${
+                <EventRowItemCenter>{`$${
                   props.eventInfo.shrimpTortaUnitPrice
-                }`}</EventRowItem>
+                }`}</EventRowItemCenter>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "center" }}>{`${
+                <EventRowItemCenter>{`${
                   props.eventInfo.shrimpTortaAmount
-                }`}</EventRowItem>
+                }`}</EventRowItemCenter>
               </td>
               <td>
-                <EventRowItem style={{ textAlign: "right" }}>
+                <EventRowItemRight>
                   {`$${props.eventInfo.shrimpTotal}`}
-                </EventRowItem>
+                </EventRowItemRight>
               </td>
             </tr>
           </tbody>
           <TableFoot>
             <tr>
               <td>
-                <H2 style={{ textAlign: "left" }}>Total</H2>
+                <H2Left>Total</H2Left>
               </td>
               <td />
               <td />
               <td>
-                <EventRowItem style={{ textAlign: "right" }}>
+                <EventRowItemRight>
                   {`$${props.eventInfo.total}`}
-                </EventRowItem>
+                </EventRowItemRight>
               </td>
             </tr>
           </TableFoot>
         </TableContainer>
-      </RowDataContainer>
+      </RowDataContainerBorderLess>
     </EventContainer>
   );
 };
