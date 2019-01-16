@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "poc-chef-ts",
   "version": "0.1.0",
   "private": true,
@@ -23,4 +24,30 @@
     "@types/react-dom": "^16.0.11",
     "typescript": "^3.2.2"
   }
+=======
+  "name": "poc-chef",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap-4-react": "0.0.57",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-scripts": "2.1.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+>>>>>>> 02fa8b655232ba4d01fdfbcc9b1f475a0cf95385
 }
