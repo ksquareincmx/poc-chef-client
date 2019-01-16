@@ -1,17 +1,9 @@
 "use strict";
 
 import * as React from "react";
-import styled from "@emotion/styled";
+import { Input } from "./";
 
-interface IEvent {
-  name: string;
-  startDate: string;
-  endDate: string;
-  startHour: string;
-  endHour: string;
-  tortaPocchuc: number;
-  tortaCamaron: number;
-}
+import { IEventEntity } from "./../../interfaces/";
 
 export class CreateEvent extends React.Component {
   public state = {
@@ -39,7 +31,7 @@ export class CreateEvent extends React.Component {
         ? true
         : false;
     if (!validation) {
-      const event: IEvent = {
+      const event: IEventEntity = {
         name: this.eventName.current!.value,
         startDate: this.startDate.current!.value,
         endDate: this.endDate.current!.value,
@@ -56,46 +48,52 @@ export class CreateEvent extends React.Component {
   };
 
   public render() {
-    const Input = styled.input({
-      position: "relative",
-      "& :hover": {
-        outline: "none",
-        boxShadow: "0.2rem 0.8rem 1.6rem",
-        background: "black",
-        color: "red"
-      }
-    });
-
     return (
       <div>
         <form onSubmit={this.createEvent}>
           <div>
             <label htmlFor="inputName">Event Name:</label>
-            <Input ref={this.eventName} type="text" id="inputName" />
+            <Input reference={this.eventName} datatype="text" id="inputName" />
           </div>
           <div>
             <label htmlFor="inputName">Start date:</label>
-            <Input ref={this.startDate} type="text" id="inputStartDate" />
+            <Input
+              reference={this.startDate}
+              datatype="text"
+              id="inputStartDate"
+            />
           </div>
           <div>
             <label htmlFor="inputName">End date:</label>
-            <Input ref={this.endDate} type="text" id="inputEndDate" />
+            <Input reference={this.endDate} datatype="text" id="inputEndDate" />
           </div>
           <div>
             <label htmlFor="inputName">Start hour:</label>
-            <Input ref={this.startHour} type="text" id="inputStartHour" />
+            <Input
+              reference={this.startHour}
+              datatype="text"
+              id="inputStartHour"
+            />
           </div>
           <div>
             <label htmlFor="inputName">End hour:</label>
-            <Input ref={this.endHour} type="text" id="inputEndHour" />
+            <Input reference={this.endHour} datatype="text" id="inputEndHour" />
           </div>
           <div>
             <label htmlFor="inputName">Torta de Poc-chuc:</label>
-            <Input ref={this.tortaPocchuc} type="text" id="inputTortaPocchuc" />
+            <Input
+              reference={this.tortaPocchuc}
+              datatype="text"
+              id="inputTortaPocchuc"
+            />
           </div>
           <div>
             <label htmlFor="inputName">Torta de Camarón:</label>
-            <Input ref={this.tortaCamaron} type="text" id="inputTortaCamaron" />
+            <Input
+              reference={this.tortaCamaron}
+              datatype="text"
+              id="inputTortaCamaron"
+            />
           </div>
           <button type="submit" />
         </form>

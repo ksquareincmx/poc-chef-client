@@ -19,6 +19,12 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },
+  "rules": {
+    "no-console": false
+  },
+  "jsRules": {
+    "no-console": false
+  },
   "exclude": [
     "node_modules",
     "build",
