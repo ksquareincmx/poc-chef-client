@@ -12,3 +12,13 @@ export interface IOrderEntity {
   date: string;
   total: number;
 }
+
+export interface IEventEntity {
+  name: string;
+  startDate: string;
+  endDate: string;
+  startHour: string;
+  endHour: string;
+  tortaPocchuc: number;
+  tortaCamaron: number;
+}
