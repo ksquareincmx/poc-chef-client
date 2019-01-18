@@ -1,0 +1,48 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "name": "Tortas para la oficina semana 1",
+      "start_date": 1546630200,
+      "end_date": 1546667820,
+      "poc_chuc_torta_unit_price": 22,
+      "poc_chuc_torta_amount": 40,
+      "shrimp_torta_unit_price": 28,
+      "shrimp_torta_amount": 2,
+      "total": 22
+    },
+    {
+      "id": "2",
+      "name": "Tortas para la oficina semana 2",
+      "start_date": 1547100000,
+      "end_date": 1547186400,
+      "poc_chuc_torta_unit_price": 22,
+      "poc_chuc_torta_amount": 22,
+      "shrimp_torta_unit_price": 28,
+      "shrimp_torta_amount": 3,
+      "total": 22
+    },
+    {
+      "id": "3",
+      "name": "Tortas para la oficina semana 3",
+      "start_date": 10000,
+      "end_date": 20000,
+      "poc_chuc_torta_unit_price": 22,
+      "poc_chuc_torta_amount": 1,
+      "shrimp_torta_unit_price": 28,
+      "shrimp_torta_amount": 1,
+      "total": 22
+    },
+    {
+      "id": "4",
+      "name": "Tortas para la oficina semana 4",
+      "start_date": 10000,
+      "end_date": 20000,
+      "poc_chuc_torta_unit_price": 22,
+      "poc_chuc_torta_amount": 1,
+      "shrimp_torta_unit_price": 28,
+      "shrimp_torta_amount": 1,
+      "total": 22
+    }
+  ]
+}
