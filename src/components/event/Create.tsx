@@ -24,9 +24,7 @@ export class CreateEvent extends React.Component {
     this.setState({event:{[name]: value}});
   }
 
-  public createEvent = (e: any) => {
-    e.preventDefault();
-  };
+  public createEvent = (e: any) => e.preventDefault();
 
   public render() {
     const Input = styled.input({
