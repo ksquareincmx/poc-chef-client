@@ -137,7 +137,7 @@ export class CreateEvent extends React.Component {
               </DivFG>
               <DivFG>
                 <p>Start Hour:</p>
-                <Input type="date" name="startHour" value={this.state.event!.startHour} onChange={this.handleChange} />
+                <Input type="time" name="startHour" value={this.state.event!.startHour} onChange={this.handleChange} />
               </DivFG>
               <br />
 
@@ -152,7 +152,7 @@ export class CreateEvent extends React.Component {
 
               <DivFG>
                 <p>End Hour:</p>
-                <Input type="date" name="endHour" value={this.state.event!.endHour} onChange={this.handleChange} />
+                <Input type="time" name="endHour" value={this.state.event!.endHour} onChange={this.handleChange} />
               </DivFG>
 
             </DivRightC>
