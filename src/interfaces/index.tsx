@@ -22,3 +22,13 @@ export interface IEventEntity {
   tortaPocchuc: number;
   tortaCamaron: number;
 }
+
+export interface IEvent {
+  name: string;
+  startDate: string;
+  endDate: string;
+  startHour: string;
+  endHour: string;
+  tortaPocchuc: number;
+  tortaCamaron: number;
+}

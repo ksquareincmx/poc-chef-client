@@ -3,58 +3,29 @@
 import * as React from "react";
 import styled from "@emotion/styled";
 
-interface IEvent {
-  name: string;
-  startDate: string;
-  endDate: string;
-  startHour: string;
-  endHour: string;
-  tortaPocchuc: number;
-  tortaCamaron: number;
-}
-
 export class CreateEvent extends React.Component {
+
   public state = {
-    event: {}
+    event: {
+      name: '',
+      startDate:'',
+      endDate:'',
+      startHour:'',
+      endHour:'',
+      tortaPocchuc:0,
+      tortaCamaron:0
+    }
   };
 
-
-
-  public eventName = React.createRef<HTMLInputElement>();
-  public startDate = React.createRef<HTMLInputElement>();
-  public endDate = React.createRef<HTMLInputElement>();
-  public startHour = React.createRef<HTMLInputElement>();
-  public endHour = React.createRef<HTMLInputElement>();
-  public tortaPocchuc = React.createRef<HTMLInputElement>();
-  public tortaCamaron = React.createRef<HTMLInputElement>();
+  public handleChange = (e:any) => {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    this.setState({event:{[name]: value}});
+  }
 
   public createEvent = (e: any) => {
     e.preventDefault();
-    const validation =
-      !this.eventName ||
-      !this.startDate ||
-      !this.endDate ||
-      !this.startHour ||
-      !this.endHour ||
-      !this.tortaPocchuc ||
-      !this.tortaCamaron
-        ? true
-        : false;
-    if (!validation) {
-      const event: IEvent = {
-        name: this.eventName.current!.value,
-        startDate: this.startDate.current!.value,
-        endDate: this.endDate.current!.value,
-        startHour: this.startHour.current!.value,
-        endHour: this.endHour.current!.value,
-        tortaPocchuc: Number(this.tortaPocchuc.current!.value),
-        tortaCamaron: Number(this.tortaCamaron.current!.value)
-      };
-      this.setState(event);
-      e.currentTarget.reset();
-    } else {
-      alert("ño");
-    }
   };
 
   public render() {
@@ -155,18 +126,18 @@ export class CreateEvent extends React.Component {
           <DivCF>
             <DivMax>
               <p>Event Name:</p>
-              <Input type="text" ref={this.eventName} />
+              <Input type="text" name="name" value={this.state.event!.name} onChange={this.handleChange} />
             </DivMax>
 
             <DivLeftC>
 
               <DivFG>
                 <p>Start Event:</p>
-                <Input type="date" ref={this.startDate}  />
+                <Input type="date" name="startDate" value={this.state.event!.startDate} onChange={this.handleChange}  />
               </DivFG>
               <DivFG>
                 <p>Start Hour:</p>
-                <Input type="date" ref={this.startHour} />
+                <Input type="date" name="startHour" value={this.state.event!.startHour} onChange={this.handleChange} />
               </DivFG>
               <br />
 
@@ -176,12 +147,12 @@ export class CreateEvent extends React.Component {
 
               <DivFG>
                 <p>End Date:</p>
-                <Input type="date" ref={this.endDate} />
+                <Input type="date" name="endDate" value={this.state.event!.endDate} onChange={this.handleChange} />
               </DivFG>
 
               <DivFG>
                 <p>End Hour:</p>
-                <Input type="date" ref={this.endHour} />
+                <Input type="date" name="endHour" value={this.state.event!.endHour} onChange={this.handleChange} />
               </DivFG>
 
             </DivRightC>
@@ -203,11 +174,11 @@ export class CreateEvent extends React.Component {
 
             <DivRCMin>
               <DivMin>
-                <Input type="text" ref={this.tortaPocchuc} />
+                <Input type="text" name="tortaPocchuc" value={this.state.event!.tortaPocchuc} onChange={this.handleChange} />
               </DivMin>
 
               <DivMin>
-                <Input type="text" ref={this.tortaCamaron} />
+                <Input type="text" name="tortaCamaron" value={this.state.event!.tortaCamaron} onChange={this.handleChange}/>
               </DivMin>
             </DivRCMin>
           </DivCF>
