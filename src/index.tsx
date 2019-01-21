@@ -4,14 +4,14 @@ import "./css/index.css";
 import UserApp from "./components/App";
 import PartnerApp from "./partner/App";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 ReactDOM.render(
   <Router>
-    <React.Fragment>
+    <Switch>
       <Route path="/user/" exact component={UserApp} />
-      <Route path="/partner/" exact component={PartnerApp} />
-    </React.Fragment>
+      <Route path="/partner/" component={PartnerApp} />
+    </Switch>
   </Router>,
   document.getElementById("root")
 );

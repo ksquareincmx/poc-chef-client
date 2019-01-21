@@ -1,6 +1,6 @@
 import React from "react";
+import { CardContainer } from "../ui/Commons/Commons";
 import {
-  EventContainer,
   H1,
   H2Left,
   H2Center,
@@ -23,7 +23,7 @@ interface IEventItemProps {
 
 const EventListItem: React.SFC<IEventItemProps> = props => {
   return (
-    <EventContainer key={props.eventInfo.id}>
+    <CardContainer key={props.eventInfo.id}>
       <RowDataContainerBordeBottom>
         <H1>{props.eventInfo.orderNumber}</H1>
       </RowDataContainerBordeBottom>
@@ -118,7 +118,7 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
           </TableFoot>
         </TableContainer>
       </RowDataContainerBorderLess>
-    </EventContainer>
+    </CardContainer>
   );
 };
 

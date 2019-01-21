@@ -1,6 +1,7 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import CurrentEventsView from "./views/CurrentEventsView";
+import CreateNewEvent from "./views/CreateNewEvent";
 
 interface IPartnerAppProps {
   match: {
@@ -9,9 +10,17 @@ interface IPartnerAppProps {
 }
 
 const PartnerApp: React.SFC<IPartnerAppProps> = props => {
+  console.log(props.match.url);
   return (
     <div>
-      <Route path={`${props.match.url}/`} component={CurrentEventsView} />
+      <Switch>
+        <Route
+          path={`${props.match.url}/`}
+          exact
+          component={CurrentEventsView}
+        />
+        <Route path={`${props.match.url}/new/`} component={CreateNewEvent} />
+      </Switch>
     </div>
   );
 };

@@ -1,14 +1,5 @@
 import styled from "@emotion/styled";
 
-export const EventContainer = styled.div({
-  boxShadow: "-2px 2px 10px #bdbdbd",
-  background: "white",
-  width: "100%",
-  borderRadius: "10px",
-  marginBottom: "10px",
-  boxSizing: "border-box"
-});
-
 export const H1 = styled.h1({
   margin: "0",
   fontFamily: "unset",

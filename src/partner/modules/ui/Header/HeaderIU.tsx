@@ -5,7 +5,8 @@ export const HeaderContainer = styled.div({
   flexDirection: "row",
   justifyContent: "space-around",
   alignItems: "center",
-  padding: "5px 3px 25px 3px",
+  boxSizing: "border-box",
+  padding: "5px 15px 25px 15px",
   background: "linear-gradient(to right, #F8823D, #E83E5D)",
   width: "100vw",
   height: "6em"
@@ -14,7 +15,7 @@ export const HeaderContainer = styled.div({
 export const HeaderLogoContainer = styled.div({
   boxSizing: "border-box",
   height: "100%",
-  width: "33.33%",
+  width: "30%",
   display: "flex",
   flexDirection: "row",
   alignItems: "center"
@@ -30,7 +31,7 @@ export const HeaderTitleContainer = styled.div({
   boxSizing: "border-box",
   padding: "5px",
   height: "100%",
-  width: "33.33%",
+  width: "50%",
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
@@ -38,7 +39,8 @@ export const HeaderTitleContainer = styled.div({
 });
 
 export const H1 = styled.h1({
-  fontFamily: "Roboto",
+  textAlign: "center",
+  fontFamily: "unset",
   color: "white",
   fontSize: "16px"
 });
@@ -47,7 +49,7 @@ export const HeaderUserIconContainer = styled.div({
   boxSizing: "border-box",
   padding: "5px",
   height: "100%",
-  width: "33.33%",
+  width: "30%",
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
