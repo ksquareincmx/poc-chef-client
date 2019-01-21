@@ -5,7 +5,8 @@ export const EventContainer = styled.div({
   background: "white",
   width: "100%",
   borderRadius: "10px",
-  marginBottom: "10px"
+  marginBottom: "10px",
+  boxSizing: "border-box"
 });
 
 export const H1 = styled.h1({
@@ -44,26 +45,25 @@ const RowDataContainer = {
 };
 export const RowDataContainerBordeBottom = styled.div({
   ...RowDataContainer,
+  boxSizing: "border-box",
   borderBottom: "2px solid #f3f3f3"
 });
 
 export const RowDataContainerBorderLess = styled.div({
-  ...RowDataContainer
+  ...RowDataContainer,
+  boxSizing: "border-box"
 });
 
 export const TableContainer = styled.table({
-  width: "100%",
-  padding: "5px 20px"
+  width: "100%"
 });
 export const TableHead = styled.thead({
   width: "100%",
-  padding: "5px 20px",
   borderBottom: "2px solid #f3f3f3"
 });
 
 export const TableFoot = styled.tfoot({
   width: "100%",
-  padding: "5px 20px",
   borderTop: "2px solid #f3f3f3"
 });
 
