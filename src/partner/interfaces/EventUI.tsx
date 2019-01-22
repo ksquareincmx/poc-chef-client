@@ -1,5 +1,6 @@
 export interface IH1Props {
-  textAlign: string;
+  textAlign?: string;
+  margin?: string;
 }
 
 export interface IH2Props {

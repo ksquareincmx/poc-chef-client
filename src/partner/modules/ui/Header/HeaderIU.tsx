@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
+import styledComponents from "styled-components";
 
-export const HeaderContainer = styled.div({
+export const HeaderContainer = styledComponents.div({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-around",
@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div({
   height: "6em"
 });
 
-export const HeaderLogoContainer = styled.div({
+export const HeaderLogoContainer = styledComponents.div({
   boxSizing: "border-box",
   height: "100%",
   width: "30%",
@@ -21,13 +21,13 @@ export const HeaderLogoContainer = styled.div({
   alignItems: "center"
 });
 
-export const ImgLogo = styled.img({
+export const ImgLogo = styledComponents.img({
   width: "100%",
   height: "100%",
   objectFit: "contain"
 });
 
-export const HeaderTitleContainer = styled.div({
+export const HeaderTitleContainer = styledComponents.div({
   boxSizing: "border-box",
   padding: "5px",
   height: "100%",
@@ -38,14 +38,14 @@ export const HeaderTitleContainer = styled.div({
   justifyContent: "center"
 });
 
-export const H1 = styled.h1({
+export const H1 = styledComponents.h1({
   textAlign: "center",
   fontFamily: "unset",
   color: "white",
   fontSize: "16px"
 });
 
-export const HeaderUserIconContainer = styled.div({
+export const HeaderUserIconContainer = styledComponents.div({
   boxSizing: "border-box",
   padding: "5px",
   height: "100%",
@@ -56,7 +56,7 @@ export const HeaderUserIconContainer = styled.div({
   justifyContent: "flex-end"
 });
 
-export const ImgUserPhoto = styled.img({
+export const ImgUserPhoto = styledComponents.img({
   width: "2.5em",
   height: "2.5em",
   objectFit: "contain"

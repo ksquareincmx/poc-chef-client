@@ -2,6 +2,7 @@ import React from "react";
 import { CardContainer } from "../ui/Commons/Commons";
 import {
   H1,
+  ImgMenu,
   H2,
   RowDataContainer,
   Table,
@@ -17,8 +18,16 @@ interface IEventItemProps {
 const EventListItem: React.SFC<IEventItemProps> = props => {
   return (
     <CardContainer key={props.eventInfo.id}>
-      <RowDataContainer>
-        <H1 textAlign="left">{props.eventInfo.orderNumber}</H1>
+      <RowDataContainer padding="5px 20px">
+        <RowData>
+          <H1 textAlign="left" margin="-5px 0 0 0">
+            {props.eventInfo.orderNumber}
+          </H1>
+          <ImgMenu
+            src={require("../../../images/menu-icon.png")}
+            alt="options"
+          />
+        </RowData>
       </RowDataContainer>
       <RowDataContainer>
         <H2 textAlign="left">{props.eventInfo.name}</H2>
