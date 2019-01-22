@@ -2,8 +2,7 @@ import eventMapper from "../mappers/EventMapper";
 import { IEvent } from "../interfaces/Event";
 
 export interface IEventService {
-  getAll: () => Promise<IEvent[]>;
-}
+  getAll: () => Promise<IEvent[]>;}
 
 const eventService: IEventService = {
   getAll: () => {
