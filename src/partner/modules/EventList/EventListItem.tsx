@@ -2,18 +2,11 @@ import React from "react";
 import { CardContainer } from "../ui/Commons/Commons";
 import {
   H1,
-  H2Left,
-  H2Center,
-  H2Right,
-  RowDataContainerBordeBottom,
-  RowDataContainerBorderLess,
-  TableContainer,
-  TableHead,
-  TableFoot,
+  H2,
+  RowDataContainer,
+  Table,
   RowData,
-  EventRowItemLeft,
-  EventRowItemCenter,
-  EventRowItemRight
+  EventRowItem
 } from "../ui/EventList/EventListUI";
 import { IEvent } from "../../interfaces/Event";
 
@@ -24,100 +17,98 @@ interface IEventItemProps {
 const EventListItem: React.SFC<IEventItemProps> = props => {
   return (
     <CardContainer key={props.eventInfo.id}>
-      <RowDataContainerBordeBottom>
-        <H1>{props.eventInfo.orderNumber}</H1>
-      </RowDataContainerBordeBottom>
-      <RowDataContainerBordeBottom>
-        <H2Left>{props.eventInfo.name}</H2Left>
+      <RowDataContainer>
+        <H1 textAlign="left">{props.eventInfo.orderNumber}</H1>
+      </RowDataContainer>
+      <RowDataContainer>
+        <H2 textAlign="left">{props.eventInfo.name}</H2>
         <RowData>
-          <EventRowItemLeft>
+          <EventRowItem textAlign="left">
             {`${props.eventInfo.startDateString} - ${
               props.eventInfo.endDateString
             }`}
-          </EventRowItemLeft>
-          <EventRowItemRight>
+          </EventRowItem>
+          <EventRowItem textAlign="right">
             {`${props.eventInfo.starTimeString} - ${
               props.eventInfo.endTimeString
             }`}
-          </EventRowItemRight>
+          </EventRowItem>
         </RowData>
-      </RowDataContainerBordeBottom>
-      <RowDataContainerBorderLess>
-        <TableContainer>
-          <TableHead>
-            <tr>
-              <th>
-                <H2Left>Tortas</H2Left>
-              </th>
-              <th>
-                <H2Center>Price</H2Center>
-              </th>
-              <th>
-                <H2Center>Units</H2Center>
-              </th>
-              <th>
-                <H2Right>Amount</H2Right>
-              </th>
-            </tr>
-          </TableHead>
-          <tbody>
-            <tr>
-              <td>
-                <EventRowItemLeft>Tortas de Poc Chuc</EventRowItemLeft>
-              </td>
-              <td>
-                <EventRowItemCenter>{`$${
-                  props.eventInfo.pocChucTortaUnitPrice
-                }`}</EventRowItemCenter>
-              </td>
-              <td>
-                <EventRowItemCenter>{`${
-                  props.eventInfo.pocChucTortaAmount
-                }`}</EventRowItemCenter>
-              </td>
-              <td>
-                <EventRowItemRight>
-                  {`$${props.eventInfo.pocChucTotal}`}
-                </EventRowItemRight>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <EventRowItemLeft>Tortas de Camarón</EventRowItemLeft>
-              </td>
-              <td>
-                <EventRowItemCenter>{`$${
-                  props.eventInfo.shrimpTortaUnitPrice
-                }`}</EventRowItemCenter>
-              </td>
-              <td>
-                <EventRowItemCenter>{`${
-                  props.eventInfo.shrimpTortaAmount
-                }`}</EventRowItemCenter>
-              </td>
-              <td>
-                <EventRowItemRight>
-                  {`$${props.eventInfo.shrimpTotal}`}
-                </EventRowItemRight>
-              </td>
-            </tr>
-          </tbody>
-          <TableFoot>
-            <tr>
-              <td>
-                <H2Left>Total</H2Left>
-              </td>
-              <td />
-              <td />
-              <td>
-                <EventRowItemRight>
-                  {`$${props.eventInfo.total}`}
-                </EventRowItemRight>
-              </td>
-            </tr>
-          </TableFoot>
-        </TableContainer>
-      </RowDataContainerBorderLess>
+      </RowDataContainer>
+      <Table>
+        <thead>
+          <tr>
+            <th>
+              <H2 textAlign="left">Tortas</H2>
+            </th>
+            <th>
+              <H2 textAlign="center">Price</H2>
+            </th>
+            <th>
+              <H2 textAlign="center">Units</H2>
+            </th>
+            <th>
+              <H2 textAlign="right">Amount</H2>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <EventRowItem textAlign="left">Tortas de Poc Chuc</EventRowItem>
+            </td>
+            <td>
+              <EventRowItem textAlign="center">{`$${
+                props.eventInfo.pocChucTortaUnitPrice
+              }`}</EventRowItem>
+            </td>
+            <td>
+              <EventRowItem textAlign="center">{`${
+                props.eventInfo.pocChucTortaAmount
+              }`}</EventRowItem>
+            </td>
+            <td>
+              <EventRowItem textAlign="right">
+                {`$${props.eventInfo.pocChucTotal}`}
+              </EventRowItem>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <EventRowItem textAlign="left">Tortas de Camarón</EventRowItem>
+            </td>
+            <td>
+              <EventRowItem textAlign="center">{`$${
+                props.eventInfo.shrimpTortaUnitPrice
+              }`}</EventRowItem>
+            </td>
+            <td>
+              <EventRowItem textAlign="center">{`${
+                props.eventInfo.shrimpTortaAmount
+              }`}</EventRowItem>
+            </td>
+            <td>
+              <EventRowItem textAlign="right">
+                {`$${props.eventInfo.shrimpTotal}`}
+              </EventRowItem>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <H2 textAlign="left">Total</H2>
+            </td>
+            <td />
+            <td />
+            <td>
+              <EventRowItem textAlign="right">
+                {`$${props.eventInfo.total}`}
+              </EventRowItem>
+            </td>
+          </tr>
+        </tfoot>
+      </Table>
     </CardContainer>
   );
 };

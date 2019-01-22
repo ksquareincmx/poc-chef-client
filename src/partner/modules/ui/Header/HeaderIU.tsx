@@ -31,7 +31,7 @@ export const HeaderTitleContainer = styled.div({
   boxSizing: "border-box",
   padding: "5px",
   height: "100%",
-  width: "50%",
+  width: "40%",
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
