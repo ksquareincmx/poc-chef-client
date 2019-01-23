@@ -13,6 +13,7 @@ const PartnerApp: React.SFC<IPartnerAppProps> = props => {
   console.log(props.match.url);
   return (
     <div>
+      <style>{"body { background-color: WhiteSmoke; }"}</style>
       <Switch>
         <Route
           path={`${props.match.url}/`}

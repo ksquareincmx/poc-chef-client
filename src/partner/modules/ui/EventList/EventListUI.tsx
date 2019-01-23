@@ -9,7 +9,7 @@ import {
 
 export const EventsContainer = styledComponents.div({
   marginTop: "-25px",
-  padding: "0 15px 50px 15px",
+  padding: "0 15px 70px 15px",
   height: "100%",
   overflowY: "auto"
 });

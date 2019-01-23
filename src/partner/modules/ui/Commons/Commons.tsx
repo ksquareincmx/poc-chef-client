@@ -14,3 +14,10 @@ export const RowDataContainer = styledComponents.div({
   width: "100%",
   padding: "5px 20px"
 });
+
+export const H1 = styledComponents.h1({
+  textAlign: "center",
+  fontFamily: "unset",
+  color: "white",
+  fontSize: "16px"
+});
