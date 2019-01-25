@@ -25,7 +25,6 @@ const PartnerApp: React.SFC<IPartnerAppProps> = props => {
           path={`${props.match.url}/past-events`}
           component={CurrentEventsView}
         />
-        {/* <Route path={`${props.match.url}/new/`} component={CreateNewEvent} /> */}
       </Switch>
       <NavBar />
     </div>
