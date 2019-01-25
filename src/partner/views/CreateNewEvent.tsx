@@ -5,7 +5,6 @@ import NewEventForm from "../modules/NewEventForm";
 const CreateNewEvent = () => {
   return (
     <React.Fragment>
-      <Header title="New Event" />
       <NewEventForm />
     </React.Fragment>
   );

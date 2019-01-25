@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { CardContainer, RowDataContainer } from "../ui/Commons/Commons";
+import { P } from "../ui/List/List";
+import { ListItem } from "../ui/List/List";
 
 const Label = styled.p({
   fontFamily: "roboto",
@@ -16,15 +17,15 @@ const Input = styled.input({
 const NewEventForm = () => {
   return (
     <div>
-      <CardContainer>
-        <RowDataContainer>
+      <ListItem>
+        <P>
           <Label>Event Name</Label>
           <Input type="text" name="eventname" />
-        </RowDataContainer>
-        <RowDataContainer>
+        </P>
+        <P>
           <input type="submit" />
-        </RowDataContainer>
-      </CardContainer>
+        </P>
+      </ListItem>
     </div>
   );
 };

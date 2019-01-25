@@ -1,7 +1,7 @@
 import React from "react";
 import { IEvent } from "../../interfaces/Event";
 import EventListItem from "./EventListItem";
-import { EventsContainer } from "../ui/EventList/EventListUI";
+import { List } from "../ui/List/List";
 
 interface IEventListProps {
   events: IEvent[];
@@ -13,11 +13,11 @@ const EventList: React.SFC<IEventListProps> = props => {
   }
 
   return (
-    <EventsContainer>
+    <List>
       {props.events.map(e => (
         <EventListItem key={e.id} eventInfo={e} />
       ))}
-    </EventsContainer>
+    </List>
   );
 };
 

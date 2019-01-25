@@ -6,9 +6,7 @@ import NavBar from "../modules/NavBar";
 const CurrentEventsView = () => {
   return (
     <React.Fragment>
-      <Header title="Current Events" />
       <EventListContainer />
-      <NavBar />
     </React.Fragment>
   );
 };

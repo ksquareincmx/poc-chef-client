@@ -1,14 +1,14 @@
 import React from "react";
-import { CardContainer } from "../ui/Commons/Commons";
 import {
+  ListItem,
   H1,
   ImgMenu,
   H2,
-  RowDataContainer,
+  ListItemRow,
   Table,
   RowData,
-  EventRowItem
-} from "../ui/EventList/EventListUI";
+  P
+} from "../ui/List/List";
 import { IEvent } from "../../interfaces/Event";
 
 interface IEventItemProps {
@@ -17,108 +17,94 @@ interface IEventItemProps {
 
 const EventListItem: React.SFC<IEventItemProps> = props => {
   return (
-    <CardContainer key={props.eventInfo.id}>
-      <RowDataContainer padding="5px 20px">
+    <ListItem key={props.eventInfo.id}>
+      <ListItemRow borderBottom>
         <RowData>
-          <H1 textAlign="left" margin="-5px 0 0 0">
-            {props.eventInfo.orderNumber}
-          </H1>
+          <H1 align="left">{props.eventInfo.orderNumber}</H1>
           <ImgMenu
             src={require("../../../images/menu-icon.png")}
             alt="options"
           />
         </RowData>
-      </RowDataContainer>
-      <RowDataContainer>
-        <H2 textAlign="left">{props.eventInfo.name}</H2>
+      </ListItemRow>
+      <ListItemRow borderBottom>
+        <H2 align="left">{props.eventInfo.name}</H2>
         <RowData>
-          <EventRowItem textAlign="left">
+          <P align="left">
             {`${props.eventInfo.startDateString} - ${
               props.eventInfo.endDateString
             }`}
-          </EventRowItem>
-          <EventRowItem textAlign="right">
+          </P>
+          <P align="right">
             {`${props.eventInfo.starTimeString} - ${
               props.eventInfo.endTimeString
             }`}
-          </EventRowItem>
+          </P>
         </RowData>
-      </RowDataContainer>
+      </ListItemRow>
       <Table>
         <thead>
           <tr>
             <th>
-              <H2 textAlign="left">Tortas</H2>
+              <H2 align="left">Tortas</H2>
             </th>
             <th>
-              <H2 textAlign="center">Price</H2>
+              <H2 align="center">Price</H2>
             </th>
             <th>
-              <H2 textAlign="center">Units</H2>
+              <H2 align="center">Units</H2>
             </th>
             <th>
-              <H2 textAlign="right">Amount</H2>
+              <H2 align="right">Amount</H2>
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <EventRowItem textAlign="left">Tortas de Poc Chuc</EventRowItem>
+              <P align="left">Tortas de Poc Chuc</P>
             </td>
             <td>
-              <EventRowItem textAlign="center">{`$${
+              <P align="center">{`$${
                 props.eventInfo.pocChucTortaUnitPrice
-              }`}</EventRowItem>
+              }`}</P>
             </td>
             <td>
-              <EventRowItem textAlign="center">{`${
-                props.eventInfo.pocChucTortaAmount
-              }`}</EventRowItem>
+              <P align="center">{`${props.eventInfo.pocChucTortaAmount}`}</P>
             </td>
             <td>
-              <EventRowItem textAlign="right">
-                {`$${props.eventInfo.pocChucTotal}`}
-              </EventRowItem>
+              <P align="right">{`$${props.eventInfo.pocChucTotal}`}</P>
             </td>
           </tr>
           <tr>
             <td>
-              <EventRowItem textAlign="left">Tortas de Camarón</EventRowItem>
+              <P align="left">Tortas de Camarón</P>
             </td>
             <td>
-              <EventRowItem textAlign="center">{`$${
-                props.eventInfo.shrimpTortaUnitPrice
-              }`}</EventRowItem>
+              <P align="center">{`$${props.eventInfo.shrimpTortaUnitPrice}`}</P>
             </td>
             <td>
-              <EventRowItem textAlign="center">{`${
-                props.eventInfo.shrimpTortaAmount
-              }`}</EventRowItem>
+              <P align="center">{`${props.eventInfo.shrimpTortaAmount}`}</P>
             </td>
             <td>
-              <EventRowItem textAlign="right">
-                {`$${props.eventInfo.shrimpTotal}`}
-              </EventRowItem>
+              <P align="right">{`$${props.eventInfo.shrimpTotal}`}</P>
             </td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td>
-              <H2 textAlign="left">Total</H2>
+              <H2 align="left">Total</H2>
             </td>
             <td />
             <td />
             <td>
-              <EventRowItem textAlign="right">
-                {`$${props.eventInfo.total}`}
-              </EventRowItem>
+              <P align="right">{`$${props.eventInfo.total}`}</P>
             </td>
           </tr>
         </tfoot>
       </Table>
-    </CardContainer>
+    </ListItem>
   );
 };
 
