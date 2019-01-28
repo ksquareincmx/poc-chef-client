@@ -7,7 +7,7 @@ import {
   H1,
   HeaderUserIconContainer,
   ImgUserPhoto
-} from "../ui/Header/HeaderIU";
+} from "../ui/Header/Header";
 
 interface IHeaderProps {
   title: string;
