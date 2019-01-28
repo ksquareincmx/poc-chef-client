@@ -3,7 +3,7 @@ import Header from "../modules/Header";
 import EventListContainer from "../modules/EventList";
 import eventService from "../services/EventService";
 import { IEvent } from "../interfaces/Event";
-import { CompDateEvent } from "../utils/EventListUtils";
+import { dateComparator } from "../utils/EventListUtils";
 
 interface IPastEventsViewState {
   events: IEvent[];
@@ -22,7 +22,7 @@ class PastEventsView extends React.Component<{}, IPastEventsViewState> {
     this.setState({ isLoading: true });
     try {
       const events = await eventService.getPastEvents();
-      events.sort(CompDateEvent);
+      events.sort(dateComparator);
       this.setState({ events, isLoading: false });
     } catch (err) {
       this.setState({
