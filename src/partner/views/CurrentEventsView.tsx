@@ -33,16 +33,28 @@ class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
   }
 
   public render() {
+    if (this.state.isLoading) {
+      return (
+        <React.Fragment>
+          <Header title="Current Events" />
+          <p>is loading</p>
+        </React.Fragment>
+      );
+    }
+
+    if (this.state.error) {
+      return (
+        <React.Fragment>
+          <Header title="Current Events" />
+          <p>is loading</p>
+        </React.Fragment>
+      );
+    }
+
     return (
       <React.Fragment>
         <Header title="Current Events" />
-        {this.state.isLoading ? (
-          <p>is loading</p>
-        ) : this.state.error ? (
-          <p>An error has occurred</p>
-        ) : (
-          <EventListContainer events={this.state.events} />
-        )}
+        <EventListContainer events={this.state.events} />
       </React.Fragment>
     );
   }
