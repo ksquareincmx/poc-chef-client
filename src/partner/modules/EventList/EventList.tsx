@@ -1,18 +1,11 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { IEvent } from "../../interfaces/Event";
 import EventListItem from "./EventListItem";
+import { List } from "../ui/List/List";
 
 interface IEventListProps {
   events: IEvent[];
 }
-
-const EventsContainer = styled.div({
-  marginTop: "-25px",
-  padding: "0 15px 0 15px",
-  height: "100%",
-  overflowY: "auto"
-});
 
 const EventList: React.SFC<IEventListProps> = props => {
   if (props.events.length === 0) {
@@ -20,11 +13,11 @@ const EventList: React.SFC<IEventListProps> = props => {
   }
 
   return (
-    <EventsContainer>
+    <List>
       {props.events.map(e => (
         <EventListItem key={e.id} eventInfo={e} />
       ))}
-    </EventsContainer>
+    </List>
   );
 };
 
