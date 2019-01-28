@@ -17,7 +17,7 @@ import {
 import moment from "moment-timezone";
 
 interface IPropsData {
-  params: string;
+  match: { params: { update: string } };
 }
 
 export class CreateEvent extends React.Component<IPropsData> {
@@ -40,7 +40,21 @@ export class CreateEvent extends React.Component<IPropsData> {
   }
 
   data() {
-    console.log("param: ", this.props.params);
+    console.log("data", this.props.match.params.update);
+    if (this.props.match.params.update) {
+      console.log("entro");
+      const state = {
+        name: "Algo para actualizar",
+        startDate: Number(moment(new Date())),
+        endDate: Number(moment(new Date())),
+        startHour: "14:00",
+        endHour: "20:00",
+        tortaPocchuc: 100,
+        tortaCamaron: 100,
+        message: ""
+      };
+      this.setState(state);
+    }
   }
 
   public handleChange = (e: any) => {
@@ -94,7 +108,7 @@ export class CreateEvent extends React.Component<IPropsData> {
     e.preventDefault();
     if (this.valida()) {
       console.log("guardado");
-      if (this.props.params) console.log("actualiza");
+      if (this.props.match) console.log("actualiza");
       else console.log("graba");
     } else console.log("error en validación");
     console.log("final state: ", this.state);

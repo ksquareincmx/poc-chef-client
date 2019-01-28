@@ -10,7 +10,7 @@ ReactDOM.render(
   <Router>
     <React.Fragment>
       <Route path="/partner/" exact component={PartnerApp} />
-      <Route path="/partner/add/:param" exact component={CreateEvent} />
+      <Route path="/partner/add/:update?" exact component={CreateEvent} />
     </React.Fragment>
   </Router>,
   document.getElementById("root")
