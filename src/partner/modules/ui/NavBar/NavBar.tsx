@@ -1,5 +1,4 @@
 import styledComponents from "styled-components";
-import styledComponentsTS from "styled-components-ts";
 
 export const NavBarContainer = styledComponents.div({
   position: "fixed",

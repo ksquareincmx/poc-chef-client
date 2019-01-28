@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React from "react";
 import { NavBarContainer, Item } from "../ui/NavBar/NavBar";
 import { NavLink } from "react-router-dom";
 
