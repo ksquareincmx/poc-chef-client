@@ -14,6 +14,8 @@ import {
   DivFG
 } from "../ui/Event/EventAddUI";
 
+import { ShowEvent } from "./";
+
 import moment from "moment-timezone";
 
 interface IPropsData {
