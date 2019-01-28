@@ -5,7 +5,7 @@ import { IEvent } from "../../interfaces/Event";
 interface IEventListContainerProps {
   events: IEvent[];
 }
-const EventListContainer = (props: IEventListContainerProps) => {
+const EventListContainer: React.SFC<IEventListContainerProps> = props => {
   return <EventList events={props.events} />;
 };
 
