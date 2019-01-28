@@ -4,7 +4,7 @@ import "./css/index.css";
 import UserApp from "./components/App";
 import PartnerApp from "./partner/App";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 ReactDOM.render(
   <Router>
