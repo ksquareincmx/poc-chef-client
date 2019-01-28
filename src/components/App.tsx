@@ -1,7 +1,7 @@
 import * as React from "react";
 // import { Header } from "./header";
 // import { Order } from "./Order";
-import { CreateEvent } from "./../partner/modules/EventAdd/";
+import { CreateEvent } from "./../partner/modules/Event/";
 
 // import orders from "./../interfaces/orders";
 
