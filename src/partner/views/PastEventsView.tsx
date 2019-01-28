@@ -4,13 +4,13 @@ import eventService from "../services/EventService";
 import { IEvent } from "../interfaces/Event";
 import { CompDateEvent } from "../utils/EventListUtils";
 
-interface ICurrentEventsViewState {
+interface IPastEventsViewState {
   events: IEvent[];
   isLoading: boolean;
   error?: Error;
 }
 
-class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
+class PastEventsView extends React.Component<{}, IPastEventsViewState> {
   state = {
     events: [],
     isLoading: false,
@@ -20,7 +20,7 @@ class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
   public async componentDidMount() {
     this.setState({ isLoading: true });
     try {
-      const events = await eventService.getCurrentEvents();
+      const events = await eventService.getPastEvents();
       events.sort(CompDateEvent);
       this.setState({ events, isLoading: false });
     } catch (err) {
@@ -46,4 +46,4 @@ class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
   }
 }
 
-export default CurrentEventsView;
+export default PastEventsView;

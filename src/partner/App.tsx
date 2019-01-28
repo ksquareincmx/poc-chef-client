@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import CurrentEventsView from "./views/CurrentEventsView";
 import Header from "./modules/Header";
 import NavBar from "./modules/NavBar";
+import PastEventsView from "./views/PastEventsView";
 
 interface IPartnerAppProps {
   match: {
@@ -21,7 +22,7 @@ const PartnerApp: React.SFC<IPartnerAppProps> = props => {
         />
         <Route
           path={`${props.match.url}/past-events`}
-          component={CurrentEventsView}
+          component={PastEventsView}
         />
       </Switch>
       <NavBar />

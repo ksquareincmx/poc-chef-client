@@ -2,12 +2,19 @@ import eventMapper from "../mappers/EventMapper";
 import { IEvent } from "../interfaces/Event";
 
 export interface IEventService {
-  getAll: () => Promise<IEvent[]>;
+  getCurrentEvents: () => Promise<IEvent[]>;
+  getPastEvents: () => Promise<IEvent[]>;
 }
 
 const eventService: IEventService = {
-  getAll: () => {
-    return fetch("/api/events.json")
+  getCurrentEvents: () => {
+    return fetch("/api/current_events.json")
+      .then(res => res.json())
+      .then(data => data.events.map(eventMapper.toEntity));
+  },
+
+  getPastEvents: () => {
+    return fetch("/api/past_events.json")
       .then(res => res.json())
       .then(data => data.events.map(eventMapper.toEntity));
   }
