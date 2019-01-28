@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../modules/Header";
 import EventListContainer from "../modules/EventList";
 import eventService from "../services/EventService";
 import { IEvent } from "../interfaces/Event";
@@ -32,15 +33,16 @@ class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
   }
 
   public render() {
-    if (this.state.isLoading) {
-      return <p>is loading</p>;
-    }
-    if (this.state.error) {
-      return <p>An error has occurred</p>;
-    }
     return (
       <React.Fragment>
-        <EventListContainer events={this.state.events} />
+        <Header title="Current Events" />
+        {this.state.isLoading ? (
+          <p>is loading</p>
+        ) : this.state.error ? (
+          <p>An error has occurred</p>
+        ) : (
+          <EventListContainer events={this.state.events} />
+        )}
       </React.Fragment>
     );
   }
