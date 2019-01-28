@@ -1,18 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./css/index.css";
-import UserApp from "./components/App";
 import PartnerApp from "./partner/App";
-import {CreateEvent} from "./partner/modules/Event/";
+import { CreateEvent } from "./partner/modules/Event/";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 ReactDOM.render(
   <Router>
     <React.Fragment>
-      <Route path="/user/" exact component={UserApp} />
       <Route path="/partner/" exact component={PartnerApp} />
-      <Route path="/partner/add" exact component={CreateEvent} />
+      <Route path="/partner/add/:param" exact component={CreateEvent} />
     </React.Fragment>
   </Router>,
   document.getElementById("root")
