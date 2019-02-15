@@ -10,9 +10,11 @@ import {
   P
 } from "../ui/List/List";
 import { IEvent } from "../../interfaces/Event";
+import { Link } from "react-router-dom";
 
 interface IEventItemProps {
   eventInfo: IEvent;
+  eventView?: boolean;
 }
 
 const EventListItem: React.SFC<IEventItemProps> = props => {
@@ -20,7 +22,14 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
     <ListItem key={props.eventInfo.id}>
       <ListItemRow borderBottom>
         <RowData>
-          <H1 align="left">{props.eventInfo.orderNumber}</H1>
+          <H1 align="left">
+            {(!props.eventView && (
+              <Link to={"events/" + props.eventInfo.id}>
+                {props.eventInfo.orderNumber}
+              </Link>
+            )) ||
+              props.eventInfo.orderNumber}
+          </H1>
           <ImgMenu
             src={require("../../../images/menu-icon.png")}
             alt="options"
@@ -107,5 +116,5 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
     </ListItem>
   );
 };
-
+EventListItem.defaultProps = { eventView: false };
 export default EventListItem;

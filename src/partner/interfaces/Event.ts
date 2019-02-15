@@ -17,6 +17,25 @@ export interface IEvent {
   total: number;
 }
 
+export const InitialEvent = (): IEvent => ({
+  id: "",
+  orderNumber: "",
+  name: "",
+  startDate: new Date(),
+  endDate: new Date(),
+  startDateString: "",
+  starTimeString: "",
+  endDateString: "",
+  endTimeString: "",
+  pocChucTortaUnitPrice: 0,
+  pocChucTortaAmount: 0,
+  pocChucTotal: 0,
+  shrimpTortaUnitPrice: 0,
+  shrimpTortaAmount: 0,
+  shrimpTotal: 0,
+  total: 0
+});
+
 export interface IEventDTO {
   id: string;
   name: string;
