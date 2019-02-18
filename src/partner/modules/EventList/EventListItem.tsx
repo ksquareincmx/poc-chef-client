@@ -23,7 +23,7 @@ interface IEventItemState {
   showMenu?: boolean;
 }
 
-class EventListItem extends React.Component<IEventItemProps, {}> {
+class EventListItem extends React.Component<IEventItemProps, IEventItemState> {
   state = {
     showMenu: false
   };
