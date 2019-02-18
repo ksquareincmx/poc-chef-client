@@ -1,4 +1,4 @@
-import styledComponents from "styled-components";
+import styledComponents, { css } from "styled-components";
 import styledComponentsTS from "styled-components-ts";
 
 export const ListItem = styledComponents.div({
@@ -21,6 +21,7 @@ export const List = styledComponents.div({
 export interface IListItemRowProps {
   borderBottom?: boolean;
 }
+
 export const ListItemRow = styledComponentsTS<IListItemRowProps>(
   styledComponents.div
 )`
@@ -82,5 +83,36 @@ export const ImgMenu = styledComponents.img({
   padding: "0",
   objectFit: "contain"
 });
+
+export const MenuOptions = styledComponents.div`
+  position: relative;
+  display: inline-block;
+`;
+
+export interface IMenuOptionsContent {
+  show?: boolean;
+}
+
+export const MenuOptionsContent = styledComponentsTS<IMenuOptionsContent>(
+  styledComponents.div
+)`
+  display: ${(props: IMenuOptionsContent) => (props.show ? "block" : "none")};
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0;
+  & > a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  & > a:hover {
+    background-color: #ddd;
+
+  }
+`;
 
 export default List;
