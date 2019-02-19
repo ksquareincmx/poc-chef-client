@@ -82,5 +82,3 @@ export const ImgMenu = styledComponents.img({
   padding: "0",
   objectFit: "contain"
 });
-
-export default List;
