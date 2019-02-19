@@ -3,6 +3,7 @@ import EventListItem from "../modules/EventList/EventListItem";
 import Header from "../modules/Header";
 import eventService from "../services/EventService";
 import { IEvent, InitialEvent } from "../interfaces/Event";
+import { List } from "../modules/ui/List/List";
 
 interface IEventViewProps {
   match: { params: { id: string } };
@@ -54,11 +55,13 @@ class EventView extends React.Component<
       <React.Fragment>
         <Header title="Event view" />
         {(this.state.localEvent.id !== "" && (
-          <EventListItem
-            key={this.state.localEvent.id}
-            eventInfo={this.state.localEvent}
-            eventView={true}
-          />
+          <List>
+            <EventListItem
+              key={this.state.localEvent.id}
+              eventInfo={this.state.localEvent}
+              eventView={true}
+            />
+          </List>
         )) || <p>Selected event doesn't exist</p>}
       </React.Fragment>
     );

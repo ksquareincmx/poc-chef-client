@@ -103,6 +103,7 @@ export const MenuOptionsContent = styledComponentsTS<IMenuOptionsContent>(
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   right: -20px;
+  top: 33.5px;
   & > a {
     color: black;
     padding: 12px 16px;
