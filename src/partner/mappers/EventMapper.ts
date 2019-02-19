@@ -1,7 +1,7 @@
-import { IEvent, IEventDTO } from "src/partner/interfaces/Event";
 import moment from "moment";
+import { IEvent, IEventDTO } from "src/partner/models/Event";
 
-const toEntity = (dto: IEventDTO): IEvent => {
+export const toEntity = (dto: IEventDTO): IEvent => {
   return {
     id: String(dto.id),
     orderNumber: `Event: #${String(dto.id)}`,
@@ -22,8 +22,4 @@ const toEntity = (dto: IEventDTO): IEvent => {
       Number(dto.poc_chuc_torta_unit_price) * Number(dto.poc_chuc_torta_amount) +
       Number(dto.shrimp_torta_unit_price) * Number(dto.shrimp_torta_amount),
   };
-};
-
-export default {
-  toEntity,
 };

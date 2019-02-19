@@ -1,8 +1,8 @@
 import React from "react";
-import EventListItem from "src/partner/modules/EventList/EventListItem";
-import Header from "src/partner/modules/Header";
-import eventService from "src/partner/services/EventService";
-import { IEvent, InitialEvent } from "src/partner/interfaces/Event";
+import { EventListItem } from "src/partner/modules/EventList/EventListItem";
+import { Header } from "src/partner/modules/Header";
+import { EventService } from "src/partner/services";
+import { IEvent, InitialEvent } from "src/partner/models/Event";
 
 interface IEventViewProps {
   match: { params: { id: string } };
@@ -14,7 +14,7 @@ interface ICurrentEventsViewState {
   localEvent: IEvent;
 }
 
-class EventView extends React.Component<IEventViewProps, ICurrentEventsViewState> {
+export class EventView extends React.Component<IEventViewProps, ICurrentEventsViewState> {
   public state = {
     isLoading: false,
     error: undefined,
@@ -24,7 +24,7 @@ class EventView extends React.Component<IEventViewProps, ICurrentEventsViewState
   public async componentDidMount() {
     this.setState({ isLoading: true });
     try {
-      const events = await eventService.getCurrentEvents();
+      const events = await EventService.eventService.getCurrentEvents();
       const localEvent =
         events.filter(e => e.id == this.props.match.params.id)[0] || InitialEvent();
       this.setState({ isLoading: false, localEvent });
@@ -60,5 +60,3 @@ class EventView extends React.Component<IEventViewProps, ICurrentEventsViewState
     );
   }
 }
-
-export default EventView;

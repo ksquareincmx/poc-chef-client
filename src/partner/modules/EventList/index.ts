@@ -1,1 +1,1 @@
-export { default } from "./EventListContainer";
+export { EventListContainer } from "./EventListContainer";

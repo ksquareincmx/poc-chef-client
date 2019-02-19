@@ -1,34 +1,27 @@
 import React from "react";
-import {
-  HeaderContainer,
-  HeaderLogoContainer,
-  ImgLogo,
-  HeaderTitleContainer,
-  H1,
-  HeaderUserIconContainer,
-  ImgUserPhoto,
-} from "src/partner/modules/ui/Header/Header";
+import { HeaderStyled } from "src/partner/modules/ui";
 
 interface IHeaderProps {
   title: string;
 }
 
-const Header: React.SFC<IHeaderProps> = props => {
+export const Header: React.SFC<IHeaderProps> = props => {
   return (
     <header>
-      <HeaderContainer>
-        <HeaderLogoContainer>
-          <ImgLogo src={require("../../../images/poc-chef-logo.png")} alt="Poc-Chef" />
-        </HeaderLogoContainer>
-        <HeaderTitleContainer>
-          <H1>{props.title}</H1>
-        </HeaderTitleContainer>
-        <HeaderUserIconContainer>
-          <ImgUserPhoto src={require("../../../images/user-logo.png")} alt="Poc-Chef" />
-        </HeaderUserIconContainer>
-      </HeaderContainer>
+      <HeaderStyled.HeaderContainer>
+        <HeaderStyled.HeaderLogoContainer>
+          <HeaderStyled.ImgLogo src={require("../../../images/poc-chef-logo.png")} alt="Poc-Chef" />
+        </HeaderStyled.HeaderLogoContainer>
+        <HeaderStyled.HeaderTitleContainer>
+          <HeaderStyled.H1>{props.title}</HeaderStyled.H1>
+        </HeaderStyled.HeaderTitleContainer>
+        <HeaderStyled.HeaderUserIconContainer>
+          <HeaderStyled.ImgUserPhoto
+            src={require("../../../images/user-logo.png")}
+            alt="Poc-Chef"
+          />
+        </HeaderStyled.HeaderUserIconContainer>
+      </HeaderStyled.HeaderContainer>
     </header>
   );
 };
-
-export default Header;

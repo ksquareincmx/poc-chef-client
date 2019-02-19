@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "src/partner/modules/Header";
-import EventListContainer from "src/partner/modules/EventList";
-import eventService from "src/partner/services/EventService";
-import { IEvent } from "src/partner/interfaces/Event";
+import { Header } from "src/partner/modules/Header";
+import { EventListContainer } from "src/partner/modules/EventList";
+import { EventService } from "src/partner/services";
+import { IEvent } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 
 interface ICurrentEventsViewState {
@@ -11,7 +11,7 @@ interface ICurrentEventsViewState {
   error?: Error;
 }
 
-class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
+export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
   state = {
     events: [],
     isLoading: false,
@@ -21,7 +21,7 @@ class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
   public async componentDidMount() {
     this.setState({ isLoading: true });
     try {
-      const events = await eventService.getCurrentEvents();
+      const events = await EventService.eventService.getCurrentEvents();
       events.sort(dateComparator);
       this.setState({ events, isLoading: false });
     } catch (err) {
@@ -59,5 +59,3 @@ class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
     );
   }
 }
-
-export default CurrentEventsView;

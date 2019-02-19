@@ -1,23 +1,22 @@
 import React from "react";
-import { IEvent } from "src/partner/interfaces/Event";
-import { List } from "src/partner/modules/ui/List/List";
-import EventListItem from "./EventListItem";
+import { IEvent } from "src/partner/models/Event";
+import { EventListItem } from "./EventListItem";
+import { ListStyled } from "src/partner/modules/ui/";
+
 interface IEventListProps {
   events: IEvent[];
 }
 
-const EventList: React.SFC<IEventListProps> = props => {
+export const EventList: React.SFC<IEventListProps> = props => {
   if (props.events.length === 0) {
     return <p>there are not events to show</p>;
   }
 
   return (
-    <List>
+    <ListStyled.List>
       {props.events.map(e => (
         <EventListItem key={e.id} eventInfo={e} />
       ))}
-    </List>
+    </ListStyled.List>
   );
 };
-
-export default EventList;

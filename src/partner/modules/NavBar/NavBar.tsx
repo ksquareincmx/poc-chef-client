@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { NavBarContainer, Item } from "src/partner/modules/ui/NavBar/NavBar";
+import { NavBarStyled } from "src/partner/modules/ui";
 
 const NavBarStyle = {
   display: "flex",
@@ -21,10 +22,10 @@ const NavBarActiveStyle = {
   fontStyle: "bold",
 };
 
-const NavBar = () => {
+export const NavBar = () => {
   return (
-    <NavBarContainer>
-      <Item>
+    <NavBarStyled.NavBarContainer>
+      <NavBarStyled.Item>
         <style>
           {".active + div{" +
             "margin: 0;" +
@@ -38,15 +39,13 @@ const NavBar = () => {
           Current Events
         </NavLink>
         <div />
-      </Item>
-      <Item>
+      </NavBarStyled.Item>
+      <NavBarStyled.Item>
         <NavLink to="/partner/past-events" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           Past Events
         </NavLink>
         <div />
-      </Item>
-    </NavBarContainer>
+      </NavBarStyled.Item>
+    </NavBarStyled.NavBarContainer>
   );
 };
-
-export default NavBar;
