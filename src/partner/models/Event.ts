@@ -17,7 +17,6 @@ export interface IEvent {
   total: number;
 }
 
-// TODO: is correct this function here?
 export const InitialEvent = (): IEvent => ({
   id: "",
   orderNumber: "",
