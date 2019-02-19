@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../modules/Header";
-import EventListContainer from "../modules/EventList";
-import eventService from "../services/EventService";
-import { IEvent } from "../interfaces/Event";
-import { dateComparator } from "../utils/EventListUtils";
+import Header from "src/partner/modules/Header";
+import EventListContainer from "src/partner/modules/EventList";
+import eventService from "src/partner/services/EventService";
+import { IEvent } from "src/partner/interfaces/Event";
+import { dateComparator } from "src/partner/utils/EventListUtils";
 
 interface IPastEventsViewState {
   events: IEvent[];
@@ -15,7 +15,7 @@ class PastEventsView extends React.Component<{}, IPastEventsViewState> {
   state = {
     events: [],
     isLoading: false,
-    error: undefined
+    error: undefined,
   };
 
   public async componentDidMount() {
@@ -27,7 +27,7 @@ class PastEventsView extends React.Component<{}, IPastEventsViewState> {
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err
+        error: err,
       });
     }
   }

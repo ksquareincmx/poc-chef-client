@@ -1,6 +1,6 @@
 import React from "react";
-import { NavBarContainer, Item } from "../ui/NavBar/NavBar";
 import { NavLink } from "react-router-dom";
+import { NavBarContainer, Item } from "src/partner/modules/ui/NavBar/NavBar";
 
 const NavBarStyle = {
   display: "flex",
@@ -11,14 +11,14 @@ const NavBarStyle = {
   fontFamily: "unset",
   fontSize: "14px",
   textDecoration: "none",
-  color: "Gray"
+  color: "Gray",
 };
 
 const NavBarActiveStyle = {
   ...NavBarStyle,
   color: "#E83E5D",
   background: "WhiteSmoke",
-  fontStyle: "bold"
+  fontStyle: "bold",
 };
 
 const NavBar = () => {
@@ -34,21 +34,13 @@ const NavBar = () => {
             "background: linear-gradient(to right, #E83E5D, #F8823D);" +
             "}"}
         </style>
-        <NavLink
-          to="/partner/current-events"
-          activeStyle={NavBarActiveStyle}
-          style={NavBarStyle}
-        >
+        <NavLink to="/partner/current-events" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           Current Events
         </NavLink>
         <div />
       </Item>
       <Item>
-        <NavLink
-          to="/partner/past-events"
-          activeStyle={NavBarActiveStyle}
-          style={NavBarStyle}
-        >
+        <NavLink to="/partner/past-events" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           Past Events
         </NavLink>
         <div />

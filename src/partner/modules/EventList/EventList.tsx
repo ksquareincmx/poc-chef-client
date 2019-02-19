@@ -1,8 +1,7 @@
 import React from "react";
-import { IEvent } from "../../interfaces/Event";
+import { IEvent } from "src/partner/interfaces/Event";
+import { List } from "src/partner/modules/ui/List/List";
 import EventListItem from "./EventListItem";
-import { List } from "../ui/List/List";
-
 interface IEventListProps {
   events: IEvent[];
 }
