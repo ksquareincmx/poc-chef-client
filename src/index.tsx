@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./css/index.css";
-import UserApp from "./components/App";
 import PartnerApp from "./partner/App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -9,7 +8,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route path="/user/" exact component={UserApp} />
       <Route path="/partner/" component={PartnerApp} />
     </Switch>
   </Router>,
