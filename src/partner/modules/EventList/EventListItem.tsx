@@ -13,7 +13,8 @@ import {
 } from "../ui/List/List";
 import { IEvent } from "../../interfaces/Event";
 import { Link } from "react-router-dom";
-
+import Modal from "../ui/Modal/Modal";
+import { CreateEvent } from "../../../components/event/Create";
 interface IEventItemProps {
   eventInfo: IEvent;
   eventView?: boolean;
@@ -21,11 +22,13 @@ interface IEventItemProps {
 
 interface IEventItemState {
   showMenu?: boolean;
+  editEvent: boolean;
 }
 
 class EventListItem extends React.Component<IEventItemProps, IEventItemState> {
   state = {
-    showMenu: false
+    showMenu: false,
+    editEvent: false
   };
 
   render() {
@@ -45,7 +48,9 @@ class EventListItem extends React.Component<IEventItemProps, IEventItemState> {
                 />
                 <MenuOptionsContent show={this.state.showMenu}>
                   <Link to={"events/" + props.eventInfo.id}>View Event</Link>
-                  <Link to={"events/" + props.eventInfo.id}>Edit Event</Link>
+                  <a onClick={() => this.setState({ editEvent: true })}>
+                    Edit Event
+                  </a>
                 </MenuOptionsContent>
               </MenuOptions>
             )}
@@ -130,6 +135,13 @@ class EventListItem extends React.Component<IEventItemProps, IEventItemState> {
             </tr>
           </tfoot>
         </Table>
+        <Modal
+          title="Edit Event"
+          show={this.state.editEvent}
+          closeModal={() => this.setState({ editEvent: false })}
+        >
+          <CreateEvent />
+        </Modal>
       </ListItem>
     );
   }
