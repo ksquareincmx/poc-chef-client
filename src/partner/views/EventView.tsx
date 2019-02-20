@@ -3,7 +3,7 @@ import { EventListItem } from "src/partner/modules/EventList/EventListItem";
 import { Header } from "src/partner/modules/Header";
 import { EventService } from "src/partner/services";
 import { IEvent, InitialEvent } from "src/partner/models/Event";
-import { List } from "../modules/ui/List/List";
+import { List } from "src/partner/modules/ui/List/List";
 
 export interface IEventViewProps {
   match: { params: { id: string } };

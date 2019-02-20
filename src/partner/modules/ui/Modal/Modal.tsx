@@ -51,7 +51,7 @@ interface IModalProps {
   children?: any;
 }
 
-const Modal: React.SFC<IModalProps> = props => {
+export const Modal: React.SFC<IModalProps> = props => {
   return (
     (props.show && (
       <ModalContainer>
@@ -68,5 +68,3 @@ const Modal: React.SFC<IModalProps> = props => {
     null
   );
 };
-
-export default Modal;
