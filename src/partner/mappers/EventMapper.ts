@@ -1,7 +1,7 @@
-import { IEvent, IEventDTO } from "../interfaces/Event";
 import moment from "moment";
+import { IEvent, IEventDTO } from "src/partner/models/Event";
 
-const toEntity = (dto: IEventDTO): IEvent => {
+export const toEntity = (dto: IEventDTO): IEvent => {
   return {
     id: String(dto.id),
     orderNumber: `Event: #${String(dto.id)}`,
@@ -14,19 +14,12 @@ const toEntity = (dto: IEventDTO): IEvent => {
     endTimeString: moment(new Date(dto.end_date * 1000)).format("LT"),
     pocChucTortaUnitPrice: Number(dto.poc_chuc_torta_unit_price),
     pocChucTortaAmount: Number(dto.poc_chuc_torta_amount),
-    pocChucTotal:
-      Number(dto.poc_chuc_torta_unit_price) * Number(dto.poc_chuc_torta_amount),
+    pocChucTotal: Number(dto.poc_chuc_torta_unit_price) * Number(dto.poc_chuc_torta_amount),
     shrimpTortaUnitPrice: Number(dto.shrimp_torta_unit_price),
     shrimpTortaAmount: Number(dto.shrimp_torta_amount),
-    shrimpTotal:
-      Number(dto.shrimp_torta_unit_price) * Number(dto.shrimp_torta_amount),
+    shrimpTotal: Number(dto.shrimp_torta_unit_price) * Number(dto.shrimp_torta_amount),
     total:
-      Number(dto.poc_chuc_torta_unit_price) *
-        Number(dto.poc_chuc_torta_amount) +
-      Number(dto.shrimp_torta_unit_price) * Number(dto.shrimp_torta_amount)
+      Number(dto.poc_chuc_torta_unit_price) * Number(dto.poc_chuc_torta_amount) +
+      Number(dto.shrimp_torta_unit_price) * Number(dto.shrimp_torta_amount),
   };
-};
-
-export default {
-  toEntity
 };

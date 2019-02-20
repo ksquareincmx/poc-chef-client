@@ -1,33 +1,33 @@
 import React from "react";
-import Header from "../modules/Header";
-import EventListContainer from "../modules/EventList";
-import eventService from "../services/EventService";
-import { IEvent } from "../interfaces/Event";
-import { dateComparator } from "../utils/EventListUtils";
+import { Header } from "src/partner/modules/Header";
+import { EventListContainer } from "src/partner/modules/EventList";
+import { EventService } from "src/partner/services";
+import { IEvent } from "src/partner/models/Event";
+import { dateComparator } from "src/partner/utils/EventListUtils";
 
-interface IPastEventsViewState {
+export interface IPastEventsViewState {
   events: IEvent[];
   isLoading: boolean;
   error?: Error;
 }
 
-class PastEventsView extends React.Component<{}, IPastEventsViewState> {
+export class PastEventsView extends React.Component<{}, IPastEventsViewState> {
   state = {
     events: [],
     isLoading: false,
-    error: undefined
+    error: undefined,
   };
 
   public async componentDidMount() {
     this.setState({ isLoading: true });
     try {
-      const events = await eventService.getPastEvents();
+      const events = await EventService.eventService.getPastEvents();
       events.sort(dateComparator);
       this.setState({ events, isLoading: false });
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err
+        error: err,
       });
     }
   }
@@ -59,5 +59,3 @@ class PastEventsView extends React.Component<{}, IPastEventsViewState> {
     );
   }
 }
-
-export default PastEventsView;

@@ -1,21 +1,9 @@
 import React from "react";
-import {
-  ListItem,
-  H1,
-  ImgMenu,
-  H2,
-  ListItemRow,
-  Table,
-  RowData,
-  MenuOptions,
-  MenuOptionsContent,
-  P
-} from "../ui/List/List";
-import { IEvent } from "../../interfaces/Event";
 import { Link } from "react-router-dom";
-import Modal from "../ui/Modal/Modal";
-import { CreateEvent } from "../../../components/event/Create";
-interface IEventItemProps {
+import { ListStyled } from "src/partner/modules/ui";
+import { IEvent } from "src/partner/models/Event";
+
+export interface IEventItemProps {
   eventInfo: IEvent;
   eventView?: boolean;
 }

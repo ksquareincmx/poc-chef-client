@@ -1,12 +1,11 @@
 import React from "react";
-import EventList from "./EventList";
-import { IEvent } from "../../interfaces/Event";
+import { IEvent } from "src/partner/models/Event";
+import { EventList } from "./EventList";
 
-interface IEventListContainerProps {
+export interface IEventListContainerProps {
   events: IEvent[];
 }
-const EventListContainer: React.SFC<IEventListContainerProps> = props => {
+
+export const EventListContainer: React.SFC<IEventListContainerProps> = props => {
   return <EventList events={props.events} />;
 };
-
-export default EventListContainer;
