@@ -1,7 +1,7 @@
 import React from "react";
-import { IEvent } from "../../models/Event";
+import { IEvent } from "src/partner/models/Event";
 import { EventListItem } from "./EventListItem";
-import { ListStyled } from "../ui/";
+import { ListStyled } from "src/partner/modules/ui/";
 
 interface IEventListProps {
   events: IEvent[];

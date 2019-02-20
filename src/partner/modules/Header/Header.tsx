@@ -1,7 +1,7 @@
 import React from "react";
-import { HeaderStyled } from "../ui";
+import { HeaderStyled } from "src/partner/modules/ui";
 
-interface IHeaderProps {
+export interface IHeaderProps {
   title: string;
 }
 
@@ -10,10 +10,7 @@ export const Header: React.SFC<IHeaderProps> = props => {
     <header>
       <HeaderStyled.HeaderContainer>
         <HeaderStyled.HeaderLogoContainer>
-          <HeaderStyled.ImgLogo
-            src={require("../../../images/poc-chef-logo.png")}
-            alt="Poc-Chef"
-          />
+          <HeaderStyled.ImgLogo src={require("../../../images/poc-chef-logo.png")} alt="Poc-Chef" />
         </HeaderStyled.HeaderLogoContainer>
         <HeaderStyled.HeaderTitleContainer>
           <HeaderStyled.H1>{props.title}</HeaderStyled.H1>

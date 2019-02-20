@@ -1,24 +1,21 @@
 import React from "react";
-import { Header } from "../modules/Header";
-import { EventListContainer } from "../modules/EventList";
-import { EventService } from "../services";
-import { IEvent } from "../models/Event";
-import { dateComparator } from "../utils/EventListUtils";
+import { Header } from "src/partner/modules/Header";
+import { EventListContainer } from "src/partner/modules/EventList";
+import { EventService } from "src/partner/services";
+import { IEvent } from "src/partner/models/Event";
+import { dateComparator } from "src/partner/utils/EventListUtils";
 
-interface ICurrentEventsViewState {
+export interface ICurrentEventsViewState {
   events: IEvent[];
   isLoading: boolean;
   error?: Error;
 }
 
-export class CurrentEventsView extends React.Component<
-  {},
-  ICurrentEventsViewState
-> {
+export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
   state = {
     events: [],
     isLoading: false,
-    error: undefined
+    error: undefined,
   };
 
   public async componentDidMount() {
@@ -30,7 +27,7 @@ export class CurrentEventsView extends React.Component<
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err
+        error: err,
       });
     }
   }
