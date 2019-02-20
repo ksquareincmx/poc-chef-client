@@ -4,11 +4,11 @@ import { Header } from "src/partner/modules/Header";
 import { EventService } from "src/partner/services";
 import { IEvent, InitialEvent } from "src/partner/models/Event";
 
-interface IEventViewProps {
+export interface IEventViewProps {
   match: { params: { id: string } };
 }
 
-interface ICurrentEventsViewState {
+export interface ICurrentEventsViewState {
   isLoading: boolean;
   error?: Error;
   localEvent: IEvent;

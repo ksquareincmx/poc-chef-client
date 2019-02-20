@@ -2,7 +2,7 @@ import React from "react";
 import { IEvent } from "src/partner/models/Event";
 import { EventList } from "./EventList";
 
-interface IEventListContainerProps {
+export interface IEventListContainerProps {
   events: IEvent[];
 }
 

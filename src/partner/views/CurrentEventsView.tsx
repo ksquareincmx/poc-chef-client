@@ -5,7 +5,7 @@ import { EventService } from "src/partner/services";
 import { IEvent } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 
-interface ICurrentEventsViewState {
+export interface ICurrentEventsViewState {
   events: IEvent[];
   isLoading: boolean;
   error?: Error;

@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";
-interface IEventItemProps {
+
+export interface IEventItemProps {
   eventInfo: IEvent;
   eventView?: boolean;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { HeaderStyled } from "src/partner/modules/ui";
 
-interface IHeaderProps {
+export interface IHeaderProps {
   title: string;
 }
 
