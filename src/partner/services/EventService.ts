@@ -1,11 +1,9 @@
-import { EventMapper, NewEventMapper } from "./../mappers";
-import { ICreatedEvent } from "./../models/NewEvent";
-import { IEvent } from "../models/Event";
+import { IEvent } from "src/partner/models/Event";
+import { EventMapper } from "src/partner/mappers";
 
 export interface IEventService {
   getCurrentEvents: () => Promise<IEvent[]>;
   getPastEvents: () => Promise<IEvent[]>;
-  createEvent: () => Promise<ICreatedEvent>;
 }
 
 export const eventService: IEventService = {
@@ -19,11 +17,5 @@ export const eventService: IEventService = {
     return fetch("/api/past_events.json")
       .then(res => res.json())
       .then(data => data.events.map(EventMapper.toEntity));
-  },
-
-  createEvent: () => {
-    return fetch("/api/")
-      .then(res => res.json())
-      .then(NewEventMapper.newEventMapper.toEntity);
   }
 };

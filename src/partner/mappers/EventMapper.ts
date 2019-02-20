@@ -1,5 +1,5 @@
-import { IEvent, IEventDTO } from "../models/Event";
 import moment from "moment";
+import { IEvent, IEventDTO } from "src/partner/models/Event";
 
 export const toEntity = (dto: IEventDTO): IEvent => {
   return {

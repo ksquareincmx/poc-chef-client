@@ -1,27 +1,24 @@
 import React from "react";
-import { EventListItem } from "../modules/EventList/EventListItem";
-import { Header } from "../modules/Header";
-import { EventService } from "../services";
-import { IEvent, InitialEvent } from "../models/Event";
+import { EventListItem } from "src/partner/modules/EventList/EventListItem";
+import { Header } from "src/partner/modules/Header";
+import { EventService } from "src/partner/services";
+import { IEvent, InitialEvent } from "src/partner/models/Event";
 
-interface IEventViewProps {
+export interface IEventViewProps {
   match: { params: { id: string } };
 }
 
-interface ICurrentEventsViewState {
+export interface ICurrentEventsViewState {
   isLoading: boolean;
   error?: Error;
   localEvent: IEvent;
 }
 
-export class EventView extends React.Component<
-  IEventViewProps,
-  ICurrentEventsViewState
-> {
+export class EventView extends React.Component<IEventViewProps, ICurrentEventsViewState> {
   public state = {
     isLoading: false,
     error: undefined,
-    localEvent: InitialEvent()
+    localEvent: InitialEvent(),
   };
 
   public async componentDidMount() {
@@ -29,13 +26,12 @@ export class EventView extends React.Component<
     try {
       const events = await EventService.eventService.getCurrentEvents();
       const localEvent =
-        events.filter(e => e.id == this.props.match.params.id)[0] ||
-        InitialEvent();
+        events.filter(e => e.id == this.props.match.params.id)[0] || InitialEvent();
       this.setState({ isLoading: false, localEvent });
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err
+        error: err,
       });
     }
   }

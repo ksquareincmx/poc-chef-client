@@ -1,9 +1,9 @@
 import React from "react";
-import { ListStyled } from "../ui";
-import { IEvent } from "../../models/Event";
 import { Link } from "react-router-dom";
+import { ListStyled } from "src/partner/modules/ui";
+import { IEvent } from "src/partner/models/Event";
 
-interface IEventItemProps {
+export interface IEventItemProps {
   eventInfo: IEvent;
   eventView?: boolean;
 }
@@ -15,30 +15,21 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
         <ListStyled.RowData>
           <ListStyled.H1 align="left">
             {(!props.eventView && (
-              <Link to={"events/" + props.eventInfo.id}>
-                {props.eventInfo.orderNumber}
-              </Link>
+              <Link to={"events/" + props.eventInfo.id}>{props.eventInfo.orderNumber}</Link>
             )) ||
               props.eventInfo.orderNumber}
           </ListStyled.H1>
-          <ListStyled.ImgMenu
-            src={require("../../../images/menu-icon.png")}
-            alt="options"
-          />
+          <ListStyled.ImgMenu src={require("../../../images/menu-icon.png")} alt="options" />
         </ListStyled.RowData>
       </ListStyled.ListItemRow>
       <ListStyled.ListItemRow borderBottom>
         <ListStyled.H2 align="left">{props.eventInfo.name}</ListStyled.H2>
         <ListStyled.RowData>
           <ListStyled.P align="left">
-            {`${props.eventInfo.startDateString} - ${
-              props.eventInfo.endDateString
-            }`}
+            {`${props.eventInfo.startDateString} - ${props.eventInfo.endDateString}`}
           </ListStyled.P>
           <ListStyled.P align="right">
-            {`${props.eventInfo.starTimeString} - ${
-              props.eventInfo.endTimeString
-            }`}
+            {`${props.eventInfo.starTimeString} - ${props.eventInfo.endTimeString}`}
           </ListStyled.P>
         </ListStyled.RowData>
       </ListStyled.ListItemRow>
@@ -70,14 +61,10 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
               }`}</ListStyled.P>
             </td>
             <td>
-              <ListStyled.P align="center">{`${
-                props.eventInfo.pocChucTortaAmount
-              }`}</ListStyled.P>
+              <ListStyled.P align="center">{`${props.eventInfo.pocChucTortaAmount}`}</ListStyled.P>
             </td>
             <td>
-              <ListStyled.P align="right">{`$${
-                props.eventInfo.pocChucTotal
-              }`}</ListStyled.P>
+              <ListStyled.P align="right">{`$${props.eventInfo.pocChucTotal}`}</ListStyled.P>
             </td>
           </tr>
           <tr>
@@ -90,14 +77,10 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
               }`}</ListStyled.P>
             </td>
             <td>
-              <ListStyled.P align="center">{`${
-                props.eventInfo.shrimpTortaAmount
-              }`}</ListStyled.P>
+              <ListStyled.P align="center">{`${props.eventInfo.shrimpTortaAmount}`}</ListStyled.P>
             </td>
             <td>
-              <ListStyled.P align="right">{`$${
-                props.eventInfo.shrimpTotal
-              }`}</ListStyled.P>
+              <ListStyled.P align="right">{`$${props.eventInfo.shrimpTotal}`}</ListStyled.P>
             </td>
           </tr>
         </tbody>
@@ -109,9 +92,7 @@ const EventListItem: React.SFC<IEventItemProps> = props => {
             <td />
             <td />
             <td>
-              <ListStyled.P align="right">{`$${
-                props.eventInfo.total
-              }`}</ListStyled.P>
+              <ListStyled.P align="right">{`$${props.eventInfo.total}`}</ListStyled.P>
             </td>
           </tr>
         </tfoot>
