@@ -127,6 +127,7 @@ export const GradientButton = styledComponents.button`
   background: rgba(232,63,93, 0.8);
   background: linear-gradient(to right, rgba(248, 130, 61,1) 0%, rgba(232,63,93, 1) 100%);
   margin: 0px auto;
+  border: 0px;
 `;
 
 export default List;
