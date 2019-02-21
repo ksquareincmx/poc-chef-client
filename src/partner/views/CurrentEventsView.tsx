@@ -50,7 +50,6 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
         </React.Fragment>
       );
     }
-
     return (
       <React.Fragment>
         <Header title="Current Events" />

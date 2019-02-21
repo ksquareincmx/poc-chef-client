@@ -1,6 +1,8 @@
 import * as React from "react";
 import styled from "@emotion/styled";
 import styledCComponents from "styled-components";
+import { IEvent } from "src/partner/models/Event";
+import * as utils from "./utils";
 
 const Input = styled.input({
   borderRadius: "8px 8px 8px 8px",
@@ -9,7 +11,7 @@ const Input = styled.input({
   width: "88%",
   height: "40px",
   float: "left",
-  padding: "0px 15px"
+  padding: "0px 15px",
 });
 
 const Form = styled.form({
@@ -18,17 +20,17 @@ const Form = styled.form({
   width: "100%",
   margin: "5px auto",
   backgroundColor: "#FFFFFF",
-  overflow: "hidden"
+  overflow: "hidden",
 });
 
 const DivMin = styled.div({
   overflow: "0px 15px hidden",
   clear: "both",
-  float: "right"
+  float: "right",
 });
 const DivMax = styled.div({
   overflow: "hidden",
-  clear: "both"
+  clear: "both",
 });
 
 const Button = styled.button({
@@ -40,14 +42,14 @@ const Button = styled.button({
   borderRadius: "8px 8px 8px 8px",
   cursor: "pointer",
   marginTop: "40px",
-  fontSize: "18px"
+  fontSize: "18px",
 });
 
 const DivRCMin = styled.div({
   width: "23%",
   float: "right",
   boxSizing: "border-box",
-  padding: "0px 20px 0px -15px"
+  padding: "0px 20px 0px -15px",
 });
 
 const H4 = styled.h4({
@@ -56,7 +58,7 @@ const H4 = styled.h4({
   textShadow: "1px 1px 0px #FFF",
   fontFamily: "Arial",
   margin: "40px 0px 0px 0px",
-  borderBottom: "1px solid black"
+  borderBottom: "1px solid black",
 });
 
 const H1 = styled.h1({
@@ -65,34 +67,38 @@ const H1 = styled.h1({
   textShadow: "1px 1px 0px #FFF",
   margin: "50px 0px 0px 0px",
   fontFamily: "Arial",
-  borderBottom: "1px solid black"
+  borderBottom: "1px solid black",
 });
 
 const DivLeftC = styled.div({
   width: "49.5%",
   float: "left",
   boxSizing: "border-box",
-  padding: "0px 15px 0px 0px"
+  padding: "0px 15px 0px 0px",
 });
 
 const DivRightC = styled.div({
   width: "49.5%",
   float: "right",
   boxSizing: "border-box",
-  padding: "0px 0px 0px 15px"
+  padding: "0px 0px 0px 15px",
 });
 
 const DivCF = styled.div({
   padding: "5px",
-  fontFamily: "Arial"
+  fontFamily: "Arial",
 });
 
 const DivFG = styled.div({
   overflow: "hidden",
-  clear: "both"
+  clear: "both",
 });
 
-export class CreateEvent extends React.Component {
+export interface ICreateEventProps {
+  editEvent?: boolean;
+  eventInfo?: IEvent;
+}
+export class CreateEvent extends React.Component<ICreateEventProps> {
   state = {
     event: {
       name: "",
@@ -101,8 +107,8 @@ export class CreateEvent extends React.Component {
       startHour: "",
       endHour: "",
       tortaPocchuc: 0,
-      tortaCamaron: 0
-    }
+      tortaCamaron: 0,
+    },
   };
 
   handlePerInput = (e: any) => {
@@ -110,11 +116,21 @@ export class CreateEvent extends React.Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     const newEvent = { ...this.state.event, [name]: value };
+    console.log(value);
     this.setState({ event: newEvent });
   };
 
   handleSubmit = (e: any) => e.preventDefault();
 
+  componentDidMount() {
+    if (this.props.editEvent) {
+      const eventFormatted = utils.getEventFormat(this.props.eventInfo);
+      this.setState({
+        event: eventFormatted,
+      });
+      console.log(eventFormatted);
+    }
+  }
   render() {
     return (
       <div>
