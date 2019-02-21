@@ -116,7 +116,6 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     const newEvent = { ...this.state.event, [name]: value };
-    console.log(value);
     this.setState({ event: newEvent });
   };
 
@@ -128,7 +127,6 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
       this.setState({
         event: eventFormatted,
       });
-      console.log(eventFormatted);
     }
   }
   render() {
