@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
+import { Notification } from "src/partner/modules/ui/Modal/Notification";
 import { CreateEvent } from "src/components/event/Create";
 import styledComponents from "styled-components";
 
@@ -15,6 +16,8 @@ interface IEventItemState {
   showMenu?: boolean;
   editEvent: boolean;
   cancelEvent: boolean;
+  textNotificacion: string;
+  showNotification: boolean;
 }
 
 export class EventListItem extends React.Component<
@@ -24,7 +27,19 @@ export class EventListItem extends React.Component<
   state = {
     showMenu: false,
     editEvent: false,
-    cancelEvent: false
+    cancelEvent: false,
+    textNotificacion: "",
+    showNotification: false
+  };
+
+  handleCancelEvent = () => {
+    // TODO: Make a request to delete the event
+    // TODO: Identify this is a past event
+    this.setState({
+      cancelEvent: false,
+      showNotification: true,
+      textNotificacion: "Event deleted"
+    });
   };
 
   render() {
@@ -162,9 +177,19 @@ export class EventListItem extends React.Component<
             Are you sure you want to cancel this event?
           </ListStyled.H2>
           <ListStyled.RowData>
-            <ListStyled.GradientButton>Confirm</ListStyled.GradientButton>
+            <ListStyled.GradientButton onClick={this.handleCancelEvent}>
+              Confirm
+            </ListStyled.GradientButton>
           </ListStyled.RowData>
         </Modal>
+        {this.state.showNotification && (
+          <Notification
+            text={this.state.textNotificacion}
+            close={() =>
+              this.setState({ showNotification: false, textNotificacion: "" })
+            }
+          />
+        )}
       </ListStyled.ListItem>
     );
   }
