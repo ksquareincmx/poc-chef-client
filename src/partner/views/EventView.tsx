@@ -3,6 +3,7 @@ import { EventListItem } from "src/partner/modules/EventList/EventListItem";
 import { Header } from "src/partner/modules/Header";
 import { EventService } from "src/partner/services";
 import { IEvent, InitialEvent } from "src/partner/models/Event";
+import { List } from "src/partner/modules/ui/List/List";
 
 export interface IEventViewProps {
   match: { params: { id: string } };
@@ -14,11 +15,14 @@ export interface ICurrentEventsViewState {
   localEvent: IEvent;
 }
 
-export class EventView extends React.Component<IEventViewProps, ICurrentEventsViewState> {
+export class EventView extends React.Component<
+  IEventViewProps,
+  ICurrentEventsViewState
+> {
   public state = {
     isLoading: false,
     error: undefined,
-    localEvent: InitialEvent(),
+    localEvent: InitialEvent()
   };
 
   public async componentDidMount() {
@@ -26,12 +30,13 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
     try {
       const events = await EventService.eventService.getCurrentEvents();
       const localEvent =
-        events.filter(e => e.id == this.props.match.params.id)[0] || InitialEvent();
+        events.filter(e => e.id == this.props.match.params.id)[0] ||
+        InitialEvent();
       this.setState({ isLoading: false, localEvent });
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err,
+        error: err
       });
     }
   }
@@ -50,11 +55,13 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
       <React.Fragment>
         <Header title="Event view" />
         {(this.state.localEvent.id !== "" && (
-          <EventListItem
-            key={this.state.localEvent.id}
-            eventInfo={this.state.localEvent}
-            eventView={true}
-          />
+          <List>
+            <EventListItem
+              key={this.state.localEvent.id}
+              eventInfo={this.state.localEvent}
+              eventView={true}
+            />
+          </List>
         )) || <p>Selected event doesn't exist</p>}
       </React.Fragment>
     );
