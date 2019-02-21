@@ -11,7 +11,7 @@ const Input = styled.input({
   float: "left",
   padding: "0px 15px"
 });
-const Input2 = styledCComponents.input``;
+
 const Form = styled.form({
   borderRadius: "5px",
   maxWidth: "700px",
@@ -83,7 +83,7 @@ const DivRightC = styled.div({
 });
 
 const DivCF = styled.div({
-  padding: "5px 30px",
+  padding: "5px",
   fontFamily: "Arial"
 });
 
@@ -105,7 +105,7 @@ export class CreateEvent extends React.Component {
     }
   };
 
-  handleChange = (e: any) => {
+  handlePerInput = (e: any) => {
     const target = e.currentTarget;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -113,12 +113,12 @@ export class CreateEvent extends React.Component {
     this.setState({ event: newEvent });
   };
 
-  createEvent = (e: any) => e.preventDefault();
+  handleSubmit = (e: any) => e.preventDefault();
 
   render() {
     return (
       <div>
-        <Form onSubmit={this.createEvent}>
+        <Form onSubmit={this.handleSubmit}>
           <DivCF>
             <DivMax>
               <p>Event Name:</p>
@@ -126,7 +126,7 @@ export class CreateEvent extends React.Component {
                 type="text"
                 name="name"
                 value={this.state.event.name}
-                onChange={this.handleChange}
+                onChange={this.handlePerInput}
               />
             </DivMax>
 
@@ -136,8 +136,8 @@ export class CreateEvent extends React.Component {
                 <Input
                   type="date"
                   name="startDate"
-                  value={this.state.event!.startDate}
-                  onChange={this.handleChange}
+                  value={this.state.event.startDate}
+                  onChange={this.handlePerInput}
                 />
               </DivFG>
               <DivFG>
@@ -145,8 +145,8 @@ export class CreateEvent extends React.Component {
                 <Input
                   type="time"
                   name="startHour"
-                  value={this.state.event!.startHour}
-                  onChange={this.handleChange}
+                  value={this.state.event.startHour}
+                  onChange={this.handlePerInput}
                 />
               </DivFG>
               <br />
@@ -158,8 +158,8 @@ export class CreateEvent extends React.Component {
                 <Input
                   type="date"
                   name="endDate"
-                  value={this.state.event!.endDate}
-                  onChange={this.handleChange}
+                  value={this.state.event.endDate}
+                  onChange={this.handlePerInput}
                 />
               </DivFG>
 
@@ -168,8 +168,8 @@ export class CreateEvent extends React.Component {
                 <Input
                   type="time"
                   name="endHour"
-                  value={this.state.event!.endHour}
-                  onChange={this.handleChange}
+                  value={this.state.event.endHour}
+                  onChange={this.handlePerInput}
                 />
               </DivFG>
             </DivRightC>
@@ -194,8 +194,8 @@ export class CreateEvent extends React.Component {
                 <Input
                   type="text"
                   name="tortaPocchuc"
-                  value={this.state.event!.tortaPocchuc}
-                  onChange={this.handleChange}
+                  value={this.state.event.tortaPocchuc}
+                  onChange={this.handlePerInput}
                 />
               </DivMin>
 
@@ -203,8 +203,8 @@ export class CreateEvent extends React.Component {
                 <Input
                   type="text"
                   name="tortaCamaron"
-                  value={this.state.event!.tortaCamaron}
-                  onChange={this.handleChange}
+                  value={this.state.event.tortaCamaron}
+                  onChange={this.handlePerInput}
                 />
               </DivMin>
             </DivRCMin>
