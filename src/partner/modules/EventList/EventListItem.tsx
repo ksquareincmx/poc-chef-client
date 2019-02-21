@@ -4,6 +4,7 @@ import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { CreateEvent } from "src/components/event/Create";
+import styledComponents from "styled-components";
 
 export interface IEventItemProps {
   eventInfo: IEvent;
@@ -13,6 +14,7 @@ export interface IEventItemProps {
 interface IEventItemState {
   showMenu?: boolean;
   editEvent: boolean;
+  cancelEvent: boolean;
 }
 
 export class EventListItem extends React.Component<
@@ -21,7 +23,8 @@ export class EventListItem extends React.Component<
 > {
   state = {
     showMenu: false,
-    editEvent: false
+    editEvent: false,
+    cancelEvent: false
   };
 
   render() {
@@ -45,6 +48,9 @@ export class EventListItem extends React.Component<
                   <Link to={"events/" + props.eventInfo.id}>View Event</Link>
                   <a onClick={() => this.setState({ editEvent: true })}>
                     Edit Event
+                  </a>
+                  <a onClick={() => this.setState({ cancelEvent: true })}>
+                    Cancel Event
                   </a>
                 </ListStyled.MenuOptionsContent>
               </ListStyled.MenuOptions>
@@ -146,6 +152,18 @@ export class EventListItem extends React.Component<
           closeModal={() => this.setState({ editEvent: false })}
         >
           <CreateEvent />
+        </Modal>
+        <Modal
+          title="Cancel Event"
+          show={this.state.cancelEvent}
+          closeModal={() => this.setState({ cancelEvent: false })}
+        >
+          <ListStyled.H2>
+            Are you sure you want to cancel this event?
+          </ListStyled.H2>
+          <ListStyled.RowData>
+            <ListStyled.GradientButton>Confirm</ListStyled.GradientButton>
+          </ListStyled.RowData>
         </Modal>
       </ListStyled.ListItem>
     );
