@@ -166,7 +166,7 @@ export class EventListItem extends React.Component<
           show={this.state.editEvent}
           closeModal={() => this.setState({ editEvent: false })}
         >
-          <CreateEvent />
+          <CreateEvent editEvent={true} eventInfo={this.props.eventInfo} />
         </Modal>
         <Modal
           title="Cancel Event"
