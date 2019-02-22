@@ -4,6 +4,7 @@ import { Header } from "src/partner/modules/Header";
 import { EventService } from "src/partner/services";
 import { IEvent, InitialEvent } from "src/partner/models/Event";
 import { List } from "src/partner/modules/ui/List/List";
+import { ListStyled, Modal } from "src/partner/modules/ui";
 
 export interface IEventViewProps {
   match: { params: { id: string } };
@@ -13,6 +14,7 @@ export interface ICurrentEventsViewState {
   isLoading: boolean;
   error?: Error;
   localEvent: IEvent;
+  showModalFinishEvent: boolean;
 }
 
 export class EventView extends React.Component<
@@ -22,7 +24,8 @@ export class EventView extends React.Component<
   public state = {
     isLoading: false,
     error: undefined,
-    localEvent: InitialEvent()
+    localEvent: InitialEvent(),
+    showModalFinishEvent: false
   };
 
   public async componentDidMount() {
@@ -41,6 +44,19 @@ export class EventView extends React.Component<
     }
   }
 
+  handleFinishEvent = () => {
+    // TODO: Finish event on the server
+    this.closeModalFinishEvent();
+  };
+
+  showModalFinishEvent = () => {
+    this.setState({ showModalFinishEvent: true });
+  };
+
+  closeModalFinishEvent = () => {
+    this.setState({ showModalFinishEvent: false });
+  };
+
   public render() {
     if (this.state.isLoading || this.state.error) {
       return (
@@ -51,18 +67,37 @@ export class EventView extends React.Component<
       );
     }
 
+    if (this.state.localEvent.id == "") {
+      return <>Selected event doesn't exist</>;
+    }
+
     return (
       <React.Fragment>
         <Header title="Event view" />
-        {(this.state.localEvent.id !== "" && (
-          <List>
-            <EventListItem
-              key={this.state.localEvent.id}
-              eventInfo={this.state.localEvent}
-              eventView={true}
-            />
-          </List>
-        )) || <p>Selected event doesn't exist</p>}
+        <List>
+          <EventListItem
+            key={this.state.localEvent.id}
+            eventInfo={this.state.localEvent}
+            eventView={true}
+          />
+        </List>
+        <ListStyled.RowData>
+          <ListStyled.GradientButton onClick={this.showModalFinishEvent}>
+            Finish Event
+          </ListStyled.GradientButton>
+        </ListStyled.RowData>
+        <Modal.Modal
+          show={this.state.showModalFinishEvent}
+          title="Finish Event"
+          closeModal={this.closeModalFinishEvent}
+        >
+          <div>Are you sure you want to finish this event?</div>
+          <ListStyled.RowData>
+            <ListStyled.GradientButton onClick={this.handleFinishEvent}>
+              Confirm
+            </ListStyled.GradientButton>
+          </ListStyled.RowData>
+        </Modal.Modal>
       </React.Fragment>
     );
   }
