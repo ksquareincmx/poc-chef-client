@@ -4,7 +4,7 @@ import { Header } from "src/partner/modules/Header";
 import { EventService } from "src/partner/services";
 import { IEvent, InitialEvent } from "src/partner/models/Event";
 import { List } from "src/partner/modules/ui/List/List";
-import { ListStyled, Modal } from "src/partner/modules/ui";
+import { ListStyled, Modal, Notification } from "src/partner/modules/ui";
 
 export interface IEventViewProps {
   match: { params: { id: string } };
@@ -15,6 +15,8 @@ export interface ICurrentEventsViewState {
   error?: Error;
   localEvent: IEvent;
   showModalFinishEvent: boolean;
+  showNotification: boolean;
+  notificationText: string;
 }
 
 export class EventView extends React.Component<
@@ -25,7 +27,9 @@ export class EventView extends React.Component<
     isLoading: false,
     error: undefined,
     localEvent: InitialEvent(),
-    showModalFinishEvent: false
+    showModalFinishEvent: false,
+    showNotification: false,
+    notificationText: ""
   };
 
   public async componentDidMount() {
@@ -46,6 +50,10 @@ export class EventView extends React.Component<
 
   handleFinishEvent = () => {
     // TODO: Finish event on the server
+    this.setState({
+      showNotification: true,
+      notificationText: "Event Finished"
+    });
     this.closeModalFinishEvent();
   };
 
@@ -55,6 +63,15 @@ export class EventView extends React.Component<
 
   closeModalFinishEvent = () => {
     this.setState({ showModalFinishEvent: false });
+  };
+
+  closeNotification = () => {
+    this.setState({ showNotification: false });
+    this.resetNotificationText();
+  };
+
+  resetNotificationText = () => {
+    this.setState({ notificationText: "" });
   };
 
   public render() {
@@ -98,6 +115,12 @@ export class EventView extends React.Component<
             </ListStyled.GradientButton>
           </ListStyled.RowData>
         </Modal.Modal>
+        {this.state.showNotification && (
+          <Notification.Notification
+            close={this.closeNotification}
+            text={this.state.notificationText}
+          />
+        )}
       </React.Fragment>
     );
   }
