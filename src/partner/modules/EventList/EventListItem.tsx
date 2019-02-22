@@ -42,22 +42,30 @@ export class EventListItem extends React.Component<
     });
   };
 
-  showMenuOptions = () => this.setState({ showMenu: !this.state.showMenu });
+  showMenuOptions = () => {
+    this.setState({ showMenu: !this.state.showMenu });
+  };
 
   showModalEditEvent = () => {
     this.setState({ editEvent: !this.state.editEvent });
   };
 
-  showModalCancelEvent = () => this.setState({ cancelEvent: true });
+  showModalCancelEvent = () => {
+    this.setState({ cancelEvent: true });
+  };
 
-  closeModalCancelEvent = () => this.setState({ cancelEvent: false });
+  closeModalCancelEvent = () => {
+    this.setState({ cancelEvent: false });
+  };
 
   closeNotification = () => {
     this.setState({ showNotification: false });
     this.resetNotificationText();
   };
 
-  resetNotificationText = () => this.setState({ textNotificacion: "" });
+  resetNotificationText = () => {
+    this.setState({ textNotificacion: "" });
+  };
 
   render() {
     const props = this.props;
