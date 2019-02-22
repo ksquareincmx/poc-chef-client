@@ -12,7 +12,7 @@ export interface IEventItemProps {
   eventView?: boolean;
 }
 
-interface IEventItemState {
+export interface IEventItemState {
   showMenu?: boolean;
   editEvent: boolean;
   cancelEvent: boolean;
@@ -42,6 +42,23 @@ export class EventListItem extends React.Component<
     });
   };
 
+  showMenuOptions = () => this.setState({ showMenu: !this.state.showMenu });
+
+  showModalEditEvent = () => {
+    this.setState({ editEvent: !this.state.editEvent });
+  };
+
+  showModalCancelEvent = () => this.setState({ cancelEvent: true });
+
+  closeModalCancelEvent = () => this.setState({ cancelEvent: false });
+
+  closeNotification = () => {
+    this.setState({ showNotification: false });
+    this.resetNotificationText();
+  };
+
+  resetNotificationText = () => this.setState({ textNotificacion: "" });
+
   render() {
     const props = this.props;
     return (
@@ -52,21 +69,15 @@ export class EventListItem extends React.Component<
               {props.eventInfo.orderNumber}
             </ListStyled.H1>
             {!props.eventView && (
-              <ListStyled.MenuOptions
-                onClick={e => this.setState({ showMenu: !this.state.showMenu })}
-              >
+              <ListStyled.MenuOptions onClick={this.showMenuOptions}>
                 <ListStyled.ImgMenu
                   src={require("../../../images/menu-icon.png")}
                   alt="options"
                 />
                 <ListStyled.MenuOptionsContent show={this.state.showMenu}>
                   <Link to={"events/" + props.eventInfo.id}>View Event</Link>
-                  <a onClick={() => this.setState({ editEvent: true })}>
-                    Edit Event
-                  </a>
-                  <a onClick={() => this.setState({ cancelEvent: true })}>
-                    Cancel Event
-                  </a>
+                  <a onClick={this.showModalEditEvent}>Edit Event</a>
+                  <a onClick={this.showModalCancelEvent}>Cancel Event</a>
                 </ListStyled.MenuOptionsContent>
               </ListStyled.MenuOptions>
             )}
@@ -164,14 +175,14 @@ export class EventListItem extends React.Component<
         <Modal
           title="Edit Event"
           show={this.state.editEvent}
-          closeModal={() => this.setState({ editEvent: false })}
+          closeModal={this.showModalEditEvent}
         >
           <CreateEvent editEvent={true} eventInfo={this.props.eventInfo} />
         </Modal>
         <Modal
           title="Cancel Event"
           show={this.state.cancelEvent}
-          closeModal={() => this.setState({ cancelEvent: false })}
+          closeModal={this.closeModalCancelEvent}
         >
           <ListStyled.H2>
             Are you sure you want to cancel this event?
@@ -185,9 +196,7 @@ export class EventListItem extends React.Component<
         {this.state.showNotification && (
           <Notification
             text={this.state.textNotificacion}
-            close={() =>
-              this.setState({ showNotification: false, textNotificacion: "" })
-            }
+            close={this.closeNotification}
           />
         )}
       </ListStyled.ListItem>

@@ -1,7 +1,7 @@
 import React from "react";
 import styledComponents from "styled-components";
 
-interface INotificationProps {
+export interface INotificationProps {
   text: string;
   close: Function;
 }
