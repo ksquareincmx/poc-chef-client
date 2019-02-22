@@ -30,6 +30,9 @@ const ModalTitle = styledComponents.div`
   display: grid;
   grid-template-columns: 11fr 1fr;
 `;
+const ModalBody = styledComponents.div`
+  padding:5px;
+`;
 
 const CloseButton = styledComponents.button`
   font-size: 1.5em;
@@ -57,10 +60,12 @@ export const Modal: React.SFC<IModalProps> = props => {
       <ModalContainer>
         <ModalWrapper>
           <ModalTitle>
-            <H1 align="left">{props.title}</H1>
+            <H1 align="left" alternativeColor>
+              {props.title}
+            </H1>
             <CloseButton onClick={() => props.closeModal()}>X</CloseButton>
           </ModalTitle>
-          {props.children}
+          <ModalBody>{props.children}</ModalBody>
           {props.footer && <ModalFooter>{props.footer}</ModalFooter>}
         </ModalWrapper>
       </ModalContainer>
