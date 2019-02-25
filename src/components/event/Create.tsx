@@ -109,6 +109,7 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
       tortaPocchuc: 0,
       tortaCamaron: 0,
     },
+    buttonText: "Create Event",
   };
 
   handlePerInput = (e: any) => {
@@ -126,6 +127,7 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
       const eventFormatted = utils.getEventFormat(this.props.eventInfo);
       this.setState({
         event: eventFormatted,
+        buttonText: "Edit Event",
       });
     }
   }
@@ -224,7 +226,7 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
             </DivRCMin>
           </DivCF>
 
-          <Button type="submit">Create Event</Button>
+          <Button type="submit">{this.state.buttonText}</Button>
         </Form>
       </div>
     );
