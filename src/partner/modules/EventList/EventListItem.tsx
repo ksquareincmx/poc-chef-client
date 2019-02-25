@@ -19,8 +19,6 @@ export interface IEventItemState {
   showMenu?: boolean;
   editEvent: boolean;
   cancelEvent: boolean;
-  textNotificacion: string;
-  showNotification: boolean;
 }
 
 export class EventListItem extends React.Component<
@@ -30,9 +28,7 @@ export class EventListItem extends React.Component<
   state = {
     showMenu: false,
     editEvent: false,
-    cancelEvent: false,
-    textNotificacion: "",
-    showNotification: false
+    cancelEvent: false
   };
 
   static contextType = NotificationContextProvider.NotificationContext;

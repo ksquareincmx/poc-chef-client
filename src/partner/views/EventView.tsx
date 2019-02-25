@@ -19,8 +19,6 @@ export interface ICurrentEventsViewState {
   error?: Error;
   localEvent: IEvent;
   showModalFinishEvent: boolean;
-  showNotification: boolean;
-  notificationText: string;
 }
 
 export class EventView extends React.Component<
@@ -31,9 +29,7 @@ export class EventView extends React.Component<
     isLoading: false,
     error: undefined,
     localEvent: InitialEvent(),
-    showModalFinishEvent: false,
-    showNotification: false,
-    notificationText: ""
+    showModalFinishEvent: false
   };
   static contextType = NotificationContextProvider.NotificationContext;
 
