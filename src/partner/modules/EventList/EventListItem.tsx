@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { Notification } from "src/partner/modules/ui/Modal/Notification";
 import { CreateEvent } from "src/components/event/Create";
 import styledComponents from "styled-components";
+import {
+  ListStyled,
+  NotificationContextProvider
+} from "src/partner/modules/ui";
 
 export interface IEventItemProps {
   eventInfo: IEvent;
@@ -32,14 +35,13 @@ export class EventListItem extends React.Component<
     showNotification: false
   };
 
+  static contextType = NotificationContextProvider.NotificationContext;
+
   handleCancelEvent = () => {
     // TODO: Make a request to delete the event
     // TODO: Identify this is a past event
-    this.setState({
-      cancelEvent: false,
-      showNotification: true,
-      textNotificacion: "Event deleted"
-    });
+    this.context.handleShowNotification("Event deleted");
+    this.setState({ cancelEvent: false });
   };
 
   showMenuOptions = () => {
@@ -56,15 +58,6 @@ export class EventListItem extends React.Component<
 
   closeModalCancelEvent = () => {
     this.setState({ cancelEvent: false });
-  };
-
-  closeNotification = () => {
-    this.setState({ showNotification: false });
-    this.resetNotificationText();
-  };
-
-  resetNotificationText = () => {
-    this.setState({ textNotificacion: "" });
   };
 
   render() {
@@ -201,12 +194,6 @@ export class EventListItem extends React.Component<
             </ListStyled.GradientButton>
           </ListStyled.RowData>
         </Modal>
-        {this.state.showNotification && (
-          <Notification
-            text={this.state.textNotificacion}
-            close={this.closeNotification}
-          />
-        )}
       </ListStyled.ListItem>
     );
   }
