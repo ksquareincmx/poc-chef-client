@@ -10,7 +10,7 @@ const NotificacionDiv = styledComponents.div`
   width: calc(100vw - 30px);
   padding: 15px;
   position: fixed;
-  bottom: 15px;
+  bottom: 44px;
   left: 0px;
   z-index: 999;
   background-color: #4b4b4b;
