@@ -49,13 +49,17 @@ export const RowData = styledComponents.div({
 
 export interface ITextProps {
   align?: string;
+  alternativeColor?: boolean;
 }
+
 export const H1 = styledComponentsTS<ITextProps>(styledComponents.h1)`
   margin: 0;
   font-family: unset;
   font-size: 16px;
   font-style: bold;
   text-align: ${(props: ITextProps) => props.align || "center"};
+  color: ${(props: ITextProps) =>
+    props.alternativeColor ? "#e83f5d" : "#000"};
 `;
 
 export const H2 = styledComponentsTS<ITextProps>(styledComponents.h2)`
@@ -114,6 +118,16 @@ export const MenuOptionsContent = styledComponentsTS<IMenuOptionsContent>(
     background-color: #ddd;
 
   }
+`;
+
+export const GradientButton = styledComponents.button`
+  border-radius: 35px;
+  color: #fff;
+  padding: 10px 30px;
+  background: rgba(232,63,93, 0.8);
+  background: linear-gradient(to right, rgba(248, 130, 61,1) 0%, rgba(232,63,93, 1) 100%);
+  margin: 0px auto;
+  border: 0px;
 `;
 
 export default List;
