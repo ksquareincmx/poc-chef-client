@@ -4,6 +4,7 @@ import { EventListContainer } from "src/partner/modules/EventList";
 import { EventService } from "src/partner/services";
 import { IEvent } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
+import { NotificationContext } from "src/providers";
 
 export interface ICurrentEventsViewState {
   events: IEvent[];
@@ -15,8 +16,10 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
   state = {
     events: [],
     isLoading: false,
-    error: undefined,
+    error: undefined
   };
+
+  static contextType = NotificationContext.NotificationContext;
 
   public async componentDidMount() {
     this.setState({ isLoading: true });
@@ -27,10 +30,16 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err,
+        error: err
       });
     }
   }
+
+  handleCancelEvent = (eventId: string) => {
+    const events = this.state.events.filter((e: IEvent) => e.id != eventId);
+    this.setState({ events });
+    this.context.handleShowNotification("The event has been cancelled.");
+  };
 
   public render() {
     if (this.state.isLoading) {
@@ -53,7 +62,7 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
     return (
       <React.Fragment>
         <Header title="Current Events" />
-        <EventListContainer events={this.state.events} />
+        <EventListContainer handleCancelEvent={this.handleCancelEvent} events={this.state.events} />
       </React.Fragment>
     );
   }

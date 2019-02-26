@@ -74,11 +74,14 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
       <React.Fragment>
         <Header title="Event view" />
         <List>
-          <EventListItem
-            key={this.state.localEvent.id}
-            eventInfo={this.state.localEvent}
-            eventView={true}
-          />
+          {
+            <EventListItem
+              handleCancelEvent={() => {}}
+              key={this.state.localEvent.id}
+              eventInfo={this.state.localEvent}
+              eventView={true}
+            />
+          }
         </List>
         <ListStyled.RowData>
           <ListStyled.GradientButton onClick={this.showModalFinishEvent}>
