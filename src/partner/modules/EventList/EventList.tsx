@@ -3,9 +3,9 @@ import { IEvent } from "src/partner/models/Event";
 import { EventListItem } from "./EventListItem";
 import { ListStyled } from "src/partner/modules/ui/";
 
-interface IEventListProps {
+export interface IEventListProps {
   events: IEvent[];
-  handleCancelEvent: Function;
+  handleCancelEvent: (e: any) => void;
 }
 
 export const EventList: React.SFC<IEventListProps> = props => {

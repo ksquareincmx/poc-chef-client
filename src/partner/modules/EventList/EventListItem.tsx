@@ -8,7 +8,7 @@ import { ListStyled } from "src/partner/modules/ui";
 export interface IEventItemProps {
   eventInfo: IEvent;
   eventView?: boolean;
-  handleCancelEvent: Function;
+  handleCancelEvent: (e: any) => void;
 }
 
 export interface IEventItemState {
