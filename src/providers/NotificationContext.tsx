@@ -1,5 +1,5 @@
 import React from "react";
-import { Notification } from "./Notification";
+import { Notification } from "../partner/modules/ui/Modal/Notification";
 
 export const NotificationContext = React.createContext({
   notifcationText: "",
@@ -8,12 +8,14 @@ export const NotificationContext = React.createContext({
   handleCloseNotification: () => {}
 });
 
+export const NotificationConsumer = NotificationContext.Consumer;
+
 export interface INotificationProviderState {
   notifcationText: string;
   showNotification: boolean;
 }
 
-export class NotificationContextProvider extends React.Component<{}, INotificationProviderState> {
+export class NotificationProvider extends React.Component<{}, INotificationProviderState> {
   state = {
     notifcationText: "",
     showNotification: false
@@ -50,5 +52,3 @@ export class NotificationContextProvider extends React.Component<{}, INotificati
     );
   }
 }
-
-export const NotificationConsumer = NotificationContext.Consumer;

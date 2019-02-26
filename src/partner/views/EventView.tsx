@@ -4,7 +4,8 @@ import { Header } from "src/partner/modules/Header";
 import { EventService } from "src/partner/services";
 import { IEvent, InitialEvent } from "src/partner/models/Event";
 import { List } from "src/partner/modules/ui/List/List";
-import { ListStyled, Modal, NotificationContextProvider } from "src/partner/modules/ui";
+import { ListStyled, Modal } from "src/partner/modules/ui";
+import { NotificationContext } from "src/providers";
 
 export interface IEventViewProps {
   match: { params: { id: string } };
@@ -24,7 +25,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
     localEvent: InitialEvent(),
     showModalFinishEvent: false
   };
-  static contextType = NotificationContextProvider.NotificationContext;
+  static contextType = NotificationContext.NotificationContext;
 
   public async componentDidMount() {
     this.setState({ isLoading: true });
