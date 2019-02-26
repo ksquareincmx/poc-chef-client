@@ -1,54 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
-import { Notification } from "src/partner/modules/ui/Modal/Notification";
 import { CreateEvent } from "src/components/event/Create";
-import styledComponents from "styled-components";
-import { ListStyled } from "src/partner/modules/ui";
-import { NotificationContext } from "src/providers";
 
 export interface IEventItemProps {
   eventInfo: IEvent;
   eventView?: boolean;
+  onEdit: Function;
 }
 
-export interface IEventItemState {
+interface IEventItemState {
   showMenu?: boolean;
   editEvent: boolean;
-  cancelEvent: boolean;
 }
 
 export class EventListItem extends React.Component<IEventItemProps, IEventItemState> {
   state = {
     showMenu: false,
     editEvent: false,
-    cancelEvent: false
-  };
-
-  static contextType = NotificationContext.NotificationContext;
-
-  handleCancelEvent = () => {
-    // TODO: Make a request to delete the event
-    // TODO: Identify this is a past event
-    this.context.handleShowNotification("Event deleted");
-    this.setState({ cancelEvent: false });
-  };
-
-  showMenuOptions = () => {
-    this.setState({ showMenu: !this.state.showMenu });
-  };
-
-  showModalEditEvent = () => {
-    this.setState({ editEvent: !this.state.editEvent });
-  };
-
-  showModalCancelEvent = () => {
-    this.setState({ cancelEvent: true });
-  };
-
-  closeModalCancelEvent = () => {
-    this.setState({ cancelEvent: false });
   };
 
   render() {
@@ -59,12 +30,13 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
           <ListStyled.RowData>
             <ListStyled.H1 align="left">{props.eventInfo.orderNumber}</ListStyled.H1>
             {!props.eventView && (
-              <ListStyled.MenuOptions onClick={this.showMenuOptions}>
+              <ListStyled.MenuOptions
+                onClick={e => this.setState({ showMenu: !this.state.showMenu })}
+              >
                 <ListStyled.ImgMenu src={require("../../../images/menu-icon.png")} alt="options" />
                 <ListStyled.MenuOptionsContent show={this.state.showMenu}>
                   <Link to={"events/" + props.eventInfo.id}>View Event</Link>
-                  <a onClick={this.showModalEditEvent}>Edit Event</a>
-                  <a onClick={this.showModalCancelEvent}>Cancel Event</a>
+                  <a onClick={() => this.setState({ editEvent: true })}>Edit Event</a>
                 </ListStyled.MenuOptionsContent>
               </ListStyled.MenuOptions>
             )}
@@ -147,20 +119,17 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
             </tr>
           </tfoot>
         </ListStyled.Table>
-        <Modal title="Edit Event" show={this.state.editEvent} closeModal={this.showModalEditEvent}>
-          <CreateEvent editEvent={true} eventInfo={this.props.eventInfo} />
-        </Modal>
         <Modal
-          title="Cancel Event"
-          show={this.state.cancelEvent}
-          closeModal={this.closeModalCancelEvent}
+          title="Edit Event"
+          show={this.state.editEvent}
+          closeModal={() => this.setState({ editEvent: false })}
         >
-          <ListStyled.H2>Are you sure you want to cancel this event?</ListStyled.H2>
-          <ListStyled.RowData>
-            <ListStyled.GradientButton onClick={this.handleCancelEvent}>
-              Confirm
-            </ListStyled.GradientButton>
-          </ListStyled.RowData>
+          <CreateEvent
+            editEvent={true}
+            eventInfo={this.props.eventInfo}
+            onEdit={this.props.onEdit}
+            closeModal={() => this.setState({ editEvent: false })}
+          />
         </Modal>
       </ListStyled.ListItem>
     );

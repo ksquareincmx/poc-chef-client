@@ -1,5 +1,4 @@
 export const getEventFormat = event => {
-  console.log(event);
   const startTime =
     addZeros(event.startDate.getHours()) + ":" + addZeros(event.startDate.getMinutes());
 
@@ -20,13 +19,13 @@ export const getEventFormat = event => {
     addZeros(event.endDate.getDate());
 
   return {
-    name: event.name,
-    startDate: startDate,
-    endDate: endDate,
-    startHour: startTime,
-    endHour: endTime,
-    tortaPocchuc: event.pocChucTortaAmount,
-    tortaCamaron: event.shrimpTortaAmount,
+    ...event,
+    startDate: getDateFormat(startDate, startTime),
+    startDateString: startDate,
+    endDate: getDateFormat(endDate, endTime),
+    endDateString: endDate,
+    startTimeString: startTime,
+    endTimeString: endTime,
   };
 };
 
@@ -35,4 +34,13 @@ export const addZeros = num => {
     return "0" + num;
   }
   return num;
+};
+
+export const getDateFormat = (date, time) => {
+  const dateFormat = date + "T" + getTimeFormat(time);
+  return new Date(dateFormat);
+};
+
+export const getTimeFormat = time => {
+  return time + ":00";
 };

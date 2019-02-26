@@ -97,17 +97,28 @@ const DivFG = styled.div({
 export interface ICreateEventProps {
   editEvent?: boolean;
   eventInfo?: IEvent;
+  onEdit: Function;
+  closeModal: Function;
 }
 export class CreateEvent extends React.Component<ICreateEventProps> {
   state = {
     event: {
+      endDate: Date(),
+      endDateString: "",
+      endTimeString: "",
+      id: -1,
       name: "",
-      startDate: "",
-      endDate: "",
-      startHour: "",
-      endHour: "",
-      tortaPocchuc: 0,
-      tortaCamaron: 0,
+      orderNumber: "",
+      pocChucTortaAmount: 0,
+      pocChucTortaUnitPrice: 0,
+      pocChucTotal: 0,
+      shrimpTortaAmount: 0,
+      shrimpTortaUnitPrice: 0,
+      shrimpTotal: 0,
+      startDate: Date(),
+      startDateString: "",
+      startTimeString: "",
+      total: 0,
     },
     buttonText: "Create Event",
   };
@@ -120,7 +131,35 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
     this.setState({ event: newEvent });
   };
 
-  handleSubmit = (e: any) => e.preventDefault();
+  handleSubmit = (e: any) => {
+    this.props.onEdit(this.state.event);
+    this.props.closeModal();
+    e.preventDefault();
+  };
+
+  handleChangeTortaPocchuc = (e: any) => {
+    const pocChucTortaAmount = e.currentTarget.value;
+    const pocChucTotal = pocChucTortaAmount * this.state.event.pocChucTortaUnitPrice;
+
+    const event = {
+      ...this.state.event,
+      pocChucTortaAmount: pocChucTortaAmount,
+      pocChucTotal: pocChucTotal,
+    };
+    this.setState({ event: event });
+  };
+
+  handleChangeTortaShrimp = (e: any) => {
+    const shrimpTortaAmount = e.currentTarget.value;
+    const shrimpTotal = shrimpTortaAmount * this.state.event.shrimpTortaUnitPrice;
+
+    const event = {
+      ...this.state.event,
+      shrimpTortaAmount: shrimpTortaAmount,
+      shrimpTotal: shrimpTotal,
+    };
+    this.setState({ event: event });
+  };
 
   componentDidMount() {
     if (this.props.editEvent) {
@@ -151,8 +190,8 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
                 <p>Start Event:</p>
                 <Input
                   type="date"
-                  name="startDate"
-                  value={this.state.event.startDate}
+                  name="startDateString"
+                  value={this.state.event.startDateString}
                   onChange={this.handlePerInput}
                 />
               </DivFG>
@@ -160,8 +199,8 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
                 <p>Start Hour:</p>
                 <Input
                   type="time"
-                  name="startHour"
-                  value={this.state.event.startHour}
+                  name="startTimeString"
+                  value={this.state.event.startTimeString}
                   onChange={this.handlePerInput}
                 />
               </DivFG>
@@ -173,8 +212,8 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
                 <p>End Date:</p>
                 <Input
                   type="date"
-                  name="endDate"
-                  value={this.state.event.endDate}
+                  name="endDateString"
+                  value={this.state.event.endDateString}
                   onChange={this.handlePerInput}
                 />
               </DivFG>
@@ -183,8 +222,8 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
                 <p>End Hour:</p>
                 <Input
                   type="time"
-                  name="endHour"
-                  value={this.state.event.endHour}
+                  name="endTimeString"
+                  value={this.state.event.endTimeString}
                   onChange={this.handlePerInput}
                 />
               </DivFG>
@@ -209,18 +248,18 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
               <DivMin>
                 <Input
                   type="text"
-                  name="tortaPocchuc"
-                  value={this.state.event.tortaPocchuc}
-                  onChange={this.handlePerInput}
+                  name="pocChucTortaAmount"
+                  value={this.state.event.pocChucTortaAmount}
+                  onChange={this.handleChangeTortaPocchuc}
                 />
               </DivMin>
 
               <DivMin>
                 <Input
                   type="text"
-                  name="tortaCamaron"
-                  value={this.state.event.tortaCamaron}
-                  onChange={this.handlePerInput}
+                  name="shrimpTortaAmount"
+                  value={this.state.event.shrimpTortaAmount}
+                  onChange={this.handleChangeTortaShrimp}
                 />
               </DivMin>
             </DivRCMin>

@@ -3,8 +3,8 @@
     {
       "id": "1",
       "name": "Tortas para la oficina semana 1",
-      "start_date": 1546630200,
-      "end_date": 1546667820,
+      "start_date": "1995-12-17T03:24:00",
+      "end_date": "1995-12-18T03:24:00",
       "poc_chuc_torta_unit_price": 22,
       "poc_chuc_torta_amount": 40,
       "shrimp_torta_unit_price": 28,
@@ -14,8 +14,8 @@
     {
       "id": "2",
       "name": "Tortas para la oficina semana 2",
-      "start_date": 1547100000,
-      "end_date": 1547186400,
+      "start_date": "1995-12-19T15:24:00",
+      "end_date": "1995-12-20T03:24:00",
       "poc_chuc_torta_unit_price": 22,
       "poc_chuc_torta_amount": 22,
       "shrimp_torta_unit_price": 28,

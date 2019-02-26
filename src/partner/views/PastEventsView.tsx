@@ -18,6 +18,16 @@ export class PastEventsView extends React.Component<{}, IPastEventsViewState> {
     error: undefined,
   };
 
+  handleEditEvent = (event: IEvent) => {
+    const newEvents = this.state.events.map(ev => {
+      if (ev["id"] === event["id"]) {
+        return event;
+      }
+      return ev;
+    });
+    this.setState({ events: newEvents });
+  };
+
   public async componentDidMount() {
     this.setState({ isLoading: true });
     try {
@@ -54,7 +64,7 @@ export class PastEventsView extends React.Component<{}, IPastEventsViewState> {
     return (
       <React.Fragment>
         <Header title="Past Events" />
-        <EventListContainer events={this.state.events} />
+        <EventListContainer events={this.state.events} onEdit={this.handleEditEvent} />
       </React.Fragment>
     );
   }

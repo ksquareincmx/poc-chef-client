@@ -18,6 +18,17 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
     error: undefined,
   };
 
+  handleCreateEvent = (event: IEvent) => {};
+  handleEditEvent = (event: IEvent, closeModal: Function) => {
+    const newEvents = this.state.events.map(ev => {
+      if (ev["id"] === event["id"]) {
+        return event;
+      }
+      return ev;
+    });
+    this.setState({ events: newEvents });
+  };
+
   public async componentDidMount() {
     this.setState({ isLoading: true });
     try {
@@ -53,7 +64,7 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
     return (
       <React.Fragment>
         <Header title="Current Events" />
-        <EventListContainer events={this.state.events} />
+        <EventListContainer events={this.state.events} onEdit={this.handleEditEvent} />
       </React.Fragment>
     );
   }

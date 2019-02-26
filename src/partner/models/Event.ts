@@ -33,14 +33,14 @@ export const InitialEvent = (): IEvent => ({
   shrimpTortaUnitPrice: 0,
   shrimpTortaAmount: 0,
   shrimpTotal: 0,
-  total: 0
+  total: 0,
 });
 
 export interface IEventDTO {
   id: string;
   name: string;
-  start_date: number;
-  end_date: number;
+  start_date: string;
+  end_date: string;
   poc_chuc_torta_unit_price: number;
   poc_chuc_torta_amount: number;
   shrimp_torta_unit_price: number;
