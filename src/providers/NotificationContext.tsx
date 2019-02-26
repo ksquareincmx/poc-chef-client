@@ -21,6 +21,7 @@ export class NotificationProvider extends React.Component<{}, INotificationProvi
 
   handleShowNotification = (text: string) => {
     this.setState({ notifcationText: text, showNotification: true });
+    setTimeout(this.handleCloseNotification, 2500);
   };
 
   handleCloseNotification = () => {
