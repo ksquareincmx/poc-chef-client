@@ -8,8 +8,6 @@ export const NotificationContext = React.createContext({
   handleCloseNotification: () => {}
 });
 
-export const NotificationConsumer = NotificationContext.Consumer;
-
 export interface INotificationProviderState {
   notifcationText: string;
   showNotification: boolean;
