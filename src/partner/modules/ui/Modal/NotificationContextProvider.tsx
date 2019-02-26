@@ -13,10 +13,7 @@ export interface INotificationProviderState {
   showNotification: boolean;
 }
 
-export class NotificationContextProvider extends React.Component<
-  {},
-  INotificationProviderState
-> {
+export class NotificationContextProvider extends React.Component<{}, INotificationProviderState> {
   state = {
     notifcationText: "",
     showNotification: false
@@ -47,10 +44,7 @@ export class NotificationContextProvider extends React.Component<
       >
         {this.props.children}
         {this.state.showNotification && (
-          <Notification
-            text={this.state.notifcationText}
-            close={this.handleCloseNotification}
-          />
+          <Notification text={this.state.notifcationText} close={this.handleCloseNotification} />
         )}
       </NotificationContext.Provider>
     );

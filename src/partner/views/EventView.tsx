@@ -4,11 +4,7 @@ import { Header } from "src/partner/modules/Header";
 import { EventService } from "src/partner/services";
 import { IEvent, InitialEvent } from "src/partner/models/Event";
 import { List } from "src/partner/modules/ui/List/List";
-import {
-  ListStyled,
-  Modal,
-  NotificationContextProvider
-} from "src/partner/modules/ui";
+import { ListStyled, Modal, NotificationContextProvider } from "src/partner/modules/ui";
 
 export interface IEventViewProps {
   match: { params: { id: string } };
@@ -21,10 +17,7 @@ export interface ICurrentEventsViewState {
   showModalFinishEvent: boolean;
 }
 
-export class EventView extends React.Component<
-  IEventViewProps,
-  ICurrentEventsViewState
-> {
+export class EventView extends React.Component<IEventViewProps, ICurrentEventsViewState> {
   public state = {
     isLoading: false,
     error: undefined,
@@ -38,8 +31,7 @@ export class EventView extends React.Component<
     try {
       const events = await EventService.eventService.getCurrentEvents();
       const localEvent =
-        events.filter(e => e.id == this.props.match.params.id)[0] ||
-        InitialEvent();
+        events.filter(e => e.id == this.props.match.params.id)[0] || InitialEvent();
       this.setState({ isLoading: false, localEvent });
     } catch (err) {
       this.setState({
