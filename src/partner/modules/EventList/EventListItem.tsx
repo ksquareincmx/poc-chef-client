@@ -8,18 +8,30 @@ import { CreateEvent } from "src/components/event/Create";
 export interface IEventItemProps {
   eventInfo: IEvent;
   eventView?: boolean;
+  handleCancelEvent: (e: any) => void;
   onEdit: (event: any) => void;
 }
 
 interface IEventItemState {
   showMenu?: boolean;
   editEvent: boolean;
+  cancelEvent: boolean;
 }
 
 export class EventListItem extends React.Component<IEventItemProps, IEventItemState> {
   state = {
     showMenu: false,
     editEvent: false,
+    cancelEvent: false,
+  };
+
+  handleCancelEvent = () => {
+    this.props.handleCancelEvent(this.props.eventInfo.id);
+    this.setState({ cancelEvent: false });
+  };
+
+  showMenuOptions = () => {
+    this.setState({ showMenu: !this.state.showMenu });
   };
 
   showModal = () => {
