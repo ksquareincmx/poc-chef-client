@@ -46,6 +46,14 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
     this.setState({ showMenu: !this.state.showMenu });
   };
 
+  showModalCancelEvent = () => {
+    this.setState({ cancelEvent: true });
+  };
+
+  closeModalCancelEvent = () => {
+    this.setState({ cancelEvent: false });
+  };
+
   render() {
     const props = this.props;
     return (
@@ -59,6 +67,7 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
                 <ListStyled.MenuOptionsContent show={this.state.showMenu}>
                   <Link to={"events/" + props.eventInfo.id}>View Event</Link>
                   <a onClick={this.showModal}>Edit Event</a>
+                  <a onClick={this.showModalCancelEvent}>Cancel Event</a>
                 </ListStyled.MenuOptionsContent>
               </ListStyled.MenuOptions>
             )}
@@ -148,6 +157,18 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
             onEdit={this.props.onEdit}
             closeModal={this.closeModal}
           />
+        </Modal>
+        <Modal
+          title="Cancel Event"
+          show={this.state.cancelEvent}
+          closeModal={this.closeModalCancelEvent}
+        >
+          <ListStyled.H2>Are you sure you want to cancel this event?</ListStyled.H2>
+          <ListStyled.RowData>
+            <ListStyled.GradientButton onClick={this.handleCancelEvent}>
+              Confirm
+            </ListStyled.GradientButton>
+          </ListStyled.RowData>
         </Modal>
       </ListStyled.ListItem>
     );
