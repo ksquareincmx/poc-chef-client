@@ -16,9 +16,19 @@ export class PastEventsView extends React.Component<{}, IPastEventsViewState> {
   state = {
     events: [],
     isLoading: false,
-    error: undefined
+    error: undefined,
   };
   static contextType = NotificationContext.NotificationContext;
+
+  handleEditEvent = (event: IEvent) => {
+    const newEvents = this.state.events.map(ev => {
+      if (ev["id"] === event["id"]) {
+        return event;
+      }
+      return ev;
+    });
+    this.setState({ events: newEvents });
+  };
 
   public async componentDidMount() {
     this.setState({ isLoading: true });
@@ -29,7 +39,7 @@ export class PastEventsView extends React.Component<{}, IPastEventsViewState> {
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err
+        error: err,
       });
     }
   }
@@ -60,7 +70,11 @@ export class PastEventsView extends React.Component<{}, IPastEventsViewState> {
     return (
       <React.Fragment>
         <Header title="Past Events" />
-        <EventListContainer handleCancelEvent={this.handleCancelEvent} events={this.state.events} />
+        <EventListContainer
+          handleCancelEvent={this.handleCancelEvent}
+          events={this.state.events}
+          onEdit={this.handleEditEvent}
+        />
       </React.Fragment>
     );
   }

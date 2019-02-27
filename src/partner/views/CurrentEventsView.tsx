@@ -16,7 +16,18 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
   state = {
     events: [],
     isLoading: false,
-    error: undefined
+    error: undefined,
+  };
+
+  handleCreateEvent = (event: IEvent) => {};
+  handleEditEvent = (event: IEvent) => {
+    const newEvents = this.state.events.map(ev => {
+      if (ev["id"] === event["id"]) {
+        return event;
+      }
+      return ev;
+    });
+    this.setState({ events: newEvents });
   };
 
   static contextType = NotificationContext.NotificationContext;
@@ -30,7 +41,7 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err
+        error: err,
       });
     }
   }
@@ -62,7 +73,11 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
     return (
       <React.Fragment>
         <Header title="Current Events" />
-        <EventListContainer handleCancelEvent={this.handleCancelEvent} events={this.state.events} />
+        <EventListContainer
+          handleCancelEvent={this.handleCancelEvent}
+          events={this.state.events}
+          onEdit={this.handleEditEvent}
+        />
       </React.Fragment>
     );
   }

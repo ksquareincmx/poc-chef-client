@@ -6,6 +6,7 @@ import { ListStyled } from "src/partner/modules/ui/";
 export interface IEventListProps {
   events: IEvent[];
   handleCancelEvent: (e: any) => void;
+  onEdit: (event: any) => void;
 }
 
 export const EventList: React.SFC<IEventListProps> = props => {
@@ -16,7 +17,12 @@ export const EventList: React.SFC<IEventListProps> = props => {
   return (
     <ListStyled.List>
       {props.events.map(e => (
-        <EventListItem handleCancelEvent={props.handleCancelEvent} key={e.id} eventInfo={e} />
+        <EventListItem
+          handleCancelEvent={props.handleCancelEvent}
+          key={e.id}
+          eventInfo={e}
+          onEdit={props.onEdit}
+        />
       ))}
     </ListStyled.List>
   );

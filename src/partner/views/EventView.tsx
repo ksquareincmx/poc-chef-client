@@ -4,7 +4,8 @@ import { Header } from "src/partner/modules/Header";
 import { EventService } from "src/partner/services";
 import { IEvent, InitialEvent } from "src/partner/models/Event";
 import { List } from "src/partner/modules/ui/List/List";
-import { ListStyled, Modal } from "src/partner/modules/ui";
+import { ListStyled } from "src/partner/modules/ui";
+import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { NotificationContext } from "src/providers";
 
 export interface IEventViewProps {
@@ -23,9 +24,11 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
     isLoading: false,
     error: undefined,
     localEvent: InitialEvent(),
-    showModalFinishEvent: false
+    showModalFinishEvent: false,
   };
   static contextType = NotificationContext.NotificationContext;
+
+  handleEditEvent = () => {};
 
   public async componentDidMount() {
     this.setState({ isLoading: true });
@@ -37,7 +40,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err
+        error: err,
       });
     }
   }
@@ -79,6 +82,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
             key={this.state.localEvent.id}
             eventInfo={this.state.localEvent}
             eventView={true}
+            onEdit={this.handleEditEvent}
           />
         </List>
         <ListStyled.RowData>
@@ -86,7 +90,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
             Finish Event
           </ListStyled.GradientButton>
         </ListStyled.RowData>
-        <Modal.Modal
+        <Modal
           show={this.state.showModalFinishEvent}
           title="Finish Event"
           closeModal={this.closeModalFinishEvent}
@@ -97,7 +101,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
               Confirm
             </ListStyled.GradientButton>
           </ListStyled.RowData>
-        </Modal.Modal>
+        </Modal>
       </React.Fragment>
     );
   }
