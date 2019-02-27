@@ -19,7 +19,7 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
   };
 
   handleCreateEvent = (event: IEvent) => {};
-  handleEditEvent = (event: IEvent, closeModal: Function) => {
+  handleEditEvent = (event: IEvent) => {
     const newEvents = this.state.events.map(ev => {
       if (ev["id"] === event["id"]) {
         return event;

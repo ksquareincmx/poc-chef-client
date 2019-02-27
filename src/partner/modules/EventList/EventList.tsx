@@ -5,7 +5,7 @@ import { ListStyled } from "src/partner/modules/ui/";
 
 interface IEventListProps {
   events: IEvent[];
-  onEdit: Function;
+  onEdit: (event: any) => void;
 }
 
 export const EventList: React.SFC<IEventListProps> = props => {

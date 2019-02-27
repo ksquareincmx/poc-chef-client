@@ -37,10 +37,10 @@ export const addZeros = num => {
 };
 
 export const getDateFormat = (date, time) => {
-  const dateFormat = date + "T" + getTimeFormat(time);
+  const dateFormat = `${date}T${getTimeFormat(time)}`;
   return new Date(dateFormat);
 };
 
 export const getTimeFormat = time => {
-  return time + ":00";
+  return `${time}:00`;
 };

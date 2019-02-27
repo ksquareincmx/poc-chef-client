@@ -97,8 +97,8 @@ const DivFG = styled.div({
 export interface ICreateEventProps {
   editEvent?: boolean;
   eventInfo?: IEvent;
-  onEdit: Function;
-  closeModal: Function;
+  onEdit: (event: any) => void;
+  closeModal: () => void;
 }
 export class CreateEvent extends React.Component<ICreateEventProps> {
   state = {
@@ -131,9 +131,9 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
   };
 
   handleSubmit = (e: any) => {
+    e.preventDefault();
     this.props.onEdit(this.state.event);
     this.props.closeModal();
-    e.preventDefault();
   };
 
   handleChangeTortaPocchuc = (e: any) => {
@@ -145,7 +145,7 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
       pocChucTortaAmount: pocChucTortaAmount,
       pocChucTotal: pocChucTotal,
     };
-    this.setState({ event: event });
+    this.setState({ event });
   };
 
   handleChangeTortaShrimp = (e: any) => {
@@ -157,7 +157,7 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
       shrimpTortaAmount: shrimpTortaAmount,
       shrimpTotal: shrimpTotal,
     };
-    this.setState({ event: event });
+    this.setState({ event });
   };
 
   componentDidMount() {

@@ -8,7 +8,7 @@ import { CreateEvent } from "src/components/event/Create";
 export interface IEventItemProps {
   eventInfo: IEvent;
   eventView?: boolean;
-  onEdit: Function;
+  onEdit: (event: any) => void;
 }
 
 interface IEventItemState {
@@ -22,6 +22,18 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
     editEvent: false,
   };
 
+  showModal = () => {
+    this.setState({ editEvent: true });
+  };
+
+  closeModal = () => {
+    this.setState({ editEvent: false });
+  };
+
+  showMenu = () => {
+    this.setState({ showMenu: !this.state.showMenu });
+  };
+
   render() {
     const props = this.props;
     return (
@@ -30,13 +42,11 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
           <ListStyled.RowData>
             <ListStyled.H1 align="left">{props.eventInfo.orderNumber}</ListStyled.H1>
             {!props.eventView && (
-              <ListStyled.MenuOptions
-                onClick={e => this.setState({ showMenu: !this.state.showMenu })}
-              >
+              <ListStyled.MenuOptions onClick={this.showMenu}>
                 <ListStyled.ImgMenu src={require("../../../images/menu-icon.png")} alt="options" />
                 <ListStyled.MenuOptionsContent show={this.state.showMenu}>
                   <Link to={"events/" + props.eventInfo.id}>View Event</Link>
-                  <a onClick={() => this.setState({ editEvent: true })}>Edit Event</a>
+                  <a onClick={this.showModal}>Edit Event</a>
                 </ListStyled.MenuOptionsContent>
               </ListStyled.MenuOptions>
             )}
@@ -119,16 +129,12 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
             </tr>
           </tfoot>
         </ListStyled.Table>
-        <Modal
-          title="Edit Event"
-          show={this.state.editEvent}
-          closeModal={() => this.setState({ editEvent: false })}
-        >
+        <Modal title="Edit Event" show={this.state.editEvent} closeModal={this.closeModal}>
           <CreateEvent
             editEvent={true}
             eventInfo={this.props.eventInfo}
             onEdit={this.props.onEdit}
-            closeModal={() => this.setState({ editEvent: false })}
+            closeModal={this.closeModal}
           />
         </Modal>
       </ListStyled.ListItem>
