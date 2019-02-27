@@ -2,15 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { IEvent } from "src/partner/models/Event";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
-import { Notification } from "src/partner/modules/ui/Modal/Notification";
 import { CreateEvent } from "src/components/event/Create";
-import styledComponents from "styled-components";
 import { ListStyled } from "src/partner/modules/ui";
-import { NotificationContext } from "src/providers";
 
 export interface IEventItemProps {
   eventInfo: IEvent;
   eventView?: boolean;
+  handleCancelEvent: (e: any) => void;
 }
 
 export interface IEventItemState {
@@ -26,12 +24,8 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
     cancelEvent: false
   };
 
-  static contextType = NotificationContext.NotificationContext;
-
   handleCancelEvent = () => {
-    // TODO: Make a request to delete the event
-    // TODO: Identify this is a past event
-    this.context.handleShowNotification("Event deleted");
+    this.props.handleCancelEvent(this.props.eventInfo.id);
     this.setState({ cancelEvent: false });
   };
 

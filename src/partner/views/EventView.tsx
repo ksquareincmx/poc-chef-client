@@ -75,6 +75,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
         <Header title="Event view" />
         <List>
           <EventListItem
+            handleCancelEvent={() => {}}
             key={this.state.localEvent.id}
             eventInfo={this.state.localEvent}
             eventView={true}

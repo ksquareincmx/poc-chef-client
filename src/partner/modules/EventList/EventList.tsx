@@ -3,8 +3,9 @@ import { IEvent } from "src/partner/models/Event";
 import { EventListItem } from "./EventListItem";
 import { ListStyled } from "src/partner/modules/ui/";
 
-interface IEventListProps {
+export interface IEventListProps {
   events: IEvent[];
+  handleCancelEvent: (e: any) => void;
 }
 
 export const EventList: React.SFC<IEventListProps> = props => {
@@ -15,7 +16,7 @@ export const EventList: React.SFC<IEventListProps> = props => {
   return (
     <ListStyled.List>
       {props.events.map(e => (
-        <EventListItem key={e.id} eventInfo={e} />
+        <EventListItem handleCancelEvent={props.handleCancelEvent} key={e.id} eventInfo={e} />
       ))}
     </ListStyled.List>
   );
