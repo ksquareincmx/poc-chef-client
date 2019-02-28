@@ -1,6 +1,6 @@
 "use strict";
 
-import { IOrderEntity } from "./";
+import { IOrderEntity } from "../partner/models/Order";
 
 export let orders: IOrderEntity[] = [
   {
@@ -11,6 +11,12 @@ export let orders: IOrderEntity[] = [
         name: "Poc-Chuc",
         type: "Torta",
         quantity: 2,
+        price: 25
+      },
+      {
+        name: "Camarón",
+        type: "Torta",
+        quantity: 1,
         price: 25
       }
     ],

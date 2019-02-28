@@ -3,6 +3,7 @@ export interface IProduct {
   type: string;
   quantity: number;
   price: number;
+  [key: string]: any;
 }
 
 export interface IOrderEntity {

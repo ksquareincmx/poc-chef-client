@@ -22,9 +22,7 @@ export interface IListItemRowProps {
   borderBottom?: boolean;
 }
 
-export const ListItemRow = styledComponentsTS<IListItemRowProps>(
-  styledComponents.div
-)`
+export const ListItemRow = styledComponentsTS<IListItemRowProps>(styledComponents.div)`
   width: 100%;
   padding: 5px 20px 5px 20px;
   box-sizing: border-box;
@@ -58,8 +56,7 @@ export const H1 = styledComponentsTS<ITextProps>(styledComponents.h1)`
   font-size: 16px;
   font-style: bold;
   text-align: ${(props: ITextProps) => props.align || "center"};
-  color: ${(props: ITextProps) =>
-    props.alternativeColor ? "#e83f5d" : "#000"};
+  color: ${(props: ITextProps) => (props.alternativeColor ? "#e83f5d" : "#000")};
 `;
 
 export const H2 = styledComponentsTS<ITextProps>(styledComponents.h2)`
@@ -97,9 +94,7 @@ export interface IMenuOptionsContent {
   show?: boolean;
 }
 
-export const MenuOptionsContent = styledComponentsTS<IMenuOptionsContent>(
-  styledComponents.div
-)`
+export const MenuOptionsContent = styledComponentsTS<IMenuOptionsContent>(styledComponents.div)`
   display: ${(props: IMenuOptionsContent) => (props.show ? "block" : "none")};
   position: absolute;
   background-color: #fff;
@@ -113,6 +108,7 @@ export const MenuOptionsContent = styledComponentsTS<IMenuOptionsContent>(
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    cursor: pointer;
   }
   & > a:hover {
     background-color: #ddd;

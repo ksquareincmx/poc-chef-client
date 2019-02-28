@@ -24,7 +24,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
     isLoading: false,
     error: undefined,
     localEvent: InitialEvent(),
-    showModalFinishEvent: false,
+    showModalFinishEvent: false
   };
   static contextType = NotificationContext.NotificationContext;
 
@@ -40,7 +40,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err,
+        error: err
       });
     }
   }
