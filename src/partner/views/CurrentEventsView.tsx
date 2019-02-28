@@ -5,6 +5,7 @@ import { EventService } from "src/partner/services";
 import { IEvent } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
+import { FloatingAddButton } from "src/components/FloatingAddButton/FloatingAddButton";
 
 export interface ICurrentEventsViewState {
   events: IEvent[];
@@ -78,6 +79,7 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
           events={this.state.events}
           onEdit={this.handleEditEvent}
         />
+        <FloatingAddButton />
       </React.Fragment>
     );
   }

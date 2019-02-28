@@ -17,5 +17,5 @@ export const eventService: IEventService = {
     return fetch("/api/past_events.json")
       .then(res => res.json())
       .then(data => data.events.map(EventMapper.toEntity));
-  },
+  }
 };

@@ -8,23 +8,21 @@ export const ListItem = styledComponents.div({
   borderRadius: "10px",
   marginBottom: "10px",
   paddingBottom: "10px",
-  boxSizing: "border-box"
+  boxSizing: "border-box",
 });
 
 export const List = styledComponents.div({
   marginTop: "-25px",
-  padding: "0 15px 70px 15px",
+  padding: "0 15px 16px 15px",
   height: "100%",
-  overflowY: "auto"
+  overflowY: "auto",
 });
 
 export interface IListItemRowProps {
   borderBottom?: boolean;
 }
 
-export const ListItemRow = styledComponentsTS<IListItemRowProps>(
-  styledComponents.div
-)`
+export const ListItemRow = styledComponentsTS<IListItemRowProps>(styledComponents.div)`
   width: 100%;
   padding: 5px 20px 5px 20px;
   box-sizing: border-box;
@@ -44,7 +42,7 @@ export const Table = styledComponentsTS(styledComponents.table)`
 export const RowData = styledComponents.div({
   display: "flex",
   justifyContent: "space-between",
-  alignItems: "center"
+  alignItems: "center",
 });
 
 export interface ITextProps {
@@ -58,8 +56,7 @@ export const H1 = styledComponentsTS<ITextProps>(styledComponents.h1)`
   font-size: 16px;
   font-style: bold;
   text-align: ${(props: ITextProps) => props.align || "center"};
-  color: ${(props: ITextProps) =>
-    props.alternativeColor ? "#e83f5d" : "#000"};
+  color: ${(props: ITextProps) => (props.alternativeColor ? "#e83f5d" : "#000")};
 `;
 
 export const H2 = styledComponentsTS<ITextProps>(styledComponents.h2)`
@@ -85,7 +82,7 @@ export const ImgMenu = styledComponents.img({
   width: "1.5em",
   height: "1.5em",
   padding: "0",
-  objectFit: "contain"
+  objectFit: "contain",
 });
 
 export const MenuOptions = styledComponents.div`
@@ -97,9 +94,7 @@ export interface IMenuOptionsContent {
   show?: boolean;
 }
 
-export const MenuOptionsContent = styledComponentsTS<IMenuOptionsContent>(
-  styledComponents.div
-)`
+export const MenuOptionsContent = styledComponentsTS<IMenuOptionsContent>(styledComponents.div)`
   display: ${(props: IMenuOptionsContent) => (props.show ? "block" : "none")};
   position: absolute;
   background-color: #fff;
