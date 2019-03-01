@@ -4,6 +4,7 @@ import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { CreateEvent } from "src/components/event/Create";
+import { EventOrdersContainer } from "./EventOrdersContainer";
 
 export interface IEventItemProps {
   eventInfo: IEvent;
@@ -23,7 +24,7 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
   state = {
     showMenu: false,
     editEvent: false,
-    cancelEvent: false,
+    cancelEvent: false
   };
 
   handleCancelEvent = () => {
@@ -155,6 +156,7 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
             </tr>
           </tfoot>
         </ListStyled.Table>
+        {this.props.eventView && <EventOrdersContainer eventId={props.eventInfo.id} />}
       </ListStyled.ListItem>
     );
   }
