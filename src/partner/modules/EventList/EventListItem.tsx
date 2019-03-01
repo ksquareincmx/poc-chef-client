@@ -20,10 +20,7 @@ interface IEventItemState {
   cancelEvent: boolean;
 }
 
-export class EventListItem extends React.Component<
-  IEventItemProps,
-  IEventItemState
-> {
+export class EventListItem extends React.Component<IEventItemProps, IEventItemState> {
   state = {
     showMenu: false,
     editEvent: false,
@@ -69,15 +66,10 @@ export class EventListItem extends React.Component<
       <ListStyled.ListItem key={props.eventInfo.id}>
         <ListStyled.ListItemRow borderBottom>
           <ListStyled.RowData>
-            <ListStyled.H1 align="left">
-              {props.eventInfo.orderNumber}
-            </ListStyled.H1>
+            <ListStyled.H1 align="left">{props.eventInfo.orderNumber}</ListStyled.H1>
             {!props.eventView && (
               <ListStyled.MenuOptions onClick={this.showMenu}>
-                <ListStyled.ImgMenu
-                  src={require("../../../images/menu-icon.png")}
-                  alt="options"
-                />
+                <ListStyled.ImgMenu src={require("../../../images/menu-icon.png")} alt="options" />
                 <ListStyled.MenuOptionsContent show={this.state.showMenu}>
                   <Link to={"events/" + props.eventInfo.id}>View Event</Link>
                   <a onClick={this.handleEditEvent}>Edit Event</a>
@@ -91,14 +83,10 @@ export class EventListItem extends React.Component<
           <ListStyled.H2 align="left">{props.eventInfo.name}</ListStyled.H2>
           <ListStyled.RowData>
             <ListStyled.P align="left">
-              {`${props.eventInfo.startDateString} - ${
-                props.eventInfo.endDateString
-              }`}
+              {`${props.eventInfo.startDateString} - ${props.eventInfo.endDateString}`}
             </ListStyled.P>
             <ListStyled.P align="right">
-              {`${props.eventInfo.startTimeString} - ${
-                props.eventInfo.endTimeString
-              }`}
+              {`${props.eventInfo.startTimeString} - ${props.eventInfo.endTimeString}`}
             </ListStyled.P>
           </ListStyled.RowData>
         </ListStyled.ListItemRow>
@@ -135,9 +123,7 @@ export class EventListItem extends React.Component<
                 }`}</ListStyled.P>
               </td>
               <td>
-                <ListStyled.P align="right">{`$${
-                  props.eventInfo.pocChucTotal
-                }`}</ListStyled.P>
+                <ListStyled.P align="right">{`$${props.eventInfo.pocChucTotal}`}</ListStyled.P>
               </td>
             </tr>
             <tr>
@@ -150,14 +136,10 @@ export class EventListItem extends React.Component<
                 }`}</ListStyled.P>
               </td>
               <td>
-                <ListStyled.P align="center">{`${
-                  props.eventInfo.shrimpTortaAmount
-                }`}</ListStyled.P>
+                <ListStyled.P align="center">{`${props.eventInfo.shrimpTortaAmount}`}</ListStyled.P>
               </td>
               <td>
-                <ListStyled.P align="right">{`$${
-                  props.eventInfo.shrimpTotal
-                }`}</ListStyled.P>
+                <ListStyled.P align="right">{`$${props.eventInfo.shrimpTotal}`}</ListStyled.P>
               </td>
             </tr>
           </tbody>
@@ -169,16 +151,12 @@ export class EventListItem extends React.Component<
               <td />
               <td />
               <td>
-                <ListStyled.P align="right">{`$${
-                  props.eventInfo.total
-                }`}</ListStyled.P>
+                <ListStyled.P align="right">{`$${props.eventInfo.total}`}</ListStyled.P>
               </td>
             </tr>
           </tfoot>
         </ListStyled.Table>
-        {this.props.eventView && (
-          <EventOrdersContainer eventId={props.eventInfo.id} />
-        )}
+        {this.props.eventView && <EventOrdersContainer eventId={props.eventInfo.id} />}
       </ListStyled.ListItem>
     );
   }
