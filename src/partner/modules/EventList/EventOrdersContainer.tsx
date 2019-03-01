@@ -4,6 +4,7 @@ import styledComponentsTS from "styled-components-ts";
 import { OrdersList } from "./OrdersList";
 import { IOrderEntity } from "src/partner/models/Order";
 import { EventService } from "src/partner/services";
+import { NotificationContext } from "src/providers";
 
 interface IDivOptions {
   color?: string;
@@ -64,6 +65,7 @@ export class EventOrdersContainer extends React.Component<
     showPaidOrders: false,
     checkAll: false
   };
+  static contextType = NotificationContext.NotificationContext;
 
   async componentDidMount() {
     const orders = await EventService.eventService.getOrdersByEventId(this.props.eventId);
@@ -126,6 +128,11 @@ export class EventOrdersContainer extends React.Component<
             paidOrders: [...paidOrders, ...checkedOrders]
           };
     });
+    if (checkedOrders.length > 0) {
+      this.context.handleShowNotification(
+        `Orders marked as ${this.state.showPaidOrders ? "unpaid" : "paid"}.`
+      );
+    }
   };
 
   handleShowTabs = (paidTab: boolean) => {
