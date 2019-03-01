@@ -10,6 +10,7 @@ export interface IEventItemProps {
   eventView?: boolean;
   handleCancelEvent: (e: any) => void;
   onEdit: (event: any) => void;
+  modalController?: any;
 }
 
 interface IEventItemState {
@@ -47,11 +48,15 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
   };
 
   showModalCancelEvent = () => {
-    this.setState({ cancelEvent: true });
+    this.props.modalController.showModalCancelEvent(this.props.eventInfo);
   };
 
   closeModalCancelEvent = () => {
     this.setState({ cancelEvent: false });
+  };
+
+  handleEditEvent = () => {
+    this.props.modalController.showEditModal(this.props.eventInfo);
   };
 
   render() {
@@ -66,7 +71,7 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
                 <ListStyled.ImgMenu src={require("../../../images/menu-icon.png")} alt="options" />
                 <ListStyled.MenuOptionsContent show={this.state.showMenu}>
                   <Link to={"events/" + props.eventInfo.id}>View Event</Link>
-                  <a onClick={this.showModal}>Edit Event</a>
+                  <a onClick={this.handleEditEvent}>Edit Event</a>
                   <a onClick={this.showModalCancelEvent}>Cancel Event</a>
                 </ListStyled.MenuOptionsContent>
               </ListStyled.MenuOptions>
@@ -80,7 +85,7 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
               {`${props.eventInfo.startDateString} - ${props.eventInfo.endDateString}`}
             </ListStyled.P>
             <ListStyled.P align="right">
-              {`${props.eventInfo.starTimeString} - ${props.eventInfo.endTimeString}`}
+              {`${props.eventInfo.startTimeString} - ${props.eventInfo.endTimeString}`}
             </ListStyled.P>
           </ListStyled.RowData>
         </ListStyled.ListItemRow>
@@ -150,26 +155,6 @@ export class EventListItem extends React.Component<IEventItemProps, IEventItemSt
             </tr>
           </tfoot>
         </ListStyled.Table>
-        <Modal title="Edit Event" show={this.state.editEvent} closeModal={this.closeModal}>
-          <CreateEvent
-            editEvent={true}
-            eventInfo={this.props.eventInfo}
-            onEdit={this.props.onEdit}
-            closeModal={this.closeModal}
-          />
-        </Modal>
-        <Modal
-          title="Cancel Event"
-          show={this.state.cancelEvent}
-          closeModal={this.closeModalCancelEvent}
-        >
-          <ListStyled.H2>Are you sure you want to cancel this event?</ListStyled.H2>
-          <ListStyled.RowData>
-            <ListStyled.GradientButton onClick={this.handleCancelEvent}>
-              Confirm
-            </ListStyled.GradientButton>
-          </ListStyled.RowData>
-        </Modal>
       </ListStyled.ListItem>
     );
   }

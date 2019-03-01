@@ -5,7 +5,7 @@ export interface IEvent {
   startDate: Date;
   endDate: Date;
   startDateString: string;
-  starTimeString: string;
+  startTimeString: string;
   endDateString: string;
   endTimeString: string;
   pocChucTortaUnitPrice: number;
@@ -24,7 +24,7 @@ export const InitialEvent = (): IEvent => ({
   startDate: new Date(),
   endDate: new Date(),
   startDateString: "",
-  starTimeString: "",
+  startTimeString: "",
   endDateString: "",
   endTimeString: "",
   pocChucTortaUnitPrice: 0,
