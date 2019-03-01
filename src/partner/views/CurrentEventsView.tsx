@@ -6,7 +6,7 @@ import { IEvent, Event } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
 import { FloatingAddButton } from "src/components/FloatingAddButton/FloatingAddButton";
-import { Modal } from "src/partner/modules/ui/Modal";
+import { Modal } from "src/partner/modules/ui/";
 import { CreateEvent } from "src/components/event/Create";
 import { ListStyled } from "src/partner/modules/ui";
 
