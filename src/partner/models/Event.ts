@@ -17,7 +17,7 @@ export interface IEvent {
   total: number;
 }
 
-export const InitialEvent = (): IEvent => ({
+export const Event = (): IEvent => ({
   id: "",
   orderNumber: "",
   name: "",

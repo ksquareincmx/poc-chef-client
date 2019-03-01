@@ -2,11 +2,11 @@ import React from "react";
 import { Header } from "src/partner/modules/Header";
 import { EventListContainer } from "src/partner/modules/EventList";
 import { EventService } from "src/partner/services";
-import { IEvent, InitialEvent } from "src/partner/models/Event";
+import { IEvent, Event } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
 import { FloatingAddButton } from "src/components/FloatingAddButton/FloatingAddButton";
-import { Modal } from "src/partner/modules/ui/Modal/Modal";
+import { Modal } from "src/partner/modules/ui/Modal";
 import { CreateEvent } from "src/components/event/Create";
 import { ListStyled } from "src/partner/modules/ui";
 
@@ -27,18 +27,18 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
     error: undefined,
     editEvent: false,
     cancelEvent: false,
-    currentEvent: InitialEvent(),
+    currentEvent: Event(),
     openModal: false,
   };
   static contextType = NotificationContext.NotificationContext;
 
   closeModalCancelEvent = () => {
-    this.setState({ cancelEvent: false, currentEvent: InitialEvent() });
+    this.setState({ cancelEvent: false, currentEvent: Event() });
   };
 
   handleCancelEvent = () => {
     const events = this.state.events.filter((e: IEvent) => e.id != this.state.currentEvent.id);
-    this.setState({ events, currentEvent: InitialEvent(), cancelEvent: false });
+    this.setState({ events, currentEvent: Event(), cancelEvent: false });
     this.context.handleShowNotification("The event has been cancelled.");
   };
 
@@ -56,11 +56,11 @@ export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewSta
       }
       return ev;
     });
-    this.setState({ events: newEvents, currentEvent: InitialEvent(), editEvent: false });
+    this.setState({ events: newEvents, currentEvent: Event(), editEvent: false });
   };
 
   closeModal = () => {
-    this.setState({ openModal: false, currentEvent: InitialEvent() });
+    this.setState({ openModal: false, currentEvent: Event() });
   };
 
   showModal = () => {
