@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import styledCComponents from "styled-components";
 import { IEvent } from "src/partner/models/Event";
 import * as utils from "./utils";
+import cuid from "cuid";
 
 const Input = styled.input({
   borderRadius: "8px 8px 8px 8px",
@@ -98,6 +99,7 @@ export interface ICreateEventProps {
   editEvent?: boolean;
   eventInfo?: IEvent;
   onEdit: (event: any) => void;
+  onCreate: (event: any) => void;
   closeModal: () => void;
 }
 export class CreateEvent extends React.Component<ICreateEventProps> {
@@ -106,9 +108,9 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
       endDate: Date(),
       endDateString: "",
       endTimeString: "",
-      id: -1,
+      id: "-1",
       name: "",
-      orderNumber: "",
+      orderNumber: -1,
       pocChucTortaAmount: 0,
       pocChucTortaUnitPrice: 0,
       pocChucTotal: 0,
@@ -132,8 +134,14 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
 
   handleSubmit = (e: any) => {
     e.preventDefault();
-    this.props.onEdit(this.state.event);
-    this.props.closeModal();
+    if (this.props.editEvent) {
+      this.props.onEdit(this.state.event);
+      this.props.closeModal();
+      return;
+    }
+    const event = this.state.event;
+    event.id = cuid();
+    this.props.onCreate(this.state.event);
   };
 
   handleChangeTortaPocchuc = (e: any) => {

@@ -9,7 +9,7 @@ export const toEntity = (dto: IEventDTO): IEvent => {
     startDate: new Date(dto.start_date),
     endDate: new Date(dto.end_date),
     startDateString: moment(new Date(dto.start_date)).format("	L"),
-    starTimeString: moment(new Date(dto.start_date)).format("LT"),
+    startTimeString: moment(new Date(dto.start_date)).format("LT"),
     endDateString: moment(new Date(dto.end_date)).format("	L"),
     endTimeString: moment(new Date(dto.end_date)).format("LT"),
     pocChucTortaUnitPrice: Number(dto.poc_chuc_torta_unit_price),
