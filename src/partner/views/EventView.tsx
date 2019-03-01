@@ -2,7 +2,7 @@ import React from "react";
 import { EventListItem } from "src/partner/modules/EventList/EventListItem";
 import { Header } from "src/partner/modules/Header";
 import { EventService } from "src/partner/services";
-import { IEvent, Event } from "src/partner/models/Event";
+import { IEvent, event } from "src/partner/models/Event";
 import { List } from "src/partner/modules/ui/List/List";
 import { ListStyled } from "src/partner/modules/ui";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
@@ -23,7 +23,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
   public state = {
     isLoading: false,
     error: undefined,
-    localEvent: Event(),
+    localEvent: event(),
     showModalFinishEvent: false,
   };
   static contextType = NotificationContext.NotificationContext;
@@ -34,7 +34,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
     this.setState({ isLoading: true });
     try {
       const events = await EventService.eventService.getCurrentEvents();
-      const localEvent = events.filter(e => e.id == this.props.match.params.id)[0] || Event();
+      const localEvent = events.filter(e => e.id == this.props.match.params.id)[0] || event();
       this.setState({ isLoading: false, localEvent });
     } catch (err) {
       this.setState({
