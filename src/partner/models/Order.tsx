@@ -12,6 +12,18 @@ export interface IOrderEntity {
   products: IProduct[];
   date: string;
   total: number;
+  paid: boolean;
+  checked: boolean;
+  [key: string]: any;
+}
+
+export interface IOrderDTO {
+  id: number;
+  order: string;
+  products: IProduct[];
+  date: string;
+  total: number;
+  paid: boolean;
 }
 
 export interface IEventEntity {
