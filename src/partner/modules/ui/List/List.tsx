@@ -108,6 +108,7 @@ export const MenuOptionsContent = styledComponentsTS<IMenuOptionsContent>(styled
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    cursor: pointer;
   }
   & > a:hover {
     background-color: #ddd;

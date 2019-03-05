@@ -1,6 +1,5 @@
 import { IEvent } from "src/partner/models/Event";
 import { EventMapper } from "src/partner/mappers";
-import { async } from "q";
 
 export interface IEventService {
   getCurrentEvents: () => Promise<IEvent[]>;
@@ -27,4 +26,5 @@ export const eventService: IEventService = {
       console.error(err);
     }
   },
+
 };
