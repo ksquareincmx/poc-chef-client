@@ -1,6 +1,6 @@
-import { IOrderEntity, IOrderDTO } from "../models/Order";
+import { IOrder, IOrderDTO } from "../models/Order";
 
-export const toEntity = (dto: IOrderDTO): IOrderEntity => {
+export const toEntity = (dto: IOrderDTO): IOrder => {
   return {
     id: dto.id,
     order: dto.order,

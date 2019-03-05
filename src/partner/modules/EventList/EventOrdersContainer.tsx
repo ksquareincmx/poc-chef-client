@@ -2,7 +2,7 @@ import React from "react";
 import styledComponents from "styled-components";
 import styledComponentsTS from "styled-components-ts";
 import { OrdersList } from "./OrdersList";
-import { IOrderEntity } from "src/partner/models/Order";
+import { IOrder } from "src/partner/models/Order";
 import { EventService } from "src/partner/services";
 import { NotificationContext } from "src/providers";
 
@@ -49,8 +49,8 @@ export interface IEventOrdersContainerProps {
 }
 
 export interface IEventOrdersContainerState {
-  paidOrders: IOrderEntity[];
-  unpaidOrders: IOrderEntity[];
+  paidOrders: IOrder[];
+  unpaidOrders: IOrder[];
   showPaidOrders: boolean;
   checkAll: boolean;
 }
@@ -70,13 +70,13 @@ export class EventOrdersContainer extends React.Component<
   async componentDidMount() {
     const orders = await EventService.eventService.getOrdersByEventId(this.props.eventId);
     this.setState(() => ({
-      paidOrders: orders.filter((o: IOrderEntity) => o.paid),
-      unpaidOrders: orders.filter((o: IOrderEntity) => !o.paid)
+      paidOrders: orders.filter((o: IOrder) => o.paid),
+      unpaidOrders: orders.filter((o: IOrder) => !o.paid)
     }));
   }
 
   handleCheckAll = (checked: boolean) => {
-    const checkOrder = (order: IOrderEntity) => {
+    const checkOrder = (order: IOrder) => {
       order.checked = checked;
       return order;
     };
@@ -97,7 +97,7 @@ export class EventOrdersContainer extends React.Component<
   };
 
   handleCheckOrder = (orderId: number, e: any) => {
-    const checkOrder = (order: IOrderEntity) => {
+    const checkOrder = (order: IOrder) => {
       if (order.id === orderId) {
         order.checked = e.currentTarget.checked;
       }
@@ -114,8 +114,8 @@ export class EventOrdersContainer extends React.Component<
   handleMoveOrders = () => {
     const { paidOrders, unpaidOrders } = this.state;
     const keyOrders = this.state.showPaidOrders ? "paidOrders" : "unpaidOrders";
-    const checkedOrders = this.state[keyOrders].filter((order: IOrderEntity) => order.checked);
-    const uncheckedOrders = this.state[keyOrders].filter((order: IOrderEntity) => !order.checked);
+    const checkedOrders = this.state[keyOrders].filter((order: IOrder) => order.checked);
+    const uncheckedOrders = this.state[keyOrders].filter((order: IOrder) => !order.checked);
 
     this.setState(prevState => {
       return prevState.showPaidOrders

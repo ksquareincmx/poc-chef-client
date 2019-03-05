@@ -1,5 +1,5 @@
 import React from "react";
-import { IOrderEntity } from "src/partner/models/Order";
+import { IOrder } from "src/partner/models/Order";
 import styledComponents from "styled-components";
 import styledComponentsTS from "styled-components-ts";
 import { IProduct } from "src/partner/models/Order";
@@ -22,7 +22,7 @@ const P = styledComponents.p`
 `;
 
 export interface IOrderListProps {
-  orders: IOrderEntity[];
+  orders: IOrder[];
   handleCheckAll: (checked: boolean) => void;
   handleCheckOrder: (orderId: number, e: any) => void;
   checkAll: boolean;
@@ -33,7 +33,7 @@ export const OrdersList: React.SFC<IOrderListProps> = props => {
     return products.map(product => <div key={product.name}>{product[field]}</div>);
   };
 
-  const getOrderTr = ({ id, products, total, checked }: IOrderEntity) => {
+  const getOrderTr = ({ id, products, total, checked }: IOrder) => {
     return (
       <OrdersTableTr key={id} backgroundGray={checked}>
         <div>

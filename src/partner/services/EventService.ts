@@ -1,11 +1,11 @@
 import { IEvent } from "src/partner/models/Event";
 import { EventMapper, OrderMapper } from "src/partner/mappers";
-import { IOrderEntity } from "../models/Order";
+import { IOrder } from "../models/Order";
 
 export interface IEventService {
   getCurrentEvents: () => Promise<IEvent[]>;
   getPastEvents: () => Promise<IEvent[]>;
-  getOrdersByEventId: (idEvent: string) => Promise<IOrderEntity[]>;
+  getOrdersByEventId: (idEvent: string) => Promise<IOrder[]>;
 }
 
 export const eventService: IEventService = {
