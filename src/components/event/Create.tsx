@@ -5,7 +5,6 @@ import { IEvent, event } from "src/partner/models/Event";
 import * as utils from "./utils";
 import cuid from "cuid";
 import { NotificationContext } from "src/providers";
-import { any } from "prop-types";
 
 const Input = styled.input({
   borderRadius: "8px 8px 8px 8px",
