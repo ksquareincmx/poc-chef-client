@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled from "@emotion/styled";
-import styledCComponents from "styled-components";
 import { IEvent, event } from "src/partner/models/Event";
 import * as utils from "./utils";
 import cuid from "cuid";
