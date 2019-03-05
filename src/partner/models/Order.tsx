@@ -6,7 +6,7 @@ export interface IProduct {
   [key: string]: any;
 }
 
-export interface IOrderEntity {
+export interface IOrder {
   id: number;
   order: string;
   products: IProduct[];
