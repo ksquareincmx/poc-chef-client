@@ -5,7 +5,7 @@ import { IOrderEntity } from "../models/Order";
 export interface IEventService {
   getCurrentEvents: () => Promise<IEvent[]>;
   getPastEvents: () => Promise<IEvent[]>;
-  getOrdersByEventId: (idEvent: string) => Promise<IOrderEntity>;
+  getOrdersByEventId: (idEvent: string) => Promise<IOrderEntity[]>;
 }
 
 export const eventService: IEventService = {
