@@ -143,15 +143,13 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
     const startDate = new Date(`${startDateString}T00:00:00`);
 
     if (!this.state.event.endDateString) {
-      this.setState((prevState: ICreateEventState) => ({
+      return this.setState((prevState: ICreateEventState) => ({
         event: { ...prevState.event, startDate, startDateString },
       }));
-      return;
     }
 
     if (this.state.event.endDate < startDate) {
-      this.context.handleShowNotification("The start date must be lower than the end date");
-      return;
+      return this.context.handleShowNotification("The start date must be lower than the end date");
     }
 
     this.setState((prevState: ICreateEventState) => ({
@@ -170,8 +168,7 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
       }));
     }
     if (startDate > endDate) {
-      this.context.handleShowNotification("The end date must be higher than the start date");
-      return;
+      return this.context.handleShowNotification("The end date must be higher than the start date");
     }
 
     this.setState((prevState: ICreateEventState) => ({
@@ -183,17 +180,15 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
     const startTimeString = e.target.value;
 
     if (!this.state.event.endTimeString) {
-      this.setState((prevState: ICreateEventState) => ({
+      return this.setState((prevState: ICreateEventState) => ({
         event: { ...prevState.event, startTimeString },
       }));
-      return;
     }
     const startTime = new Date(`2019-01-01T${startTimeString}:00`);
     const endTime = new Date(`2019-01-01T${this.state.event.endTimeString}:00`);
 
     if (endTime < startTime) {
-      this.context.handleShowNotification("The end time must be higher than the start time");
-      return;
+      return this.context.handleShowNotification("The end time must be higher than the start time");
     }
 
     this.setState((prevState: ICreateEventState) => ({
@@ -205,18 +200,16 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
     const endTimeString = e.target.value;
 
     if (!this.state.event.startTimeString) {
-      this.setState((prevState: ICreateEventState) => ({
+      return this.setState((prevState: ICreateEventState) => ({
         event: { ...prevState.event, endTimeString },
       }));
-      return;
     }
 
     const endTime = new Date(`2019-01-01T${endTimeString}:00`);
     const startTime = new Date(`2019-01-01T${this.state.event.endTimeString}:00`);
 
     if (endTime < startTime) {
-      this.context.handleShowNotification("The end time must be higher than the start time");
-      return;
+      return this.context.handleShowNotification("The end time must be higher than the start time");
     }
 
     this.setState((prevState: ICreateEventState) => ({
