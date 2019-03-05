@@ -1,29 +1,30 @@
 import { IEvent } from "src/partner/models/Event";
-import { EventMapper, OrderMapper } from "src/partner/mappers";
-import { IOrderEntity } from "../models/Order";
+import { EventMapper } from "src/partner/mappers";
 
 export interface IEventService {
   getCurrentEvents: () => Promise<IEvent[]>;
   getPastEvents: () => Promise<IEvent[]>;
-  getOrdersByEventId: (eventId: string) => Promise<IOrderEntity[]>;
 }
 
 export const eventService: IEventService = {
-  getCurrentEvents: () => {
-    return fetch("/api/current_events.json")
-      .then(res => res.json())
-      .then(data => data.events.map(EventMapper.toEntity));
+  getCurrentEvents: async () => {
+    try {
+      const res = await fetch("/api/current_events.json");
+      const data = await res.json();
+      return data.events.map(EventMapper.toEntity);
+    } catch (err) {
+      console.error(err);
+    }
   },
 
-  getPastEvents: () => {
-    return fetch("/api/past_events.json")
-      .then(res => res.json())
-      .then(data => data.events.map(EventMapper.toEntity));
+  getPastEvents: async () => {
+    try {
+      const res = await fetch("/api/past_events.json");
+      const data = await res.json();
+      return data.events.map(EventMapper.toEntity);
+    } catch (err) {
+      console.error(err);
+    }
   },
 
-  getOrdersByEventId: (eventId: string) => {
-    return fetch("/api/event_orders.json")
-      .then(res => res.json())
-      .then(data => data.orders.map(OrderMapper.toEntity));
-  }
 };

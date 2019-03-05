@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "@emotion/styled";
-import styledCComponents from "styled-components";
-import { IEvent } from "src/partner/models/Event";
+import { IEvent, event } from "src/partner/models/Event";
 import * as utils from "./utils";
 import cuid from "cuid";
+import { NotificationContext } from "src/providers";
 
 const Input = styled.input({
   borderRadius: "8px 8px 8px 8px",
@@ -95,6 +95,10 @@ const DivFG = styled.div({
   clear: "both",
 });
 
+const InputError = styled.p({
+  color: "red",
+});
+
 export interface ICreateEventProps {
   editEvent?: boolean;
   eventInfo?: IEvent;
@@ -102,35 +106,16 @@ export interface ICreateEventProps {
   onCreate: (event: any) => void;
   closeModal: () => void;
 }
-export class CreateEvent extends React.Component<ICreateEventProps> {
+
+export interface ICreateEventState {
+  event: IEvent;
+}
+export class CreateEvent extends React.Component<ICreateEventProps, ICreateEventState> {
   state = {
-    event: {
-      endDate: Date(),
-      endDateString: "",
-      endTimeString: "",
-      id: "-1",
-      name: "",
-      orderNumber: -1,
-      pocChucTortaAmount: 0,
-      pocChucTortaUnitPrice: 0,
-      pocChucTotal: 0,
-      shrimpTortaAmount: 0,
-      shrimpTortaUnitPrice: 0,
-      shrimpTotal: 0,
-      startDate: Date(),
-      startDateString: "",
-      startTimeString: "",
-      total: 0,
-    },
+    event: event(),
   };
 
-  handlePerInput = (e: any) => {
-    const target = e.currentTarget;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    const newEvent = { ...this.state.event, [name]: value };
-    this.setState({ event: newEvent });
-  };
+  static contextType = NotificationContext.NotificationContext;
 
   handleSubmit = (e: any) => {
     e.preventDefault();
@@ -142,6 +127,92 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
     const event = this.state.event;
     event.id = cuid();
     this.props.onCreate(this.state.event);
+  };
+
+  handleChangeName = (e: any) => {
+    const name = e.target.value;
+    this.setState((prevState: ICreateEventState) => ({
+      event: { ...prevState.event, name },
+    }));
+  };
+
+  handleChangeStartDate = (e: any) => {
+    const startDateString = e.target.value;
+    const startDate = new Date(`${startDateString}T00:00:00`);
+
+    if (!this.state.event.endDateString) {
+      return this.setState((prevState: ICreateEventState) => ({
+        event: { ...prevState.event, startDate, startDateString },
+      }));
+    }
+
+    if (this.state.event.endDate < startDate) {
+      return this.context.handleShowNotification("The start date must be lower than the end date");
+    }
+
+    this.setState((prevState: ICreateEventState) => ({
+      event: { ...prevState.event, startDate, startDateString },
+    }));
+  };
+
+  handleChangeEndDate = (e: any) => {
+    const endDateString = e.target.value;
+    const endDate = new Date(`${endDateString}T00:00:00`);
+    const startDate = new Date(`${this.state.event.startDateString}T00:00:00`);
+
+    if (!this.state.event.startDateString) {
+      this.setState((prevState: ICreateEventState) => ({
+        event: { ...prevState.event, endDate, endDateString },
+      }));
+    }
+    if (startDate > endDate) {
+      return this.context.handleShowNotification("The end date must be higher than the start date");
+    }
+
+    this.setState((prevState: ICreateEventState) => ({
+      event: { ...prevState.event, endDate, endDateString },
+    }));
+  };
+
+  handleChangeStartTime = (e: any) => {
+    const startTimeString = e.target.value;
+
+    if (!this.state.event.endTimeString) {
+      return this.setState((prevState: ICreateEventState) => ({
+        event: { ...prevState.event, startTimeString },
+      }));
+    }
+    const startTime = new Date(`2019-01-01T${startTimeString}:00`);
+    const endTime = new Date(`2019-01-01T${this.state.event.endTimeString}:00`);
+
+    if (endTime < startTime) {
+      return this.context.handleShowNotification("The end time must be higher than the start time");
+    }
+
+    this.setState((prevState: ICreateEventState) => ({
+      event: { ...prevState.event, startTimeString },
+    }));
+  };
+
+  handleChangeEndTime = (e: any) => {
+    const endTimeString = e.target.value;
+
+    if (!this.state.event.startTimeString) {
+      return this.setState((prevState: ICreateEventState) => ({
+        event: { ...prevState.event, endTimeString },
+      }));
+    }
+
+    const endTime = new Date(`2019-01-01T${endTimeString}:00`);
+    const startTime = new Date(`2019-01-01T${this.state.event.endTimeString}:00`);
+
+    if (endTime < startTime) {
+      return this.context.handleShowNotification("The end time must be higher than the start time");
+    }
+
+    this.setState((prevState: ICreateEventState) => ({
+      event: { ...prevState.event, endTimeString },
+    }));
   };
 
   handleChangeTortaPocchuc = (e: any) => {
@@ -191,7 +262,8 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
                 type="text"
                 name="name"
                 value={this.state.event.name}
-                onChange={this.handlePerInput}
+                onChange={this.handleChangeName}
+                required={true}
               />
             </DivMax>
 
@@ -202,7 +274,8 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
                   type="date"
                   name="startDateString"
                   value={this.state.event.startDateString}
-                  onChange={this.handlePerInput}
+                  onChange={this.handleChangeStartDate}
+                  required={true}
                 />
               </DivFG>
               <DivFG>
@@ -211,7 +284,8 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
                   type="time"
                   name="startTimeString"
                   value={this.state.event.startTimeString}
-                  onChange={this.handlePerInput}
+                  onChange={this.handleChangeStartTime}
+                  required={true}
                 />
               </DivFG>
               <br />
@@ -224,7 +298,8 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
                   type="date"
                   name="endDateString"
                   value={this.state.event.endDateString}
-                  onChange={this.handlePerInput}
+                  onChange={this.handleChangeEndDate}
+                  required={true}
                 />
               </DivFG>
 
@@ -234,7 +309,8 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
                   type="time"
                   name="endTimeString"
                   value={this.state.event.endTimeString}
-                  onChange={this.handlePerInput}
+                  onChange={this.handleChangeEndTime}
+                  required={true}
                 />
               </DivFG>
             </DivRightC>
@@ -257,19 +333,21 @@ export class CreateEvent extends React.Component<ICreateEventProps> {
             <DivRCMin>
               <DivMin>
                 <Input
-                  type="text"
+                  type="number"
                   name="pocChucTortaAmount"
                   value={this.state.event.pocChucTortaAmount}
                   onChange={this.handleChangeTortaPocchuc}
+                  required={true}
                 />
               </DivMin>
 
               <DivMin>
                 <Input
-                  type="text"
+                  type="number"
                   name="shrimpTortaAmount"
                   value={this.state.event.shrimpTortaAmount}
                   onChange={this.handleChangeTortaShrimp}
+                  required={true}
                 />
               </DivMin>
             </DivRCMin>
