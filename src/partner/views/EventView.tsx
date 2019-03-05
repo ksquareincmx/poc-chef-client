@@ -7,6 +7,7 @@ import { List } from "src/partner/modules/ui/List/List";
 import { ListStyled } from "src/partner/modules/ui";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { NotificationContext } from "src/providers";
+import styledComponents from "styled-components";
 
 export interface IEventViewProps {
   match: { params: { id: string } };
@@ -18,6 +19,13 @@ export interface ICurrentEventsViewState {
   localEvent: IEvent;
   showModalFinishEvent: boolean;
 }
+
+const FloatingFinishDiv = styledComponents.div`
+  position: fixed;
+  bottom: 60px;
+  width: 100%;
+  text-align: center;
+`;
 
 export class EventView extends React.Component<IEventViewProps, ICurrentEventsViewState> {
   public state = {
@@ -84,11 +92,11 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
             onEdit={this.handleEditEvent}
           />
         </List>
-        <ListStyled.RowData>
+        <FloatingFinishDiv>
           <ListStyled.GradientButton onClick={this.showModalFinishEvent}>
             Finish Event
           </ListStyled.GradientButton>
-        </ListStyled.RowData>
+        </FloatingFinishDiv>
         <Modal
           show={this.state.showModalFinishEvent}
           title="Finish Event"
