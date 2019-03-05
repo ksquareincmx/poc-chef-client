@@ -21,6 +21,11 @@ const P = styledComponents.p`
   margin:0;
 `;
 
+const OrderListContainer = styledComponents.div`
+  max-height: 150px;
+  overflow-y: auto;
+`;
+
 export interface IOrderListProps {
   orders: IOrder[];
   handleCheckAll: (checked: boolean) => void;
@@ -72,7 +77,7 @@ export const OrdersList: React.SFC<IOrderListProps> = props => {
         <div>Units</div>
         <div>Amounts</div>
       </OrdersTableTr>
-      {props.orders.map(getOrderTr)}
+      <OrderListContainer>{props.orders.map(getOrderTr)}</OrderListContainer>
     </>
   );
 };
