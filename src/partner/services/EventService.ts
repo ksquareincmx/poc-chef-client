@@ -1,5 +1,6 @@
 import { IEvent } from "src/partner/models/Event";
 import { EventMapper } from "src/partner/mappers";
+import { async } from "q";
 
 export interface IEventService {
   getCurrentEvents: () => Promise<IEvent[]>;
@@ -7,15 +8,23 @@ export interface IEventService {
 }
 
 export const eventService: IEventService = {
-  getCurrentEvents: () => {
-    return fetch("/api/current_events.json")
-      .then(res => res.json())
-      .then(data => data.events.map(EventMapper.toEntity));
+  getCurrentEvents: async () => {
+    try {
+      const res = await fetch("/api/current_events.json");
+      const data = await res.json();
+      return data.events.map(EventMapper.toEntity);
+    } catch (err) {
+      console.error(err);
+    }
   },
 
-  getPastEvents: () => {
-    return fetch("/api/past_events.json")
-      .then(res => res.json())
-      .then(data => data.events.map(EventMapper.toEntity));
-  }
+  getPastEvents: async () => {
+    try {
+      const res = await fetch("/api/past_events.json");
+      const data = await res.json();
+      return data.events.map(EventMapper.toEntity);
+    } catch (err) {
+      console.error(err);
+    }
+  },
 };
