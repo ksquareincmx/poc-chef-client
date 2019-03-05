@@ -70,8 +70,8 @@ export class EventOrdersContainer extends React.Component<
   async componentDidMount() {
     const orders = await EventService.eventService.getOrdersByEventId(this.props.eventId);
     this.setState(() => ({
-      paidOrders: orders.filter(o => o.paid),
-      unpaidOrders: orders.filter(o => !o.paid)
+      paidOrders: orders.filter((o: IOrderEntity) => o.paid),
+      unpaidOrders: orders.filter((o: IOrderEntity) => !o.paid)
     }));
   }
 
