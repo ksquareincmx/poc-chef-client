@@ -27,6 +27,12 @@ const FloatingFinishDiv = styledComponents.div`
   text-align: center;
 `;
 
+const CenteredDiv = styledComponents.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export class EventView extends React.Component<IEventViewProps, ICurrentEventsViewState> {
   public state = {
     isLoading: false,
@@ -82,7 +88,7 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
 
     return (
       <React.Fragment>
-        <Header title="Event view" />
+        <Header title={this.state.localEvent.orderNumber} />
         <List>
           <EventListItem
             handleCancelEvent={() => {}}
@@ -103,11 +109,11 @@ export class EventView extends React.Component<IEventViewProps, ICurrentEventsVi
           closeModal={this.closeModalFinishEvent}
         >
           <div>Are you sure you want to finish this event?</div>
-          <ListStyled.RowData>
+          <CenteredDiv>
             <ListStyled.GradientButton onClick={this.handleFinishEvent}>
               Confirm
             </ListStyled.GradientButton>
-          </ListStyled.RowData>
+          </CenteredDiv>
         </Modal>
       </React.Fragment>
     );
