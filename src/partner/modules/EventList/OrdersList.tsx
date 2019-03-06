@@ -21,6 +21,18 @@ const P = styledComponents.p`
   margin:0;
 `;
 
+const OrderListContainer = styledComponents.div`
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 12px;
+`;
+
+const CellDiv = styledComponents.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export interface IOrderListProps {
   orders: IOrder[];
   handleCheckAll: (checked: boolean) => void;
@@ -36,22 +48,22 @@ export const OrdersList: React.SFC<IOrderListProps> = props => {
   const getOrderTr = ({ id, products, total, checked }: IOrder) => {
     return (
       <OrdersTableTr key={id} backgroundGray={checked}>
-        <div>
+        <CellDiv>
           <input
             type="checkbox"
             name={`check_${id}`}
             checked={checked}
             onChange={(e: any) => props.handleCheckOrder(id, e)}
           />
-        </div>
-        <div>
+        </CellDiv>
+        <CellDiv>
           <P>Person</P>
-        </div>
+        </CellDiv>
         <div>{getListProductsPerField(products, "name")}</div>
         <div>{getListProductsPerField(products, "quantity")}</div>
-        <div>
+        <CellDiv>
           <P>{total}</P>
-        </div>
+        </CellDiv>
       </OrdersTableTr>
     );
   };
@@ -72,7 +84,7 @@ export const OrdersList: React.SFC<IOrderListProps> = props => {
         <div>Units</div>
         <div>Amounts</div>
       </OrdersTableTr>
-      {props.orders.map(getOrderTr)}
+      <OrderListContainer>{props.orders.map(getOrderTr)}</OrderListContainer>
     </>
   );
 };

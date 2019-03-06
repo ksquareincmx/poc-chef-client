@@ -8,14 +8,14 @@ export const ListItem = styledComponents.div({
   borderRadius: "10px",
   marginBottom: "10px",
   paddingBottom: "10px",
-  boxSizing: "border-box",
+  boxSizing: "border-box"
 });
 
 export const List = styledComponents.div({
   marginTop: "-25px",
   padding: "0 15px 16px 15px",
   height: "100%",
-  overflowY: "auto",
+  overflowY: "auto"
 });
 
 export interface IListItemRowProps {
@@ -42,7 +42,7 @@ export const Table = styledComponentsTS(styledComponents.table)`
 export const RowData = styledComponents.div({
   display: "flex",
   justifyContent: "space-between",
-  alignItems: "center",
+  alignItems: "center"
 });
 
 export interface ITextProps {
@@ -82,7 +82,7 @@ export const ImgMenu = styledComponents.img({
   width: "1.5em",
   height: "1.5em",
   padding: "0",
-  objectFit: "contain",
+  objectFit: "contain"
 });
 
 export const MenuOptions = styledComponents.div`
@@ -120,9 +120,7 @@ export const GradientButton = styledComponents.button`
   border-radius: 35px;
   color: #fff;
   padding: 10px 30px;
-  background: rgba(232,63,93, 0.8);
   background: linear-gradient(to right, rgba(248, 130, 61,1) 0%, rgba(232,63,93, 1) 100%);
-  margin: 0px auto;
   border: 0px;
 `;
 
