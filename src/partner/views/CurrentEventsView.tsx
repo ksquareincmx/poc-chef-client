@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Header } from "src/partner/modules/Header";
 import { EventListContainer } from "src/partner/modules/EventList";
 import { EventService } from "src/partner/services";
@@ -10,145 +10,138 @@ import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { CreateEvent } from "src/components/event/Create";
 import { ListStyled } from "src/partner/modules/ui";
 
-export interface ICurrentEventsViewState {
-  events: IEvent[];
-  isLoading: boolean;
-  error?: Error;
-  editEvent: boolean;
-  cancelEvent: boolean;
-  openModal: boolean;
-  currentEvent: IEvent;
-}
+export const CurrentEventsView: React.FC<{}> = () => {
+  const [events, setEvents] = useState<IEvent[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(undefined);
+  const [currentEvent, setCurrentEvent] = useState<IEvent>(event());
+  const [cancelEvent, setCancelEvent] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [editEvent, setEditEvent] = useState(false);
+  const notificationContext = useContext(NotificationContext.NotificationContext);
 
-export class CurrentEventsView extends React.Component<{}, ICurrentEventsViewState> {
-  state = {
-    events: [],
-    isLoading: false,
-    error: undefined,
-    editEvent: false,
-    cancelEvent: false,
-    currentEvent: event(),
-    openModal: false,
-  };
-  static contextType = NotificationContext.NotificationContext;
-
-  closeModalCancelEvent = () => {
-    this.setState({ cancelEvent: false, currentEvent: event() });
+  const closeModalCancelEvent = () => {
+    setCancelEvent(false);
+    setCurrentEvent(event());
   };
 
-  handleCancelEvent = () => {
-    const events = this.state.events.filter((e: IEvent) => e.id != this.state.currentEvent.id);
-    this.setState({ events, currentEvent: event(), cancelEvent: false });
-    this.context.handleShowNotification("The event has been cancelled.");
+  const handleCancelEvent = () => {
+    const newEvents = events.filter((e: IEvent) => e.id != currentEvent.id);
+    setEvents(newEvents);
+    setCurrentEvent(event());
+    setCancelEvent(false);
+    notificationContext.handleShowNotification("The event has been cancelled.");
   };
 
-  handleCreateEvent = (event: IEvent) => {
-    const newEvents: IEvent[] = [...this.state.events];
+  const handleCreateEvent = (event: IEvent) => {
+    const newEvents: IEvent[] = [...events];
     event.orderNumber = "Event: #" + (newEvents.length + 1);
     newEvents.push(event);
-    this.setState({ events: newEvents, openModal: false });
+    setEvents(newEvents);
+    setOpenModal(false);
   };
 
-  handleUpdateEvent = (updatedEvent: IEvent) => {
-    const newEvents = this.state.events.map((ev: IEvent) => {
+  const handleUpdateEvent = (updatedEvent: IEvent) => {
+    const newEvents = events.map((ev: IEvent) => {
       if (ev.id === updatedEvent.id) {
         return updatedEvent;
       }
       return ev;
     });
-    this.setState({ events: newEvents, currentEvent: event(), editEvent: false });
+    setEvents(newEvents);
+    setCurrentEvent(event());
+    setEditEvent(false);
   };
 
-  closeModal = () => {
-    this.setState({ openModal: false, currentEvent: event() });
+  const closeModal = () => {
+    setOpenModal(false);
+    setCurrentEvent(event());
   };
 
-  showModal = () => {
-    this.setState({ openModal: true });
+  const showModal = () => {
+    setOpenModal(true);
   };
 
-  showEditModal = (currentEvent: IEvent) => {
-    this.setState({ currentEvent, editEvent: true, openModal: true });
+  const showEditModal = (currentEvent: IEvent) => {
+    setCurrentEvent(currentEvent);
+    setEditEvent(true);
+    setOpenModal(true);
   };
 
-  showModalCancelEvent = (currentEvent: IEvent) => {
-    this.setState({ cancelEvent: true, currentEvent });
+  const showModalCancelEvent = (currentEvent: IEvent) => {
+    setCancelEvent(true);
+    setCurrentEvent(currentEvent);
   };
 
-  public async componentDidMount() {
-    this.setState({ isLoading: true });
+  const fetchEvents = async () => {
+    setIsLoading(true);
     try {
       const events = await EventService.eventService.getCurrentEvents();
       events.sort(dateComparator);
-      this.setState({ events, isLoading: false });
+      setEvents(events);
+      setIsLoading(false);
     } catch (err) {
-      this.setState({
-        isLoading: false,
-        error: err,
-      });
+      setError(err);
+      setIsLoading(false);
     }
-  }
+  };
 
-  public render() {
-    if (this.state.isLoading) {
-      return (
-        <React.Fragment>
-          <Header title="Current Events" />
-          <p>is loading</p>
-        </React.Fragment>
-      );
-    }
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
-    if (this.state.error) {
-      return (
-        <React.Fragment>
-          <Header title="Current Events" />
-          <p>is loading</p>
-        </React.Fragment>
-      );
-    }
-
-    const modalController = {
-      closeModal: this.closeModal,
-      showModal: this.showModal,
-      showModalCancelEvent: this.showModalCancelEvent,
-      showEditModal: this.showEditModal,
-    };
-
+  if (isLoading) {
     return (
       <React.Fragment>
         <Header title="Current Events" />
-        <EventListContainer
-          handleCancelEvent={this.handleCancelEvent}
-          events={this.state.events}
-          onEdit={this.handleUpdateEvent}
-          modalController={modalController}
-        />
-        <Modal title="Edit Event" show={this.state.openModal} closeModal={this.closeModal}>
-          <CreateEvent
-            editEvent={this.state.editEvent}
-            onCreate={this.handleCreateEvent}
-            onEdit={this.handleUpdateEvent}
-            closeModal={this.closeModal}
-            eventInfo={this.state.currentEvent}
-          />
-        </Modal>
-
-        <Modal
-          title="Cancel Event"
-          show={this.state.cancelEvent}
-          closeModal={this.closeModalCancelEvent}
-        >
-          <ListStyled.H2>Are you sure you want to cancel this event?</ListStyled.H2>
-          <ListStyled.RowData>
-            <ListStyled.GradientButton onClick={this.handleCancelEvent}>
-              Confirm
-            </ListStyled.GradientButton>
-          </ListStyled.RowData>
-        </Modal>
-
-        <FloatingAddButton onClick={this.showModal} />
+        <p>is loading</p>
       </React.Fragment>
     );
   }
-}
+
+  if (error) {
+    return (
+      <React.Fragment>
+        <Header title="Current Events" />
+        <p>is loading</p>
+      </React.Fragment>
+    );
+  }
+
+  const modalController = {
+    closeModal: closeModal,
+    showModal: showModal,
+    showModalCancelEvent: showModalCancelEvent,
+    showEditModal: showEditModal
+  };
+
+  return (
+    <React.Fragment>
+      <Header title="Current Events" />
+      <EventListContainer
+        handleCancelEvent={handleCancelEvent}
+        events={events}
+        onEdit={handleUpdateEvent}
+        modalController={modalController}
+      />
+      <Modal title="Edit Event" show={openModal} closeModal={closeModal}>
+        <CreateEvent
+          editEvent={editEvent}
+          onCreate={handleCreateEvent}
+          onEdit={handleUpdateEvent}
+          closeModal={closeModal}
+          eventInfo={currentEvent}
+        />
+      </Modal>
+
+      <Modal title="Cancel Event" show={cancelEvent} closeModal={closeModalCancelEvent}>
+        <ListStyled.H2>Are you sure you want to cancel this event?</ListStyled.H2>
+        <ListStyled.RowData>
+          <ListStyled.GradientButton onClick={handleCancelEvent}>Confirm</ListStyled.GradientButton>
+        </ListStyled.RowData>
+      </Modal>
+
+      <FloatingAddButton onClick={showModal} />
+    </React.Fragment>
+  );
+};
