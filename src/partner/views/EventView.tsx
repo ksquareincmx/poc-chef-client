@@ -33,89 +33,81 @@ const CenteredDiv = styledComponents.div`
   justify-content: center;
 `;
 
-export class EventView extends React.Component<IEventViewProps, ICurrentEventsViewState> {
-  public state = {
-    isLoading: false,
-    error: undefined,
-    localEvent: event(),
-    showModalFinishEvent: false
-  };
-  static contextType = NotificationContext.NotificationContext;
+export const EventView: React.FC<IEventViewProps> = props => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [localEvent, setLocalEvent] = React.useState<IEvent>(event());
+  const [error, setError] = React.useState(undefined);
+  const [showModal, setShowModal] = React.useState(false);
+  const context = React.useContext(NotificationContext.NotificationContext);
 
-  handleEditEvent = () => {};
+  const handleEditEvent = () => {};
 
-  public async componentDidMount() {
-    this.setState({ isLoading: true });
+  const fetchEvents = async () => {
+    setIsLoading(true);
     try {
       const events = await EventService.eventService.getCurrentEvents();
-      const localEvent = events.filter(e => e.id == this.props.match.params.id)[0] || event();
-      this.setState({ isLoading: false, localEvent });
+      const localEvent = events.filter(e => e.id == props.match.params.id)[0] || event();
+      setIsLoading(false);
+      setLocalEvent(localEvent);
     } catch (err) {
-      this.setState({
-        isLoading: false,
-        error: err
-      });
+      setIsLoading(false);
+      setError(err);
     }
-  }
+  };
+  React.useEffect(() => {
+    fetchEvents();
+  }, []);
 
-  handleFinishEvent = () => {
+  const handleFinishEvent = () => {
     // TODO: Finish event on the server
-    this.context.handleShowNotification("Event Finished");
-    this.closeModalFinishEvent();
+    context.handleShowNotification("Event Finished");
+    closeModalFinishEvent();
   };
 
-  showModalFinishEvent = () => {
-    this.setState({ showModalFinishEvent: true });
+  const showModalFinishEvent = () => {
+    setShowModal(true);
   };
 
-  closeModalFinishEvent = () => {
-    this.setState({ showModalFinishEvent: false });
+  const closeModalFinishEvent = () => {
+    setShowModal(false);
   };
 
-  public render() {
-    if (this.state.isLoading || this.state.error) {
-      return (
-        <React.Fragment>
-          <Header title="Event view" />
-          <p>loading</p>
-        </React.Fragment>
-      );
-    }
-
-    if (this.state.localEvent.id == "") {
-      return <>Selected event doesn't exist</>;
-    }
-
+  if (isLoading || error) {
     return (
       <React.Fragment>
-        <Header title={this.state.localEvent.orderNumber} />
-        <List>
-          <EventListItem
-            handleCancelEvent={() => {}}
-            key={this.state.localEvent.id}
-            eventInfo={this.state.localEvent}
-            eventView={true}
-            onEdit={this.handleEditEvent}
-          />
-        </List>
-        <FloatingFinishDiv>
-          <ListStyled.GradientButton onClick={this.showModalFinishEvent}>
-            Finish Event
-          </ListStyled.GradientButton>
-        </FloatingFinishDiv>
-        <Modal
-          show={this.state.showModalFinishEvent}
-          title="Finish Event"
-          closeModal={this.closeModalFinishEvent}
-        >
-          <div>Are you sure you want to finish this event?</div>
-          <CenteredDiv>
-            <ListStyled.GradientButton onClick={this.handleFinishEvent}>
-              Confirm
-            </ListStyled.GradientButton>
-          </CenteredDiv>
-        </Modal>
+        <Header title="Event view" />
+        <p>loading</p>
       </React.Fragment>
     );
   }
-}
+
+  if (localEvent.id == "") {
+    return <>Selected event doesn't exist</>;
+  }
+
+  return (
+    <React.Fragment>
+      <Header title={localEvent.orderNumber} />
+      <List>
+        <EventListItem
+          handleCancelEvent={() => {}}
+          key={localEvent.id}
+          eventInfo={localEvent}
+          eventView={true}
+          onEdit={handleEditEvent}
+        />
+      </List>
+      <FloatingFinishDiv>
+        <ListStyled.GradientButton onClick={showModalFinishEvent}>
+          Finish Event
+        </ListStyled.GradientButton>
+      </FloatingFinishDiv>
+      <Modal show={showModal} title="Finish Event" closeModal={closeModalFinishEvent}>
+        <div>Are you sure you want to finish this event?</div>
+        <CenteredDiv>
+          <ListStyled.GradientButton onClick={handleFinishEvent}>Confirm</ListStyled.GradientButton>
+        </CenteredDiv>
+      </Modal>
+    </React.Fragment>
+  );
+};
