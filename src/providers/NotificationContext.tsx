@@ -5,7 +5,7 @@ export const NotificationContext = React.createContext({
   notifcationText: "",
   showNotification: false,
   handleShowNotification: (text: string) => {},
-  handleCloseNotification: () => {}
+  handleCloseNotification: () => {},
 });
 
 export interface INotificationProviderState {
@@ -13,41 +13,36 @@ export interface INotificationProviderState {
   showNotification: boolean;
 }
 
-export class NotificationProvider extends React.Component<{}, INotificationProviderState> {
-  state = {
-    notifcationText: "",
-    showNotification: false
+export const NotificationProvider: React.FC<{}> = props => {
+  const [notificationText, setNotificationText] = React.useState("");
+  const [showNotification, setShowNotification] = React.useState(false);
+
+  const handleShowNotification = (text: string) => {
+    setNotificationText(text);
+    setShowNotification(true);
+    setTimeout(handleCloseNotification, 2500);
   };
 
-  handleShowNotification = (text: string) => {
-    this.setState({ notifcationText: text, showNotification: true });
-    setTimeout(this.handleCloseNotification, 2500);
+  const handleCloseNotification = () => {
+    setShowNotification(false);
+    resetNotificationText();
   };
 
-  handleCloseNotification = () => {
-    this.setState({ showNotification: false });
-    this.resetNotificationText();
+  const resetNotificationText = () => {
+    setNotificationText("");
   };
 
-  resetNotificationText = () => {
-    this.setState({ notifcationText: "" });
-  };
-
-  render() {
-    return (
-      <NotificationContext.Provider
-        value={{
-          notifcationText: this.state.notifcationText,
-          showNotification: this.state.showNotification,
-          handleShowNotification: this.handleShowNotification,
-          handleCloseNotification: this.handleCloseNotification
-        }}
-      >
-        {this.props.children}
-        {this.state.showNotification && (
-          <Notification text={this.state.notifcationText} close={this.handleCloseNotification} />
-        )}
-      </NotificationContext.Provider>
-    );
-  }
-}
+  return (
+    <NotificationContext.Provider
+      value={{
+        notifcationText: notificationText,
+        showNotification: showNotification,
+        handleShowNotification: handleShowNotification,
+        handleCloseNotification: handleCloseNotification,
+      }}
+    >
+      {props.children}
+      {showNotification && <Notification text={notificationText} close={handleCloseNotification} />}
+    </NotificationContext.Provider>
+  );
+};
