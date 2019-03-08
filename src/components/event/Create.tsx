@@ -12,7 +12,7 @@ const Input = styled.input({
   width: "88%",
   height: "40px",
   float: "left",
-  padding: "0px 15px",
+  padding: "0px 15px"
 });
 
 const Form = styled.form({
@@ -21,17 +21,17 @@ const Form = styled.form({
   width: "100%",
   margin: "5px auto",
   backgroundColor: "#FFFFFF",
-  overflow: "hidden",
+  overflow: "hidden"
 });
 
 const DivMin = styled.div({
   overflow: "0px 15px hidden",
   clear: "both",
-  float: "right",
+  float: "right"
 });
 const DivMax = styled.div({
   overflow: "hidden",
-  clear: "both",
+  clear: "both"
 });
 
 const Button = styled.button({
@@ -43,14 +43,14 @@ const Button = styled.button({
   borderRadius: "8px 8px 8px 8px",
   cursor: "pointer",
   marginTop: "40px",
-  fontSize: "18px",
+  fontSize: "18px"
 });
 
 const DivRCMin = styled.div({
   width: "23%",
   float: "right",
   boxSizing: "border-box",
-  padding: "0px 20px 0px -15px",
+  padding: "0px 20px 0px -15px"
 });
 
 const H4 = styled.h4({
@@ -59,7 +59,7 @@ const H4 = styled.h4({
   textShadow: "1px 1px 0px #FFF",
   fontFamily: "Arial",
   margin: "40px 0px 0px 0px",
-  borderBottom: "1px solid black",
+  borderBottom: "1px solid black"
 });
 
 const H1 = styled.h1({
@@ -68,35 +68,35 @@ const H1 = styled.h1({
   textShadow: "1px 1px 0px #FFF",
   margin: "50px 0px 0px 0px",
   fontFamily: "Arial",
-  borderBottom: "1px solid black",
+  borderBottom: "1px solid black"
 });
 
 const DivLeftC = styled.div({
   width: "49.5%",
   float: "left",
   boxSizing: "border-box",
-  padding: "0px 15px 0px 0px",
+  padding: "0px 15px 0px 0px"
 });
 
 const DivRightC = styled.div({
   width: "49.5%",
   float: "right",
   boxSizing: "border-box",
-  padding: "0px 0px 0px 15px",
+  padding: "0px 0px 0px 15px"
 });
 
 const DivCF = styled.div({
   padding: "5px",
-  fontFamily: "Arial",
+  fontFamily: "Arial"
 });
 
 const DivFG = styled.div({
   overflow: "hidden",
-  clear: "both",
+  clear: "both"
 });
 
 const InputError = styled.p({
-  color: "red",
+  color: "red"
 });
 
 export interface ICreateEventProps {
@@ -110,7 +110,7 @@ export interface ICreateEventProps {
 export interface ICreateEventState {
   event: IEvent;
 }
-const CreateEvent: React.FC<ICreateEventProps> = props => {
+export const CreateEvent: React.FC<ICreateEventProps> = props => {
   const [eventItem, setEvent] = React.useState<IEvent>(event());
 
   const context = React.useContext(NotificationContext.NotificationContext);
@@ -201,7 +201,7 @@ const CreateEvent: React.FC<ICreateEventProps> = props => {
     const newEvent = {
       ...eventItem,
       pocChucTortaAmount: pocChucTortaAmount,
-      pocChucTotal: pocChucTotal,
+      pocChucTotal: pocChucTotal
     };
     setEvent(newEvent);
   };
@@ -213,7 +213,7 @@ const CreateEvent: React.FC<ICreateEventProps> = props => {
     const newEvent = {
       ...eventItem,
       shrimpTortaAmount: shrimpTortaAmount,
-      shrimpTotal: shrimpTotal,
+      shrimpTotal: shrimpTotal
     };
     setEvent(newEvent);
   };
