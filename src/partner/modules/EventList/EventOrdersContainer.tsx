@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styledComponents from "styled-components";
 import styledComponentsTS from "styled-components-ts";
 import { OrdersList } from "./OrdersList";
@@ -55,48 +55,40 @@ export interface IEventOrdersContainerState {
   checkAll: boolean;
 }
 
-export class EventOrdersContainer extends React.Component<
-  IEventOrdersContainerProps,
-  IEventOrdersContainerState
-> {
-  state = {
-    paidOrders: [],
-    unpaidOrders: [],
-    showPaidOrders: false,
-    checkAll: false
+export const EventOrdersContainer: React.FC<IEventOrdersContainerProps> = props => {
+  const context = React.useContext(NotificationContext.NotificationContext);
+  const [paidOrders, setPaidOrders] = useState<IOrder[]>([]);
+  const [unpaidOrders, setUnpaidOrders] = useState<IOrder[]>([]);
+  const [showPaidOrders, setShowPaidOrders] = useState(false);
+  const [checkAll, setCheckAll] = useState(false);
+
+  const fetchOrders = async () => {
+    const orders = await EventService.eventService.getOrdersByEventId(props.eventId);
+    const paidOrders = orders.filter((o: IOrder) => o.paid);
+    const unpaidOrders = orders.filter((o: IOrder) => !o.paid);
+    setPaidOrders(paidOrders);
+    setUnpaidOrders(unpaidOrders);
   };
-  static contextType = NotificationContext.NotificationContext;
 
-  async componentDidMount() {
-    const orders = await EventService.eventService.getOrdersByEventId(this.props.eventId);
-    this.setState(() => ({
-      paidOrders: orders.filter((o: IOrder) => o.paid),
-      unpaidOrders: orders.filter((o: IOrder) => !o.paid)
-    }));
-  }
+  React.useEffect(() => {
+    fetchOrders();
+  }, []);
 
-  handleCheckAll = (checked: boolean) => {
+  const handleCheckAll = (checked: boolean) => {
     const checkOrder = (order: IOrder) => {
       order.checked = checked;
       return order;
     };
 
-    this.setState(prevState => {
-      return prevState.showPaidOrders
-        ? {
-            ...prevState,
-            checkAll: checked,
-            paidOrders: prevState.paidOrders.map(checkOrder)
-          }
-        : {
-            ...prevState,
-            checkAll: checked,
-            unpaidOrders: prevState.unpaidOrders.map(checkOrder)
-          };
-    });
+    setCheckAll(checked);
+
+    if (showPaidOrders) {
+      return setPaidOrders(paidOrders.map(checkOrder));
+    }
+    setUnpaidOrders(unpaidOrders.map(checkOrder));
   };
 
-  handleCheckOrder = (orderId: number, e: any) => {
+  const handleCheckOrder = (orderId: number, e: any) => {
     const checkOrder = (order: IOrder) => {
       if (order.id === orderId) {
         order.checked = e.currentTarget.checked;
@@ -104,68 +96,68 @@ export class EventOrdersContainer extends React.Component<
       return order;
     };
 
-    if (this.state.showPaidOrders) {
-      this.setState({ paidOrders: this.state.paidOrders.map(checkOrder) });
+    if (showPaidOrders) {
+      setPaidOrders(paidOrders.map(checkOrder));
     } else {
-      this.setState({ unpaidOrders: this.state.unpaidOrders.map(checkOrder) });
+      setUnpaidOrders(unpaidOrders.map(checkOrder));
     }
   };
 
-  handleMoveOrders = () => {
-    const { paidOrders, unpaidOrders } = this.state;
-    const keyOrders = this.state.showPaidOrders ? "paidOrders" : "unpaidOrders";
-    const checkedOrders = this.state[keyOrders].filter((order: IOrder) => order.checked);
-    const uncheckedOrders = this.state[keyOrders].filter((order: IOrder) => !order.checked);
+  const getCheckedAndUncheckedOrders = () => {
+    if (showPaidOrders) {
+      const checkedOrders = paidOrders.filter((order: IOrder) => order.checked);
+      const uncheckedOrders = paidOrders.filter((order: IOrder) => !order.checked);
+      return { checkedOrders, uncheckedOrders };
+    }
+    const checkedOrders = unpaidOrders.filter((order: IOrder) => order.checked);
+    const uncheckedOrders = unpaidOrders.filter((order: IOrder) => !order.checked);
+    return { checkedOrders, uncheckedOrders };
+  };
 
-    this.setState(prevState => {
-      return prevState.showPaidOrders
-        ? {
-            paidOrders: uncheckedOrders,
-            unpaidOrders: [...unpaidOrders, ...checkedOrders]
-          }
-        : {
-            unpaidOrders: uncheckedOrders,
-            paidOrders: [...paidOrders, ...checkedOrders]
-          };
-    });
+  const handleMoveOrders = () => {
+    const { checkedOrders, uncheckedOrders } = getCheckedAndUncheckedOrders();
+    if (showPaidOrders) {
+      setPaidOrders(uncheckedOrders);
+      setUnpaidOrders([...unpaidOrders, ...checkedOrders]);
+    } else {
+      setUnpaidOrders(uncheckedOrders);
+      setPaidOrders([...paidOrders, ...checkedOrders]);
+    }
     if (checkedOrders.length > 0) {
-      this.context.handleShowNotification(
-        `Orders marked as ${this.state.showPaidOrders ? "unpaid" : "paid"}.`
-      );
+      context.handleShowNotification(`Orders marked as ${showPaidOrders ? "unpaid" : "paid"}.`);
     }
+    setCheckAll(false);
   };
 
-  handleShowTabs = (paidTab: boolean) => {
-    this.setState(() => ({ showPaidOrders: paidTab }), () => this.handleCheckAll(false));
+  const handleShowTabs = (paidTab: boolean) => {
+    setShowPaidOrders(paidTab);
+    handleCheckAll(false);
   };
 
-  render() {
-    const { paidOrders, unpaidOrders, showPaidOrders } = this.state;
-    return (
-      <>
-        <DivOptionsRow>
-          <DivOption>Event Summary</DivOption>
-          <DivOption alternativeColor>
-            <ATag onClick={this.handleMoveOrders}>
-              {this.state.showPaidOrders ? "MOVE TO UNPAID" : "MOVE TO PAID"}
-            </ATag>
-          </DivOption>
-        </DivOptionsRow>
-        <DivOptionsRow>
-          <DivOption active={!showPaidOrders} alternativeColor={!showPaidOrders}>
-            <ATag onClick={() => this.handleShowTabs(false)}>Unpaid People</ATag>
-          </DivOption>
-          <DivOption active={showPaidOrders}>
-            <ATag onClick={() => this.handleShowTabs(true)}>Paid People</ATag>
-          </DivOption>
-        </DivOptionsRow>
-        <OrdersList
-          orders={showPaidOrders ? paidOrders : unpaidOrders}
-          handleCheckAll={this.handleCheckAll}
-          handleCheckOrder={this.handleCheckOrder}
-          checkAll={this.state.checkAll}
-        />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <DivOptionsRow>
+        <DivOption>Event Summary</DivOption>
+        <DivOption alternativeColor>
+          <ATag onClick={handleMoveOrders}>
+            {showPaidOrders ? "MOVE TO UNPAID" : "MOVE TO PAID"}
+          </ATag>
+        </DivOption>
+      </DivOptionsRow>
+      <DivOptionsRow>
+        <DivOption active={!showPaidOrders} alternativeColor={!showPaidOrders}>
+          <ATag onClick={() => handleShowTabs(false)}>Unpaid People</ATag>
+        </DivOption>
+        <DivOption active={showPaidOrders}>
+          <ATag onClick={() => handleShowTabs(true)}>Paid People</ATag>
+        </DivOption>
+      </DivOptionsRow>
+      <OrdersList
+        orders={showPaidOrders ? paidOrders : unpaidOrders}
+        handleCheckAll={handleCheckAll}
+        handleCheckOrder={handleCheckOrder}
+        checkAll={checkAll}
+      />
+    </>
+  );
+};
