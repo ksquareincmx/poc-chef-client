@@ -110,252 +110,228 @@ export interface ICreateEventProps {
 export interface ICreateEventState {
   event: IEvent;
 }
-export class CreateEvent extends React.Component<ICreateEventProps, ICreateEventState> {
-  state = {
-    event: event(),
-  };
+const CreateEvent: React.FC<ICreateEventProps> = props => {
+  const [eventItem, setEvent] = React.useState<IEvent>(event());
 
-  static contextType = NotificationContext.NotificationContext;
+  const context = React.useContext(NotificationContext.NotificationContext);
 
-  handleSubmit = (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (this.props.editEvent) {
-      this.props.onEdit(this.state.event);
-      this.props.closeModal();
+    if (props.editEvent) {
+      props.onEdit(eventItem);
+      props.closeModal();
       return;
     }
-    const event = this.state.event;
+    const event = eventItem;
     event.id = cuid();
-    this.props.onCreate(this.state.event);
+    props.onCreate(eventItem);
   };
 
-  handleChangeName = (e: any) => {
+  const handleChangeName = (e: any) => {
     const name = e.target.value;
-    this.setState((prevState: ICreateEventState) => ({
-      event: { ...prevState.event, name },
-    }));
+    setEvent({ ...eventItem, name });
   };
 
-  handleChangeStartDate = (e: any) => {
+  const handleChangeStartDate = (e: any) => {
     const startDateString = e.target.value;
     const startDate = new Date(`${startDateString}T00:00:00`);
 
-    if (!this.state.event.endDateString) {
-      return this.setState((prevState: ICreateEventState) => ({
-        event: { ...prevState.event, startDate, startDateString },
-      }));
+    if (!eventItem.endDateString) {
+      return setEvent({ ...eventItem, startDate, startDateString });
     }
 
-    if (this.state.event.endDate < startDate) {
-      return this.context.handleShowNotification("The start date must be lower than the end date");
+    if (eventItem.endDate < startDate) {
+      return context.handleShowNotification("The start date must be lower than the end date");
     }
 
-    this.setState((prevState: ICreateEventState) => ({
-      event: { ...prevState.event, startDate, startDateString },
-    }));
+    setEvent({ ...eventItem, startDate, startDateString });
   };
 
-  handleChangeEndDate = (e: any) => {
+  const handleChangeEndDate = (e: any) => {
     const endDateString = e.target.value;
     const endDate = new Date(`${endDateString}T00:00:00`);
-    const startDate = new Date(`${this.state.event.startDateString}T00:00:00`);
+    const startDate = new Date(`${eventItem.startDateString}T00:00:00`);
 
-    if (!this.state.event.startDateString) {
-      this.setState((prevState: ICreateEventState) => ({
-        event: { ...prevState.event, endDate, endDateString },
-      }));
+    if (!eventItem.startDateString) {
+      setEvent({ ...eventItem, endDate, endDateString });
     }
     if (startDate > endDate) {
-      return this.context.handleShowNotification("The end date must be higher than the start date");
+      return context.handleShowNotification("The end date must be higher than the start date");
     }
-
-    this.setState((prevState: ICreateEventState) => ({
-      event: { ...prevState.event, endDate, endDateString },
-    }));
+    setEvent({ ...eventItem, endDate, endDateString });
   };
 
-  handleChangeStartTime = (e: any) => {
+  const handleChangeStartTime = (e: any) => {
     const startTimeString = e.target.value;
 
-    if (!this.state.event.endTimeString) {
-      return this.setState((prevState: ICreateEventState) => ({
-        event: { ...prevState.event, startTimeString },
-      }));
+    if (!eventItem.endTimeString) {
+      return setEvent({ ...eventItem, startTimeString });
     }
     const startTime = new Date(`2019-01-01T${startTimeString}:00`);
-    const endTime = new Date(`2019-01-01T${this.state.event.endTimeString}:00`);
+    const endTime = new Date(`2019-01-01T${eventItem.endTimeString}:00`);
 
     if (endTime < startTime) {
-      return this.context.handleShowNotification("The end time must be higher than the start time");
+      return context.handleShowNotification("The end time must be higher than the start time");
     }
 
-    this.setState((prevState: ICreateEventState) => ({
-      event: { ...prevState.event, startTimeString },
-    }));
+    setEvent({ ...eventItem, startTimeString });
   };
 
-  handleChangeEndTime = (e: any) => {
+  const handleChangeEndTime = (e: any) => {
     const endTimeString = e.target.value;
 
-    if (!this.state.event.startTimeString) {
-      return this.setState((prevState: ICreateEventState) => ({
-        event: { ...prevState.event, endTimeString },
-      }));
+    if (!eventItem.startTimeString) {
+      return setEvent({ ...eventItem, endTimeString });
     }
 
     const endTime = new Date(`2019-01-01T${endTimeString}:00`);
-    const startTime = new Date(`2019-01-01T${this.state.event.endTimeString}:00`);
+    const startTime = new Date(`2019-01-01T${eventItem.endTimeString}:00`);
 
     if (endTime < startTime) {
-      return this.context.handleShowNotification("The end time must be higher than the start time");
+      return context.handleShowNotification("The end time must be higher than the start time");
     }
 
-    this.setState((prevState: ICreateEventState) => ({
-      event: { ...prevState.event, endTimeString },
-    }));
+    setEvent({ ...eventItem, endTimeString });
   };
 
-  handleChangeTortaPocchuc = (e: any) => {
+  const handleChangeTortaPocchuc = (e: any) => {
     const pocChucTortaAmount = e.currentTarget.value;
-    const pocChucTotal = pocChucTortaAmount * this.state.event.pocChucTortaUnitPrice;
+    const pocChucTotal = pocChucTortaAmount * eventItem.pocChucTortaUnitPrice;
 
-    const event = {
-      ...this.state.event,
+    const newEvent = {
+      ...eventItem,
       pocChucTortaAmount: pocChucTortaAmount,
       pocChucTotal: pocChucTotal,
     };
-    this.setState({ event });
+    setEvent(newEvent);
   };
 
-  handleChangeTortaShrimp = (e: any) => {
+  const handleChangeTortaShrimp = (e: any) => {
     const shrimpTortaAmount = e.currentTarget.value;
-    const shrimpTotal = shrimpTortaAmount * this.state.event.shrimpTortaUnitPrice;
+    const shrimpTotal = shrimpTortaAmount * eventItem.shrimpTortaUnitPrice;
 
-    const event = {
-      ...this.state.event,
+    const newEvent = {
+      ...eventItem,
       shrimpTortaAmount: shrimpTortaAmount,
       shrimpTotal: shrimpTotal,
     };
-    this.setState({ event });
+    setEvent(newEvent);
   };
 
-  componentDidMount() {
-    if (this.props.editEvent) {
-      const eventFormatted = utils.getEventFormat(this.props.eventInfo);
-      this.setState({
-        event: eventFormatted,
-      });
+  React.useEffect(() => {
+    if (props.editEvent) {
+      const eventFormatted = utils.getEventFormat(props.eventInfo);
+      setEvent(eventFormatted);
     }
+  }, []);
+
+  let textButton = "Create Event";
+  if (props.editEvent) {
+    textButton = "Edit Event";
   }
-  render() {
-    let textButton = "Create Event";
-    if (this.props.editEvent) {
-      textButton = "Edit Event";
-    }
-    return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
-          <DivCF>
-            <DivMax>
-              <p>Event Name:</p>
+  return (
+    <div>
+      <Form onSubmit={handleSubmit}>
+        <DivCF>
+          <DivMax>
+            <p>Event Name:</p>
+            <Input
+              type="text"
+              name="name"
+              value={eventItem.name}
+              onChange={handleChangeName}
+              required={true}
+            />
+          </DivMax>
+
+          <DivLeftC>
+            <DivFG>
+              <p>Start Event:</p>
               <Input
-                type="text"
-                name="name"
-                value={this.state.event.name}
-                onChange={this.handleChangeName}
+                type="date"
+                name="startDateString"
+                value={eventItem.startDateString}
+                onChange={handleChangeStartDate}
                 required={true}
               />
-            </DivMax>
+            </DivFG>
+            <DivFG>
+              <p>Start Hour:</p>
+              <Input
+                type="time"
+                name="startTimeString"
+                value={eventItem.startTimeString}
+                onChange={handleChangeStartTime}
+                required={true}
+              />
+            </DivFG>
+            <br />
+          </DivLeftC>
 
-            <DivLeftC>
-              <DivFG>
-                <p>Start Event:</p>
-                <Input
-                  type="date"
-                  name="startDateString"
-                  value={this.state.event.startDateString}
-                  onChange={this.handleChangeStartDate}
-                  required={true}
-                />
-              </DivFG>
-              <DivFG>
-                <p>Start Hour:</p>
-                <Input
-                  type="time"
-                  name="startTimeString"
-                  value={this.state.event.startTimeString}
-                  onChange={this.handleChangeStartTime}
-                  required={true}
-                />
-              </DivFG>
+          <DivRightC>
+            <DivFG>
+              <p>End Date:</p>
+              <Input
+                type="date"
+                name="endDateString"
+                value={eventItem.endDateString}
+                onChange={handleChangeEndDate}
+                required={true}
+              />
+            </DivFG>
+
+            <DivFG>
+              <p>End Hour:</p>
+              <Input
+                type="time"
+                name="endTimeString"
+                value={eventItem.endTimeString}
+                onChange={handleChangeEndTime}
+                required={true}
+              />
+            </DivFG>
+          </DivRightC>
+        </DivCF>
+
+        <H4>Price</H4>
+
+        <DivCF>
+          <DivLeftC>
+            <DivFG>
               <br />
-            </DivLeftC>
+              <p>Tortas Poc chuc</p>
+            </DivFG>
+            <br />
+            <DivFG>
+              <p>Tortas Camarón </p>
+            </DivFG>
+          </DivLeftC>
 
-            <DivRightC>
-              <DivFG>
-                <p>End Date:</p>
-                <Input
-                  type="date"
-                  name="endDateString"
-                  value={this.state.event.endDateString}
-                  onChange={this.handleChangeEndDate}
-                  required={true}
-                />
-              </DivFG>
+          <DivRCMin>
+            <DivMin>
+              <Input
+                type="number"
+                name="pocChucTortaAmount"
+                value={eventItem.pocChucTortaAmount}
+                onChange={handleChangeTortaPocchuc}
+                required={true}
+              />
+            </DivMin>
 
-              <DivFG>
-                <p>End Hour:</p>
-                <Input
-                  type="time"
-                  name="endTimeString"
-                  value={this.state.event.endTimeString}
-                  onChange={this.handleChangeEndTime}
-                  required={true}
-                />
-              </DivFG>
-            </DivRightC>
-          </DivCF>
+            <DivMin>
+              <Input
+                type="number"
+                name="shrimpTortaAmount"
+                value={eventItem.shrimpTortaAmount}
+                onChange={handleChangeTortaShrimp}
+                required={true}
+              />
+            </DivMin>
+          </DivRCMin>
+        </DivCF>
 
-          <H4>Price</H4>
-
-          <DivCF>
-            <DivLeftC>
-              <DivFG>
-                <br />
-                <p>Tortas Poc chuc</p>
-              </DivFG>
-              <br />
-              <DivFG>
-                <p>Tortas Camarón </p>
-              </DivFG>
-            </DivLeftC>
-
-            <DivRCMin>
-              <DivMin>
-                <Input
-                  type="number"
-                  name="pocChucTortaAmount"
-                  value={this.state.event.pocChucTortaAmount}
-                  onChange={this.handleChangeTortaPocchuc}
-                  required={true}
-                />
-              </DivMin>
-
-              <DivMin>
-                <Input
-                  type="number"
-                  name="shrimpTortaAmount"
-                  value={this.state.event.shrimpTortaAmount}
-                  onChange={this.handleChangeTortaShrimp}
-                  required={true}
-                />
-              </DivMin>
-            </DivRCMin>
-          </DivCF>
-
-          <Button type="submit">{textButton}</Button>
-        </Form>
-      </div>
-    );
-  }
-}
+        <Button type="submit">{textButton}</Button>
+      </Form>
+    </div>
+  );
+};
