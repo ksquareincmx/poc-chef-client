@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styledComponents from "styled-components";
 import styledComponentsTS from "styled-components-ts";
 import { OrdersList } from "./OrdersList";
@@ -51,7 +51,6 @@ export interface IEventOrdersContainerProps {
 export interface IEventOrdersContainerState {
   paidOrders: IOrder[];
   unpaidOrders: IOrder[];
-  showPaidOrders: boolean;
   checkAll: boolean;
 }
 
@@ -59,8 +58,8 @@ export const EventOrdersContainer: React.FC<IEventOrdersContainerProps> = props 
   const context = React.useContext(NotificationContext.NotificationContext);
   const [paidOrders, setPaidOrders] = useState<IOrder[]>([]);
   const [unpaidOrders, setUnpaidOrders] = useState<IOrder[]>([]);
-  const [showPaidOrders, setShowPaidOrders] = useState(false);
   const [checkAll, setCheckAll] = useState(false);
+  const showPaidOrders = useRef(false);
 
   const fetchOrders = async () => {
     const orders = await EventService.eventService.getOrdersByEventId(props.eventId);
@@ -82,7 +81,7 @@ export const EventOrdersContainer: React.FC<IEventOrdersContainerProps> = props 
 
     setCheckAll(checked);
 
-    if (showPaidOrders) {
+    if (showPaidOrders.current) {
       return setPaidOrders(paidOrders.map(checkOrder));
     }
     setUnpaidOrders(unpaidOrders.map(checkOrder));
@@ -96,7 +95,7 @@ export const EventOrdersContainer: React.FC<IEventOrdersContainerProps> = props 
       return order;
     };
 
-    if (showPaidOrders) {
+    if (showPaidOrders.current) {
       setPaidOrders(paidOrders.map(checkOrder));
     } else {
       setUnpaidOrders(unpaidOrders.map(checkOrder));
@@ -104,7 +103,7 @@ export const EventOrdersContainer: React.FC<IEventOrdersContainerProps> = props 
   };
 
   const getCheckedAndUncheckedOrders = () => {
-    if (showPaidOrders) {
+    if (showPaidOrders.current) {
       const checkedOrders = paidOrders.filter((order: IOrder) => order.checked);
       const uncheckedOrders = paidOrders.filter((order: IOrder) => !order.checked);
       return { checkedOrders, uncheckedOrders };
@@ -116,7 +115,7 @@ export const EventOrdersContainer: React.FC<IEventOrdersContainerProps> = props 
 
   const handleMoveOrders = () => {
     const { checkedOrders, uncheckedOrders } = getCheckedAndUncheckedOrders();
-    if (showPaidOrders) {
+    if (showPaidOrders.current) {
       setPaidOrders(uncheckedOrders);
       setUnpaidOrders([...unpaidOrders, ...checkedOrders]);
     } else {
@@ -124,13 +123,15 @@ export const EventOrdersContainer: React.FC<IEventOrdersContainerProps> = props 
       setPaidOrders([...paidOrders, ...checkedOrders]);
     }
     if (checkedOrders.length > 0) {
-      context.handleShowNotification(`Orders marked as ${showPaidOrders ? "unpaid" : "paid"}.`);
+      context.handleShowNotification(
+        `Orders marked as ${showPaidOrders.current ? "unpaid" : "paid"}.`
+      );
     }
     setCheckAll(false);
   };
 
   const handleShowTabs = (paidTab: boolean) => {
-    setShowPaidOrders(paidTab);
+    showPaidOrders.current = paidTab;
     handleCheckAll(false);
   };
 
@@ -140,20 +141,20 @@ export const EventOrdersContainer: React.FC<IEventOrdersContainerProps> = props 
         <DivOption>Event Summary</DivOption>
         <DivOption alternativeColor>
           <ATag onClick={handleMoveOrders}>
-            {showPaidOrders ? "MOVE TO UNPAID" : "MOVE TO PAID"}
+            {showPaidOrders.current ? "MOVE TO UNPAID" : "MOVE TO PAID"}
           </ATag>
         </DivOption>
       </DivOptionsRow>
       <DivOptionsRow>
-        <DivOption active={!showPaidOrders} alternativeColor={!showPaidOrders}>
+        <DivOption active={!showPaidOrders.current} alternativeColor={!showPaidOrders}>
           <ATag onClick={() => handleShowTabs(false)}>Unpaid People</ATag>
         </DivOption>
-        <DivOption active={showPaidOrders}>
+        <DivOption active={showPaidOrders.current}>
           <ATag onClick={() => handleShowTabs(true)}>Paid People</ATag>
         </DivOption>
       </DivOptionsRow>
       <OrdersList
-        orders={showPaidOrders ? paidOrders : unpaidOrders}
+        orders={showPaidOrders.current ? paidOrders : unpaidOrders}
         handleCheckAll={handleCheckAll}
         handleCheckOrder={handleCheckOrder}
         checkAll={checkAll}
