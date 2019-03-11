@@ -4,6 +4,10 @@ import Background from "src/images/add-button.svg";
 
 export const FloatingAddButton = styled.button({
   display: "block",
+  position: "fixed",
+  zIndex: 2,
+  right: "16px",
+  bottom: "64px",
   height: "50px",
   width: "50px",
   borderRadius: "50%",
