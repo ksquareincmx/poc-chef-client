@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./css/index.css";
 import PartnerApp from "./partner/App";
+import UserApp from "./user/App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
@@ -9,10 +10,11 @@ ReactDOM.render(
   <Router>
     <Switch>
       <Route path="/partner/" component={PartnerApp} />
+      <Route path="/user/" component={UserApp} />
       <Route route="/" component={() => <Redirect to="/partner/current-events" />} />
     </Switch>
   </Router>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want your app to work offline and load faster, you can change
