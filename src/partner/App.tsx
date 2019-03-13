@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { CurrentEventsView, EventView, PastEventsView } from "./views";
 import { NavBar } from "./modules/NavBar";
 import { NotificationContext } from "../providers/";
-import { IReactRouterProps } from "src/commun/interfaces";
+import { IReactRouterProps } from "src/common/interfaces";
 
 const PartnerApp: React.SFC<IReactRouterProps> = props => {
   return (
