@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { NavBarContainer, Item } from "src/partner/modules/ui/NavBar/NavBar";
 import { NavBarStyled } from "src/partner/modules/ui";
+import styledComponents from "styled-components";
 
 const NavBarStyle = {
   display: "flex",
@@ -22,7 +23,41 @@ const NavBarActiveStyle = {
   fontStyle: "bold",
 };
 
-export const NavBar = () => {
+export const Img = styledComponents.img({
+  width: "2.5em",
+  height: "2.5em",
+  objectFit: "contain",
+});
+
+interface INavBarProps {
+  user?: boolean;
+}
+
+export const NavBar: React.FC<INavBarProps> = props => {
+  let leftNav: any = "Current Events";
+  let rightNav: any = "Past Events";
+  let linkLeft = "/partner/current-events";
+  let linkRight = "/partner/past-events";
+  const [rightState, setRightState] = React.useState("");
+  const [leftState, setLeftState] = React.useState("");
+
+  if (props.user) {
+    leftNav = <Img src={require(`src/images/assignment${leftState}.svg`)} />;
+    rightNav = <Img src={require(`src/images/restaurant${rightState}.svg`)} />;
+    linkLeft = "/user/my-events";
+    linkRight = "/user/order";
+  }
+
+  const handleClickRight = () => {
+    setRightState("-active");
+    setLeftState("");
+  };
+
+  const handleClickLeft = () => {
+    setLeftState("-active");
+    setRightState("");
+  };
+
   return (
     <NavBarStyled.NavBarContainer>
       <NavBarStyled.Item>
@@ -35,14 +70,24 @@ export const NavBar = () => {
             "background: linear-gradient(to right, #E83E5D, #F8823D);" +
             "}"}
         </style>
-        <NavLink to="/partner/current-events" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
-          Current Events
+        <NavLink
+          to={linkLeft}
+          activeStyle={NavBarActiveStyle}
+          style={NavBarStyle}
+          onClick={handleClickLeft}
+        >
+          {leftNav}
         </NavLink>
         <div />
       </NavBarStyled.Item>
       <NavBarStyled.Item>
-        <NavLink to="/partner/past-events" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
-          Past Events
+        <NavLink
+          to={linkRight}
+          activeStyle={NavBarActiveStyle}
+          style={NavBarStyle}
+          onClick={handleClickRight}
+        >
+          {rightNav}
         </NavLink>
         <div />
       </NavBarStyled.Item>
