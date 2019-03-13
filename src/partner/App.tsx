@@ -3,14 +3,9 @@ import { Route, Switch } from "react-router-dom";
 import { CurrentEventsView, EventView, PastEventsView } from "./views";
 import { NavBar } from "./modules/NavBar";
 import { NotificationContext } from "../providers/";
+import { IReactRouterProps } from "src/common/interfaces";
 
-interface IPartnerAppProps {
-  match: {
-    url: string;
-  };
-}
-
-const PartnerApp: React.SFC<IPartnerAppProps> = props => {
+const PartnerApp: React.SFC<IReactRouterProps> = props => {
   return (
     <div>
       <NotificationContext.NotificationProvider>
