@@ -1,15 +1,10 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Profile from "./views//Profile";
+import { Profile } from "./views/Profile/";
+import { IReactRouterProps } from "src/commun/interfaces";
 import { NavBar } from "src/partner/modules/NavBar";
 
-interface IUserAppProps {
-  match: {
-    url: string;
-  };
-}
-
-const UserApp: React.SFC<IUserAppProps> = props => {
+const UserApp: React.SFC<IReactRouterProps> = props => {
   return (
     <div>
       <Switch>

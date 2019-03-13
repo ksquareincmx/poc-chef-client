@@ -72,7 +72,7 @@ const ImageButton = styled.button({
   boxShadow: "-2px 2px 10px #bdbdbd",
 });
 
-const Profile: React.FC = () => {
+export const Profile: React.FC = () => {
   const [name, setName] = React.useState("");
 
   const handleChangeName = (e: any) => {
@@ -95,5 +95,3 @@ const Profile: React.FC = () => {
     </div>
   );
 };
-
-export default Profile;
