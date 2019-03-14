@@ -5,7 +5,7 @@ import { EventService } from "src/partner/services";
 import { IEvent, event } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
-import { FloatingAddButton } from "src/components/FloatingAddButton/FloatingAddButton";
+import { Button } from "src/components/FloatingAddButton/FloatingAddButton";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { CreateEvent } from "src/components/event/Create";
 import { ListStyled } from "src/partner/modules/ui";
@@ -112,7 +112,7 @@ export const CurrentEventsView: React.FC<{}> = () => {
     closeModal: closeModal,
     showModal: showModal,
     showModalCancelEvent: showModalCancelEvent,
-    showEditModal: showEditModal
+    showEditModal: showEditModal,
   };
 
   return (
@@ -141,7 +141,7 @@ export const CurrentEventsView: React.FC<{}> = () => {
         </ListStyled.RowData>
       </Modal>
 
-      <FloatingAddButton onClick={showModal} />
+      <Button onClick={showModal} />
     </React.Fragment>
   );
 };
