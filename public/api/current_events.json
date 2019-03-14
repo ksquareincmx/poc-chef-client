@@ -21,6 +21,17 @@
       "shrimp_torta_unit_price": 28,
       "shrimp_torta_amount": 3,
       "total": 22
+    },
+    {
+      "id": "3",
+      "name": "Tortas para la oficina semana 2",
+      "start_date": "1995-12-19T15:24:00",
+      "end_date": "1995-12-20T03:24:00",
+      "poc_chuc_torta_unit_price": 22,
+      "poc_chuc_torta_amount": 22,
+      "shrimp_torta_unit_price": 28,
+      "shrimp_torta_amount": 3,
+      "total": 22
     }
   ]
 }
