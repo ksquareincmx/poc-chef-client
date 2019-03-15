@@ -135,7 +135,7 @@ export const CurrentEventsView: React.FC<{}> = () => {
       </Modal>
 
       <Modal title="Cancel Event" show={cancelEvent} closeModal={closeModalCancelEvent}>
-        <ListStyled.H2>Are you sure you want to cancel this event?</ListStyled.H2>
+        <ListStyled.ModalText>Are you sure you want to cancel this event?</ListStyled.ModalText>
         <ListStyled.RowData>
           <ListStyled.GradientButton onClick={handleCancelEvent}>Confirm</ListStyled.GradientButton>
         </ListStyled.RowData>

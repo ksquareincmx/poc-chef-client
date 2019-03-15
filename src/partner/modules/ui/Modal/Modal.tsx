@@ -17,9 +17,9 @@ const ModalContainer = styledComponentsTS(styledComponents.div)`
 `;
 
 const ModalWrapper = styledComponents.div`
-  width:500px;
+  width:300px;
   background-color: #fff;
-  border-radius: 15px;
+  border-radius: 8px;
   padding: 15px;
 `;
 
@@ -32,6 +32,9 @@ const ModalTitle = styledComponents.div`
 `;
 const ModalBody = styledComponents.div`
   padding:5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const CloseButton = styledComponents.button`
