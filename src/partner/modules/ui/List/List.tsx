@@ -8,14 +8,14 @@ export const ListItem = styledComponents.div({
   borderRadius: "10px",
   marginBottom: "10px",
   paddingBottom: "10px",
-  boxSizing: "border-box",
+  boxSizing: "border-box"
 });
 
 export const List = styledComponents.div({
   marginTop: "-25px",
   padding: "0 15px 16px 15px",
   height: "430px",
-  overflowY: "auto",
+  overflowY: "auto"
 });
 
 export interface IListItemRowProps {
@@ -42,7 +42,7 @@ export const Table = styledComponentsTS(styledComponents.table)`
 export const RowData = styledComponents.div({
   display: "flex",
   justifyContent: "space-between",
-  alignItems: "center",
+  alignItems: "center"
 });
 
 export interface ITextProps {
@@ -85,44 +85,6 @@ export const P = styledComponentsTS<ITextProps>(styledComponents.p)`
   font-style: bold;
   justify-content: space-between;
   text-align: ${(props: ITextProps) => props.align || "center"};
-`;
-
-export const ImgMenu = styledComponents.img({
-  width: "1.5em",
-  height: "1.5em",
-  padding: "0",
-  objectFit: "contain",
-});
-
-export const MenuOptions = styledComponents.div`
-  position: relative;
-  display: inline-block;
-`;
-
-export interface IMenuOptionsContent {
-  show?: boolean;
-}
-
-export const MenuOptionsContent = styledComponentsTS<IMenuOptionsContent>(styledComponents.div)`
-  display: ${(props: IMenuOptionsContent) => (props.show ? "block" : "none")};
-  position: absolute;
-  background-color: #fff;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  right: -20px;
-  top: 33.5px;
-  & > a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-  }
-  & > a:hover {
-    background-color: #ddd;
-
-  }
 `;
 
 export const GradientButton = styledComponents.button`

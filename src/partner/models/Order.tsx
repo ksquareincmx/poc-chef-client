@@ -1,6 +1,12 @@
 export interface IProduct {
   name: string;
-  type: string;
+  quantity: number;
+  price: string;
+  [key: string]: any;
+}
+
+export interface IProductDTO {
+  name: string;
   quantity: number;
   price: number;
   [key: string]: any;
@@ -11,7 +17,7 @@ export interface IOrder {
   order: string;
   products: IProduct[];
   date: string;
-  total: number;
+  total: string;
   paid: boolean;
   checked: boolean;
   [key: string]: any;
@@ -24,24 +30,4 @@ export interface IOrderDTO {
   date: string;
   total: number;
   paid: boolean;
-}
-
-export interface IEventEntity {
-  name: string;
-  startDate: string;
-  endDate: string;
-  startHour: string;
-  endHour: string;
-  tortaPocchuc: number;
-  tortaCamaron: number;
-}
-
-export interface IEvent {
-  name: string;
-  startDate: string;
-  endDate: string;
-  startHour: string;
-  endHour: string;
-  tortaPocchuc: number;
-  tortaCamaron: number;
 }
