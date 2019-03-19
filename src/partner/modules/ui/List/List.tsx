@@ -68,6 +68,15 @@ export const H2 = styledComponentsTS<ITextProps>(styledComponents.h2)`
   text-align: ${(props: ITextProps) => props.align};
 `;
 
+export const ModalText = styledComponentsTS<ITextProps>(styledComponents.p)`
+  font-family: unset;
+  font-size: 14px;
+  width: 100%;
+  margin-top:8px;
+  margin-bottom: 24px;
+  text-align: ${(props: ITextProps) => props.align};
+`;
+
 export const P = styledComponentsTS<ITextProps>(styledComponents.p)`
   margin: 5px 0 0 0;
   padding: 0;
@@ -84,6 +93,8 @@ export const GradientButton = styledComponents.button`
   padding: 10px 30px;
   background: linear-gradient(to right, rgba(248, 130, 61,1) 0%, rgba(232,63,93, 1) 100%);
   border: 0px;
+  font-size:14px;
+  font-weight: bold;
 `;
 
 export default List;
