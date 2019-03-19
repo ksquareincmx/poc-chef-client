@@ -22,7 +22,7 @@ const Img = styled.img({
 export interface IButton {
   onClick: () => void;
 }
-export const Button: React.SFC<IButton> = props => {
+export const RemoveButton: React.SFC<IButton> = props => {
   return (
     <FloatingRemoveButton onClick={props.onClick}>
       <Img src={require("src/images/remove-button.svg")} />
