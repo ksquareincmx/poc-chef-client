@@ -10,9 +10,9 @@ interface IProductListProps {
 export const ProductList: React.SFC<IProductListProps> = props => {
   const getProductRow = (product: IProduct) => {
     return (
-      <ListItemRow key={`product_${product.id}`}>
+      <ListItemRow key={product.orderProductId}>
         <RowProducts>
-          <Cell key={`name_${product.id}`}>{product.name}</Cell>
+          <Cell key={`name_${product.orderProductId}`}>{product.name}</Cell>
           <Cell key={`quantity_${product.id}`} align="right">
             {product.quantity}
           </Cell>

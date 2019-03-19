@@ -5,11 +5,13 @@
       "orderProductId": 1,
       "products": [
         {
+          "orderProductId": 1,
           "name": "Poc-Chuc",
           "quantity": 2,
           "price": 25.5
         },
         {
+          "orderProductId": 2,
           "name": "Camarón",
           "quantity": 1,
           "price": 25.1
@@ -25,6 +27,7 @@
       "orderProductId": 2,
       "products": [
         {
+          "orderProductId": 3,
           "name": "Poc-Chuc",
           "description": "contiene carne de cerdo, que es marinada en naranja agria y cocinado a la plancha o en parrilla",
           "quantity": 3,
@@ -41,12 +44,14 @@
       "orderProductId": 3,
       "products": [
         {
+          "orderProductId": 4,
           "name": "Poc-Chuc",
           "description": "contiene carne de cerdo, que es marinada en naranja agria y cocinado a la plancha o en parrilla",
           "quantity": 2,
           "price": 25
         },
         {
+          "orderProductId": 5,
           "name": "Camarón",
           "description": "contiene camaron",
           "quantity": 1,
@@ -63,6 +68,7 @@
       "orderProductId": 4,
       "products": [
         {
+          "orderProductId": 6,
           "name": "Poc-Chuc",
           "description": "contiene carne de cerdo, que es marinada en naranja agria y cocinado a la plancha o en parrilla",
           "quantity": 2,
@@ -79,6 +85,7 @@
       "orderProductId": 5,
       "products": [
         {
+          "orderProductId": 7,
           "name": "Poc-Chuc",
           "description": "contiene carne de cerdo, que es marinada en naranja agria y cocinado a la plancha o en parrilla",
           "quantity": 2,
