@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-export const FloatingAddButton = styled.div({
+export const FloatingRemoveButton = styled.div({
   display: "flex",
   position: "relative",
   height: "20px",
@@ -24,8 +24,8 @@ export interface IButton {
 }
 export const Button: React.SFC<IButton> = props => {
   return (
-    <FloatingAddButton onClick={props.onClick}>
+    <FloatingRemoveButton onClick={props.onClick}>
       <Img src={require("src/images/remove-button.svg")} />
-    </FloatingAddButton>
+    </FloatingRemoveButton>
   );
 };

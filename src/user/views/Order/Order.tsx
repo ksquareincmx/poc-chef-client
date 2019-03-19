@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Header } from "src/partner/modules/Header";
-import { Button } from "src/components/FloatingRemoveButton/FloatingRemoveButton";
+import { RemoveButton } from "src/components/FloatingRemoveButton/FloatingRemoveButton";
 
 const ListItem = styled.div({
   boxShadow: "-2px 2px 10px #bdbdbd",
@@ -101,7 +101,7 @@ export const Order = () => {
               <p>Torta de poc-chuc</p>
               <p>$22.00 MXN</p>
               <RemoveButtonContainer>
-                <Button onClick={handleClickRemoveButton} />
+                <RemoveButton onClick={handleClickRemoveButton} />
               </RemoveButtonContainer>
               <InputTorta />
             </Row>
@@ -109,7 +109,7 @@ export const Order = () => {
               <p>Torta de poc-chuc</p>
               <p>$22.00 MXN</p>
               <RemoveButtonContainer>
-                <Button onClick={handleClickRemoveButton} />
+                <RemoveButton onClick={handleClickRemoveButton} />
               </RemoveButtonContainer>
               <InputTorta />
             </Row>
