@@ -1,5 +1,7 @@
 import { IOrder, IOrderDTO } from "../models/Order";
-import { unixDateToString, numberDecimals } from "src/common/utils/utils";
+import { numberDecimals } from "src/common/utils/utils";
+import { unixDateToString } from "src/common/mappers/DateMapper";
+
 export const toEntity = (dto: IOrderDTO): IOrder => {
   return {
     id: dto.id,

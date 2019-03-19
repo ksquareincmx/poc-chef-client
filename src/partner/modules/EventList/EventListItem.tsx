@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";
 import { EventOrdersContainer } from "./EventOrdersContainer";
-import { MenuOptions } from "src/common/ui/MenuOptions";
+import { MenuOptions } from "src/common/ui/MenuOptions/";
 
 export interface IEventItemProps {
   eventInfo: IEvent;
@@ -29,7 +29,7 @@ export const EventListItem: React.SFC<IEventItemProps> = props => {
           <ListStyled.H1 align="left">{props.eventInfo.orderNumber}</ListStyled.H1>
           {!props.eventView && (
             <MenuOptions>
-              <Link to={"events/" + props.eventInfo.id}>View Event</Link>
+              <Link to={`events/${props.eventInfo.id}`}>View Event</Link>
               <a onClick={handleEditEvent}>Edit Event</a>
               <a onClick={showModalCancelEvent}>Cancel Event</a>
             </MenuOptions>
