@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Header } from "src/partner/modules/Header";
+import { Button } from "src/components/FloatingRemoveButton/FloatingRemoveButton";
 
 const ListItem = styled.div({
   boxShadow: "-2px 2px 10px #bdbdbd",
@@ -77,6 +78,16 @@ const TotalPrice = styled.div({
 const Price = styled.p({
   marginLeft: "70px",
 });
+
+const RemoveButtonContainer = styled.div({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+const handleClickRemoveButton = () => {
+  console.log("remove");
+};
 export const Order = () => {
   return (
     <div>
@@ -89,11 +100,17 @@ export const Order = () => {
             <Row>
               <p>Torta de poc-chuc</p>
               <p>$22.00 MXN</p>
+              <RemoveButtonContainer>
+                <Button onClick={handleClickRemoveButton} />
+              </RemoveButtonContainer>
               <InputTorta />
             </Row>
             <Row>
               <p>Torta de poc-chuc</p>
               <p>$22.00 MXN</p>
+              <RemoveButtonContainer>
+                <Button onClick={handleClickRemoveButton} />
+              </RemoveButtonContainer>
               <InputTorta />
             </Row>
           </TortasContainer>
