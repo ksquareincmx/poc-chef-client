@@ -1,29 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { OrderItem } from "./OrderItem";
-import { orderService } from "src/user/services/OrderService";
 import { IOrder } from "src/partner/models/Order";
-import styledComponents from "styled-components";
-import styledComponentsTS from "styled-components-ts";
 import { List } from "src/partner/modules/ui/List/List";
+import reducer, {
+  initialState,
+  startFechthing,
+  getOrders
+} from "src/user/reducers/orderListReducer";
 
 interface IOrderListContainerProps {
   userId: number;
 }
 
 export const OrderListContainer: React.FC<IOrderListContainerProps> = props => {
-  const [orders, setOrders] = useState<IOrder[]>([]);
-
-  const fetchOrders = async () => {
-    const orders = await orderService.getOrdersByUserId(props.userId);
-    setOrders(orders);
-  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    fetchOrders();
+    startFechthing(dispatch);
+    getOrders(props.userId, dispatch);
   }, []);
 
   const printListOrders = () => {
-    return orders.map((order, idx) => <OrderItem order={order} key={idx} />);
+    return state.orders.map((order: IOrder, idx: number) => <OrderItem order={order} key={idx} />);
   };
-  return <List>{printListOrders()}</List>;
+
+  return (
+    <List>
+      {state.loading && <>Loading</>}
+      {state.error && <>An error has occurred, please try again</>}
+      {!state.loading && !state.error && printListOrders()}
+    </List>
+  );
 };
