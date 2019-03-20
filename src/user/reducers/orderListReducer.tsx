@@ -17,12 +17,12 @@ interface IState {
 
 export interface Iaction {
   type: string;
-  payload?: string;
+  payload: any;
   error?: boolean;
   meta?: any;
 }
 
-export default function reducer(state: any, action: Iaction) {
+export default function reducer(state: IState, action: Iaction): IState {
   switch (action.type) {
     case FETCHING:
       return { ...state, loading: true };
@@ -30,7 +30,7 @@ export default function reducer(state: any, action: Iaction) {
       return {
         loading: false,
         orders: action.error ? [] : action.payload,
-        error: action.error
+        error: action.error ? action.error : false
       };
     default:
       return state;
