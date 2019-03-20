@@ -1,0 +1,31 @@
+import React from "react";
+import styled from "@emotion/styled";
+
+export const FloatingRemoveButton = styled.div({
+  display: "flex",
+  position: "relative",
+  height: "20px",
+  width: "20px",
+  borderRadius: "50%",
+  background: "linear-gradient(to right, #E83E5D, #F8823D);",
+  backgroundSize: "60px 60px",
+  backgroundRepeat: "no-repeat",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+const Img = styled.img({
+  position: "absolute",
+  width: "80%",
+  height: "80%",
+});
+export interface IButtonProps {
+  onClick: () => void;
+}
+export const RemoveButton: React.SFC<IButtonProps> = props => {
+  return (
+    <FloatingRemoveButton onClick={props.onClick}>
+      <Img src={require("src/images/remove-button.svg")} />
+    </FloatingRemoveButton>
+  );
+};
