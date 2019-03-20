@@ -1,1 +1,0 @@
-export { MyEvents } from "./MyEvents";

@@ -13,20 +13,20 @@ const NavBarStyle = {
   fontFamily: "unset",
   fontSize: "14px",
   textDecoration: "none",
-  color: "Gray",
+  color: "Gray"
 };
 
 const NavBarActiveStyle = {
   ...NavBarStyle,
   color: "#E83E5D",
   background: "WhiteSmoke",
-  fontStyle: "bold",
+  fontStyle: "bold"
 };
 
 export const Img = styledComponents.img({
   width: "2.5em",
   height: "2.5em",
-  objectFit: "contain",
+  objectFit: "contain"
 });
 
 interface INavBarProps {
@@ -44,7 +44,7 @@ export const NavBar: React.FC<INavBarProps> = props => {
   if (props.user) {
     leftNav = <Img src={require(`src/images/assignment${leftState}.svg`)} />;
     rightNav = <Img src={require(`src/images/restaurant${rightState}.svg`)} />;
-    linkLeft = "/user/my-events";
+    linkLeft = "/user/my-orders";
     linkRight = "/user/order";
   }
 

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";
 import { EventOrdersContainer } from "./EventOrdersContainer";
+import { MenuOptions } from "src/common/ui/MenuOptions/";
 
 export interface IEventItemProps {
   eventInfo: IEvent;
@@ -12,13 +13,7 @@ export interface IEventItemProps {
   modalController?: any;
 }
 
-export const EventListItem: React.FC<IEventItemProps> = props => {
-  const [showMenu, setShowMenu] = useState(false);
-
-  const showMenuHandler = () => {
-    setShowMenu(!showMenu);
-  };
-
+export const EventListItem: React.SFC<IEventItemProps> = props => {
   const showModalCancelEvent = () => {
     props.modalController.showModalCancelEvent(props.eventInfo);
   };
@@ -33,14 +28,11 @@ export const EventListItem: React.FC<IEventItemProps> = props => {
         <ListStyled.RowData>
           <ListStyled.H1 align="left">{props.eventInfo.orderNumber}</ListStyled.H1>
           {!props.eventView && (
-            <ListStyled.MenuOptions onClick={showMenuHandler}>
-              <ListStyled.ImgMenu src={require("../../../images/menu-icon.png")} alt="options" />
-              <ListStyled.MenuOptionsContent show={showMenu}>
-                <Link to={"events/" + props.eventInfo.id}>View Event</Link>
-                <a onClick={handleEditEvent}>Edit Event</a>
-                <a onClick={showModalCancelEvent}>Cancel Event</a>
-              </ListStyled.MenuOptionsContent>
-            </ListStyled.MenuOptions>
+            <MenuOptions>
+              <Link to={`events/${props.eventInfo.id}`}>View Event</Link>
+              <a onClick={handleEditEvent}>Edit Event</a>
+              <a onClick={showModalCancelEvent}>Cancel Event</a>
+            </MenuOptions>
           )}
         </ListStyled.RowData>
       </ListStyled.ListItemRow>
