@@ -35,9 +35,9 @@ const UPDATE_EVENT = "partner/views/currentEvent/UPDATE_EVENT";
 const SHOW_MODAL = "partner/views/currentEvent/SHOW_MODAL";
 const SHOW_EDIT_MODAL = "partner/views/currentEvent/SHOW_EDIT_MODAL";
 const SHOW_MODAL_CANCEL_EVENT = "partner/views/currentEvent/SHOW_MODAL_CANCEL_EVENT";
-const START_FETCHING = "partner/views/currentEvent/START_FETCHING";
-const FETCHING_SUCESS = "partner/views/currentEvent/FETCHING_SUCESS";
-const FETCHING_ERROR = "partner/views/currentEvent/FETCHING_ERROR";
+const FETCH_CURRENT_EVENT_START = "partner/views/currentEvent/FETCH_CURRENT_EVENT_START";
+const FETCH_CURRENT_EVENT_SUCCESS = "partner/views/currentEvent/FETCH_CURRENT_EVENT_SUCCESS";
+const FETCH_CURRENT_EVENT_FAIL = "partner/views/currentEvent/FETCH_CURRENT_EVENT_FAIL";
 
 export const reducer = (state: IState, action: IActions): IState => {
   switch (action.type) {
@@ -68,11 +68,11 @@ export const reducer = (state: IState, action: IActions): IState => {
       return { ...state, currentEvent: action.payload, editEvent: true, openModal: true };
     case SHOW_MODAL_CANCEL_EVENT:
       return { ...state, cancelEvent: true, currentEvent: action.payload };
-    case START_FETCHING:
+    case FETCH_CURRENT_EVENT_START:
       return { ...state, isLoading: true };
-    case FETCHING_SUCESS:
+    case FETCH_CURRENT_EVENT_SUCCESS:
       return { ...state, events: action.payload, isLoading: false };
-    case FETCHING_ERROR:
+    case FETCH_CURRENT_EVENT_FAIL:
       return { ...state, error: action.payload, isLoading: false };
     default:
       return state;
@@ -109,15 +109,15 @@ export function showModalCancelEvent(event: IEvent) {
 }
 
 export function startFetching() {
-  return { type: START_FETCHING };
+  return { type: FETCH_CURRENT_EVENT_START };
 }
 
 export function fetchingSucess(events: IEvent[]) {
-  return { type: FETCHING_SUCESS, payload: events };
+  return { type: FETCH_CURRENT_EVENT_SUCCESS, payload: events };
 }
 
 export function fetchingError(error: any) {
-  return { type: FETCHING_ERROR, payload: error };
+  return { type: FETCH_CURRENT_EVENT_FAIL, payload: error };
 }
 
 export function closeModalCancelEvent() {
