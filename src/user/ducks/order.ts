@@ -44,20 +44,20 @@ export const fetchOrdersStarted = () => {
   return { type: FETCH_ORDERS_START };
 };
 
-export const fetchOrdersSuccess = (orders: IOrder[]) => {
+export const fetchOrdersSucceed = (orders: IOrder[]) => {
   return { type: FETCH_ORDERS_SUCCESS, payload: orders, error: false };
 };
 
-export const fetchOrdersFailure = (error: Error) => {
-  return { type: FETCH_ORDERS_FAIL, payload: error, error: false };
+export const fetchOrdersFailured = (error: Error) => {
+  return { type: FETCH_ORDERS_FAIL, payload: error, error: true };
 };
 
 export const getOrders = async (userId: number, dispatch: dispatchType) => {
   dispatch(fetchOrdersStarted());
   try {
     const orders = await orderService.getOrdersByUserId(userId);
-    dispatch(fetchOrdersSuccess(orders));
+    dispatch(fetchOrdersSucceed(orders));
   } catch (err) {
-    dispatch(fetchOrdersFailure(new Error("error at fetching orders")));
+    dispatch(fetchOrdersFailured(new Error("error at fetching orders")));
   }
 };
