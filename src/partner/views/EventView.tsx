@@ -1,24 +1,12 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { EventListItem } from "src/partner/modules/EventList/EventListItem";
 import { Header } from "src/partner/modules/Header";
-import { EventService } from "src/partner/services";
-import { IEvent, event } from "src/partner/models/Event";
 import { List } from "src/partner/modules/ui/List/List";
 import { ListStyled } from "src/partner/modules/ui";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { NotificationContext } from "src/providers";
 import styledComponents from "styled-components";
-
-export interface IEventViewProps {
-  match: { params: { id: string } };
-}
-
-export interface ICurrentEventsViewState {
-  isLoading: boolean;
-  error?: Error;
-  localEvent: IEvent;
-  showModalFinishEvent: boolean;
-}
+import reducer, { initialState, fetchEvent } from "../reducers/eventViewReducer";
 
 const FloatingFinishDiv = styledComponents.div`
   position: fixed;
@@ -33,29 +21,21 @@ const CenteredDiv = styledComponents.div`
   justify-content: center;
 `;
 
+export interface ICurrentEventsViewState {
+  showModalFinishEvent: boolean;
+}
+
+export interface IEventViewProps {
+  match: { params: { id: string } };
+}
+
 export const EventView: React.FC<IEventViewProps> = props => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [localEvent, setLocalEvent] = React.useState<IEvent>(event());
-  const [error, setError] = React.useState(undefined);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [showModal, setShowModal] = React.useState(false);
   const context = React.useContext(NotificationContext.NotificationContext);
 
-  const handleEditEvent = () => {};
-
-  const fetchEvents = async () => {
-    setIsLoading(true);
-    try {
-      const events = await EventService.eventService.getCurrentEvents();
-      const localEvent = events.filter(e => e.id == props.match.params.id)[0] || event();
-      setIsLoading(false);
-      setLocalEvent(localEvent);
-    } catch (err) {
-      setIsLoading(false);
-      setError(err);
-    }
-  };
   React.useEffect(() => {
-    fetchEvents();
+    fetchEvent(props.match.params.id, dispatch);
   }, []);
 
   const handleFinishEvent = () => {
@@ -72,7 +52,9 @@ export const EventView: React.FC<IEventViewProps> = props => {
     setShowModal(false);
   };
 
-  if (isLoading || error) {
+  const handleEditEvent = () => {};
+
+  if (state.isLoading || state.error) {
     return (
       <React.Fragment>
         <Header title="Event view" />
@@ -81,18 +63,18 @@ export const EventView: React.FC<IEventViewProps> = props => {
     );
   }
 
-  if (localEvent.id == "") {
+  if (state.localEvent.id == "") {
     return <>Selected event doesn't exist</>;
   }
 
   return (
     <React.Fragment>
-      <Header title={localEvent.orderNumber} />
+      <Header title={state.localEvent.orderNumber} />
       <List>
         <EventListItem
           handleCancelEvent={() => {}}
-          key={localEvent.id}
-          eventInfo={localEvent}
+          key={state.localEvent.id}
+          eventInfo={state.localEvent}
           eventView={true}
           onEdit={handleEditEvent}
         />
