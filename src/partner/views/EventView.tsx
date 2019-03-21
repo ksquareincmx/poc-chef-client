@@ -6,7 +6,7 @@ import { ListStyled } from "src/partner/modules/ui";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { NotificationContext } from "src/providers";
 import styledComponents from "styled-components";
-import reducer, { initialState, fetchEvent } from "../reducers/eventViewReducer";
+import reducer, { initialState, fetchEvent } from "../ducks/event";
 
 const FloatingFinishDiv = styledComponents.div`
   position: fixed;

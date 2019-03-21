@@ -2,11 +2,7 @@ import React, { useEffect, useState, useReducer } from "react";
 import { OrderItem } from "./OrderItem";
 import { IOrder } from "src/partner/models/Order";
 import { List } from "src/partner/modules/ui/List/List";
-import reducer, {
-  initialState,
-  startFechthing,
-  getOrders
-} from "src/user/reducers/orderListReducer";
+import reducer, { initialState, getOrders } from "src/user/ducks/order";
 
 interface IOrderListContainerProps {
   userId: number;
@@ -16,7 +12,6 @@ export const OrderListContainer: React.FC<IOrderListContainerProps> = props => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    startFechthing(dispatch);
     getOrders(props.userId, dispatch);
   }, []);
 
