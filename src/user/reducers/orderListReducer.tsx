@@ -17,16 +17,16 @@ interface IState {
   error: boolean;
 }
 
-export interface Iaction {
+export interface IAction {
   type: string;
   payload?: any;
   error?: boolean;
   meta?: any;
 }
 
-type dispatchType = (action: Iaction) => void;
+type dispatchType = (action: IAction) => void;
 
-export default function reducer(state: IState, action: Iaction): IState {
+export default function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case FETCHING:
       return { ...state, loading: true };
