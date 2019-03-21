@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { EventView, PastEventsView } from "./views";
-import { CurrentEventsView } from "./views/CurrentEventsView";
+import { CurrentEventsView } from "./views/CurrentEventView";
 import { NavBar } from "./modules/NavBar";
 import { NotificationContext } from "../providers/";
 import { IReactRouterProps } from "src/common/interfaces";

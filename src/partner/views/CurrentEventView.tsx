@@ -23,7 +23,7 @@ import {
   fetchingSucess,
   fetchingError,
   closeModalCancelEvent,
-} from "../ducks/CurrentEventViewReducer";
+} from "../ducks/currentEvent";
 
 export const CurrentEventsView: React.FC<{}> = () => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
@@ -39,11 +39,11 @@ export const CurrentEventsView: React.FC<{}> = () => {
   };
 
   const handleCreateEvent = (event: IEvent) => {
-    dispatch(createEvent(state.events, event));
+    dispatch(createEvent(event));
   };
 
   const handleUpdateEvent = (event: IEvent) => {
-    dispatch(updateEvent(state.events, event));
+    dispatch(updateEvent(event));
   };
 
   const handleCloseModal = () => {
