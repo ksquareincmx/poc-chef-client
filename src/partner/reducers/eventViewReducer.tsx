@@ -19,7 +19,14 @@ export const initialState = {
   localEvent: event()
 };
 
-export default function reducer(state: any, action: any): IState {
+interface Iaction {
+  type: string;
+  payload?: any;
+  meta?: any;
+  error?: boolean;
+}
+
+export default function reducer(state: IState, action: Iaction): IState {
   switch (action.type) {
     case START_FETCH:
       return { ...state, isLoading: true };
@@ -32,14 +39,7 @@ export default function reducer(state: any, action: any): IState {
   }
 }
 
-interface action {
-  type: string;
-  payload?: any;
-  meta?: any;
-  error?: boolean;
-}
-
-type dispatchType = (action: action) => void;
+type dispatchType = (action: Iaction) => void;
 
 export async function fetchEvent(eventId: number | string, dispatch: dispatchType) {
   startFetching(dispatch);
