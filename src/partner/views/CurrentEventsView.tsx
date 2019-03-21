@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Header } from "src/partner/modules/Header";
 import { EventListContainer } from "src/partner/modules/EventList";
 import { EventService } from "src/partner/services";
-import { IEvent, event } from "src/partner/models/Event";
+import { IEvent } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
 import { Button } from "src/components/FloatingAddButton/FloatingAddButton";
