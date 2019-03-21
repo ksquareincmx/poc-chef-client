@@ -28,4 +28,4 @@ TODO
 
 ### License
 
-TODO
+[MIT](https://github.com/ksquareincmx/poc-chef-client/blob/master/LICENSE)
