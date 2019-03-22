@@ -11,7 +11,7 @@ import {
   startFetching,
   fetchingSucess,
   fetchingError,
-  updateEvent,
+  editEvent,
 } from "src/partner/ducks/pastEvent";
 
 export const PastEventsView: React.FC = () => {
@@ -34,8 +34,7 @@ export const PastEventsView: React.FC = () => {
   }, []);
 
   const handleEditEvent = (event: IEvent) => {
-    console.log(event);
-    dispatch(updateEvent(event));
+    dispatch(editEvent(event));
   };
 
   const handleCancelEvent = () => {

@@ -33,8 +33,18 @@ export function fetchingSucess(events: IEvent[]) {
 export function fetchingError(error: any) {
   return { type: FETCH_PAST_EVENT_FAIL, payload: error };
 }
-export function updateEvent(event: IEvent) {
+export function editEvent(event: IEvent) {
   return { type: UPDATE_EVENT, payload: event };
+}
+function updateEvent(state: IState, action: IAction) {
+  const newEvents = state.events.map((ev: IEvent) => {
+    if (ev["id"] === action.payload["id"]) {
+      return event;
+    }
+    return ev;
+  });
+
+  return { ...state, events: newEvents };
 }
 
 export function reducer(state: IState, action: IAction) {
@@ -46,13 +56,7 @@ export function reducer(state: IState, action: IAction) {
     case FETCH_PAST_EVENT_FAIL:
       return { ...state, isLoading: false, error: action.payload };
     case UPDATE_EVENT:
-      const newEvents = state.events.map((ev: IEvent) => {
-        if (ev["id"] === action.payload["id"]) {
-          return event;
-        }
-        return ev;
-      });
-      return { ...state, events: newEvents };
+      return updateEvent(state, action);
 
     default:
       return state;
