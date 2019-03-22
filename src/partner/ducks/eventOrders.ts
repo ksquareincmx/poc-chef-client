@@ -1,6 +1,6 @@
 import { IOrder } from "../models/Order";
 import { EventService } from "../services";
-import { IFluxStandardAction, IFluxStandarDispatch } from ".";
+import { IFluxStandardAction, ReduxDispatch } from "./index";
 
 export const MODULE = "partner/eventOrders/";
 export const FETCH_ALL_ORDERS_BY_EVENT_ID_START = `${MODULE}/FETCH_EVENT_ORDERS_START`;
@@ -161,7 +161,7 @@ export const moveCheckedOrdersToUnpaid = () => {
   return { type: MOVE_CHECKED_ORDERS_TO_UNPAID };
 };
 
-export const fetchEventOrders = async (eventId: string, dispatch: IFluxStandarDispatch) => {
+export const fetchEventOrders = async (eventId: string, dispatch: ReduxDispatch) => {
   dispatch(fetchEventOrdersStarted());
   try {
     const orders = await EventService.eventService.getOrdersByEventId(eventId);

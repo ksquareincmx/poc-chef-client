@@ -5,4 +5,4 @@ export interface IFluxStandardAction {
   error?: boolean;
 }
 
-export type IFluxStandarDispatch = (action: IFluxStandardAction) => void;
+export type ReduxDispatch = (action: IFluxStandardAction) => void;
