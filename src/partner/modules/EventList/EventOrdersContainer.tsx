@@ -2,14 +2,15 @@ import React, { useState, useRef, useReducer, useEffect } from "react";
 import styledComponents from "styled-components";
 import styledComponentsTS from "styled-components-ts";
 import { OrdersList } from "./OrdersList";
-import { IOrder } from "src/partner/models/Order";
 import { NotificationContext } from "src/providers";
 import reducerEventOrders, {
   initialEventOrdersState,
   fetchEventOrders,
-  checkAllOrders,
-  checkOneOrderById,
-  moveOrders
+  checkAllPaidOrders,
+  checkPaidOrderById,
+  checkUnpaidOrderById,
+  moveCheckedOrdersToUnpaid,
+  moveCheckedOrdersToPaid
 } from "src/partner/ducks/eventOrders";
 
 interface IDivOptions {
@@ -65,15 +66,29 @@ export const EventOrdersContainer: React.FC<IEventOrdersContainerProps> = props 
 
   const handleCheckAll = (checked: boolean) => {
     setCheckAll(checked);
-    checkAllOrders(showPaidOrders.current, checked, dispatch);
+    if (showPaidOrders.current) {
+      dispatch(checkAllPaidOrders(checked));
+    } else {
+      dispatch(checkAllPaidOrders(checked));
+    }
   };
 
   const handleCheckOrder = (orderId: string, e: any) => {
-    checkOneOrderById(showPaidOrders.current, e.currentTarget.checked, orderId, dispatch);
+    const checked = e.currentTarget.checked;
+    if (showPaidOrders.current) {
+      dispatch(checkPaidOrderById(orderId, checked));
+    } else {
+      dispatch(checkUnpaidOrderById(orderId, checked));
+    }
   };
 
   const handleMoveOrders = () => {
-    moveOrders(showPaidOrders.current, dispatch);
+    if (showPaidOrders.current) {
+      dispatch(moveCheckedOrdersToUnpaid());
+    } else {
+      dispatch(moveCheckedOrdersToPaid());
+    }
+
     context.handleShowNotification(
       `Orders marked as ${showPaidOrders.current ? "unpaid" : "paid"}.`
     );

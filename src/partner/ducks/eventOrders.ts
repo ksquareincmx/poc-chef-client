@@ -1,10 +1,11 @@
 import { IOrder } from "../models/Order";
 import { EventService } from "../services";
+import { IFluxStandardAction, IFluxStandarDispatch } from ".";
 
 export const MODULE = "partner/eventOrders/";
-export const FETCH_EVENT_ORDERS_START = `${MODULE}/FETCH_EVENT_ORDERS_START`;
-export const FETCH_EVENT_ORDERS_SUCCESS = `${MODULE}/FETCH_EVENT_ORDERS_SUCCESS`;
-export const FETCH_EVENT_ORDERS_FAIL = `${MODULE}/FETCH_EVENT_ORDERS_FAIL`;
+export const FETCH_ALL_ORDERS_BY_EVENT_ID_START = `${MODULE}/FETCH_EVENT_ORDERS_START`;
+export const FETCH_ALL_ORDERS_BY_EVENT_ID_SUCCESS = `${MODULE}/FETCH_EVENT_ORDERS_SUCCESS`;
+export const FETCH_ALL_ORDERS_BY_ID_FAIL = `${MODULE}/FETCH_EVENT_ORDERS_FAIL`;
 
 export const EVENT_ORDERS_CHECK_ALL_UNPAID = `${MODULE}/EVENT_ORDERS_CHECK_ALL_UNPAID`;
 export const EVENT_ORDERS_CHECK_ALL_PAID = `${MODULE}/EVENT_ORDERS_CHECK_ALL_PAID`;
@@ -13,13 +14,6 @@ export const EVENT_ORDERS_CHECK_ONE_PAID = `${MODULE}/EVENT_ORDERS_CHECK_ONE_PAI
 export const EVENT_ORDERS_CHECK_ONE_UNPAID = `${MODULE}/EVENT_ORDERS_CHECK_ONE_UNPAID`;
 export const MOVE_CHECKED_ORDERS_TO_PAID = `${MODULE}/MOVE_CHECKED_ORDERS_TO_PAID`;
 export const MOVE_CHECKED_ORDERS_TO_UNPAID = `${MODULE}/MOVE_CHECKED_ORDERS_TO_UNPAID`;
-
-export interface IAction {
-  type: string;
-  payload?: any;
-  meta?: any;
-  error?: boolean;
-}
 
 export interface IEventOrdersState {
   isLoading: boolean;
@@ -37,83 +31,110 @@ export const initialEventOrdersState: IEventOrdersState = {
   unpaidOrders: []
 };
 
-type dispatchType = (action: IAction) => void;
-
 export default function reducerEventOrders(
   state: IEventOrdersState,
-  action: IAction
+  action: IFluxStandardAction
 ): IEventOrdersState {
   switch (action.type) {
-    case FETCH_EVENT_ORDERS_START:
-      return { ...state, isLoading: true };
-    case FETCH_EVENT_ORDERS_SUCCESS:
-      const ordersInitial = [...action.payload];
-      const paidOrdersInitial = ordersInitial.filter((o: IOrder) => o.paid);
-      const unpaidOrdersInitial = ordersInitial.filter((o: IOrder) => !o.paid);
-      return {
-        ...state,
-        isLoading: false,
-        orders: action.payload,
-        paidOrders: paidOrdersInitial,
-        unpaidOrders: unpaidOrdersInitial
-      };
-    case FETCH_EVENT_ORDERS_FAIL:
-      return { ...state, isLoading: false, orders: [], error: action.payload };
+    case FETCH_ALL_ORDERS_BY_EVENT_ID_START:
+      return fetchAllOrdersByEventIdStart(state, action);
+    case FETCH_ALL_ORDERS_BY_EVENT_ID_SUCCESS:
+      return fetchAllOrdersByEventIdSuccess(state, action);
+    case FETCH_ALL_ORDERS_BY_ID_FAIL:
+      return fetchAllOrdersByIdFail(state, action);
     case EVENT_ORDERS_CHECK_ALL_PAID:
-      let { paidOrders } = state;
-      paidOrders = paidOrders.map((order: IOrder) => ((order.checked = action.payload), order));
-      return { ...state, paidOrders };
+      return eventOrdersCheckAllPAid(state, action);
     case EVENT_ORDERS_CHECK_ALL_UNPAID:
-      let { unpaidOrders } = state;
-      unpaidOrders = unpaidOrders.map((order: IOrder) => ((order.checked = action.payload), order));
-      return { ...state, unpaidOrders };
+      return eventOrdersCheckAllUnpaid(state, action);
     case EVENT_ORDERS_CHECK_ONE_PAID:
-      let newPaidOrdersChecked = state.paidOrders.map((order: IOrder) => {
-        if (order.id === action.payload.orderId) {
-          order.checked = action.payload.checked;
-        }
-        return order;
-      });
-      return { ...state, paidOrders: newPaidOrdersChecked };
+      return eventOrdersCheckOne(state, action, true);
     case EVENT_ORDERS_CHECK_ONE_UNPAID:
-      let newUnpaidOrdersChecked = state.unpaidOrders.map((order: IOrder) => {
-        if (order.id === action.payload.orderId) {
-          order.checked = action.payload.checked;
-        }
-        return order;
-      });
-      return { ...state, unpaidOrders: newUnpaidOrdersChecked };
+      return eventOrdersCheckOne(state, action, false);
     case MOVE_CHECKED_ORDERS_TO_PAID:
-      const checkedUnpaidOrders = state.unpaidOrders.filter((order: IOrder) => order.checked);
-      const uncheckedUnpaidOrders = state.unpaidOrders.filter((order: IOrder) => !order.checked);
-      return {
-        ...state,
-        paidOrders: [...state.paidOrders, ...checkedUnpaidOrders],
-        unpaidOrders: uncheckedUnpaidOrders
-      };
+      return moveCheckedOrdersToPaidTab(state, action);
     case MOVE_CHECKED_ORDERS_TO_UNPAID:
-      const checkedPaidOrders = state.paidOrders.filter((order: IOrder) => order.checked);
-      const uncheckedPaidOrders = state.paidOrders.filter((order: IOrder) => !order.checked);
-      return {
-        ...state,
-        unpaidOrders: [...state.unpaidOrders, ...checkedPaidOrders],
-        paidOrders: [...uncheckedPaidOrders]
-      };
+      return moveCheckedOrdersToUnpaidTab(state, action);
     default:
       return state;
   }
 }
 
+function fetchAllOrdersByEventIdStart(state: IEventOrdersState, action: IFluxStandardAction) {
+  return { ...state, isLoading: true };
+}
+
+function fetchAllOrdersByEventIdSuccess(state: IEventOrdersState, action: IFluxStandardAction) {
+  const ordersInitial = [...action.payload];
+  const paidOrdersInitial = ordersInitial.filter((o: IOrder) => o.paid);
+  const unpaidOrdersInitial = ordersInitial.filter((o: IOrder) => !o.paid);
+  return {
+    ...state,
+    isLoading: false,
+    orders: action.payload,
+    paidOrders: paidOrdersInitial,
+    unpaidOrders: unpaidOrdersInitial
+  };
+}
+
+function fetchAllOrdersByIdFail(state: IEventOrdersState, action: IFluxStandardAction) {
+  return { ...state, isLoading: false, orders: [], error: action.payload };
+}
+
+function eventOrdersCheckAllPAid(state: IEventOrdersState, action: IFluxStandardAction) {
+  const paidOrders = state.paidOrders.map(
+    (order: IOrder) => ((order.checked = action.payload), order)
+  );
+  return { ...state, paidOrders };
+}
+
+function eventOrdersCheckAllUnpaid(state: IEventOrdersState, action: IFluxStandardAction) {
+  const unpaidOrders = state.unpaidOrders.map(
+    (order: IOrder) => ((order.checked = action.payload), order)
+  );
+  return { ...state, unpaidOrders };
+}
+
+function eventOrdersCheckOne(state: IEventOrdersState, action: IFluxStandardAction, paid: boolean) {
+  const paidKey = paid ? "paidOrders" : "unpaidOrders";
+  const orders = state[paidKey].map((order: IOrder) => {
+    if (order.id === action.payload.orderId) {
+      order.checked = action.payload.checked;
+    }
+    return order;
+  });
+  return { ...state, [paidKey]: orders };
+}
+
+function moveCheckedOrdersToPaidTab(state: IEventOrdersState, action: IFluxStandardAction) {
+  const checkedUnpaidOrders = state.unpaidOrders.filter((order: IOrder) => order.checked);
+  const uncheckedUnpaidOrders = state.unpaidOrders.filter((order: IOrder) => !order.checked);
+  return {
+    ...state,
+    paidOrders: [...state.paidOrders, ...checkedUnpaidOrders],
+    unpaidOrders: uncheckedUnpaidOrders
+  };
+}
+
+function moveCheckedOrdersToUnpaidTab(state: IEventOrdersState, action: IFluxStandardAction) {
+  const checkedPaidOrders = state.paidOrders.filter((order: IOrder) => order.checked);
+  const uncheckedPaidOrders = state.paidOrders.filter((order: IOrder) => !order.checked);
+  return {
+    ...state,
+    unpaidOrders: [...state.unpaidOrders, ...checkedPaidOrders],
+    paidOrders: [...uncheckedPaidOrders]
+  };
+}
+
 export const fetchEventOrdersStarted = () => {
-  return { type: FETCH_EVENT_ORDERS_START };
+  return { type: FETCH_ALL_ORDERS_BY_EVENT_ID_START };
 };
 
 export const fetchEventOrdersSucceed = (event: IOrder[]) => {
-  return { type: FETCH_EVENT_ORDERS_SUCCESS, payload: event };
+  return { type: FETCH_ALL_ORDERS_BY_EVENT_ID_SUCCESS, payload: event };
 };
 
 export const fetchEventOrdersFailed = (error: Error) => {
-  return { type: FETCH_EVENT_ORDERS_FAIL, payload: error };
+  return { type: FETCH_ALL_ORDERS_BY_ID_FAIL, payload: error };
 };
 
 export const checkAllPaidOrders = (checked: boolean) => {
@@ -140,36 +161,7 @@ export const moveCheckedOrdersToUnpaid = () => {
   return { type: MOVE_CHECKED_ORDERS_TO_UNPAID };
 };
 
-export const moveOrders = (paidTab: boolean, dispatch: dispatchType) => {
-  if (paidTab) {
-    dispatch(moveCheckedOrdersToUnpaid());
-  } else {
-    dispatch(moveCheckedOrdersToPaid());
-  }
-};
-
-export const checkAllOrders = (paidOrders: boolean, checked: boolean, dispatch: dispatchType) => {
-  if (paidOrders) {
-    dispatch(checkAllPaidOrders(checked));
-  } else {
-    dispatch(checkAllUnpaidOrders(checked));
-  }
-};
-
-export const checkOneOrderById = (
-  paidOrders: boolean,
-  checked: boolean,
-  orderId: string,
-  dispatch: dispatchType
-) => {
-  if (paidOrders) {
-    dispatch(checkPaidOrderById(orderId, checked));
-  } else {
-    dispatch(checkUnpaidOrderById(orderId, checked));
-  }
-};
-
-export const fetchEventOrders = async (eventId: string, dispatch: dispatchType) => {
+export const fetchEventOrders = async (eventId: string, dispatch: IFluxStandarDispatch) => {
   dispatch(fetchEventOrdersStarted());
   try {
     const orders = await EventService.eventService.getOrdersByEventId(eventId);
