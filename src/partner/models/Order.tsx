@@ -13,7 +13,7 @@ export interface IProductDTO {
 }
 
 export interface IOrder {
-  id: number;
+  id: string;
   order: string;
   products: IProduct[];
   date: string;
@@ -24,7 +24,7 @@ export interface IOrder {
 }
 
 export interface IOrderDTO {
-  id: number;
+  id: string;
   order: string;
   products: IProduct[];
   date: string;
