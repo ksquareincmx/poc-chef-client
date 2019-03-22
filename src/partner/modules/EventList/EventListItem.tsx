@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";

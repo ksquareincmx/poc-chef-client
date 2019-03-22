@@ -5,25 +5,27 @@ import { EventService } from "src/partner/services";
 import { IEvent } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
+import {
+  reducer,
+  initialState,
+  startFetching,
+  fetchingSucess,
+  fetchingError,
+  updateEvent,
+} from "src/partner/ducks/pastEvent";
 
 export const PastEventsView: React.FC = () => {
-  const [events, setEvents] = useState<IEvent[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(undefined);
+  const [state, dispatch] = React.useReducer(reducer, initialState);
   const notificationContext = useContext(NotificationContext.NotificationContext);
 
   const fetchEvents = async () => {
-    setIsLoading(true);
-    setError(undefined);
-    setEvents([]);
+    dispatch(startFetching());
     try {
       const events = await EventService.eventService.getPastEvents();
       events.sort(dateComparator);
-      setEvents(events);
-      setIsLoading(false);
+      dispatch(fetchingSucess(events));
     } catch (err) {
-      setIsLoading(false);
-      setError(err);
+      dispatch(fetchingError(err));
     }
   };
 
@@ -32,20 +34,15 @@ export const PastEventsView: React.FC = () => {
   }, []);
 
   const handleEditEvent = (event: IEvent) => {
-    const newEvents = events.map(ev => {
-      if (ev["id"] === event["id"]) {
-        return event;
-      }
-      return ev;
-    });
-    setEvents(newEvents);
+    console.log(event);
+    dispatch(updateEvent(event));
   };
 
-  const handleCancelEvent = (eventId: string) => {
+  const handleCancelEvent = () => {
     notificationContext.handleShowNotification("You cannot cancel a past event.");
   };
 
-  if (isLoading) {
+  if (state.isLoading) {
     return (
       <React.Fragment>
         <Header title="Past Events" />
@@ -54,7 +51,7 @@ export const PastEventsView: React.FC = () => {
     );
   }
 
-  if (error) {
+  if (state.error) {
     return (
       <React.Fragment>
         <Header title="Past Events" />
@@ -68,7 +65,7 @@ export const PastEventsView: React.FC = () => {
       <Header title="Past Events" />
       <EventListContainer
         handleCancelEvent={handleCancelEvent}
-        events={events}
+        events={state.events}
         onEdit={handleEditEvent}
       />
     </React.Fragment>
