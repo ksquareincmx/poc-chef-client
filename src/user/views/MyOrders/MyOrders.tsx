@@ -3,21 +3,25 @@ import { Header } from "src/partner/modules/Header";
 import { OrderListContainer } from "src/user/modules/OrderList";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { ListStyled } from "src/partner/modules/ui";
-import reducerMyOrders, { initialStateOrders, openCancelOrderModal } from "src/user/ducks/myOrders";
+import reducerMyOrders, {
+  initialStateOrders,
+  openCancelOrderModal,
+  closeCancelOrderModal
+} from "src/user/ducks/myOrders";
 
 export const MyOrders: React.SFC = () => {
   const [state, dispatch] = useReducer(reducerMyOrders, initialStateOrders);
 
   const handleCloseModalCancelEvent = () => {
-    dispatch(openCancelOrderModal(false));
+    dispatch(closeCancelOrderModal());
   };
 
   const handleOpenCancelOrderModal = (orderId: string) => {
-    dispatch(openCancelOrderModal(true, orderId));
+    dispatch(openCancelOrderModal(orderId));
   };
 
   const handleCancelOrder = () => {
-    dispatch(openCancelOrderModal(false));
+    dispatch(closeCancelOrderModal());
   };
 
   return (
