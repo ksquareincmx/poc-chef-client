@@ -52,7 +52,7 @@ export const fetchOrdersFailured = (error: Error) => {
   return { type: FETCH_ORDERS_FAIL, payload: error, error: true };
 };
 
-export const getOrders = async (userId: number, dispatch: dispatchType) => {
+export const getOrders = async (userId: string, dispatch: dispatchType) => {
   dispatch(fetchOrdersStarted());
   try {
     const orders = await orderService.getOrdersByUserId(userId);

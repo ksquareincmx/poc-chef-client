@@ -5,7 +5,7 @@ import { List } from "src/partner/modules/ui/List/List";
 import reducer, { initialState, getOrders } from "src/user/ducks/order";
 
 interface IOrderListContainerProps {
-  userId: number;
+  userId: string;
   openCancelModal: (orderId: string) => void;
 }
 
