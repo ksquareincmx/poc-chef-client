@@ -1,6 +1,6 @@
 import { EventService } from "src/partner/services";
 import { IEvent, event } from "src/partner/models/Event";
-import { IFluxStandardAction, ReduxDispatch } from "./index";
+import { IFluxStandardAction, ReduxDispatch } from "src/common/ducks/index";
 
 export const MODULE = "partner/eventView/";
 export const FETCH_EVENT_START = `${MODULE}/FETCH_EVENT_START`;

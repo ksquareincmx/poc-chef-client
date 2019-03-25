@@ -6,6 +6,7 @@ import reducer, { initialState, getOrders } from "src/user/ducks/order";
 
 interface IOrderListContainerProps {
   userId: number;
+  openCancelModal: (orderId: string) => void;
 }
 
 export const OrderListContainer: React.FC<IOrderListContainerProps> = props => {
@@ -16,7 +17,9 @@ export const OrderListContainer: React.FC<IOrderListContainerProps> = props => {
   }, []);
 
   const printListOrders = () => {
-    return state.orders.map((order: IOrder, idx: number) => <OrderItem order={order} key={idx} />);
+    return state.orders.map((order: IOrder, idx: number) => (
+      <OrderItem order={order} key={idx} openCancelModal={props.openCancelModal} />
+    ));
   };
 
   return (

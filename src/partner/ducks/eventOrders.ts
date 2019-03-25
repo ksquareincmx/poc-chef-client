@@ -1,6 +1,6 @@
 import { IOrder } from "../models/Order";
 import { EventService } from "../services";
-import { IFluxStandardAction, ReduxDispatch } from "./index";
+import { IFluxStandardAction, ReduxDispatch } from "src/common/ducks/index";
 
 export const MODULE = "partner/eventOrders/";
 export const FETCH_ALL_ORDERS_BY_EVENT_ID_START = `${MODULE}/FETCH_EVENT_ORDERS_START`;
