@@ -1,7 +1,7 @@
 import { IUser } from "src/common/models/User";
 import { UserMapper } from "../mappers";
 
-interface IUserService {
+export interface IUserService {
   getCurrentUser: () => Promise<IUser>;
 }
 
