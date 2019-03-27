@@ -6,14 +6,14 @@ import { EventOrdersContainer } from "./EventOrdersContainer";
 import { MenuOptions } from "src/common/ui/MenuOptions/";
 import { currentEventsRoute, eventViewRoute } from "src/partner/routes";
 
-export interface IEventItemProps extends RouteComponentProps {
+export interface IEventItemProps{
   eventInfo: IEvent;
   handleCancelEvent: (e: any) => void;
   onEdit: (event: any) => void;
   modalController?: any;
 }
 
-export const EventListItemComponent: React.SFC<IEventItemProps> = props => {
+export const EventListItemComponent: React.SFC<IEventItemProps & RouteComponentProps> = props => {
   const showModalCancelEvent = () => {
     props.modalController.showModalCancelEvent(props.eventInfo);
   };
