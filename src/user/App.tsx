@@ -6,6 +6,7 @@ import { NavBar } from "src/partner/modules/NavBar";
 import { MyOrders } from "src/user/views/MyOrders";
 import { Order } from "src/user/views/Order";
 import { profileUserRoute, myOrdersUserRoute, orderViewUserRoute } from "./routes";
+import { orderFormUserRoute } from "./routes/routes";
 
 const UserApp: React.SFC<IReactRouterProps> = props => {
   return (
@@ -14,6 +15,7 @@ const UserApp: React.SFC<IReactRouterProps> = props => {
         <Route path={profileUserRoute} component={Profile} />
         <Route path={myOrdersUserRoute} component={MyOrders} />
         <Route path={orderViewUserRoute} component={Order} />
+        <Route path={orderFormUserRoute} component={Order} />
       </Switch>
       <NavBar user={true} />
     </div>
