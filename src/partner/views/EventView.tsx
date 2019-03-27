@@ -75,7 +75,6 @@ export const EventView: React.FC<IEventViewProps> = props => {
           handleCancelEvent={() => {}}
           key={state.localEvent.id}
           eventInfo={state.localEvent}
-          eventView={true}
           onEdit={handleEditEvent}
         />
       </List>
