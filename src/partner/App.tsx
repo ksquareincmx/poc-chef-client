@@ -5,15 +5,16 @@ import { CurrentEventsView } from "./views/CurrentEventView";
 import { NavBar } from "./modules/NavBar";
 import { NotificationContext } from "../providers/";
 import { IReactRouterProps } from "src/common/interfaces";
+import { currentEventsRoute, pastEventsRoute, eventViewRoute } from "./routes";
 
 const PartnerApp: React.SFC<IReactRouterProps> = props => {
   return (
     <div>
       <NotificationContext.NotificationProvider>
         <Switch>
-          <Route path={`${props.match.url}/current-events`} component={CurrentEventsView} />
-          <Route path={`${props.match.url}/past-events`} component={PastEventsView} />
-          <Route path={`${props.match.url}/events/:id`} component={EventView} />
+          <Route path={currentEventsRoute} component={CurrentEventsView} />
+          <Route path={pastEventsRoute} component={PastEventsView} />
+          <Route path={eventViewRoute} component={EventView} />
         </Switch>
       </NotificationContext.NotificationProvider>
       <NavBar />

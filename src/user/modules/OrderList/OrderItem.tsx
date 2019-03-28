@@ -5,12 +5,17 @@ import { ListItemRow } from "src/partner/modules/ui/List/List";
 import { MenuOptions } from "src/common/ui/MenuOptions";
 import { Cell, RowProducts, RowTitle } from "./OrderStyles";
 import { ProductList } from "./ProductList";
+import { Link } from "react-router-dom";
 
 export interface IOrderItem {
   order: IOrder;
+  openCancelModal: (orderId: string) => void;
 }
 
 export const OrderItem: React.SFC<IOrderItem> = props => {
+  const handleOpenModal = () => {
+    props.openCancelModal(props.order.id);
+  };
   return (
     <>
       <ListStyled.ListItem>
@@ -19,9 +24,9 @@ export const OrderItem: React.SFC<IOrderItem> = props => {
             <Cell>{props.order.date}</Cell>
             <Cell align="right">{`Order #${props.order.id}`}</Cell>
             <MenuOptions>
-              <a>View Order</a>
+              <Link to={`user/order/${props.order.id}`}>View order</Link>
               <a>Edit Order</a>
-              <a>Cancel Order</a>
+              <a onClick={handleOpenModal}>Cancel Order</a>
             </MenuOptions>
           </RowTitle>
         </ListItemRow>

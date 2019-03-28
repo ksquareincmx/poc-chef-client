@@ -36,7 +36,7 @@ const CellDiv = styledComponents.div`
 export interface IOrderListProps {
   orders: IOrder[];
   handleCheckAll: (checked: boolean) => void;
-  handleCheckOrder: (orderId: number, e: any) => void;
+  handleCheckOrder: (orderId: string, e: any) => void;
   checkAll: boolean;
 }
 

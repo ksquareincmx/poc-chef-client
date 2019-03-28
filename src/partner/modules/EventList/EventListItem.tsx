@@ -1,19 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";
 import { EventOrdersContainer } from "./EventOrdersContainer";
 import { MenuOptions } from "src/common/ui/MenuOptions/";
+import { currentEventsRoute, eventViewRoute } from "src/partner/routes";
 
-export interface IEventItemProps {
+export interface IEventItemProps{
   eventInfo: IEvent;
-  eventView?: boolean;
   handleCancelEvent: (e: any) => void;
   onEdit: (event: any) => void;
   modalController?: any;
 }
 
-export const EventListItem: React.SFC<IEventItemProps> = props => {
+export const EventListItemComponent: React.SFC<IEventItemProps & RouteComponentProps> = props => {
   const showModalCancelEvent = () => {
     props.modalController.showModalCancelEvent(props.eventInfo);
   };
@@ -22,16 +22,24 @@ export const EventListItem: React.SFC<IEventItemProps> = props => {
     props.modalController.showEditModal(props.eventInfo);
   };
 
+  const isCurrentEventsPartnerRoute = () => {
+    return props.match.path === currentEventsRoute;
+  };
+
+  const isEventViewRoute = () => {
+    return props.match.path === eventViewRoute;
+  };
+
   return (
     <ListStyled.ListItem key={props.eventInfo.id}>
       <ListStyled.ListItemRow borderBottom>
         <ListStyled.RowData>
           <ListStyled.H1 align="left">{props.eventInfo.orderNumber}</ListStyled.H1>
-          {!props.eventView && (
+          {!isEventViewRoute() && (
             <MenuOptions>
               <Link to={`events/${props.eventInfo.id}`}>View Event</Link>
-              <a onClick={handleEditEvent}>Edit Event</a>
-              <a onClick={showModalCancelEvent}>Cancel Event</a>
+              {isCurrentEventsPartnerRoute() && <a onClick={handleEditEvent}>Edit Event</a>}
+              {isCurrentEventsPartnerRoute() && <a onClick={showModalCancelEvent}>Cancel Event</a>}
             </MenuOptions>
           )}
         </ListStyled.RowData>
@@ -111,7 +119,9 @@ export const EventListItem: React.SFC<IEventItemProps> = props => {
           </tr>
         </tfoot>
       </ListStyled.Table>
-      {props.eventView && <EventOrdersContainer eventId={props.eventInfo.id} />}
+      {isEventViewRoute() && <EventOrdersContainer eventId={props.eventInfo.id} />}
     </ListStyled.ListItem>
   );
 };
+
+export const EventListItem = withRouter(EventListItemComponent);

@@ -1,0 +1,12 @@
+{
+  "id": "1-a-s-d",
+  "name": "user",
+  "expirationDate": 1577772000000,
+  "startDate": 1546322400000,
+  "startHour": 1552667580000,
+  "endHour": 1553272380000,
+  "createdBy": "00001a",
+  "cancelled": false,
+  "createdAt": 1546322400000,
+  "updatedAt": 1546322400000
+}
