@@ -21,7 +21,7 @@ export interface IAction {
 export const initialState: IState = {
   events: [],
   isLoading: false,
-  error: undefined,
+  error: undefined
 };
 
 export function startFetching() {
@@ -39,7 +39,7 @@ export function editEvent(event: IEvent) {
 function updateEvent(state: IState, action: IAction) {
   const newEvents = state.events.map((ev: IEvent) => {
     if (ev["id"] === action.payload["id"]) {
-      return event;
+      return action.payload;
     }
     return ev;
   });
@@ -47,10 +47,10 @@ function updateEvent(state: IState, action: IAction) {
   return { ...state, events: newEvents };
 }
 
-export function reducer(state: IState, action: IAction) {
+export default function reducer(state: IState, action: IAction) {
   switch (action.type) {
     case FETCH_PAST_EVENT_START:
-      return { ...state, isLoading: false, events: [] };
+      return { ...state, isLoading: true, events: [] };
     case FETCH_PAST_EVENT_SUCCESS:
       return { ...state, isLoading: false, events: action.payload };
     case FETCH_PAST_EVENT_FAIL:
