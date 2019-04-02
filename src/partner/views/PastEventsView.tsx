@@ -5,13 +5,12 @@ import { EventService } from "src/partner/services";
 import { IEvent } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
-import {
-  reducer,
+import reducer, {
   initialState,
   startFetching,
   fetchingSucess,
   fetchingError,
-  editEvent,
+  editEvent
 } from "src/partner/ducks/pastEvent";
 
 export const PastEventsView: React.FC = () => {
