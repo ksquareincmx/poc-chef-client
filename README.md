@@ -49,7 +49,13 @@ TODO
 
 ### Tests
 
-TODO
+To do the test just run
+
+```bash
+    npm run test
+```
+
+this will execute all the .test.ts files in the project.
 
 ### Docs
 
