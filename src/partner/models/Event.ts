@@ -2,8 +2,8 @@ export interface IEvent {
   id: string;
   orderNumber: string;
   name: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: number;
+  endDate: number;
   startDateString: string;
   startTimeString: string;
   endDateString: string;
@@ -21,8 +21,8 @@ export const event = (): IEvent => ({
   id: "",
   orderNumber: "",
   name: "",
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: +new Date(2019, 0, 1),
+  endDate: +new Date(2019, 11, 31),
   startDateString: "",
   startTimeString: "",
   endDateString: "",
@@ -33,7 +33,7 @@ export const event = (): IEvent => ({
   shrimpTortaUnitPrice: 0,
   shrimpTortaAmount: 0,
   shrimpTotal: 0,
-  total: 0,
+  total: 0
 });
 
 export interface IEventDTO {
