@@ -24,7 +24,7 @@ export const initialState: IState = {
   currentEvent: event(),
   cancelEvent: false,
   openModal: false,
-  editEvent: false,
+  editEvent: false
 };
 
 const CANCEL_EVENT = "partner/views/currentEvent/CANCEL_EVENT";
@@ -79,15 +79,16 @@ export const reducer = (state: IState, action: IActions): IState => {
   }
 };
 
-export function cancelEvent(events: IEvent[], currentEvent: IEvent) {
+export function cancelEvent() {
   return {
-    type: CANCEL_EVENT,
+    type: CANCEL_EVENT
   };
 }
 
 export function createEvent(event: IEvent) {
   return { type: CREATE_EVENT, payload: event };
 }
+
 export function closeModal() {
   return { type: CLOSE_MODAL };
 }
