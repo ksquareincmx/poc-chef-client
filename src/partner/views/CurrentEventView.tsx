@@ -22,7 +22,7 @@ import {
   startFetching,
   fetchingSucess,
   fetchingError,
-  closeModalCancelEvent,
+  closeModalCancelEvent
 } from "../ducks/currentEvent";
 
 export const CurrentEventsView: React.FC<{}> = () => {
@@ -34,7 +34,7 @@ export const CurrentEventsView: React.FC<{}> = () => {
   };
 
   const handleCancelEvent = () => {
-    dispatch(cancelEvent(state.events, state.currentEvent));
+    dispatch(cancelEvent());
     notificationContext.handleShowNotification("The event has been cancelled.");
   };
 
@@ -99,7 +99,7 @@ export const CurrentEventsView: React.FC<{}> = () => {
     handleCloseModal: handleCloseModal,
     showModal: handleShowModal,
     showModalCancelEvent: handleShowModalCancelEvent,
-    showEditModal: handleShowEditModal,
+    showEditModal: handleShowEditModal
   };
 
   return (

@@ -134,7 +134,7 @@ export const CreateEvent: React.FC<ICreateEventProps> = props => {
 
   const handleChangeStartDate = (e: any) => {
     const startDateString = e.target.value;
-    const startDate = new Date(`${startDateString}T00:00:00`);
+    const startDate = +new Date(`${startDateString}T00:00:00`);
 
     if (!eventItem.endDateString) {
       return setEvent({ ...eventItem, startDate, startDateString });
@@ -149,8 +149,8 @@ export const CreateEvent: React.FC<ICreateEventProps> = props => {
 
   const handleChangeEndDate = (e: any) => {
     const endDateString = e.target.value;
-    const endDate = new Date(`${endDateString}T00:00:00`);
-    const startDate = new Date(`${eventItem.startDateString}T00:00:00`);
+    const endDate = +new Date(`${endDateString}T00:00:00`);
+    const startDate = +new Date(`${eventItem.startDateString}T00:00:00`);
 
     if (!eventItem.startDateString) {
       setEvent({ ...eventItem, endDate, endDateString });
@@ -167,8 +167,8 @@ export const CreateEvent: React.FC<ICreateEventProps> = props => {
     if (!eventItem.endTimeString) {
       return setEvent({ ...eventItem, startTimeString });
     }
-    const startTime = new Date(`2019-01-01T${startTimeString}:00`);
-    const endTime = new Date(`2019-01-01T${eventItem.endTimeString}:00`);
+    const startTime = +new Date(`2019-01-01T${startTimeString}:00`);
+    const endTime = +new Date(`2019-01-01T${eventItem.endTimeString}:00`);
 
     if (endTime < startTime) {
       return context.handleShowNotification("The end time must be higher than the start time");
@@ -184,8 +184,8 @@ export const CreateEvent: React.FC<ICreateEventProps> = props => {
       return setEvent({ ...eventItem, endTimeString });
     }
 
-    const endTime = new Date(`2019-01-01T${endTimeString}:00`);
-    const startTime = new Date(`2019-01-01T${eventItem.endTimeString}:00`);
+    const endTime = +new Date(`2019-01-01T${endTimeString}:00`);
+    const startTime = +new Date(`2019-01-01T${eventItem.endTimeString}:00`);
 
     if (endTime < startTime) {
       return context.handleShowNotification("The end time must be higher than the start time");
