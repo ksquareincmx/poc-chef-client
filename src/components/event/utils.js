@@ -1,4 +1,6 @@
 export const getEventFormat = event => {
+  event.startDate = new Date(event.startDate);
+  event.endDate = new Date(event.endDate);
   const startTime =
     addZeros(event.startDate.getHours()) + ":" + addZeros(event.startDate.getMinutes());
 
@@ -25,7 +27,7 @@ export const getEventFormat = event => {
     endDate: getDateFormat(endDate, endTime),
     endDateString: endDate,
     startTimeString: startTime,
-    endTimeString: endTime,
+    endTimeString: endTime
   };
 };
 
