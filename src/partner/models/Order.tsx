@@ -31,3 +31,23 @@ export interface IOrderDTO {
   total: number;
   paid: boolean;
 }
+
+export const order = (): IOrder => {
+  return {
+    id: "",
+    order: "",
+    products: [product()],
+    date: "",
+    total: "",
+    paid: false,
+    checked: false
+  };
+};
+
+export const product = (): IProduct => {
+  return {
+    name: "",
+    quantity: 0,
+    price: ""
+  };
+};
