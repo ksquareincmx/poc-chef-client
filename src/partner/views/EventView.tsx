@@ -7,6 +7,7 @@ import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { NotificationContext } from "src/providers";
 import styledComponents from "styled-components";
 import reducer, { initialState, fetchEvent } from "../ducks/event";
+import { NavBar } from "../modules/NavBar";
 
 const FloatingFinishDiv = styledComponents.div`
   position: fixed;
@@ -89,6 +90,7 @@ export const EventView: React.FC<IEventViewProps> = props => {
           <ListStyled.GradientButton onClick={handleFinishEvent}>Confirm</ListStyled.GradientButton>
         </CenteredDiv>
       </Modal>
+      <NavBar />
     </React.Fragment>
   );
 };

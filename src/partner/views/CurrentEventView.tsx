@@ -24,6 +24,7 @@ import {
   fetchingError,
   closeModalCancelEvent
 } from "../ducks/currentEvent";
+import { NavBar } from "../modules/NavBar";
 
 export const CurrentEventsView: React.FC<{}> = () => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
@@ -128,7 +129,7 @@ export const CurrentEventsView: React.FC<{}> = () => {
         </ListStyled.RowData>
       </Modal>
 
-      <Button onClick={handleShowModal} />
+      <NavBar />
     </React.Fragment>
   );
 };
