@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { loginService, storageService } from "src/common/services";
+import { loginService } from "src/common/services";
 import styledComponentsTS from "styled-components-ts";
 import styledComponents from "styled-components";
 import { RouteComponentProps } from "react-router-dom";
+import { NotificationContext } from "src/providers";
+import { ILoginErrorField } from "src/common/models/Login";
 
 const DivContainer = styledComponents.div({
   height: "100vh",
@@ -54,6 +56,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
   const [email, setEmail] = useState("demo@demo.com");
   const [password, setPassword] = useState("demo");
   const [errorMessage, setErrorMessage] = useState("");
+  const notificationContext = useContext(NotificationContext.NotificationContext);
 
   const handleEmail = (ev: any) => {
     setEmail(ev.target.value);
@@ -72,15 +75,23 @@ export const Login: React.FC<RouteComponentProps> = props => {
     }
     return true;
   };
+
+  const handleShowErrorMessages = (errors: ILoginErrorField[]) => {
+    const messages = errors.map((error: ILoginErrorField) => error.error).join();
+    notificationContext.handleShowNotification(messages);
+  };
+
   const handleSubmit = async (ev: any) => {
     ev.preventDefault();
 
     if (!verifyFields()) {
+      notificationContext.handleShowNotification("Fields should not be empty");
       return;
     }
 
     const loginResponse = await loginService.login(email, password);
     if (loginResponse.errors) {
+      handleShowErrorMessages(loginResponse.errors);
     } else if (loginResponse.jwt && loginResponse.user) {
       loginService.setUser(loginResponse.user);
       loginService.setJWT(loginResponse.jwt);
