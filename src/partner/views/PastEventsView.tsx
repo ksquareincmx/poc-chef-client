@@ -12,6 +12,7 @@ import reducer, {
   fetchingError,
   editEvent
 } from "src/partner/ducks/pastEvent";
+import { NavBar } from "../modules/NavBar";
 
 export const PastEventsView: React.FC = () => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
@@ -66,6 +67,7 @@ export const PastEventsView: React.FC = () => {
         events={state.events}
         onEdit={handleEditEvent}
       />
+      <NavBar />
     </React.Fragment>
   );
 };

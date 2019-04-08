@@ -7,8 +7,12 @@ export interface IUserService {
 
 export const userService: IUserService = {
   getCurrentUser: async () => {
-    const user = await fetch("api/user");
-    const res = await user.json();
-    return UserMapper.toEntity(res);
+    try {
+      const user = await fetch("api/user");
+      const res = await user.json();
+      return UserMapper.toEntity(res);
+    } catch (err) {
+      return err;
+    }
   }
 };
