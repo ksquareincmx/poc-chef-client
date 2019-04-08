@@ -1,3 +1,3 @@
 import * as UserMapper from "./UserMapper";
-
-export { UserMapper };
+import * as LoginMapper from "./LoginMapper";
+export { UserMapper, LoginMapper };
