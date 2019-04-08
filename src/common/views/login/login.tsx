@@ -90,6 +90,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
     }
 
     const loginResponse = await loginService.login(email, password);
+    debugger;
     if (loginResponse.errors) {
       handleShowErrorMessages(loginResponse.errors);
     } else if (loginResponse.jwt && loginResponse.user) {

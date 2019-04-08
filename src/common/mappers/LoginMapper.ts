@@ -1,7 +1,7 @@
 import { ILoginResponseDTO, ILoginResponse, ILoginErrorField } from "../models/Login";
 
 export const toEntity = (dto: ILoginResponseDTO): ILoginResponse => {
-  if (dto.status !== 200) {
+  if (dto.status && dto.status !== 200) {
     return { errors: getErrors(dto) };
   } else {
     const { user, jwt } = dto.data;
