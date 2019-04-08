@@ -9,7 +9,9 @@ export interface ILoginResponse {
 export interface ILoginResponseDTO {
   data: ILoginData;
   errors?: ILoginErrorField[] | ILoginErrorField;
-  code: number;
+  error?: string;
+  message?: string;
+  status: number;
   url: string;
 }
 
