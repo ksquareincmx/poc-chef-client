@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { EventView, PastEventsView } from "./views";
 import { CurrentEventsView } from "./views/CurrentEventView";
 import { NotificationContext } from "../providers/";
@@ -17,6 +17,7 @@ const PartnerApp: React.SFC<IReactRouterProps> = props => {
           <Route path={pastEventsRoute} component={PastEventsView} />
           <Route path={eventViewRoute} component={EventView} />
           <Route path={loginPartnerRoute} component={Login} />
+          <Route path="/" component={() => <Redirect to={loginPartnerRoute} />} />
         </Switch>
       </NotificationContext.NotificationProvider>
     </div>
