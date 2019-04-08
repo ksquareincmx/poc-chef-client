@@ -53,9 +53,8 @@ const ButtonSubmit = styledComponents.button({
 });
 
 export const Login: React.FC<RouteComponentProps> = props => {
-  const [email, setEmail] = useState("demo@demo.com");
-  const [password, setPassword] = useState("demo");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const notificationContext = useContext(NotificationContext.NotificationContext);
 
   const handleEmail = (ev: any) => {
@@ -110,7 +109,6 @@ export const Login: React.FC<RouteComponentProps> = props => {
         <ButtonSubmit type="button" onClick={handleSubmit}>
           Submit
         </ButtonSubmit>
-        <label>{errorMessage}</label>
         <ImgIcon height="72px" src={require("src/images/group-2.svg")} />
       </WrapperDiv>
     </DivContainer>
