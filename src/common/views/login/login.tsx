@@ -1,10 +1,8 @@
-import React, { useState, useContext } from "react";
-import { loginService } from "src/common/services";
+import React, { useState, useContext, useEffect } from "react";
+import { loginService, storageService } from "src/common/services";
 import styledComponentsTS from "styled-components-ts";
 import styledComponents from "styled-components";
-import { ILoginResponse } from "src/common/models/Login";
 import { RouteComponentProps } from "react-router-dom";
-import { UserContext } from "src/common/providers/";
 
 const DivContainer = styledComponents.div({
   height: "100vh",
@@ -56,7 +54,6 @@ export const Login: React.FC<RouteComponentProps> = props => {
   const [email, setEmail] = useState("demo@demo.com");
   const [password, setPassword] = useState("demo");
   const [errorMessage, setErrorMessage] = useState("");
-  const userContext = useContext(UserContext);
 
   const handleEmail = (ev: any) => {
     setEmail(ev.target.value);
@@ -66,13 +63,27 @@ export const Login: React.FC<RouteComponentProps> = props => {
     setPassword(ev.target.value);
   };
 
+  const verifyFields = () => {
+    if (email === "") {
+      return false;
+    }
+    if (password === "") {
+      return false;
+    }
+    return true;
+  };
   const handleSubmit = async (ev: any) => {
     ev.preventDefault();
-    const loginResponse: ILoginResponse = await loginService.login(email, password);
+
+    if (!verifyFields()) {
+      return;
+    }
+
+    const loginResponse = await loginService.login(email, password);
     if (loginResponse.errors) {
     } else if (loginResponse.jwt && loginResponse.user) {
-      localStorage.setItem("user_jwt", loginResponse.jwt);
-      userContext.setUserData(loginResponse.user);
+      loginService.setUser(loginResponse.user);
+      loginService.setJWT(loginResponse.jwt);
       props.history.push("/current-events");
     }
   };
