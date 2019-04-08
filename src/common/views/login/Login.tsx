@@ -89,7 +89,6 @@ export const Login: React.FC<RouteComponentProps> = props => {
     }
 
     const loginResponse = await loginService.login(email, password);
-    debugger;
     if (loginResponse.errors) {
       handleShowErrorMessages(loginResponse.errors);
     } else if (loginResponse.jwt && loginResponse.user) {
@@ -104,8 +103,8 @@ export const Login: React.FC<RouteComponentProps> = props => {
       <WrapperDiv>
         <ImgLogo src={require("src/images/poc-chef-logo.png")} />
         <ImgIcon height="40px" src={require("src/images/group.svg")} />
-        <InputField name="email" value={email} onChange={handleEmail} />
-        <InputField name="password" value={password} onChange={handlePassword} />
+        <InputField type="email" name="email" value={email} onChange={handleEmail} />
+        <InputField type="password" name="password" value={password} onChange={handlePassword} />
         <ButtonSubmit type="button" onClick={handleSubmit}>
           Submit
         </ButtonSubmit>
