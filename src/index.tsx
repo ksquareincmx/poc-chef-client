@@ -12,7 +12,7 @@ ReactDOM.render(
     <Switch>
       <Route path={partnerRoute} component={PartnerApp} />
       <Route path={userRoute} component={UserApp} />
-      <Route route={rootRoute} component={() => <Redirect to="/partner/current-events" />} />
+      <Route route={rootRoute} component={() => <Redirect to="/partner" />} />
     </Switch>
   </Router>,
   document.getElementById("root")

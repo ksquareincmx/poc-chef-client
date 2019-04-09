@@ -5,16 +5,8 @@ import styledComponents from "styled-components";
 import { RouteComponentProps } from "react-router-dom";
 import { NotificationContext } from "src/providers";
 import { ILoginErrorField } from "src/common/models/Login";
-
-const DivContainer = styledComponents.div({
-  height: "100vh",
-  width: "100vw",
-  backgroundImage: "linear-gradient(to bottom, #e83e5d, #f8823d)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  fontFamily: "Roboto"
-});
+import { MainDivContainer, ImgLogo } from "src/common/ui/MainDivContainer";
+import { currentEventsRoute } from "src/partner/routes";
 
 const flatElement = {
   minWidth: "260px",
@@ -28,11 +20,6 @@ const WrapperDiv = styledComponents.div({
   display: "grid",
   gridTemplateRows: "auto repeat(4, 1fr) auto",
   gridRowGap: "16px"
-});
-
-const ImgLogo = styledComponents.img({
-  minWidth: "262.92px",
-  minHeight: "92.6px"
 });
 
 const ImgIcon = styledComponentsTS(styledComponents.img)`
@@ -94,14 +81,14 @@ export const Login: React.FC<RouteComponentProps> = props => {
     } else if (loginResponse.jwt && loginResponse.user) {
       loginService.setUser(loginResponse.user);
       loginService.setJWT(loginResponse.jwt);
-      props.history.push("/current-events");
+      props.history.push(currentEventsRoute);
     }
   };
 
   return (
-    <DivContainer>
+    <MainDivContainer>
       <WrapperDiv>
-        <ImgLogo src={require("src/images/poc-chef-logo.png")} />
+        <ImgLogo src={require("src/images/poc-chef-logo.svg")} />
         <ImgIcon height="40px" src={require("src/images/group.svg")} />
         <InputField type="email" name="email" value={email} onChange={handleEmail} />
         <InputField type="password" name="password" value={password} onChange={handlePassword} />
@@ -110,6 +97,6 @@ export const Login: React.FC<RouteComponentProps> = props => {
         </ButtonSubmit>
         <ImgIcon height="72px" src={require("src/images/group-2.svg")} />
       </WrapperDiv>
-    </DivContainer>
+    </MainDivContainer>
   );
 };

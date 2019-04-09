@@ -1,1 +1,1 @@
-export { profileUserRoute, myOrdersUserRoute, orderViewUserRoute } from "./routes";
+export { profileUserRoute, myOrdersUserRoute, orderViewUserRoute, loginUserRoute } from "./routes";
