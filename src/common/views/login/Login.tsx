@@ -7,7 +7,7 @@ import { NotificationContext } from "src/providers";
 import { ILoginErrorField } from "src/common/models/Login";
 import { MainDivContainer, ImgLogo } from "src/common/ui/MainDivContainer";
 import { currentEventsRoute, loginPartnerRoute } from "src/partner/routes";
-import { loginUserRoute } from "src/user/routes";
+import { loginUserRoute, myOrdersUserRoute } from "src/user/routes";
 
 const flatElement = {
   minWidth: "260px",
@@ -92,7 +92,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
       history.push(currentEventsRoute);
     }
     if (pathname === loginUserRoute) {
-      history.push(loginUserRoute);
+      history.push(myOrdersUserRoute);
     }
     return null;
   }
