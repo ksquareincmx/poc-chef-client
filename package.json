@@ -30,9 +30,6 @@
     "test": "jest",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -42,8 +39,15 @@
   "devDependencies": {
     "@types/jest": "^23.3.14",
     "@types/moment-timezone": "^0.5.10",
+    "@typescript-eslint/eslint-plugin": "^1.6.0",
+    "@typescript-eslint/parser": "^1.6.0",
     "babel-plugin-emotion": "^10.0.7",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
     "jest": "^24.5.0",
+    "prettier": "^1.16.4",
     "ts-jest": "^24.0.0"
   }
 }
