@@ -6,6 +6,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { NotificationContext } from "src/providers";
 import { ILoginErrorField } from "src/common/models/Login";
 import { MainDivContainer, ImgLogo } from "src/common/ui/MainDivContainer";
+import { currentEventsRoute } from "src/partner/routes";
 
 const flatElement = {
   minWidth: "260px",
@@ -80,7 +81,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
     } else if (loginResponse.jwt && loginResponse.user) {
       loginService.setUser(loginResponse.user);
       loginService.setJWT(loginResponse.jwt);
-      props.history.push("/current-events");
+      props.history.push(currentEventsRoute);
     }
   };
 
