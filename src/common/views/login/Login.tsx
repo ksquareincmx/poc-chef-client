@@ -70,7 +70,6 @@ export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
 
   const handleSubmit = async (ev: any) => {
     ev.preventDefault();
-    MainDivContainer;
     if (!verifyFields()) {
       notificationContext.handleShowNotification("Fields should not be empty");
       return;
