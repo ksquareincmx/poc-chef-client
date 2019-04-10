@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { Profile } from "./views/Profile/";
-import { NavBar } from "src/partner/modules/NavBar";
+import { NavBar } from "src/user/modules/Navbar";
 import { MyOrders } from "src/user/views/MyOrders";
 import { Order } from "src/user/views/Order";
 import { profileUserRoute, myOrdersUserRoute, orderViewUserRoute } from "./routes";
@@ -26,7 +26,7 @@ const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
         <Route path={orderFormUserRoute} component={Order} />
         <Route path="/" component={Splash} />
       </Switch>
-      <NavBar user={true} />
+      <NavBar />
     </div>
   );
 };
