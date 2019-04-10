@@ -4,18 +4,11 @@ import styledComponentsTS from "styled-components-ts";
 import { IProduct } from "src/partner/models/Order";
 import { Cell, RowProducts } from "./OrderStyles";
 import { ListItemRow } from "src/partner/modules/ui/List/List";
+import { Text } from '../Text'
 
 interface IProductListProps {
   products: IProduct[];
 }
-
-const Text = styledComponentsTS(styledComponents.div)`
-  font-size: 12px;
-  margin: 0;
-  color: #515354;
-`;
-
-
 
 export const ProductList: React.SFC<IProductListProps> = props => {
   const getProductRow = (product: IProduct) => {

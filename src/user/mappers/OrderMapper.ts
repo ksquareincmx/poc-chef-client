@@ -9,7 +9,8 @@ export const toModel = (order: IOrderDto): IOrder => ({
     products: order.products.map(orderProductMapper.toModel),
     userId: order.user_id,
     eventId: order.event_id,
+    eventName: order.event_name,
     createdBy: order.created_by,
     createdAt: order.created_at,
     updatedAt: order.updated_at,
-})
+});

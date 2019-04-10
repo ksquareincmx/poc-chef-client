@@ -6,32 +6,30 @@ export const HeaderContainer = styledComponents.div({
   justifyContent: "space-around",
   alignItems: "center",
   boxSizing: "border-box",
-  padding: "5px 15px 25px 15px",
+  padding: "0.5rem",
   background: "linear-gradient(to right, #F8823D, #E83E5D)",
   width: "100vw",
-  height: "6em"
+  height: "4rem"
 });
 
 export const HeaderLogoContainer = styledComponents.div({
   boxSizing: "border-box",
   height: "100%",
-  width: "30%",
+  width: "33%",
   display: "flex",
   flexDirection: "row",
   alignItems: "center"
 });
 
 export const ImgLogo = styledComponents.img({
-  width: "100%",
   height: "100%",
-  objectFit: "contain"
 });
 
 export const HeaderTitleContainer = styledComponents.div({
   boxSizing: "border-box",
   padding: "5px",
   height: "100%",
-  width: "40%",
+  width: "33%",
   display: "flex",
   flexDirection: "row",
   alignItems: "center",

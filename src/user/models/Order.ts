@@ -8,6 +8,7 @@ export interface IOrder {
     products: IOrderProduct[];
     userId: string;
     eventId: string;
+    eventName: string;
     createdBy: string;
     createdAt: number;
     updatedAt: number;
@@ -21,6 +22,7 @@ export interface IOrderDto {
     products: IOrderProductDto[];
     user_id: string;
     event_id: string;
+    event_name: string;
     created_by: string;
     created_at: number;
     updated_at: number;
