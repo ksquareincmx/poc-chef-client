@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { loginService } from "src/common/services";
 import styledComponentsTS from "styled-components-ts";
 import styledComponents from "styled-components";
@@ -6,7 +6,8 @@ import { RouteComponentProps } from "react-router-dom";
 import { NotificationContext } from "src/providers";
 import { ILoginErrorField } from "src/common/models/Login";
 import { MainDivContainer, ImgLogo } from "src/common/ui/MainDivContainer";
-import { currentEventsRoute } from "src/partner/routes";
+import { currentEventsRoute, loginPartnerRoute } from "src/partner/routes";
+import { loginUserRoute, myOrdersUserRoute } from "src/user/routes";
 
 const flatElement = {
   minWidth: "260px",
@@ -39,7 +40,7 @@ const ButtonSubmit = styledComponents.button({
   color: "#fff"
 });
 
-export const Login: React.FC<RouteComponentProps> = props => {
+export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const notificationContext = useContext(NotificationContext.NotificationContext);
@@ -69,7 +70,6 @@ export const Login: React.FC<RouteComponentProps> = props => {
 
   const handleSubmit = async (ev: any) => {
     ev.preventDefault();
-
     if (!verifyFields()) {
       notificationContext.handleShowNotification("Fields should not be empty");
       return;
@@ -81,9 +81,20 @@ export const Login: React.FC<RouteComponentProps> = props => {
     } else if (loginResponse.jwt && loginResponse.user) {
       loginService.setUser(loginResponse.user);
       loginService.setJWT(loginResponse.jwt);
-      props.history.push(currentEventsRoute);
+      history.push(currentEventsRoute);
     }
   };
+
+  if (loginService.isUserLogged()) {
+    const { pathname } = location;
+    if (pathname === loginPartnerRoute) {
+      history.push(currentEventsRoute);
+    }
+    if (pathname === loginUserRoute) {
+      history.push(myOrdersUserRoute);
+    }
+    return null;
+  }
 
   return (
     <MainDivContainer>

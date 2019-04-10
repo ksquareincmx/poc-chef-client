@@ -2,6 +2,7 @@ import { ILoginResponse } from "../models/Login";
 import { LoginMapper } from "../mappers";
 import { IUser, user } from "../models/User";
 import { storageService } from "./StorageService";
+import { RouteComponentProps } from "react-router";
 
 export interface ILoginService {
   login: (username: string, password: string) => Promise<ILoginResponse>;
@@ -9,6 +10,7 @@ export interface ILoginService {
   setUser: (userData: IUser) => void;
   setJWT: (jwt: string) => void;
   getJWT: () => any;
+  isUserLogged: () => boolean;
 }
 
 export const loginService: ILoginService = {
@@ -41,5 +43,9 @@ export const loginService: ILoginService = {
   },
   getJWT: () => {
     return storageService.getItem("user_jwt");
+  },
+  isUserLogged: function() {
+    const userLogged = this.getCurrentUser();
+    return userLogged.id !== "";
   }
 };

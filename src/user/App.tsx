@@ -1,15 +1,22 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { Profile } from "./views/Profile/";
-import { IReactRouterProps } from "src/common/interfaces";
 import { NavBar } from "src/partner/modules/NavBar";
 import { MyOrders } from "src/user/views/MyOrders";
 import { Order } from "src/user/views/Order";
 import { profileUserRoute, myOrdersUserRoute, orderViewUserRoute } from "./routes";
-import { orderFormUserRoute } from "./routes/routes";
+import { orderFormUserRoute, loginUserRoute } from "./routes/routes";
 import { Splash } from "src/common/views/Splash";
+import { loginService } from "src/common/services";
 
-const UserApp: React.SFC<IReactRouterProps> = props => {
+const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
+  useEffect(() => {
+    const isProtectedRoute = /\/user\/[^login].+/gi.test(location.pathname);
+    if (isProtectedRoute && !loginService.isUserLogged()) {
+      history.push(loginUserRoute);
+    }
+  }, []);
+
   return (
     <div>
       <Switch>
