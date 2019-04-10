@@ -16,6 +16,7 @@ export const OrderItem: React.SFC<IOrderItem> = props => {
   const handleOpenModal = () => {
     props.openCancelModal(props.order.id);
   };
+
   return (
     <>
       <ListStyled.ListItem>
