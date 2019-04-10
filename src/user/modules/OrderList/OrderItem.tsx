@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import styledComponents from "styled-components";
+import styledComponentsTS from "styled-components-ts";
 import { ListStyled } from "src/partner/modules/ui";
 import { IOrder } from "src/partner/models/Order";
 import { ListItemRow } from "src/partner/modules/ui/List/List";
@@ -6,6 +8,24 @@ import { MenuOptions } from "src/common/ui/MenuOptions";
 import { Cell, RowProducts, RowTitle } from "./OrderStyles";
 import { ProductList } from "./ProductList";
 import { Link } from "react-router-dom";
+
+const Total = styledComponentsTS(styledComponents.div)`
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem 0 0.75rem;
+`;
+
+interface IBoldTextProps {
+  align?: string;
+}
+
+const BoldText = styledComponentsTS<IBoldTextProps>(styledComponents.p)`
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  color: #515354;
+  text-align: ${props => props.align ? props.align : 'center'}
+`;
 
 export interface IOrderItem {
   order: IOrder;
@@ -33,21 +53,27 @@ export const OrderItem: React.SFC<IOrderItem> = props => {
         </ListItemRow>
         <ListItemRow>
           <RowProducts>
-            <Cell fontWeight="bold">Tortas</Cell>
-            <Cell align="right" fontWeight="bold">
-              Units
+            <Cell>
+              <BoldText>Tortas</BoldText>
             </Cell>
-            <Cell align="right" fontWeight="bold">
-              Amount
+            <Cell>
+              <BoldText align='center'>Units</BoldText>
+            </Cell>
+            <Cell>
+              <BoldText align='right'>Amount</BoldText>
             </Cell>
           </RowProducts>
         </ListItemRow>
         <ProductList products={props.order.products} />
         <ListItemRow>
-          <RowTitle>
-            <Cell>TOTAL</Cell>
-            <Cell align="right">${props.order.total} MXN</Cell>
-          </RowTitle>
+          <Total>
+            <Cell>
+              <BoldText>TOTAL</BoldText>
+            </Cell>
+            <Cell align="right">
+              <BoldText>${props.order.total} MXN</BoldText>
+            </Cell>
+          </Total>
         </ListItemRow>
       </ListStyled.ListItem>
     </>

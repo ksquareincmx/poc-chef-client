@@ -22,7 +22,7 @@ export interface IListItemRowProps {
 
 export const ListItemRow = styledComponentsTS<IListItemRowProps>(styledComponents.div)`
   width: 100%;
-  padding: 5px 20px 5px 20px;
+  padding: 0;
   box-sizing: border-box;
   border-bottom: ${(props: IListItemRowProps) =>
     props.borderBottom ? "2px solid #f3f3f3" : "unset"};
