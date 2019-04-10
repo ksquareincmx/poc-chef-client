@@ -10,12 +10,12 @@ import { Splash } from "src/common/views/Splash";
 import { loginService } from "src/common/services";
 
 const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
-  useEffect(() => {
-    const isProtectedRoute = /\/user\/[^login].+/gi.test(location.pathname);
-    if (isProtectedRoute && !loginService.isUserLogged()) {
-      history.push(loginUserRoute);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const isProtectedRoute = /\/user\/[^login].+/gi.test(location.pathname);
+  //   if (isProtectedRoute && !loginService.isUserLogged()) {
+  //     history.push(loginUserRoute);
+  //   }
+  // }, []);
 
   return (
     <div>

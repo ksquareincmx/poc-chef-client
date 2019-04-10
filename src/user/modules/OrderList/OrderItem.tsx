@@ -21,7 +21,7 @@ export const OrderItem: React.SFC<IOrderItem> = props => {
       <ListStyled.ListItem>
         <ListItemRow borderBottom>
           <RowTitle>
-            <Cell>{props.order.date}</Cell>
+            <Cell>{props.order.createdAt}</Cell>
             <Cell align="right">{`Order #${props.order.id}`}</Cell>
             <MenuOptions>
               <Link to={`user/order/${props.order.id}`}>View order</Link>
