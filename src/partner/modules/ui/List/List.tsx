@@ -12,10 +12,8 @@ export const ListItem = styledComponents.div({
 });
 
 export const List = styledComponents.div({
-  marginTop: "-25px",
-  padding: "0 15px 16px 15px",
-  height: "430px",
-  overflowY: "auto"
+  padding: "1rem 1rem 4rem 1rem",
+  boxSizing: "border-box"
 });
 
 export interface IListItemRowProps {
@@ -24,7 +22,7 @@ export interface IListItemRowProps {
 
 export const ListItemRow = styledComponentsTS<IListItemRowProps>(styledComponents.div)`
   width: 100%;
-  padding: 5px 20px 5px 20px;
+  padding: 0;
   box-sizing: border-box;
   border-bottom: ${(props: IListItemRowProps) =>
     props.borderBottom ? "2px solid #f3f3f3" : "unset"};
