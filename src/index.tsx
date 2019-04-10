@@ -6,6 +6,7 @@ import UserApp from "./user/App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { rootRoute, userRoute, partnerRoute } from "./common/routes";
+import "dotenv/config";
 
 ReactDOM.render(
   <Router>
@@ -15,7 +16,7 @@ ReactDOM.render(
       <Route route={rootRoute} component={() => <Redirect to={userRoute} />} />
     </Switch>
   </Router>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want your app to work offline and load faster, you can change
