@@ -1,13 +1,19 @@
-import React, { useReducer } from "react";
+import React, {
+  Fragment,
+  useState,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
+import styledComponents from "styled-components";
+import { NotificationContext } from "src/providers";
+import { initialState, reducer, fetchEvent } from "../ducks/event";
+import { NavBar } from "../modules/NavBar";
 import { EventListItem } from "src/partner/modules/EventList/EventListItem";
 import { Header } from "src/partner/modules/Header";
 import { List } from "src/partner/modules/ui/List/List";
 import { ListStyled } from "src/partner/modules/ui";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
-import { NotificationContext } from "src/providers";
-import styledComponents from "styled-components";
-import reducer, { initialState, fetchEvent } from "../ducks/event";
-import { NavBar } from "../modules/NavBar";
 
 const FloatingFinishDiv = styledComponents.div`
   position: fixed;
@@ -32,18 +38,12 @@ export interface IEventViewProps {
 
 export const EventView: React.FC<IEventViewProps> = props => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [showModal, setShowModal] = React.useState(false);
-  const context = React.useContext(NotificationContext.NotificationContext);
+  const [showModal, setShowModal] = useState(false);
+  const context = useContext(NotificationContext.NotificationContext);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchEvent(props.match.params.id, dispatch);
   }, []);
-
-  const handleFinishEvent = () => {
-    // TODO: Finish event on the server
-    context.handleShowNotification("Event Finished");
-    closeModalFinishEvent();
-  };
 
   const showModalFinishEvent = () => {
     setShowModal(true);
@@ -53,14 +53,20 @@ export const EventView: React.FC<IEventViewProps> = props => {
     setShowModal(false);
   };
 
+  const handleFinishEvent = () => {
+    // TODO: Finish event on the server
+    context.handleShowNotification("Event Finished");
+    closeModalFinishEvent();
+  };
+
   const handleEditEvent = () => {};
 
   if (state.isLoading || state.error) {
     return (
-      <React.Fragment>
+      <Fragment>
         <Header title="Event view" />
         <p>loading</p>
-      </React.Fragment>
+      </Fragment>
     );
   }
 
@@ -69,7 +75,7 @@ export const EventView: React.FC<IEventViewProps> = props => {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Header title={state.localEvent.orderNumber} />
       <List>
         <EventListItem
@@ -84,13 +90,19 @@ export const EventView: React.FC<IEventViewProps> = props => {
           Finish Event
         </ListStyled.GradientButton>
       </FloatingFinishDiv>
-      <Modal show={showModal} title="Finish Event" closeModal={closeModalFinishEvent}>
+      <Modal
+        show={showModal}
+        title="Finish Event"
+        closeModal={closeModalFinishEvent}
+      >
         <div>Are you sure you want to finish this event?</div>
         <CenteredDiv>
-          <ListStyled.GradientButton onClick={handleFinishEvent}>Confirm</ListStyled.GradientButton>
+          <ListStyled.GradientButton onClick={handleFinishEvent}>
+            Confirm
+          </ListStyled.GradientButton>
         </CenteredDiv>
       </Modal>
       <NavBar />
-    </React.Fragment>
+    </Fragment>
   );
 };
