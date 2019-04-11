@@ -1,3 +1,4 @@
+import { IFluxStandardAction, ReduxDispatch } from "src/common/ducks";
 import { orderService } from "src/user/services/OrderService";
 import { IOrder } from "src/partner/models/Order";
 
@@ -6,28 +7,21 @@ export const FETCH_ORDERS_START = `${module}/FETCH_ORDERS_START`;
 export const FETCH_ORDERS_SUCCESS = `${module}/FETCH_ORDERS_SUCCESS`;
 export const FETCH_ORDERS_FAIL = `${module}/FETCH_ORDERS_FAIL`;
 
-export const initialState: IState = {
-  orders: [],
-  loading: false,
-  error: undefined
-};
-
-interface IState {
+export interface IState {
   orders: IOrder[];
   loading: boolean;
   error?: Error;
 }
+export const initialState: IState = {
+  orders: [],
+  loading: false,
+  error: undefined,
+};
 
-export interface IAction {
-  type: string;
-  payload?: any;
-  error?: boolean;
-  meta?: any;
-}
-
-type dispatchType = (action: IAction) => void;
-
-export default function reducer(state: IState, action: IAction): IState {
+export default function reducer(
+  state: IState,
+  action: IFluxStandardAction,
+): IState {
   switch (action.type) {
     case FETCH_ORDERS_START:
       return { ...state, loading: true };
@@ -52,7 +46,7 @@ export const fetchOrdersFailured = (error: Error) => {
   return { type: FETCH_ORDERS_FAIL, payload: error, error: true };
 };
 
-export const getOrders = async (userId: string, dispatch: dispatchType) => {
+export const getOrders = async (userId: string, dispatch: ReduxDispatch) => {
   dispatch(fetchOrdersStarted());
   try {
     const orders = await orderService.getOrdersByUserId(userId);
