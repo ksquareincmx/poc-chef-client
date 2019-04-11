@@ -5,12 +5,11 @@ import { EventService } from "src/partner/services";
 import { IEvent } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
-import { Button } from "src/components/FloatingAddButton/FloatingAddButton";
+import { Button as AddEventButton } from "src/components/FloatingAddButton/FloatingAddButton";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { CreateEvent } from "src/components/event/Create";
 import { ListStyled } from "src/partner/modules/ui";
-import {
-  reducer,
+import reducer, {
   initialState,
   cancelEvent,
   closeModal,
@@ -22,7 +21,7 @@ import {
   startFetching,
   fetchingSucess,
   fetchingError,
-  closeModalCancelEvent
+  closeModalCancelEvent,
 } from "../ducks/currentEvent";
 import { NavBar } from "../modules/NavBar";
 
@@ -100,11 +99,11 @@ export const CurrentEventsView: React.FC<{}> = () => {
     handleCloseModal: handleCloseModal,
     showModal: handleShowModal,
     showModalCancelEvent: handleShowModalCancelEvent,
-    showEditModal: handleShowEditModal
+    showEditModal: handleShowEditModal,
   };
 
   return (
-    <React.Fragment>
+    <>
       <Header title="Current Events" />
       <EventListContainer
         handleCancelEvent={handleCancelEvent}
@@ -121,15 +120,14 @@ export const CurrentEventsView: React.FC<{}> = () => {
           eventInfo={state.currentEvent}
         />
       </Modal>
-
       <Modal title="Cancel Event" show={state.cancelEvent} closeModal={handleCloseModalCancelEvent}>
         <ListStyled.ModalText>Are you sure you want to cancel this event?</ListStyled.ModalText>
         <ListStyled.RowData>
           <ListStyled.GradientButton onClick={handleCancelEvent}>Confirm</ListStyled.GradientButton>
         </ListStyled.RowData>
       </Modal>
-
+      <AddEventButton onClick={handleShowModal} />
       <NavBar />
-    </React.Fragment>
+    </>
   );
 };

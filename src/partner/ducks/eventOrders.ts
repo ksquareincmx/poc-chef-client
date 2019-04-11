@@ -27,36 +27,8 @@ export const initialEventOrdersState: IEventOrdersState = {
   orders: [],
   error: undefined,
   paidOrders: [],
-  unpaidOrders: []
+  unpaidOrders: [],
 };
-
-export default function reducerEventOrders(
-  state: IEventOrdersState,
-  action: IFluxStandardAction
-): IEventOrdersState {
-  switch (action.type) {
-    case FETCH_ALL_ORDERS_BY_EVENT_ID_START:
-      return fetchAllOrdersByEventIdStart(state, action);
-    case FETCH_ALL_ORDERS_BY_EVENT_ID_SUCCESS:
-      return fetchAllOrdersByEventIdSuccess(state, action);
-    case FETCH_ALL_ORDERS_BY_ID_FAIL:
-      return fetchAllOrdersByIdFail(state, action);
-    case EVENT_ORDERS_CHECK_ALL_PAID:
-      return eventOrdersCheckAllPAid(state, action);
-    case EVENT_ORDERS_CHECK_ALL_UNPAID:
-      return eventOrdersCheckAllUnpaid(state, action);
-    case EVENT_ORDERS_CHECK_ONE_PAID:
-      return eventOrdersCheckOne(state, action, true);
-    case EVENT_ORDERS_CHECK_ONE_UNPAID:
-      return eventOrdersCheckOne(state, action, false);
-    case MOVE_CHECKED_ORDERS_TO_PAID:
-      return moveCheckedOrdersToPaidTab(state, action);
-    case MOVE_CHECKED_ORDERS_TO_UNPAID:
-      return moveCheckedOrdersToUnpaidTab(state, action);
-    default:
-      return state;
-  }
-}
 
 function fetchAllOrdersByEventIdStart(state: IEventOrdersState, action: IFluxStandardAction) {
   return { ...state, isLoading: true };
@@ -71,7 +43,7 @@ function fetchAllOrdersByEventIdSuccess(state: IEventOrdersState, action: IFluxS
     isLoading: false,
     orders: action.payload,
     paidOrders: paidOrdersInitial,
-    unpaidOrders: unpaidOrdersInitial
+    unpaidOrders: unpaidOrdersInitial,
   };
 }
 
@@ -81,14 +53,14 @@ function fetchAllOrdersByIdFail(state: IEventOrdersState, action: IFluxStandardA
 
 function eventOrdersCheckAllPAid(state: IEventOrdersState, action: IFluxStandardAction) {
   const paidOrders = state.paidOrders.map(
-    (order: IOrder) => ((order.checked = action.payload), order)
+    (order: IOrder) => ((order.checked = action.payload), order),
   );
   return { ...state, paidOrders };
 }
 
 function eventOrdersCheckAllUnpaid(state: IEventOrdersState, action: IFluxStandardAction) {
   const unpaidOrders = state.unpaidOrders.map(
-    (order: IOrder) => ((order.checked = action.payload), order)
+    (order: IOrder) => ((order.checked = action.payload), order),
   );
   return { ...state, unpaidOrders };
 }
@@ -110,7 +82,7 @@ function moveCheckedOrdersToPaidTab(state: IEventOrdersState, action: IFluxStand
   return {
     ...state,
     paidOrders: [...state.paidOrders, ...checkedUnpaidOrders],
-    unpaidOrders: uncheckedUnpaidOrders
+    unpaidOrders: uncheckedUnpaidOrders,
   };
 }
 
@@ -120,7 +92,7 @@ function moveCheckedOrdersToUnpaidTab(state: IEventOrdersState, action: IFluxSta
   return {
     ...state,
     unpaidOrders: [...state.unpaidOrders, ...checkedPaidOrders],
-    paidOrders: [...uncheckedPaidOrders]
+    paidOrders: [...uncheckedPaidOrders],
   };
 }
 
@@ -169,3 +141,31 @@ export const fetchEventOrders = async (eventId: string, dispatch: ReduxDispatch)
     dispatch(fetchEventOrdersFailed(new Error("error at fetching event's orders")));
   }
 };
+
+export default function reducerEventOrders(
+  state: IEventOrdersState,
+  action: IFluxStandardAction,
+): IEventOrdersState {
+  switch (action.type) {
+    case FETCH_ALL_ORDERS_BY_EVENT_ID_START:
+      return fetchAllOrdersByEventIdStart(state, action);
+    case FETCH_ALL_ORDERS_BY_EVENT_ID_SUCCESS:
+      return fetchAllOrdersByEventIdSuccess(state, action);
+    case FETCH_ALL_ORDERS_BY_ID_FAIL:
+      return fetchAllOrdersByIdFail(state, action);
+    case EVENT_ORDERS_CHECK_ALL_PAID:
+      return eventOrdersCheckAllPAid(state, action);
+    case EVENT_ORDERS_CHECK_ALL_UNPAID:
+      return eventOrdersCheckAllUnpaid(state, action);
+    case EVENT_ORDERS_CHECK_ONE_PAID:
+      return eventOrdersCheckOne(state, action, true);
+    case EVENT_ORDERS_CHECK_ONE_UNPAID:
+      return eventOrdersCheckOne(state, action, false);
+    case MOVE_CHECKED_ORDERS_TO_PAID:
+      return moveCheckedOrdersToPaidTab(state, action);
+    case MOVE_CHECKED_ORDERS_TO_UNPAID:
+      return moveCheckedOrdersToUnpaidTab(state, action);
+    default:
+      return state;
+  }
+}
