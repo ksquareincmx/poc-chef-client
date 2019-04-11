@@ -19,7 +19,7 @@ export const loginService: ILoginService = {
       const config = {
         method: "POST",
         body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       };
       const res = await fetch("http://localhost:3000/v1/auth/login", config);
       const loginRes = await res.json();
@@ -47,5 +47,5 @@ export const loginService: ILoginService = {
   isUserLogged: function() {
     const userLogged = this.getCurrentUser();
     return userLogged.id !== "";
-  }
+  },
 };
