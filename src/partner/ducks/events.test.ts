@@ -1,11 +1,9 @@
-import {
-  IState,
-  reducer,
+import reducer, {
+  IStateEvent,
   initialState,
   fetchEventStarted,
   fetchEventSucceed,
   fetchEventFailed,
-  fetchEvent,
 } from "./event";
 import { IFluxStandardAction } from "src/common/ducks";
 import { event, IEvent } from "../models/Event";
@@ -13,7 +11,7 @@ import { event, IEvent } from "../models/Event";
 describe(" Test event Reducer", () => {
   it("should return the initial State", () => {
     const emptyAction: IFluxStandardAction = { type: "" };
-    const newState: IState = reducer(initialState, emptyAction);
+    const newState: IStateEvent = reducer(initialState, emptyAction);
     expect(newState).toEqual(initialState);
   });
 
@@ -24,14 +22,14 @@ describe(" Test event Reducer", () => {
   });
 
   it("test fetching success, should set new event to localEvent and isLoading equal to false", () => {
-    const prevState: IState = { ...initialState, isLoading: true };
+    const prevState: IStateEvent = { ...initialState, isLoading: true };
     const fetchedEvent: IEvent = event();
-    const stateAfterSuccessfulFetching: IState = {
+    const stateAfterSuccessfulFetching: IStateEvent = {
       ...prevState,
       isLoading: false,
       localEvent: fetchedEvent,
     };
-    const newState: IState = reducer(
+    const newState: IStateEvent = reducer(
       prevState,
       fetchEventSucceed(fetchedEvent),
     );
@@ -39,15 +37,15 @@ describe(" Test event Reducer", () => {
   });
 
   it("test fetching error, should set isLoading equal to false, also set an event and an error in the state", () => {
-    const prevState: IState = { ...initialState, isLoading: true };
+    const prevState: IStateEvent = { ...initialState, isLoading: true };
     const error: Error = new Error("It was an error fetching the event");
-    const stateAfterFailedFetching: IState = {
+    const stateAfterFailedFetching: IStateEvent = {
       ...prevState,
       isLoading: false,
       localEvent: event(),
       error,
     };
-    const newState: IState = reducer(prevState, fetchEventFailed(error));
+    const newState: IStateEvent = reducer(prevState, fetchEventFailed(error));
     expect(newState).toEqual(stateAfterFailedFetching);
   });
 });

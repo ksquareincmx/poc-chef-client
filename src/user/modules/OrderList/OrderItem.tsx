@@ -9,12 +9,12 @@ import { Link } from "react-router-dom";
 
 export interface IOrderItem {
   order: IOrder;
-  openCancelModal: (orderId: string) => void;
+  onCancelOrderModalOpen: (orderId: string) => void;
 }
 
 export const OrderItem: React.SFC<IOrderItem> = props => {
-  const handleOpenModal = () => {
-    props.openCancelModal(props.order.id);
+  const handleModalOpen = () => {
+    props.onCancelOrderModalOpen(props.order.id);
   };
   return (
     <>
@@ -26,7 +26,7 @@ export const OrderItem: React.SFC<IOrderItem> = props => {
             <MenuOptions>
               <Link to={`user/order/${props.order.id}`}>View order</Link>
               <a>Edit Order</a>
-              <a onClick={handleOpenModal}>Cancel Order</a>
+              <a onClick={handleModalOpen}>Cancel Order</a>
             </MenuOptions>
           </RowTitle>
         </ListItemRow>
