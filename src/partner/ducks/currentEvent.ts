@@ -1,4 +1,5 @@
 import { IEvent, event } from "src/partner/models/Event";
+import { IFluxStandardAction } from "src/common/ducks";
 
 export interface IState {
   events: IEvent[];
@@ -10,13 +11,6 @@ export interface IState {
   editEvent: boolean;
 }
 
-export interface IActions {
-  type: String;
-  payload?: any;
-  error?: boolean;
-  meta?: any;
-}
-
 export const initialState: IState = {
   events: [],
   isLoading: false,
@@ -24,7 +18,7 @@ export const initialState: IState = {
   currentEvent: event(),
   cancelEvent: false,
   openModal: false,
-  editEvent: false
+  editEvent: false,
 };
 
 const CANCEL_EVENT = "partner/views/currentEvent/CANCEL_EVENT";
@@ -39,49 +33,63 @@ const FETCH_CURRENT_EVENT_START = "partner/views/currentEvent/FETCH_CURRENT_EVEN
 const FETCH_CURRENT_EVENT_SUCCESS = "partner/views/currentEvent/FETCH_CURRENT_EVENT_SUCCESS";
 const FETCH_CURRENT_EVENT_FAIL = "partner/views/currentEvent/FETCH_CURRENT_EVENT_FAIL";
 
-export const reducer = (state: IState, action: IActions): IState => {
-  switch (action.type) {
-    case CANCEL_EVENT:
-      const eventsUpdated = state.events.filter((e: IEvent) => e.id != state.currentEvent.id);
-      return { ...state, events: eventsUpdated, currentEvent: event(), cancelEvent: false };
-    case CLOSE_MODAL:
-      return { ...state, openModal: false, currentEvent: event() };
-    case CLOSE_MODAL_CANCEL_EVENT:
-      return { ...state, cancelEvent: false, currentEvent: event() };
-    case CREATE_EVENT:
-      const updatedEvents: IEvent[] = [...state.events];
-      action.payload.orderNumber = "Event: #" + (updatedEvents.length + 1);
-      updatedEvents.push(action.payload);
-      return { ...state, openModal: false, events: updatedEvents };
-    case UPDATE_EVENT:
-      const currentEvents = state.events.map((ev: IEvent) => {
-        if (ev.id === action.payload.id) {
-          return action.payload;
-        }
-        return ev;
-      });
-      return { ...state, events: currentEvents, currentEvent: event(), editEvent: false };
-    case SHOW_MODAL:
-      return { ...state, openModal: true };
+function doCancelEvent(state: IState, action: IFluxStandardAction) {
+  const eventsUpdated = state.events.filter((e: IEvent) => e.id != state.currentEvent.id);
+  return { ...state, events: eventsUpdated, currentEvent: event(), cancelEvent: false };
+}
 
-    case SHOW_EDIT_MODAL:
-      return { ...state, currentEvent: action.payload, editEvent: true, openModal: true };
-    case SHOW_MODAL_CANCEL_EVENT:
-      return { ...state, cancelEvent: true, currentEvent: action.payload };
-    case FETCH_CURRENT_EVENT_START:
-      return { ...state, isLoading: true };
-    case FETCH_CURRENT_EVENT_SUCCESS:
-      return { ...state, events: action.payload, isLoading: false };
-    case FETCH_CURRENT_EVENT_FAIL:
-      return { ...state, error: action.payload, isLoading: false };
-    default:
-      return state;
-  }
-};
+function doCloseModal(state: IState, action: IFluxStandardAction) {
+  return { ...state, openModal: false, currentEvent: event() };
+}
+
+function doCloseModalCancelEvent(state: IState, action: IFluxStandardAction) {
+  return { ...state, cancelEvent: false, currentEvent: event() };
+}
+
+function doCreateEvent(state: IState, action: IFluxStandardAction) {
+  const updatedEvents: IEvent[] = [...state.events];
+  action.payload.orderNumber = "Event: #" + (updatedEvents.length + 1);
+  updatedEvents.push(action.payload);
+  return { ...state, openModal: false, events: updatedEvents };
+}
+
+function doUpdateEvent(state: IState, action: IFluxStandardAction) {
+  const currentEvents = state.events.map((ev: IEvent) => {
+    if (ev.id === action.payload.id) {
+      return action.payload;
+    }
+    return ev;
+  });
+  return { ...state, events: currentEvents, currentEvent: event(), editEvent: false };
+}
+
+function doShowModal(state: IState, action: IFluxStandardAction) {
+  return { ...state, openModal: true };
+}
+
+function doShowEditModal(state: IState, action: IFluxStandardAction) {
+  return { ...state, currentEvent: action.payload, editEvent: true, openModal: true };
+}
+
+function doShowModalCancelEvent(state: IState, action: IFluxStandardAction) {
+  return { ...state, cancelEvent: true, currentEvent: action.payload };
+}
+
+function doFetchCurrentEventStart(state: IState, action: IFluxStandardAction) {
+  return { ...state, isLoading: true };
+}
+
+function doFetchCurrentEventSuccess(state: IState, action: IFluxStandardAction) {
+  return { ...state, events: action.payload, isLoading: false };
+}
+
+function dofetchCurrentEventFail(state: IState, action: IFluxStandardAction) {
+  return { ...state, error: action.payload, isLoading: false };
+}
 
 export function cancelEvent() {
   return {
-    type: CANCEL_EVENT
+    type: CANCEL_EVENT,
   };
 }
 
@@ -123,4 +131,33 @@ export function fetchingError(error: any) {
 
 export function closeModalCancelEvent() {
   return { type: CLOSE_MODAL_CANCEL_EVENT };
+}
+
+export default function reducer(state: IState, action: IFluxStandardAction): IState {
+  switch (action.type) {
+    case CANCEL_EVENT:
+      return doCancelEvent(state, action);
+    case CLOSE_MODAL:
+      return doCloseModal(state, action);
+    case CLOSE_MODAL_CANCEL_EVENT:
+      return doCloseModalCancelEvent(state, action);
+    case CREATE_EVENT:
+      return doCreateEvent(state, action);
+    case UPDATE_EVENT:
+      return doUpdateEvent(state, action);
+    case SHOW_MODAL:
+      return doShowModal(state, action);
+    case SHOW_EDIT_MODAL:
+      return doShowEditModal(state, action);
+    case SHOW_MODAL_CANCEL_EVENT:
+      return doShowModalCancelEvent(state, action);
+    case FETCH_CURRENT_EVENT_START:
+      return doFetchCurrentEventStart(state, action);
+    case FETCH_CURRENT_EVENT_SUCCESS:
+      return doFetchCurrentEventSuccess(state, action);
+    case FETCH_CURRENT_EVENT_FAIL:
+      return dofetchCurrentEventFail(state, action);
+    default:
+      return state;
+  }
 }

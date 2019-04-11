@@ -1,11 +1,13 @@
 import { IEvent } from "src/partner/models/Event";
 import { EventMapper, OrderMapper } from "src/partner/mappers";
 import { IOrder } from "../models/Order";
+import { getApiUrl } from "src/common/utils/utils";
 
 export interface IEventService {
   getCurrentEvents: () => Promise<IEvent[]>;
   getPastEvents: () => Promise<IEvent[]>;
   getOrdersByEventId: (idEvent: string) => Promise<IOrder[]>;
+  createEvent: (event: IEvent) => Promise<IEvent>;
 }
 
 export const eventService: IEventService = {
@@ -37,5 +39,14 @@ export const eventService: IEventService = {
     } catch (err) {
       console.error(err);
     }
-  }
+  },
+  createEvent: async (event: IEvent) => {
+    try {
+      const res = await fetch(`${getApiUrl()}`);
+      const event = await res.json();
+      return res;
+    } catch (err) {
+      return err;
+    }
+  },
 };
