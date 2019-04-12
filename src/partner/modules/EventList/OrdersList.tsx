@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { IOrder } from "src/partner/models/Order";
 import styledComponents from "styled-components";
 import styledComponentsTS from "styled-components-ts";
@@ -36,7 +36,7 @@ const CellDiv = styledComponents.div`
 export interface IOrderListProps {
   orders: IOrder[];
   handleCheckAll: (checked: boolean) => void;
-  handleCheckOrder: (orderId: string, e: any) => void;
+  handleCheckOrder: (orderId: string, e: ChangeEvent<HTMLInputElement>) => void;
   checkAll: boolean;
 }
 
@@ -53,7 +53,7 @@ export const OrdersList: React.SFC<IOrderListProps> = props => {
             type="checkbox"
             name={`check_${id}`}
             checked={checked}
-            onChange={(e: any) => props.handleCheckOrder(id, e)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleCheckOrder(id, e)}
           />
         </CellDiv>
         <CellDiv>
@@ -76,7 +76,9 @@ export const OrdersList: React.SFC<IOrderListProps> = props => {
             type="checkbox"
             name="check_all"
             checked={props.checkAll}
-            onChange={(e: any) => props.handleCheckAll(e.currentTarget.checked)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              props.handleCheckAll(e.currentTarget.checked)
+            }
           />
         </div>
         <div>Name</div>

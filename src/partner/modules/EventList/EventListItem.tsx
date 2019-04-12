@@ -33,27 +33,31 @@ export const EventListItemComponent: React.SFC<IEventItemProps & RouteComponentP
   return (
     <ListStyled.ListItem key={props.eventInfo.id}>
       <ListStyled.ListItemRow borderBottom>
-        <ListStyled.RowData>
-          <ListStyled.H1 align="left">{props.eventInfo.orderNumber}</ListStyled.H1>
-          {!isEventViewRoute() && (
-            <MenuOptions>
-              <Link to={`events/${props.eventInfo.id}`}>View Event</Link>
-              {isCurrentEventsPartnerRoute() && <a onClick={handleEditEvent}>Edit Event</a>}
-              {isCurrentEventsPartnerRoute() && <a onClick={showModalCancelEvent}>Cancel Event</a>}
-            </MenuOptions>
-          )}
-        </ListStyled.RowData>
+        <div style={{padding: '0.5rem 0.75rem'}}>
+          <ListStyled.RowData>
+            <ListStyled.H1 align="left">{props.eventInfo.orderNumber}</ListStyled.H1>
+            {!isEventViewRoute() && (
+              <MenuOptions>
+                <Link to={`events/${props.eventInfo.id}`}>View Event</Link>
+                {isCurrentEventsPartnerRoute() && <a onClick={handleEditEvent}>Edit Event</a>}
+                {isCurrentEventsPartnerRoute() && <a onClick={showModalCancelEvent}>Cancel Event</a>}
+              </MenuOptions>
+            )}
+          </ListStyled.RowData>
+        </div>
       </ListStyled.ListItemRow>
       <ListStyled.ListItemRow borderBottom>
-        <ListStyled.H2 align="left">{props.eventInfo.name}</ListStyled.H2>
-        <ListStyled.RowData>
-          <ListStyled.P align="left">
-            {`${props.eventInfo.startDateString} - ${props.eventInfo.endDateString}`}
-          </ListStyled.P>
-          <ListStyled.P align="right">
-            {`${props.eventInfo.startTimeString} - ${props.eventInfo.endTimeString}`}
-          </ListStyled.P>
-        </ListStyled.RowData>
+        <div style={{padding: '0.5rem 0.75rem'}}>
+          <ListStyled.H2 align="left">{props.eventInfo.name}</ListStyled.H2>
+          <ListStyled.RowData>
+            <ListStyled.P align="left">
+              {`${props.eventInfo.startDateString} - ${props.eventInfo.endDateString}`}
+            </ListStyled.P>
+            <ListStyled.P align="right">
+              {`${props.eventInfo.startTimeString} - ${props.eventInfo.endTimeString}`}
+            </ListStyled.P>
+          </ListStyled.RowData>
+        </div>
       </ListStyled.ListItemRow>
       <ListStyled.Table>
         <thead>
