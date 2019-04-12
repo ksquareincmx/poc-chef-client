@@ -11,12 +11,11 @@ import { GoogleLogin } from "react-google-login";
 import { ButtonGoogleLogin } from "src/common/ui/LoginForm";
 
 export const Login: React.FC<RouteComponentProps> = props => {
-  const notificationContext = useContext(
-    NotificationContext.NotificationContext,
-  );
+  const notificationContext = useContext(NotificationContext.NotificationContext);
 
   const loginWithGoogle = async (res: any) => {
     const userAuth = await loginService.loginWithGoogle(res.id_token);
+    props.history.push(myOrdersUserRoute);
   };
 
   const customButton = (renderProps: any) => {
