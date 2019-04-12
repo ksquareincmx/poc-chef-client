@@ -11,6 +11,7 @@ export interface ILoginService {
   setJWT: (jwt: string) => void;
   getJWT: () => any;
   isUserLogged: () => boolean;
+  loginWithGoogle: (idToken: string) => Promise<ILoginResponse>;
 }
 
 export const loginService: ILoginService = {
@@ -19,7 +20,7 @@ export const loginService: ILoginService = {
       const config = {
         method: "POST",
         body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       };
       const res = await fetch("http://localhost:3000/v1/auth/login", config);
       const loginRes = await res.json();
@@ -47,5 +48,20 @@ export const loginService: ILoginService = {
   isUserLogged: function() {
     const userLogged = this.getCurrentUser();
     return userLogged.id !== "";
-  }
+  },
+  loginWithGoogle: async (idToken: string) => {
+    try {
+      const config = {
+        method: "POST",
+        body: JSON.stringify({ idToken }),
+        headers: { "Content-Type": "application/json" },
+      };
+
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/auth/googleLogin`, config);
+      const authRes = await res.json();
+      return LoginMapper.toEntity(authRes);
+    } catch (err) {
+      return err;
+    }
+  },
 };

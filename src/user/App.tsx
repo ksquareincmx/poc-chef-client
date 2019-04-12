@@ -8,6 +8,7 @@ import { profileUserRoute, myOrdersUserRoute, orderViewUserRoute } from "./route
 import { orderFormUserRoute, loginUserRoute } from "./routes/routes";
 import { Splash } from "src/common/views/Splash";
 import { loginService } from "src/common/services";
+import { Login } from "src/common/views/login";
 
 const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
   // useEffect(() => {
@@ -16,17 +17,19 @@ const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
   //     history.push(loginUserRoute);
   //   }
   // }, []);
-
+  const testRoute = new RegExp(`${loginUserRoute}|/`, "gi");
+  const isSplashOrLoginRoute = testRoute.test(location.pathname);
   return (
     <div>
       <Switch>
         <Route path={profileUserRoute} component={Profile} />
         <Route path={myOrdersUserRoute} component={MyOrders} />
+        <Route path={loginUserRoute} component={Login} />
         <Route path={orderViewUserRoute} component={Order} />
         <Route path={orderFormUserRoute} component={Order} />
         <Route path="/" component={Splash} />
       </Switch>
-      <NavBar />
+      {!isSplashOrLoginRoute && <NavBar />}
     </div>
   );
 };
