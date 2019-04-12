@@ -4,24 +4,24 @@ import { OrderListContainer } from "src/user/modules/OrderList";
 import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { ListStyled } from "src/partner/modules/ui";
 import reducerMyOrders, {
-  initialStateOrders,
+  initialState,
   openCancelOrderModal,
   closeCancelOrderModal,
-  getUser
+  getUser,
 } from "src/user/ducks/myOrders";
 
 export const MyOrders: React.SFC = () => {
-  const [state, dispatch] = useReducer(reducerMyOrders, initialStateOrders);
+  const [state, dispatch] = useReducer(reducerMyOrders, initialState);
 
   useEffect(() => {
     getUser(dispatch);
   }, []);
 
-  const handleCloseModalCancelEvent = () => {
+  const handleCancelEventModalClose = () => {
     dispatch(closeCancelOrderModal());
   };
 
-  const handleOpenCancelOrderModal = (orderId: string) => {
+  const handleCancelOrderModalOpen = (orderId: string) => {
     dispatch(openCancelOrderModal(orderId));
   };
 
@@ -32,15 +32,22 @@ export const MyOrders: React.SFC = () => {
   return (
     <div>
       <Header title="My Orders" />
-      <OrderListContainer userId={state.user.id} openCancelModal={handleOpenCancelOrderModal} />
+      <OrderListContainer
+        userId={state.user.id}
+        onCancelOrderModalOpen={handleCancelOrderModalOpen}
+      />
       <Modal
         title="Cancel Order"
         show={state.openModalCancelEvent}
-        closeModal={handleCloseModalCancelEvent}
+        closeModal={handleCancelEventModalClose}
       >
-        <ListStyled.ModalText>Are you sure you want to cancel this Order?</ListStyled.ModalText>
+        <ListStyled.ModalText>
+          Are you sure you want to cancel this Order?
+        </ListStyled.ModalText>
         <ListStyled.RowData>
-          <ListStyled.GradientButton onClick={handleCancelOrder}>Confirm</ListStyled.GradientButton>
+          <ListStyled.GradientButton onClick={handleCancelOrder}>
+            Confirm
+          </ListStyled.GradientButton>
         </ListStyled.RowData>
       </Modal>
     </div>

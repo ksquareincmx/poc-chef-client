@@ -41,12 +41,12 @@ export const Img = styledComponents.img({
 
 export interface IOrderItem {
   order: IOrder;
-  openCancelModal: (orderId: string) => void;
+  onCancelOrderModalOpen: (orderId: string) => void;
 }
 
 export const OrderItem: React.SFC<IOrderItem> = props => {
-  const handleOpenModal = () => {
-    props.openCancelModal(props.order.id);
+  const handleModalOpen = () => {
+    props.onCancelOrderModalOpen(props.order.id);
   };
 
   return (

@@ -2,13 +2,13 @@ import { EventService } from "src/partner/services";
 import { IEvent, event } from "src/partner/models/Event";
 import { IFluxStandardAction, ReduxDispatch } from "src/common/ducks/index";
 
-export interface IState {
+export interface IStateEvent {
   isLoading: boolean;
   localEvent: IEvent;
   error?: Error;
 }
 
-export const initialState: IState = {
+export const initialState: IStateEvent = {
   isLoading: false,
   localEvent: event(),
 };
@@ -18,7 +18,10 @@ export const FETCH_EVENT_START = `${MODULE}/FETCH_EVENT_START`;
 export const FETCH_EVENT_SUCCESS = `${MODULE}/FETCH_EVENT_SUCCESS`;
 export const FETCH_EVENT_FAIL = `${MODULE}/FETCH_EVENT_FAIL`;
 
-export const reducer = (state: IState, action: IFluxStandardAction): IState => {
+export default function reducer(
+  state: IStateEvent,
+  action: IFluxStandardAction,
+): IStateEvent {
   switch (action.type) {
     case FETCH_EVENT_START:
       return { ...state, isLoading: true };
@@ -29,7 +32,7 @@ export const reducer = (state: IState, action: IFluxStandardAction): IState => {
     default:
       return state;
   }
-};
+}
 
 export const fetchEventStarted = () => {
   return { type: FETCH_EVENT_START };

@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import styledComponents from "styled-components";
 import { NotificationContext } from "src/providers";
-import { initialState, reducer, fetchEvent } from "../ducks/event";
+import reducer, { initialState, fetchEvent } from "../ducks/event";
 import { NavBar } from "../modules/NavBar";
 import { EventListItem } from "src/partner/modules/EventList/EventListItem";
 import { Header } from "src/partner/modules/Header";
