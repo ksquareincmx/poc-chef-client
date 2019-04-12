@@ -49,8 +49,8 @@ export const Login: React.FC<RouteComponentProps> = props => {
         <ImgIcon height="40px" src={require("src/images/group.svg")} />
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
-          onSuccess={res => loginWithGoogle(res)}
-          onFailure={e => console.error(e)}
+          onSuccess={loginWithGoogle}
+          onFailure={console.error}
           render={customButton}
         />
         <ImgIcon height="72px" src={require("src/images/group-2.svg")} />
