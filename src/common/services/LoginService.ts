@@ -2,7 +2,6 @@ import { ILoginResponse } from "../models/Login";
 import { LoginMapper } from "../mappers";
 import { IUser, user } from "../models/User";
 import { storageService } from "./StorageService";
-import { RouteComponentProps } from "react-router";
 
 export interface ILoginService {
   login: (username: string, password: string) => Promise<ILoginResponse>;
@@ -22,7 +21,7 @@ export const loginService: ILoginService = {
         body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },
       };
-      const res = await fetch("http://localhost:3000/v1/auth/login", config);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, config);
       const loginRes = await res.json();
       return LoginMapper.toEntity(loginRes);
     } catch (err) {

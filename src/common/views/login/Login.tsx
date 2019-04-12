@@ -6,16 +6,21 @@ import { MainDivContainer, ImgLogo } from "src/common/ui/MainDivContainer";
 import { currentEventsRoute, loginPartnerRoute } from "src/partner/routes";
 import { loginUserRoute, myOrdersUserRoute } from "src/user/routes";
 import { WrapperDiv, ImgIcon } from "src/common/ui/LoginForm";
-import { LoginEmailForm } from "./LoginEmailForm";
 import { GoogleLogin } from "react-google-login";
 import { ButtonGoogleLogin } from "src/common/ui/LoginForm";
 
-export const Login: React.FC<RouteComponentProps> = props => {
+export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
 
   const loginWithGoogle = async (res: any) => {
-    const userAuth = await loginService.loginWithGoogle(res.id_token);
-    props.history.push(myOrdersUserRoute);
+    const userAuth = await loginService.loginWithGoogle(res.tokenId);
+    if (userAuth.errors) {
+      notificationContext.handleShowNotification("Error at login with google, please try again");
+    } else if (userAuth.jwt && userAuth.user) {
+      loginService.setUser(userAuth.user);
+      loginService.setJWT(userAuth.jwt);
+      history.push(myOrdersUserRoute);
+    }
   };
 
   const customButton = (renderProps: any) => {
@@ -33,12 +38,12 @@ export const Login: React.FC<RouteComponentProps> = props => {
   if (loginService.isUserLogged()) {
     const { pathname } = location;
     if (pathname === loginPartnerRoute) {
-      //props.history.push(currentEventsRoute);
-      //return null;
+      history.push(currentEventsRoute);
+      return null;
     }
     if (pathname === loginUserRoute) {
-      //props.history.push(myOrdersUserRoute);
-      //return null;
+      history.push(myOrdersUserRoute);
+      return null;
     }
   }
 
