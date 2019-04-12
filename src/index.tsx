@@ -4,7 +4,12 @@ import "./css/index.css";
 import PartnerApp from "./partner/App";
 import UserApp from "./user/App";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { rootRoute, userRoute, partnerRoute } from "./common/routes";
 import "dotenv/config";
 
