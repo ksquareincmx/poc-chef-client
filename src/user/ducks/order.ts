@@ -7,21 +7,21 @@ export const FETCH_ORDERS_START = `${module}/FETCH_ORDERS_START`;
 export const FETCH_ORDERS_SUCCESS = `${module}/FETCH_ORDERS_SUCCESS`;
 export const FETCH_ORDERS_FAIL = `${module}/FETCH_ORDERS_FAIL`;
 
-export interface IState {
+export interface IOrderState {
   orders: IOrder[];
   loading: boolean;
   error?: Error;
 }
-export const initialState: IState = {
+export const initialState: IOrderState = {
   orders: [],
   loading: false,
   error: undefined,
 };
 
 export default function reducer(
-  state: IState,
+  state: IOrderState,
   action: IFluxStandardAction,
-): IState {
+): IOrderState {
   switch (action.type) {
     case FETCH_ORDERS_START:
       return { ...state, loading: true };
@@ -39,11 +39,11 @@ export const fetchOrdersStarted = () => {
 };
 
 export const fetchOrdersSucceed = (orders: IOrder[]) => {
-  return { type: FETCH_ORDERS_SUCCESS, payload: orders, error: false };
+  return { type: FETCH_ORDERS_SUCCESS, payload: orders };
 };
 
 export const fetchOrdersFailured = (error: Error) => {
-  return { type: FETCH_ORDERS_FAIL, payload: error, error: true };
+  return { type: FETCH_ORDERS_FAIL, payload: error };
 };
 
 export const getOrders = async (userId: string, dispatch: ReduxDispatch) => {
