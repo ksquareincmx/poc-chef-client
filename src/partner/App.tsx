@@ -5,7 +5,7 @@ import { CurrentEventsView } from "./views/CurrentEventView";
 import { NotificationContext } from "../providers/";
 import { currentEventsRoute, pastEventsRoute, eventViewRoute } from "./routes";
 import { loginPartnerRoute } from "./routes/routes";
-import { Login } from "src/common/views/login";
+import { Login } from "./views/Login";
 import { Splash } from "src/common/views/Splash";
 import { loginService } from "src/common/services";
 import { NavBar } from "./modules/NavBar";

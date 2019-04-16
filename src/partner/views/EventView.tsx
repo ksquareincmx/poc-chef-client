@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useState,
-  useContext,
-  useEffect,
-  useReducer,
-} from "react";
+import React, { Fragment, useState, useContext, useEffect, useReducer } from "react";
 import styledComponents from "styled-components";
 import { NotificationContext } from "src/providers";
 import reducer, { initialState, fetchEvent } from "../ducks/event";
@@ -90,16 +84,10 @@ export const EventView: React.FC<IEventViewProps> = props => {
           Finish Event
         </ListStyled.GradientButton>
       </FloatingFinishDiv>
-      <Modal
-        show={showModal}
-        title="Finish Event"
-        closeModal={closeModalFinishEvent}
-      >
+      <Modal show={showModal} title="Finish Event" closeModal={closeModalFinishEvent}>
         <div>Are you sure you want to finish this event?</div>
         <CenteredDiv>
-          <ListStyled.GradientButton onClick={handleFinishEvent}>
-            Confirm
-          </ListStyled.GradientButton>
+          <ListStyled.GradientButton onClick={handleFinishEvent}>Confirm</ListStyled.GradientButton>
         </CenteredDiv>
       </Modal>
       <NavBar />
