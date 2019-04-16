@@ -3,5 +3,6 @@ import styledTS from "styled-components-ts";
 
 export const ContentWrapper = styledTS(styled.div)`
   width: 100vw;
-  height: 100%;
+  height: calc(100vh - 9rem);
+  overflow-y: auto;
 `;
