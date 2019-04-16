@@ -5,12 +5,17 @@ import { NotificationContext } from "src/providers";
 import { MainDivContainer, ImgLogo } from "src/common/ui/MainDivContainer";
 import { currentEventsRoute, loginPartnerRoute } from "src/partner/routes";
 import { loginUserRoute, myOrdersUserRoute } from "src/user/routes";
-import { WrapperDiv, ImgIcon } from "src/common/ui/LoginForm";
+import { WrapperDiv, ImgIcon } from "src/partner/modules/ui/Login";
 import { GoogleLogin } from "react-google-login";
-import { ButtonGoogleLogin } from "src/common/ui/LoginForm";
+import { ButtonGoogleLogin } from "src/partner/modules/ui/Login";
+import { LoginEmailForm } from "../../../partner/views/Login/LoginEmailForm";
 
-export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
+export const Login: React.FC<RouteComponentProps> = props => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
+  const { pathname } = props.location;
+  const { history } = props;
+  const isLoginPartnerRoute = /\/partner\/login\/?/gi.test(pathname);
+  const isLoginUserRoute = /\/user\/login\/?/gi.test(pathname);
 
   const loginWithGoogle = async (res: any) => {
     const userAuth = await loginService.loginWithGoogle(res.tokenId);
@@ -19,7 +24,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
     } else if (userAuth.jwt && userAuth.user) {
       loginService.setUser(userAuth.user);
       loginService.setJWT(userAuth.jwt);
-      history.push(myOrdersUserRoute);
+      props.history.push(myOrdersUserRoute);
     }
   };
 
@@ -36,13 +41,12 @@ export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
   };
 
   if (loginService.isUserLogged()) {
-    const { pathname } = location;
-    if (pathname === loginPartnerRoute) {
-      history.push(currentEventsRoute);
+    if (isLoginPartnerRoute) {
+      props.history.push(currentEventsRoute);
       return null;
     }
-    if (pathname === loginUserRoute) {
-      history.push(myOrdersUserRoute);
+    if (isLoginUserRoute) {
+      props.history.push(myOrdersUserRoute);
       return null;
     }
   }
@@ -52,12 +56,20 @@ export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
       <WrapperDiv>
         <ImgLogo src={require("src/images/poc-chef-logo.svg")} />
         <ImgIcon height="40px" src={require("src/images/group.svg")} />
-        <GoogleLogin
-          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
-          onSuccess={loginWithGoogle}
-          onFailure={console.error}
-          render={customButton}
-        />
+        {isLoginPartnerRoute && (
+          <LoginEmailForm
+            {...props}
+            handleShowNotification={notificationContext.handleShowNotification}
+          />
+        )}
+        {isLoginUserRoute && (
+          <GoogleLogin
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
+            onSuccess={loginWithGoogle}
+            onFailure={console.error}
+            render={customButton}
+          />
+        )}
         <ImgIcon height="72px" src={require("src/images/group-2.svg")} />
       </WrapperDiv>
     </MainDivContainer>

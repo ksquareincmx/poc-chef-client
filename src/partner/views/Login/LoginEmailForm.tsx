@@ -3,7 +3,8 @@ import { loginService } from "src/common/services";
 import { RouteComponentProps } from "react-router";
 import { currentEventsRoute } from "src/partner/routes";
 import { ILoginErrorField } from "src/common/models/Login";
-import { InputField, ButtonSubmit, LoginForm } from "src/common/ui/LoginForm";
+import { InputField, ButtonSubmit, LoginForm, LoginContainer } from "src/partner/modules/ui/Login";
+import { LinkStyled } from "src/partner/modules/ui/Link";
 
 interface ILoginWithEmailProps extends RouteComponentProps {
   handleShowNotification: (text: string) => void;
@@ -58,10 +59,13 @@ export const LoginEmailForm: React.FC<ILoginWithEmailProps> = ({
   };
 
   return (
-    <LoginForm onSubmit={handleSubmit}>
-      <InputField type="email" name="email" value={email} onChange={handleEmail} />
-      <InputField type="password" name="password" value={password} onChange={handlePassword} />
-      <ButtonSubmit type="submit">Submit</ButtonSubmit>
-    </LoginForm>
+    <LoginContainer>
+      <LoginForm>
+        <InputField type="email" name="email" value={email} onChange={handleEmail} />
+        <InputField type="password" name="password" value={password} onChange={handlePassword} />
+      </LoginForm>
+      <ButtonSubmit onClick={handleSubmit}>Login</ButtonSubmit>
+      <LinkStyled to="#">Register</LinkStyled>
+    </LoginContainer>
   );
 };

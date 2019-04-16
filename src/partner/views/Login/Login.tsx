@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import { loginService } from "src/common/services";
 import { RouteComponentProps } from "react-router-dom";
 import { NotificationContext } from "src/providers";
-import { MainDivContainer, ImgLogo, AdminSite } from "src/common/ui/MainDivContainer";
-import { WrapperDiv, ImgIcon } from "src/common/ui/LoginForm";
+import { MainDivContainer } from "src/common/ui/MainDivContainer";
+import { WrapperDiv, ImgIcon } from "src/partner/modules/ui/Login";
 import { LoginEmailForm } from "./LoginEmailForm";
 import { currentEventsRoute } from "src/partner/routes";
+import { LogoTitle } from "src/common/ui/LogoTitle";
 
 export const Login: React.FC<RouteComponentProps> = props => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
@@ -18,8 +19,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
   return (
     <MainDivContainer partner={true}>
       <WrapperDiv>
-        <ImgLogo src={require("src/images/poc-chef-logo.svg")} />
-        <AdminSite>ADMIN SITE</AdminSite>
+        <LogoTitle />
         <ImgIcon height="35px" width="38px" src={require("src/images/group.svg")} />
         <LoginEmailForm
           {...props}
