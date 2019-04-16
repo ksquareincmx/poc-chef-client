@@ -23,7 +23,6 @@ import {
   fetchingError,
   closeModalCancelEvent,
 } from "../../ducks/currentEvent";
-import { EmptyEvents } from "src/partner/modules/EmptyEvents/EmptyEvents";
 
 export const CurrentEvents: React.FC<{}> = () => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
@@ -74,21 +73,21 @@ export const CurrentEvents: React.FC<{}> = () => {
   };
 
   useEffect(() => {
-    //fetchEvents();
+    fetchEvents();
   }, []);
 
   return (
     <>
-      <Header title="Current Events" />
+      <Header title="Events" />
       <ContentWrapper>
         {(state.isLoading || state.error) && <p>is loading</p>}
-        {state.events.length === 0 && <EmptyEvents />}
-        {/*<EventListContainer
-          handleCancelEvent={handleCancelEvent}
-          events={state.events}
-          onEdit={handleUpdateEvent}
-          modalController={modalController}
-        />*/}
+        {!state.isLoading && (
+          <EventListContainer
+            handleCancelEvent={handleCancelEvent}
+            events={state.events}
+            onEdit={handleUpdateEvent}
+          />
+        )}
       </ContentWrapper>
     </>
   );
