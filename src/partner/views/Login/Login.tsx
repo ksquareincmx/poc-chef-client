@@ -19,7 +19,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
   return (
     <MainDivContainer partner={true}>
       <WrapperDiv>
-        <LogoTitle />
+        <LogoTitle title={true} titleText="ADMIN SITE" />
         <ImgIcon height="35px" width="38px" src={require("src/images/group.svg")} />
         <LoginEmailForm
           {...props}
