@@ -1,1 +1,1 @@
-export { TextMessage } from "./Text";
+export { TextMessage, TextTitleHeader } from "./Text";
