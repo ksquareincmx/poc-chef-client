@@ -1,12 +1,12 @@
 import styledComponents from "styled-components";
 import stylesComponentsTS from "styled-components-ts";
 
-export interface IMainDivContainer {
+export interface IMainDivContainerProps {
   partner?: boolean;
   user?: boolean;
 }
 
-export const MainDivContainer = stylesComponentsTS<IMainDivContainer>(styledComponents.div)`
+export const MainDivContainer = stylesComponentsTS<IMainDivContainerProps>(styledComponents.div)`
   height: 100vh;
   width: 100vw;
   ${({ user }) => user && `background-image: linear-gradient(to bottom, #e83e5d, #f8823d)`};

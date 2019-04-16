@@ -14,7 +14,7 @@ export const LoginEmailForm: React.FC<ILoginWithEmailProps> = ({
   history,
   handleShowNotification,
 }) => {
-  const [email, setEmail] = useState("maik@fakegmail.com");
+  const [email, setEmail] = useState("maik@fakegmail.com"); //unique temporal user
   const [password, setPassword] = useState("plainpassword");
   const handleEmail = (ev: any) => {
     setEmail(ev.target.value);
