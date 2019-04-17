@@ -58,11 +58,11 @@ interface CardEventProps {
 
 export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
   const printProducts = () => {
-    return [1, 2, 3].map(e => {
+    return eventInfo.products.map((e, idx) => {
       return (
-        <CardRow key={e}>
-          <TextTableRowCardEvent>Product</TextTableRowCardEvent>
-          <TextTableRowCardEvent>$20.00 MXN</TextTableRowCardEvent>
+        <CardRow key={idx}>
+          <TextTableRowCardEvent>{e.name}</TextTableRowCardEvent>
+          <TextTableRowCardEvent>{e.price}</TextTableRowCardEvent>
         </CardRow>
       );
     });

@@ -6,6 +6,7 @@ export const toEntity = (dto: IEventDTO): IEvent => {
     id: String(dto.id),
     orderNumber: `Event: #${String(dto.id)}`,
     name: String(dto.name),
+    products: dto.products,
     startDate: new Date(dto.start_date).getTime(),
     endDate: new Date(dto.end_date).getTime(),
     startDateString: moment(new Date(dto.start_date)).format("	L"),
@@ -20,6 +21,6 @@ export const toEntity = (dto: IEventDTO): IEvent => {
     shrimpTotal: Number(dto.shrimp_torta_unit_price) * Number(dto.shrimp_torta_amount),
     total:
       Number(dto.poc_chuc_torta_unit_price) * Number(dto.poc_chuc_torta_amount) +
-      Number(dto.shrimp_torta_unit_price) * Number(dto.shrimp_torta_amount)
+      Number(dto.shrimp_torta_unit_price) * Number(dto.shrimp_torta_amount),
   };
 };
