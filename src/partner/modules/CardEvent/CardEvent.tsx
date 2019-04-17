@@ -7,9 +7,10 @@ import {
   TextTableRowCardEvent,
 } from "../ui/Text/Text";
 import { IEvent } from "src/partner/models";
+import { Link } from "react-router-dom";
 
 const CardContainer = styles.div`
-    width: 343px;
+    width: 21.435rem;
     margin: 0px auto;
     background-color: #fff;
     border-radius: .25rem;
@@ -37,8 +38,17 @@ const CardDescription = styles.div`
 
 const DivActionsContainer = styles.div`
   display: grid;
-  grid-column-gap: 8.5px;
+  grid-column-gap: 1rem;
   grid-template-columns: 1fr 1fr;
+`;
+
+const IconImg = styles.img({
+  width: "1rem",
+  height: "1rem",
+});
+
+const LinkIcon = styles(Link)`
+  height: 16px;
 `;
 
 interface CardEventProps {
@@ -48,9 +58,9 @@ interface CardEventProps {
 
 export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
   const printProducts = () => {
-    return [1, 2, 3].map(() => {
+    return [1, 2, 3].map(e => {
       return (
-        <CardRow>
+        <CardRow key={e}>
           <TextTableRowCardEvent>Product</TextTableRowCardEvent>
           <TextTableRowCardEvent>$20.00 MXN</TextTableRowCardEvent>
         </CardRow>
@@ -61,21 +71,25 @@ export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
   return (
     <CardContainer>
       <CardRowHeader>
-        <TextTitleCardEvent>Event Name</TextTitleCardEvent>
+        <TextTitleCardEvent>{eventInfo.name}</TextTitleCardEvent>
         <DivActionsContainer>
-          <p style={{ margin: 0 }}>view</p>
-          <p style={{ margin: 0 }}>edit</p>
+          <LinkIcon to={`/view-event/${eventInfo.id}`}>
+            <IconImg src={require("src/images/icons/icons8-eye-24.png")} />
+          </LinkIcon>
+          <LinkIcon to={`/edit-event/${eventInfo.id}`}>
+            <IconImg src={require("src/images/icons/mode-edit.svg")} />
+          </LinkIcon>
         </DivActionsContainer>
       </CardRowHeader>
       <CardDescription>
-        <TextDescriptionCardEvent>Created at:</TextDescriptionCardEvent>
-        <TextDescriptionCardEvent>Expired at:</TextDescriptionCardEvent>
+        <TextDescriptionCardEvent>Created: {eventInfo.startDateString}</TextDescriptionCardEvent>
+        <TextDescriptionCardEvent>Expired: {eventInfo.endDateString}</TextDescriptionCardEvent>
       </CardDescription>
       <CardRow>
         <TextTableTitleCardEvent>Product</TextTableTitleCardEvent>
         <TextTableTitleCardEvent>Price</TextTableTitleCardEvent>
       </CardRow>
-      {printProducts()}
+      <div>{printProducts()}</div>
     </CardContainer>
   );
 };

@@ -12,7 +12,7 @@ export const ListItem = styledComponents.div({
 });
 
 export const List = styledComponents.div({
-  padding: "1rem 1rem 4rem 1rem",
+  padding: "0px 1rem 4rem 1rem",
   boxSizing: "border-box",
   display: "grid",
   gridGap: "1rem",

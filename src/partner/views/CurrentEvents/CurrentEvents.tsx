@@ -7,7 +7,7 @@ import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
 import { Button } from "src/components/FloatingAddButton/FloatingAddButton";
 import { CreateEvent } from "src/components/event/Create";
-import { ListStyled, ContentWrapper } from "src/partner/modules/ui";
+
 import {
   reducer,
   initialState,
@@ -23,6 +23,7 @@ import {
   fetchingError,
   closeModalCancelEvent,
 } from "../../ducks/currentEvent";
+import { CurrentEventsContainer } from "./CurrentEventsContainer";
 
 export const CurrentEvents: React.FC<{}> = () => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
@@ -79,16 +80,8 @@ export const CurrentEvents: React.FC<{}> = () => {
   return (
     <>
       <Header title="Events" />
-      <ContentWrapper>
-        {(state.isLoading || state.error) && <p>is loading</p>}
-        {!state.isLoading && (
-          <EventListContainer
-            handleCancelEvent={handleCancelEvent}
-            events={state.events}
-            onEdit={handleUpdateEvent}
-          />
-        )}
-      </ContentWrapper>
+      {(state.isLoading || state.error) && <p>is loading</p>}
+      {!state.isLoading && <CurrentEventsContainer events={state.events} />}
     </>
   );
 };

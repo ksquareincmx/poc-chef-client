@@ -106,12 +106,12 @@ const CurrentEventsView: React.FC<{}> = () => {
   return (
     <React.Fragment>
       <Header title="Current Events" />
-      <EventListContainer
+      {/*<EventListContainer
         handleCancelEvent={handleCancelEvent}
         events={state.events}
         onEdit={handleUpdateEvent}
         modalController={modalController}
-      />
+      />*/}
       <Modal title="Edit Event" show={state.openModal} closeModal={handleCloseModal}>
         <CreateEvent
           editEvent={state.editEvent}
