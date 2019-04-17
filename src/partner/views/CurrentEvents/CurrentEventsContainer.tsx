@@ -11,7 +11,7 @@ export interface CurrentEventsContainerProps {
 
 export const CurrentEventsContainer: React.SFC<CurrentEventsContainerProps> = ({ events = [] }) => {
   return (
-    <>
+    <React.Fragment>
       {events.length > 0 && (
         <div style={{ width: "21.4375rem", textAlign: "right", margin: "1rem auto" }}>
           <GradientButton>
@@ -22,6 +22,6 @@ export const CurrentEventsContainer: React.SFC<CurrentEventsContainerProps> = ({
       <ContentWrapper>
         <EventList events={events} />
       </ContentWrapper>
-    </>
+    </React.Fragment>
   );
 };
