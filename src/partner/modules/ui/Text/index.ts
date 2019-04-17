@@ -1,1 +1,7 @@
-export { TextMessage, TextTitleHeader } from "./Text";
+export {
+  TextMessage,
+  TextTitleHeader,
+  TextTitleCardEvent,
+  TextTableTitleCardEvent,
+  TextTableRowCardEvent,
+} from "./Text";

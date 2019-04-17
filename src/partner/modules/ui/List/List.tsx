@@ -8,12 +8,14 @@ export const ListItem = styledComponents.div({
   borderRadius: "10px",
   marginBottom: "10px",
   paddingBottom: "10px",
-  boxSizing: "border-box"
+  boxSizing: "border-box",
 });
 
 export const List = styledComponents.div({
   padding: "1rem 1rem 4rem 1rem",
-  boxSizing: "border-box"
+  boxSizing: "border-box",
+  display: "grid",
+  gridGap: "1rem",
 });
 
 export interface IListItemRowProps {
@@ -40,7 +42,7 @@ export const Table = styledComponentsTS(styledComponents.table)`
 export const RowData = styledComponents.div({
   display: "flex",
   justifyContent: "space-between",
-  alignItems: "center"
+  alignItems: "center",
 });
 
 export interface ITextProps {

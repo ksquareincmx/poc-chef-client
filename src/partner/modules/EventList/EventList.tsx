@@ -1,8 +1,8 @@
 import React from "react";
 import { IEvent } from "src/partner/models/Event";
-import { EventListItem } from "./EventListItem";
 import { ListStyled } from "src/partner/modules/ui/";
 import { EmptyEvents } from "../EmptyEvents";
+import { CardEvent } from "../CardEvent";
 
 export interface IEventListProps {
   events: IEvent[];
@@ -19,13 +19,7 @@ export const EventList: React.SFC<IEventListProps> = props => {
   return (
     <ListStyled.List>
       {props.events.map(e => (
-        <EventListItem
-          handleCancelEvent={props.handleCancelEvent}
-          key={e.id}
-          eventInfo={e}
-          onEdit={props.onEdit}
-          modalController={props.modalController}
-        />
+        <CardEvent key={e.id} eventInfo={e} />
       ))}
     </ListStyled.List>
   );
