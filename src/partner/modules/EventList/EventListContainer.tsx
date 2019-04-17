@@ -4,9 +4,6 @@ import { EventList } from "./EventList";
 
 export interface IEventListContainerProps {
   events: IEvent[];
-  handleCancelEvent: (e: any) => void;
-  onEdit: (event: any) => void;
-  modalController?: any;
 }
 
 export const EventListContainer: React.SFC<IEventListContainerProps> = props => {

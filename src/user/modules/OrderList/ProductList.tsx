@@ -1,10 +1,10 @@
 import React from "react";
 import styledComponents from "styled-components";
 import styledComponentsTS from "styled-components-ts";
-import { IProduct } from "src/partner/models/Order";
+import { IProduct } from "src/partner/models/Product";
 import { Cell, RowProducts } from "./OrderStyles";
 import { ListItemRow } from "src/partner/modules/ui/List/List";
-import { Text } from '../Text'
+import { Text } from "../Text";
 
 interface IProductListProps {
   products: IProduct[];

@@ -1,9 +1,12 @@
+import { IProduct, product } from "./Product";
+
 export interface IEvent {
   id: string;
   orderNumber: string;
   name: string;
   startDate: number;
   endDate: number;
+  products: IProduct[];
   startDateString: string;
   startTimeString: string;
   endDateString: string;
@@ -21,6 +24,7 @@ export const event = (): IEvent => ({
   id: "",
   orderNumber: "",
   name: "",
+  products: [product()],
   startDate: +new Date(2019, 0, 1),
   endDate: +new Date(2019, 11, 31),
   startDateString: "",
@@ -33,13 +37,14 @@ export const event = (): IEvent => ({
   shrimpTortaUnitPrice: 0,
   shrimpTortaAmount: 0,
   shrimpTotal: 0,
-  total: 0
+  total: 0,
 });
 
 export interface IEventDTO {
   id: string;
   name: string;
   start_date: string;
+  products: IProduct[];
   end_date: string;
   poc_chuc_torta_unit_price: number;
   poc_chuc_torta_amount: number;

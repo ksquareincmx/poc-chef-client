@@ -1,16 +1,4 @@
-export interface IProduct {
-  name: string;
-  quantity: number;
-  price: string;
-  [key: string]: any;
-}
-
-export interface IProductDTO {
-  name: string;
-  quantity: number;
-  price: number;
-  [key: string]: any;
-}
+import { IProduct, product } from "./Product";
 
 export interface IOrder {
   id: string;
@@ -40,14 +28,6 @@ export const order = (): IOrder => {
     date: "",
     total: "",
     paid: false,
-    checked: false
-  };
-};
-
-export const product = (): IProduct => {
-  return {
-    name: "",
-    quantity: 0,
-    price: ""
+    checked: false,
   };
 };

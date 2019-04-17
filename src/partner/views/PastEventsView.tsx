@@ -10,7 +10,7 @@ import reducer, {
   startFetching,
   fetchingSucess,
   fetchingError,
-  editEvent
+  editEvent,
 } from "src/partner/ducks/pastEvent";
 import { NavBar } from "../modules/NavBar";
 
@@ -62,11 +62,11 @@ export const PastEventsView: React.FC = () => {
   return (
     <React.Fragment>
       <Header title="Past Events" />
-      <EventListContainer
+      {/*<EventListContainer
         handleCancelEvent={handleCancelEvent}
         events={state.events}
         onEdit={handleEditEvent}
-      />
+      />*/}
       <NavBar />
     </React.Fragment>
   );

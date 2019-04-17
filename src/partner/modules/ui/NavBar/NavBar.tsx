@@ -4,11 +4,11 @@ export const NavBarContainer = styledComponents.div({
   position: "fixed",
   bottom: "0px",
   width: "100%",
-  height: "50px",
+  height: "2.5rem",
   display: "flex",
   flexDirection: "row",
   boxShadow: "0 -1px 10px gray",
-  background: "white"
+  background: "white",
 });
 
 export const Item = styledComponents.div({
@@ -17,5 +17,5 @@ export const Item = styledComponents.div({
   display: "flex",
   flexDirection: "column",
   boxSizing: "border-box",
-  fontWeight: "bold"
+  fontWeight: "bold",
 });

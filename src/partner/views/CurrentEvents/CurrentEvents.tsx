@@ -6,9 +6,8 @@ import { IEvent } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
 import { Button } from "src/components/FloatingAddButton/FloatingAddButton";
-import { Modal } from "src/partner/modules/ui/Modal/Modal";
 import { CreateEvent } from "src/components/event/Create";
-import { ListStyled } from "src/partner/modules/ui";
+
 import {
   reducer,
   initialState,
@@ -23,10 +22,10 @@ import {
   fetchingSucess,
   fetchingError,
   closeModalCancelEvent,
-} from "../ducks/currentEvent";
-import { NavBar } from "../modules/NavBar";
+} from "../../ducks/currentEvent";
+import { CurrentEventsContainer } from "./CurrentEventsContainer";
 
-const CurrentEventsView: React.FC<{}> = () => {
+export const CurrentEvents: React.FC<{}> = () => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
@@ -78,58 +77,11 @@ const CurrentEventsView: React.FC<{}> = () => {
     fetchEvents();
   }, []);
 
-  if (state.isLoading) {
-    return (
-      <React.Fragment>
-        <Header title="Current Events" />
-        <p>is loading</p>
-      </React.Fragment>
-    );
-  }
-
-  if (state.error) {
-    return (
-      <React.Fragment>
-        <Header title="Current Events" />
-        <p>is loading</p>
-      </React.Fragment>
-    );
-  }
-
-  const modalController = {
-    handleCloseModal: handleCloseModal,
-    showModal: handleShowModal,
-    showModalCancelEvent: handleShowModalCancelEvent,
-    showEditModal: handleShowEditModal,
-  };
-
   return (
     <React.Fragment>
-      <Header title="Current Events" />
-      {/*<EventListContainer
-        handleCancelEvent={handleCancelEvent}
-        events={state.events}
-        onEdit={handleUpdateEvent}
-        modalController={modalController}
-      />*/}
-      <Modal title="Edit Event" show={state.openModal} closeModal={handleCloseModal}>
-        <CreateEvent
-          editEvent={state.editEvent}
-          onCreate={handleCreateEvent}
-          onEdit={handleUpdateEvent}
-          closeModal={handleCloseModal}
-          eventInfo={state.currentEvent}
-        />
-      </Modal>
-
-      <Modal title="Cancel Event" show={state.cancelEvent} closeModal={handleCloseModalCancelEvent}>
-        <ListStyled.ModalText>Are you sure you want to cancel this event?</ListStyled.ModalText>
-        <ListStyled.RowData>
-          <ListStyled.GradientButton onClick={handleCancelEvent}>Confirm</ListStyled.GradientButton>
-        </ListStyled.RowData>
-      </Modal>
-
-      <NavBar />
+      <Header title="Events" />
+      {(state.isLoading || state.error) && <p>is loading</p>}
+      {!state.isLoading && <CurrentEventsContainer events={state.events} />}
     </React.Fragment>
   );
 };
