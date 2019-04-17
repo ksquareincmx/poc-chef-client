@@ -14,12 +14,10 @@ export const EventList: React.SFC<IEventListProps> = props => {
   }
 
   return (
-    <>
-      <ListStyled.List>
-        {props.events.map(e => (
-          <CardEvent key={e.id} eventInfo={e} />
-        ))}
-      </ListStyled.List>
-    </>
+    <ListStyled.List>
+      {props.events.map(e => (
+        <CardEvent key={e.id} eventInfo={e} />
+      ))}
+    </ListStyled.List>
   );
 };
