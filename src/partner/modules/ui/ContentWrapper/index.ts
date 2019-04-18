@@ -1,1 +1,1 @@
-export { ContentWrapper } from "./ContentWrapper";
+export { ContentWrapper, FloatContentWrapper } from "./ContentWrapper";

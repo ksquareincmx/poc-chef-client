@@ -1,1 +1,7 @@
-export { currentEventsRoute, pastEventsRoute, eventViewRoute, loginPartnerRoute } from "./routes";
+export {
+  currentEventsRoute,
+  pastEventsRoute,
+  eventViewRoute,
+  loginPartnerRoute,
+  eventCreateRoute,
+} from "./routes";

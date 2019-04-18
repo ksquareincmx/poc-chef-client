@@ -23,7 +23,7 @@ export const EmptyEvents: React.SFC = () => {
       <TextMessage>You have no events yet</TextMessage>
       <PorkImage src={require("src/images/pork.svg")} />
       <GradientButton>
-        <LinkStyled to="create-event">Create Event</LinkStyled>
+        <LinkStyled to="partner/create-event">Create Event</LinkStyled>
       </GradientButton>
     </DivContainer>
   );
