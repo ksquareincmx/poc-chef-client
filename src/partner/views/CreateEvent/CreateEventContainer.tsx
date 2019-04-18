@@ -8,6 +8,7 @@ import {
   CardRowHeader,
   CardDivActionsContainer,
   CardRow,
+  CardIconImg,
 } from "src/partner/modules/ui";
 import { ProductRow } from "./ProductRow";
 import { ProductList } from "./ProductList";
@@ -29,6 +30,8 @@ const AddButton = styles.button({
   lineHeight: "1.71",
   border: "0px",
   backgroundColor: "#fff",
+  display: "flex",
+  alignItems: "center",
 });
 
 const ProductListContainer = styles.div({
@@ -61,7 +64,10 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
     <CardContainer>
       <CardRowHeader>
         <TextTableTitleCardEvent>Event Creator</TextTableTitleCardEvent>
-        <CardDivActionsContainer>del</CardDivActionsContainer>
+        <CardDivActionsContainer>
+          <span />
+          <CardIconImg src={require("src/images/icons/baseline-delete-24px.svg")} />
+        </CardDivActionsContainer>
       </CardRowHeader>
       <CardSection>
         <CustomRow>
@@ -86,7 +92,10 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
       <CardSection>
         <CustomRow>
           <span />
-          <AddButton onClick={addProductHandler}>Add Item</AddButton>
+          <AddButton onClick={addProductHandler}>
+            <CardIconImg src={require("src/images/icons/baseline-add_circle_outline-24px.svg")} />
+            Add Item
+          </AddButton>
         </CustomRow>
         <ProductListContainer>
           <ProductList
