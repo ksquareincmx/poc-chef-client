@@ -6,6 +6,16 @@ import * as Notification from "./Modal/Notification";
 import { ContentWrapper, FloatContentWrapper } from "./ContentWrapper";
 
 export {
+  CardContainer,
+  CardRowHeader,
+  CardRow,
+  CardDescription,
+  CardDivActionsContainer,
+  CardIconImg,
+  CardLinkIcon,
+} from "./Card";
+
+export {
   NavBarStyled,
   HeaderStyled,
   ListStyled,
