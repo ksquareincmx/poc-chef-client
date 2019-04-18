@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-  FloatContentWrapper,
   CardContainer,
   CardRowHeader,
   CardDivActionsContainer,
@@ -9,6 +8,7 @@ import {
 import { TextTableTitleCardEvent } from "src/partner/modules/ui/Text";
 import styles from "styled-components";
 import { InputLabel } from "src/partner/modules/InputField/InputField";
+import cuid from "cuid";
 
 const CardSection = styles.div({
   padding: ".90625rem 2rem .5rem 2rem",
@@ -29,7 +29,28 @@ const AddButton = styles.button({
   backgroundColor: "#fff",
 });
 
-export const CreateEventContainer: React.SFC = () => {
+const ProductListContainer = styles.div({
+  overflowY: "auto",
+  maxHeight: "calc(100vh - 27rem)",
+});
+export const CreateEventContainer: React.FC = () => {
+  const [productList, setProductList] = useState<any[]>([]);
+
+  const addProductHandler = () => {
+    const uuid = cuid();
+    let productRow = (
+      <CustomRow key={uuid}>
+        <InputLabel
+          width="9.1875rem"
+          label="description"
+          inputAttrs={{ value: "Torta de Poc-Chuc" }}
+        />
+        <InputLabel width="7rem" label="Amount" inputAttrs={{ value: "25.00 MXN" }} />
+      </CustomRow>
+    );
+    setProductList([...productList, productRow]);
+  };
+
   return (
     <CardContainer>
       <CardRowHeader>
@@ -59,24 +80,9 @@ export const CreateEventContainer: React.SFC = () => {
       <CardSection>
         <CustomRow>
           <span />
-          <AddButton>Add Item</AddButton>
+          <AddButton onClick={addProductHandler}>Add Item</AddButton>
         </CustomRow>
-        <CustomRow>
-          <InputLabel
-            width="9.1875rem"
-            label="description"
-            inputAttrs={{ value: "Torta de Poc-Chuc" }}
-          />
-          <InputLabel width="7rem" label="Amount" inputAttrs={{ value: "25.00 MXN" }} />
-        </CustomRow>
-        <CustomRow>
-          <InputLabel
-            width="9.1875rem"
-            label="description"
-            inputAttrs={{ value: "Torta de Poc-Chuc" }}
-          />
-          <InputLabel width="7rem" label="Amount" inputAttrs={{ value: "25.00 MXN" }} />
-        </CustomRow>
+        <ProductListContainer>{productList}</ProductListContainer>
       </CardSection>
     </CardContainer>
   );

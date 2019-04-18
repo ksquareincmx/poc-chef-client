@@ -10,4 +10,5 @@ export const ContentWrapper = styledTS(styled.div)`
 export const FloatContentWrapper = styled(ContentWrapper)`
   position: relative;
   top: -1rem;
+  height: calc(100vh - 8rem);
 `;
