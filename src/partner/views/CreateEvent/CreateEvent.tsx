@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
-import { Header } from "src/partner/modules/Header";
+import { NavHeader } from "src/partner/modules/Header";
 import { FloatContentWrapper } from "src/partner/modules/ui";
 import { CreateEventContainer } from "./CreateEventContainer";
 import { GradientButton } from "src/partner/modules/ui/Buttons";
@@ -76,7 +76,7 @@ export const CreateEvent: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Header title="New Event" />
+      <NavHeader title="New Event" to="current-events" />
       <FloatContentWrapper>
         <CreateEventContainer
           {...{
