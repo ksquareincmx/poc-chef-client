@@ -33,6 +33,7 @@ const InputContainer = styles.div({
 export interface InputFieldProps {
   label: string;
   width?: string;
+  ref?: string;
   inputAttrs: any;
 }
 export const InputLabel: React.SFC<InputFieldProps> = props => {

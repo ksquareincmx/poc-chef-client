@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { ChangeEvent } from "react";
+import { TextTableTitleCardEvent } from "src/partner/modules/ui/Text";
+import styles from "styled-components";
+import { InputLabel } from "src/partner/modules/InputLabel/InputLabel";
+import { ICreateEventState } from "./CreateEvent";
 import {
   CardContainer,
   CardRowHeader,
   CardDivActionsContainer,
   CardRow,
 } from "src/partner/modules/ui";
-import { TextTableTitleCardEvent } from "src/partner/modules/ui/Text";
-import styles from "styled-components";
-import { InputLabel } from "src/partner/modules/InputField/InputField";
-import cuid from "cuid";
+import { ProductRow } from "./ProductRow";
+import { ProductList } from "./ProductList";
 
 const CardSection = styles.div({
   padding: ".90625rem 2rem .5rem 2rem",
@@ -31,25 +33,29 @@ const AddButton = styles.button({
 
 const ProductListContainer = styles.div({
   overflowY: "auto",
-  maxHeight: "calc(100vh - 27rem)",
+  maxHeight: "calc(100vh - 28rem)",
 });
-export const CreateEventContainer: React.FC = () => {
-  const [productList, setProductList] = useState<any[]>([]);
 
-  const addProductHandler = () => {
-    const uuid = cuid();
-    let productRow = (
-      <CustomRow key={uuid}>
-        <InputLabel
-          width="9.1875rem"
-          label="description"
-          inputAttrs={{ value: "Torta de Poc-Chuc" }}
-        />
-        <InputLabel width="7rem" label="Amount" inputAttrs={{ value: "25.00 MXN" }} />
-      </CustomRow>
-    );
-    setProductList([...productList, productRow]);
-  };
+export interface ICreateEventContainerProps {
+  state: ICreateEventState;
+  addProductHandler: () => void;
+  onChangeProductDescription: (id: string, ev: ChangeEvent<HTMLInputElement>) => void;
+  onChangeProductAmount: (id: string, ev: ChangeEvent<HTMLInputElement>) => void;
+  changeEventNameHandler: (ev: ChangeEvent<HTMLInputElement>) => void;
+  changeEventExpirationDateHandler: (ev: ChangeEvent<HTMLInputElement>) => void;
+  changeEventTimeHandler: (ev: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props => {
+  const {
+    state,
+    addProductHandler,
+    onChangeProductDescription,
+    onChangeProductAmount,
+    changeEventNameHandler,
+    changeEventExpirationDateHandler,
+    changeEventTimeHandler,
+  } = props;
 
   return (
     <CardContainer>
@@ -61,19 +67,19 @@ export const CreateEventContainer: React.FC = () => {
         <CustomRow>
           <InputLabel
             label="Event Name"
-            inputAttrs={{ value: "Nueva Torta", onChange: () => {} }}
+            inputAttrs={{ value: state.name, onChange: changeEventNameHandler }}
           />
         </CustomRow>
         <CustomRow>
           <InputLabel
-            label="Expiration Date"
             width="9.1875rem"
-            inputAttrs={{ value: "03/28/2019", onChange: () => {} }}
+            label="Expiration Date"
+            inputAttrs={{ value: state.expirationDate, onChange: changeEventExpirationDateHandler }}
           />
           <InputLabel
             width="7rem"
             label="Time"
-            inputAttrs={{ value: "12:09 PM", onChange: () => {} }}
+            inputAttrs={{ value: state.time, onChange: changeEventTimeHandler }}
           />
         </CustomRow>
       </CardSection>
@@ -82,7 +88,11 @@ export const CreateEventContainer: React.FC = () => {
           <span />
           <AddButton onClick={addProductHandler}>Add Item</AddButton>
         </CustomRow>
-        <ProductListContainer>{productList}</ProductListContainer>
+        <ProductListContainer>
+          <ProductList
+            {...{ products: state.productList, onChangeProductDescription, onChangeProductAmount }}
+          />
+        </ProductListContainer>
       </CardSection>
     </CardContainer>
   );
