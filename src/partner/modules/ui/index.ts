@@ -3,6 +3,24 @@ import * as HeaderStyled from "./Header/Header";
 import * as ListStyled from "./List/List";
 import { Modal } from "./Modal";
 import * as Notification from "./Modal/Notification";
-import { ContentWrapper } from "./ContentWrapper";
+import { ContentWrapper, FloatContentWrapper } from "./ContentWrapper";
 
-export { NavBarStyled, HeaderStyled, ListStyled, Modal, Notification, ContentWrapper };
+export {
+  CardContainer,
+  CardRowHeader,
+  CardRow,
+  CardDescription,
+  CardDivActionsContainer,
+  CardIconImg,
+  CardLinkIcon,
+} from "./Card";
+
+export {
+  NavBarStyled,
+  HeaderStyled,
+  ListStyled,
+  Modal,
+  Notification,
+  ContentWrapper,
+  FloatContentWrapper,
+};

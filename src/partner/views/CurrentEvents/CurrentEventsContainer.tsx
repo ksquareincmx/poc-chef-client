@@ -15,7 +15,7 @@ export const CurrentEventsContainer: React.SFC<CurrentEventsContainerProps> = ({
       {events.length > 0 && (
         <div style={{ width: "21.4375rem", textAlign: "right", margin: "1rem auto" }}>
           <GradientButton>
-            <LinkStyled to="/create-event">Create Event</LinkStyled>
+            <LinkStyled to="create-event">Create Event</LinkStyled>
           </GradientButton>
         </div>
       )}
