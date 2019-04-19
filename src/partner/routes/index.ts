@@ -1,7 +1,7 @@
 export {
   currentEventsRoute,
   pastEventsRoute,
-  eventViewRoute,
+  eventDetailsRoute,
   loginPartnerRoute,
   eventCreateRoute,
 } from "./routes";
