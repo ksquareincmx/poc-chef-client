@@ -11,6 +11,7 @@ export const TextMessage = styles.p`
     text-align: center;
     color: #999999;
     margin:0px;
+    word-break: break-all;
 `;
 
 export const TextTitleHeader = styles(TextMessage)`
@@ -45,4 +46,11 @@ export const TextTableTitleCardEvent = styles(TextMessage)`
 
 export const TextTableRowCardEvent = styles(TextTableTitleCardEvent)`
     font-weight: normal;
+`;
+
+export const TextTableProducts = styles(TextTableTitleCardEvent)`
+    font-weight: normal;
+`;
+export const TextPriceTableProducts = styles(TextTableProducts)`
+    color: #969897;
 `;

@@ -6,4 +6,6 @@ export {
   CardDivActionsContainer,
   CardIconImg,
   CardLinkIcon,
+  CardOrderSection,
+  RowProducts,
 } from "./Card";

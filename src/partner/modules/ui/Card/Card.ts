@@ -43,3 +43,12 @@ export const CardIconImg = styles.img({
 export const CardLinkIcon = styles(Link)`
   height: 16px;
 `;
+
+export const CardOrderSection = styles.div`
+    padding: 0.46875rem .5rem .25rem 1rem;
+`;
+
+export const RowProducts = styles.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+`;
