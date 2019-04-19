@@ -3,7 +3,7 @@ import { CardContainer, CardRowHeader, CardIconImg, CardOrderSection, RowProduct
 import { TextTableTitleCardEvent, TextTableProducts } from "../ui/Text";
 import styles from "styled-components";
 import { ProductsOrderContainer } from "./ProductsOrderContainer";
-import { OptionsCardOrder } from "./FloatOption";
+import { OptionsCardOrder } from "./OptionsCardOrder";
 
 const TextCreatedBy = styles(TextTableTitleCardEvent)`
   color: #969897;
