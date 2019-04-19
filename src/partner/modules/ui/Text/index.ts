@@ -4,4 +4,5 @@ export {
   TextTitleCardEvent,
   TextTableTitleCardEvent,
   TextTableRowCardEvent,
+  TextDescriptionCardEvent,
 } from "./Text";
