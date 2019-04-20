@@ -15,7 +15,6 @@ import { ProductList } from "./ProductList";
 
 const CardSection = styles.div({
   padding: ".90625rem 2rem .5rem 2rem",
-  borderBottom: "1px solid #f2f2f2",
 });
 
 const CustomRow = styles(CardRow)`
