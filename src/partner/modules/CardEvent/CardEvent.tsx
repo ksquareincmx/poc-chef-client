@@ -39,10 +39,10 @@ export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
         <TextTitleCardEvent>{eventInfo.name}</TextTitleCardEvent>
         <CardDivActionsContainer>
           <CardLinkIcon to={`event-details/${eventInfo.id}`}>
-            <CardIconImg src={require("src/images/icons/icons8-eye-24.png")} />
+            <CardIconImg src={require("src/images/icons/baseline-visibility-24px.svg")} />
           </CardLinkIcon>
           <CardLinkIcon to={`event-edit/${eventInfo.id}`}>
-            <CardIconImg src={require("src/images/icons/mode-edit.svg")} />
+            <CardIconImg src={require("src/images/icons/baseline-edit-24px.svg")} />
           </CardLinkIcon>
         </CardDivActionsContainer>
       </CardRowHeader>
