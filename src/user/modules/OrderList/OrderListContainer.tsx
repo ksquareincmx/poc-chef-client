@@ -14,7 +14,7 @@ export const OrderListContainer: React.FC<IOrderListContainerProps> = props => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    //getOrders(props.userId, dispatch);
+    getOrders(props.userId, dispatch);
   }, []);
 
   const printListOrders = () => {
@@ -26,7 +26,7 @@ export const OrderListContainer: React.FC<IOrderListContainerProps> = props => {
   return (
     <List>
       {state.loading && <>Loading</>}
-      {state.error && <>An error has occurred, please try again</>}
+      {state.error && <>{state.error.message}</>}
       {!state.loading && !state.error && state.orders.length === 0 && <EmptyOrders />}
       {!state.loading && !state.error && state.orders.length > 0 && printListOrders()}
     </List>

@@ -18,10 +18,7 @@ export const initialState: IOrderState = {
   error: undefined,
 };
 
-export default function reducer(
-  state: IOrderState,
-  action: IFluxStandardAction,
-): IOrderState {
+export default function reducer(state: IOrderState, action: IFluxStandardAction): IOrderState {
   switch (action.type) {
     case FETCH_ORDERS_START:
       return { ...state, loading: true };
@@ -50,6 +47,9 @@ export const getOrders = async (userId: string, dispatch: ReduxDispatch) => {
   dispatch(fetchOrdersStarted());
   try {
     const orders = await orderService.getOrdersByUserId(userId);
+    if (!orders) {
+      throw new Error("Error at fetching orders");
+    }
     dispatch(fetchOrdersSucceed(orders));
   } catch (err) {
     dispatch(fetchOrdersFailured(new Error("error at fetching orders")));
