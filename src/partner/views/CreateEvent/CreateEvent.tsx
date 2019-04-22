@@ -2,9 +2,9 @@ import React, { useState, ChangeEvent } from "react";
 import { NavHeader } from "src/partner/modules/Header";
 import { FloatContentWrapper } from "src/partner/modules/ui";
 import { CreateEventContainer } from "./CreateEventContainer";
-import { GradientButton } from "src/partner/modules/ui/Buttons";
+import { GradientButton } from "src/common/ui/Buttons";
 import styles from "styled-components";
-import { TextMessage } from "src/partner/modules/ui/Text";
+import { TextMessage } from "src/common/ui/Text";
 import cuid from "cuid";
 
 const CustomText = styles(TextMessage)`

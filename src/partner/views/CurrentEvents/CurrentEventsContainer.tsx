@@ -1,7 +1,7 @@
 import React from "react";
 import { IEvent } from "src/partner/models/Event";
-import { GradientButton } from "src/partner/modules/ui/Buttons";
-import { LinkStyled } from "src/partner/modules/ui/Link";
+import { GradientButton } from "src/common/ui/Buttons";
+import { LinkStyled } from "src/common/ui/Link";
 import { EventList } from "src/partner/modules/EventList/EventList";
 import { ContentWrapper } from "src/partner/modules/ui";
 

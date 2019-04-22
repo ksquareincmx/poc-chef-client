@@ -41,13 +41,9 @@ export const MyOrders: React.SFC = () => {
         show={state.openModalCancelEvent}
         closeModal={handleCancelEventModalClose}
       >
-        <ListStyled.ModalText>
-          Are you sure you want to cancel this Order?
-        </ListStyled.ModalText>
+        <ListStyled.ModalText>Are you sure you want to cancel this Order?</ListStyled.ModalText>
         <ListStyled.RowData>
-          <ListStyled.GradientButton onClick={handleCancelOrder}>
-            Confirm
-          </ListStyled.GradientButton>
+          <ListStyled.GradientButton onClick={handleCancelOrder}>Confirm</ListStyled.GradientButton>
         </ListStyled.RowData>
       </Modal>
     </div>

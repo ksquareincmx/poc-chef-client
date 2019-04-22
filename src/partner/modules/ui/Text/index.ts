@@ -1,5 +1,4 @@
 export {
-  TextMessage,
   TextTitleHeader,
   TextTitleCardEvent,
   TextTableTitleCardEvent,
