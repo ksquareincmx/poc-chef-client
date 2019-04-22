@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router";
 import { currentEventsRoute } from "src/partner/routes";
 import { ILoginErrorField } from "src/common/models/Login";
 import { InputField, ButtonSubmit, LoginForm, LoginContainer } from "src/partner/modules/ui/Login";
-import { LinkStyled } from "src/partner/modules/ui/Link";
+import { LinkStyled } from "src/common/ui/Link";
 
 interface ILoginWithEmailProps extends RouteComponentProps {
   handleShowNotification: (text: string) => void;

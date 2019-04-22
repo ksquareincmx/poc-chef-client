@@ -2,7 +2,7 @@ import React from "react";
 import { HeaderStyled, CardIconImg } from "src/partner/modules/ui";
 import styles from "styled-components";
 import { TextTitleHeader } from "../ui/Text";
-import { LinkStyled } from "../ui/Link";
+import { LinkStyled } from "src/common/ui/Link";
 
 export interface IHeaderProps {
   title: string;
