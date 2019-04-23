@@ -21,7 +21,7 @@ export const loginService: ILoginService = {
         body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },
       };
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/user/api/v1/auth/login`, config);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/auth/login`, config);
       const loginRes = await res.json();
       return LoginMapper.toEntity(loginRes);
     } catch (err) {
