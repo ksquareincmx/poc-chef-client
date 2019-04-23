@@ -1,29 +1,34 @@
 import React from "react";
-import { HeaderStyled } from "src/partner/modules/ui";
-import styles from "styled-components";
-import { TextTitleHeader } from "../ui/Text";
+import { NavLink } from "react-router-dom";
+import {
+  HeaderContainer,
+  HeaderLogoContainer,
+  Logo,
+  HeaderTitleContainer,
+  Title,
+  HeaderUserImgContainer,
+  UserImg,
+} from "src/partner/modules/ui";
 
 export interface IHeaderProps {
   title: string;
+  userStyle?: boolean;
 }
 
-const PartnerHeader = styles(HeaderStyled.HeaderContainer)`
-  background: #999;
-  height: 6.5rem;
-`;
-
-export const Header: React.SFC<IHeaderProps> = props => {
+export const Header: React.FC<IHeaderProps> = ({ title, userStyle }) => {
   return (
-    <PartnerHeader>
-      <HeaderStyled.HeaderLogoContainer>
-        <img src={require("src/images/poc-chef-logo.png")} alt="Poc-Chef" />
-      </HeaderStyled.HeaderLogoContainer>
-      <HeaderStyled.HeaderTitleContainer>
-        <TextTitleHeader>{props.title}</TextTitleHeader>
-      </HeaderStyled.HeaderTitleContainer>
-      <HeaderStyled.HeaderUserIconContainer>
-        <HeaderStyled.ImgUserPhoto src={require("src/images/user-logo.png")} alt="Poc-Chef" />
-      </HeaderStyled.HeaderUserIconContainer>
-    </PartnerHeader>
+    <HeaderContainer userStyle={userStyle}>
+      <HeaderLogoContainer>
+        <Logo src={require("../../../images/poc-chef-logo.png")} alt="Poc-Chef" />
+      </HeaderLogoContainer>
+      <HeaderTitleContainer>
+        <Title>{title}</Title>
+      </HeaderTitleContainer>
+      <HeaderUserImgContainer>
+        <NavLink to="/user/profile">
+          <UserImg src={require("../../../images/person.png")} alt="Poc-Chef" />
+        </NavLink>
+      </HeaderUserImgContainer>
+    </HeaderContainer>
   );
 };

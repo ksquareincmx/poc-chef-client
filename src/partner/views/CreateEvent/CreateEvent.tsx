@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
 import { NavHeader } from "src/partner/modules/Header";
-import { FloatContentWrapper } from "src/partner/modules/ui";
+import { FloatContentWrapper } from "src/common/ui/ContentWrapper";
 import { CreateEventContainer } from "./CreateEventContainer";
 import { GradientButton } from "src/common/ui/Buttons";
 import styles from "styled-components";

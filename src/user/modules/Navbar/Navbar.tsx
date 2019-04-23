@@ -1,68 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { NavBarContainer, Item } from "src/partner/modules/ui/NavBar/NavBar";
-import { NavBarStyled } from "src/partner/modules/ui";
 import styledComponents from "styled-components";
+import { NavBarContainer, NavBarItem } from "src/user/modules/ui/NavBar";
+import { profileUserRoute, myOrdersUserRoute, orderFormUserRoute } from "src/user/routes";
 
 const NavBarStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   width: "100%",
-  height: "44px",
-  fontFamily: "unset",
-  fontSize: "14px",
-  textDecoration: "none",
-  color: "Gray"
+  height: "100%",
 };
 
 const NavBarActiveStyle = {
   ...NavBarStyle,
-  color: "#E83E5D",
-  background: "WhiteSmoke",
-  fontStyle: "bold"
+  background: "white",
 };
 
-export const Img = styledComponents.img({
-  width: "2.5em",
-  height: "2.5em",
-  objectFit: "contain"
+const Img = styledComponents.img({
+  width: "1.5rem",
+  height: "1.5rem",
+  objectFit: "contain",
 });
 
 interface INavBarProps {
-  user?: boolean;
+  location?: any;
 }
 
-export const NavBar: React.FC<INavBarProps> = props => {
-  const [myOrders, setMyOrders] = React.useState("");
-  const [order, setOrder] = React.useState("");
-  const [history, setHistory] = React.useState("");
+export const NavBar: React.FC<INavBarProps> = ({ location }) => {
+  const [myOrders, setMyOrders] = useState("");
+  const [order, setOrder] = useState("");
+  const [history, setHistory] = useState("");
 
-  const handleClick = (item: string) => () => {
-    if (item === 'past-orders') {
-      setMyOrders('');
-      setOrder('');
-      setHistory('-active');
+  useEffect(() => {
+    const { pathname } = location;
+    if (pathname === "past-orders") {
+      setMyOrders("");
+      setOrder("");
+      setHistory("-active");
     }
 
-    if (item === 'order') {
-      setMyOrders('');
-      setOrder('-active');
-      setHistory('');
+    if (pathname === orderFormUserRoute) {
+      setMyOrders("");
+      setOrder("-active");
+      setHistory("");
     }
 
-    if (item === 'my-orders') {
-      setMyOrders('-active');
-      setOrder('');
-      setHistory('');
+    if (pathname === myOrdersUserRoute) {
+      setMyOrders("-active");
+      setOrder("");
+      setHistory("");
     }
-  }
+
+    if (pathname === profileUserRoute) {
+      setMyOrders("");
+      setOrder("");
+      setHistory("");
+    }
+  }, [location]);
 
   return (
-    <NavBarStyled.NavBarContainer>
-      <NavBarStyled.Item>
+    <NavBarContainer>
+      <NavBarItem>
         <style>
-          {".active + div{" +
+          {".active + div {" +
             "margin: 0;" +
             "padding: 0;" +
             "height: 6px;" +
@@ -70,39 +71,24 @@ export const NavBar: React.FC<INavBarProps> = props => {
             "background: linear-gradient(to right, #E83E5D, #F8823D);" +
             "}"}
         </style>
-        <NavLink
-          to="/user/my-orders"
-          activeStyle={NavBarActiveStyle}
-          style={NavBarStyle}
-          onClick={handleClick('my-orders')}
-        >
-          <Img src={require(`src/images/restaurant${myOrders}.svg`)} />
+        <NavLink to="/user/my-orders" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
+          <Img src={require(`src/images/restaurant-menu${myOrders}.svg`)} />
         </NavLink>
         <div />
-      </NavBarStyled.Item>
-      <NavBarStyled.Item>
-        <NavLink
-          to="/user/order"
-          activeStyle={NavBarActiveStyle}
-          style={NavBarStyle}
-          onClick={handleClick('order')}
-        >
-          <Img src={require(`src/images/assignment${order}.svg`)} />
+      </NavBarItem>
+      <NavBarItem>
+        <NavLink to="/user/order" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
+          <Img src={require(`src/images/event${order}.png`)} />
         </NavLink>
         <div />
-      </NavBarStyled.Item>
-
-      <NavBarStyled.Item>
-        <NavLink
-          to="/user/past-orders"
-          activeStyle={NavBarActiveStyle}
-          style={NavBarStyle}
-          onClick={handleClick('past-orders')}
-        >
-          <Img src={require(`src/images/history-24px.svg`)} />
+      </NavBarItem>
+      <NavBarItem>
+        {/* Create past-events page */}
+        <NavLink to="/user/past-events" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
+          <Img src={require(`src/images/history${history}.png`)} />
         </NavLink>
         <div />
-      </NavBarStyled.Item>
-    </NavBarStyled.NavBarContainer>
+      </NavBarItem>
+    </NavBarContainer>
   );
 };
