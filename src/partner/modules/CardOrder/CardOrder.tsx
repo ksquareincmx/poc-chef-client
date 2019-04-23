@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { CardContainer, CardRowHeader, CardIconImg, CardOrderSection, RowProducts } from "../ui";
+import {
+  CardContainer,
+  CardRowHeader,
+  CardIconImg,
+  CardOrderSection,
+  RowProducts,
+  CardTextHeaderContainer,
+} from "../ui";
 import { TextTableTitleCardEvent, TextTableProducts } from "../ui/Text";
 import styles from "styled-components";
 import { ProductsOrderContainer } from "./ProductsOrderContainer";
@@ -31,8 +38,12 @@ export const CardOrder: React.FC<ICardOrderProps> = ({ order, updateStatusPaidOr
   return (
     <CardContainer>
       <CardRowHeader>
-        <TextTableTitleCardEvent>Order</TextTableTitleCardEvent>
-        <TextTableTitleCardEvent>Status</TextTableTitleCardEvent>
+        <CardTextHeaderContainer>
+          <TextTableTitleCardEvent>Order</TextTableTitleCardEvent>
+        </CardTextHeaderContainer>
+        <CardTextHeaderContainer>
+          <TextTableTitleCardEvent>Status</TextTableTitleCardEvent>
+        </CardTextHeaderContainer>
       </CardRowHeader>
       <CardOrderSection>
         <TextCreatedBy>{order.orderedBy}</TextCreatedBy>

@@ -12,6 +12,7 @@ import {
   CardRow,
   CardDescription,
   CardDivActionsContainer,
+  CardTextHeaderContainer,
   CardIconImg,
   CardLinkIcon,
 } from "../ui/Card";
@@ -36,13 +37,25 @@ export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
   return (
     <CardContainer>
       <CardRowHeader>
-        <TextTitleCardEvent>{eventInfo.name}</TextTitleCardEvent>
+        <CardTextHeaderContainer>
+          <TextTitleCardEvent>{eventInfo.name}</TextTitleCardEvent>
+        </CardTextHeaderContainer>
         <CardDivActionsContainer>
-          <CardLinkIcon to={`event-details/${eventInfo.id}`}>
-            <CardIconImg src={require("src/images/icons/icons8-eye-24.png")} />
+          <CardLinkIcon height="1.5rem" to={`event-details/${eventInfo.id}`}>
+            <CardIconImg
+              width="1.5rem"
+              height="1.5rem"
+              src={require("src/images/icons/baseline-visibility-24px.svg")}
+              alt="view-button"
+            />
           </CardLinkIcon>
-          <CardLinkIcon to={`event-edit/${eventInfo.id}`}>
-            <CardIconImg src={require("src/images/icons/mode-edit.svg")} />
+          <CardLinkIcon height="1.5rem" to={`event-edit/${eventInfo.id}`}>
+            <CardIconImg
+              width="1.5rem"
+              height="1.5rem"
+              alt="edit-button"
+              src={require("src/images/icons/baseline-edit-24px.svg")}
+            />
           </CardLinkIcon>
         </CardDivActionsContainer>
       </CardRowHeader>
