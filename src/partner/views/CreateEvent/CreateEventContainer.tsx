@@ -9,8 +9,8 @@ import {
   CardDivActionsContainer,
   CardRow,
   CardIconImg,
+  CardTextHeaderContainer,
 } from "src/partner/modules/ui";
-import { ProductRow } from "./ProductRow";
 import { ProductList } from "./ProductList";
 
 const CardSection = styles.div({
@@ -62,10 +62,17 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
   return (
     <CardContainer>
       <CardRowHeader>
-        <TextTableTitleCardEvent>Event Creator</TextTableTitleCardEvent>
+        <CardTextHeaderContainer>
+          <TextTableTitleCardEvent>Event Creator</TextTableTitleCardEvent>
+        </CardTextHeaderContainer>
         <CardDivActionsContainer>
           <span />
-          <CardIconImg src={require("src/images/icons/baseline-delete-24px.svg")} />
+          <CardIconImg
+            width="1.5rem"
+            height="1.5rem"
+            src={require("src/images/icons/baseline-delete-24px.svg")}
+            alt="del-botton"
+          />
         </CardDivActionsContainer>
       </CardRowHeader>
       <CardSection>
@@ -79,12 +86,16 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
           <InputLabel
             width="9.1875rem"
             label="Expiration Date"
-            inputAttrs={{ value: state.expirationDate, onChange: changeEventExpirationDateHandler }}
+            inputAttrs={{
+              value: state.expirationDate,
+              type: "date",
+              onChange: changeEventExpirationDateHandler,
+            }}
           />
           <InputLabel
             width="7rem"
             label="Time"
-            inputAttrs={{ value: state.time, onChange: changeEventTimeHandler }}
+            inputAttrs={{ value: state.time, type: "time", onChange: changeEventTimeHandler }}
           />
         </CustomRow>
       </CardSection>

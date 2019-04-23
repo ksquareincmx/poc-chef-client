@@ -6,6 +6,7 @@ import * as Notification from "./Modal/Notification";
 export {
   CardContainer,
   CardRowHeader,
+  CardTextHeaderContainer,
   CardRow,
   CardDescription,
   CardDivActionsContainer,

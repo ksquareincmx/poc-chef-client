@@ -1,9 +1,9 @@
 import React from "react";
 import { IEvent } from "src/partner/models/Event";
-import { GradientButton } from "src/common/ui/Buttons";
-import { LinkStyled } from "src/common/ui/Link";
 import { EventList } from "src/partner/modules/EventList/EventList";
 import { ContentWrapper } from "src/common/ui/ContentWrapper";
+import { CreateEventButton } from "src/partner/modules/CreateEventButton";
+
 
 export interface CurrentEventsContainerProps {
   events: IEvent[];
@@ -14,9 +14,7 @@ export const CurrentEventsContainer: React.SFC<CurrentEventsContainerProps> = ({
     <ContentWrapper>
       {events.length > 0 && (
         <div style={{ width: "21.4375rem", textAlign: "right", margin: "1rem auto" }}>
-          <GradientButton>
-            <LinkStyled to="create-event">Create Event</LinkStyled>
-          </GradientButton>
+          <CreateEventButton />
         </div>
       )}
       <ContentWrapper height="calc(100vh - 13rem)">

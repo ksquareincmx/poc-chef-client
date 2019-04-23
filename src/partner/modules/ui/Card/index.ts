@@ -1,6 +1,7 @@
 export {
   CardContainer,
   CardRowHeader,
+  CardTextHeaderContainer,
   CardRow,
   CardDescription,
   CardDivActionsContainer,

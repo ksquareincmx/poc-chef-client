@@ -1,5 +1,10 @@
 import React from "react";
-import { CardContainer, CardRowHeader, CardDescription } from "src/partner/modules/ui";
+import {
+  CardContainer,
+  CardRowHeader,
+  CardDescription,
+  CardTextHeaderContainer,
+} from "src/partner/modules/ui";
 import { TextTitleCardEvent, TextDescriptionCardEvent } from "src/partner/modules/ui/Text";
 import { OrderListContainer } from "./OrderListContainer";
 import { order } from "src/partner/models/Order";
@@ -47,7 +52,9 @@ export const EventDetailsContainer: React.SFC = () => {
       <div style={{ display: "grid", gridGap: "1rem" }}>
         <CardContainer>
           <CardRowHeader>
-            <TextTitleCardEvent>{eventDataFake.name}</TextTitleCardEvent>
+            <CardTextHeaderContainer>
+              <TextTitleCardEvent>{eventDataFake.name}</TextTitleCardEvent>
+            </CardTextHeaderContainer>
           </CardRowHeader>
           <CardDescription>
             <TextDescriptionCardEvent>Created at: {eventDataFake.created}</TextDescriptionCardEvent>
