@@ -8,11 +8,11 @@ export interface IOrderService {
 export const orderService: IOrderService = {
   getOrdersByUserId: async (userId: string) => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/orders`);
+      const res = await fetch(`/api/orders.json`);
       const data = await res.json();
       return data.orders.map(orderMapper.toModel);
     } catch (err) {
       console.log(err);
     }
-  }
+  },
 };

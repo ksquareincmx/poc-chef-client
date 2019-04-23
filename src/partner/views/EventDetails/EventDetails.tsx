@@ -1,7 +1,7 @@
 import React from "react";
 import { NavHeader } from "src/partner/modules/Header";
 import { currentEventsRoute } from "src/partner/routes";
-import { FloatContentWrapper } from "src/partner/modules/ui";
+import { FloatContentWrapper } from "src/common/ui/ContentWrapper";
 import { EventDetailsContainer } from "./EventDetailsContainer";
 
 export const EventDetails: React.SFC = () => {

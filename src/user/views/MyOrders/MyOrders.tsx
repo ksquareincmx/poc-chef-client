@@ -9,6 +9,7 @@ import reducerMyOrders, {
   closeCancelOrderModal,
   getUser,
 } from "src/user/ducks/myOrders";
+import { ContentWrapper } from "src/common/ui/ContentWrapper";
 
 export const MyOrders: React.SFC = () => {
   const [state, dispatch] = useReducer(reducerMyOrders, initialState);
@@ -32,10 +33,12 @@ export const MyOrders: React.SFC = () => {
   return (
     <div>
       <Header title="My Orders" userStyle />
-      <OrderListContainer
-        userId={state.user.id}
-        onCancelOrderModalOpen={handleCancelOrderModalOpen}
-      />
+      <ContentWrapper>
+        <OrderListContainer
+          userId={state.user.id}
+          onCancelOrderModalOpen={handleCancelOrderModalOpen}
+        />
+      </ContentWrapper>
       <Modal
         title="Cancel Order"
         show={state.openModalCancelEvent}

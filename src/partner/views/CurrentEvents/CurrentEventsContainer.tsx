@@ -3,7 +3,7 @@ import { IEvent } from "src/partner/models/Event";
 import { GradientButton } from "src/common/ui/Buttons";
 import { LinkStyled } from "src/common/ui/Link";
 import { EventList } from "src/partner/modules/EventList/EventList";
-import { ContentWrapper } from "src/partner/modules/ui";
+import { ContentWrapper } from "src/common/ui/ContentWrapper";
 
 export interface CurrentEventsContainerProps {
   events: IEvent[];
@@ -19,7 +19,7 @@ export const CurrentEventsContainer: React.SFC<CurrentEventsContainerProps> = ({
           </GradientButton>
         </div>
       )}
-      <ContentWrapper>
+      <ContentWrapper height="13rem">
         <EventList events={events} />
       </ContentWrapper>
     </React.Fragment>

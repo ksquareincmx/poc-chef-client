@@ -2,7 +2,6 @@ import * as NavBarStyled from "./NavBar/NavBar";
 import * as ListStyled from "./List/List";
 import { Modal } from "./Modal";
 import * as Notification from "./Modal/Notification";
-import { ContentWrapper, FloatContentWrapper } from "./ContentWrapper";
 
 export {
   CardContainer,
@@ -18,4 +17,4 @@ export {
 
 export * from "./Header";
 
-export { NavBarStyled, ListStyled, Modal, Notification, ContentWrapper, FloatContentWrapper };
+export { NavBarStyled, ListStyled, Modal, Notification };
