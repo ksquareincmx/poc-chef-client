@@ -24,6 +24,7 @@ export const CardTextHeaderContainer = styles.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 1.5rem;
 `;
 
 export const CardRow = styles(CardRowHeader)`
