@@ -7,12 +7,12 @@ interface IContentWrapper {
 
 export const ContentWrapper = styledTS<IContentWrapper>(styled.div)`
   width: 100vw;
-  height: calc(100vh - ${({ height }) => height || "9rem"});
+  height: ${({ height }) => height || "calc(100vh - 9rem)"};
   overflow-y: auto;
 `;
 
 export const FloatContentWrapper = styled(ContentWrapper)`
   position: relative;
   top: -1rem;
-  height: calc(100vh - ${({ height }) => height || "8rem"});
+  height: ${({ height }) => height || "calc(100vh - 8rem)"};
 `;
