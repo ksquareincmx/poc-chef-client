@@ -9,7 +9,21 @@
       "poc_chuc_torta_amount": 40,
       "shrimp_torta_unit_price": 28,
       "shrimp_torta_amount": 2,
-      "total": 22
+      "total": 22,
+      "products": [
+        {
+          "name": "product 1",
+          "price": 23
+        },
+        {
+          "name": "product 2",
+          "price": 24
+        },
+        {
+          "name": "product 3",
+          "price": 25
+        }
+      ]
     },
     {
       "id": "2",
@@ -20,7 +34,21 @@
       "poc_chuc_torta_amount": 22,
       "shrimp_torta_unit_price": 28,
       "shrimp_torta_amount": 3,
-      "total": 22
+      "total": 22,
+      "products": [
+        {
+          "name": "product 1",
+          "price": 23
+        },
+        {
+          "name": "product 2",
+          "price": 24
+        },
+        {
+          "name": "product 3",
+          "price": 25
+        }
+      ]
     },
     {
       "id": "3",
@@ -31,7 +59,21 @@
       "poc_chuc_torta_amount": 22,
       "shrimp_torta_unit_price": 28,
       "shrimp_torta_amount": 3,
-      "total": 22
+      "total": 22,
+      "products": [
+        {
+          "name": "product 1",
+          "price": 23
+        },
+        {
+          "name": "product 2",
+          "price": 24
+        },
+        {
+          "name": "product 3",
+          "price": 25
+        }
+      ]
     }
   ]
 }

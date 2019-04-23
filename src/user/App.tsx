@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { Profile } from "./views/Profile/";
 import { NavBar } from "src/user/modules/Navbar";
@@ -7,8 +7,7 @@ import { Order } from "src/user/views/Order";
 import { profileUserRoute, myOrdersUserRoute, orderViewUserRoute } from "./routes";
 import { orderFormUserRoute, loginUserRoute } from "./routes/routes";
 import { Splash } from "src/common/views/Splash";
-import { loginService } from "src/common/services";
-import { Login } from "src/common/views/login";
+import { Login } from "./views/Login";
 
 const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
   // useEffect(() => {

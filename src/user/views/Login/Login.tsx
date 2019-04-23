@@ -3,13 +3,13 @@ import { loginService } from "src/common/services";
 import { RouteComponentProps } from "react-router-dom";
 import { NotificationContext } from "src/providers";
 import { MainDivContainer, ImgLogo } from "src/common/ui/MainDivContainer";
-import { currentEventsRoute, loginPartnerRoute } from "src/partner/routes";
-import { loginUserRoute, myOrdersUserRoute } from "src/user/routes";
-import { WrapperDiv, ImgIcon } from "src/common/ui/LoginForm";
+import { myOrdersUserRoute } from "src/user/routes";
+import { WrapperDiv, ImgIcon } from "src/partner/modules/ui/Login";
 import { GoogleLogin } from "react-google-login";
-import { ButtonGoogleLogin } from "src/common/ui/LoginForm";
+import { ButtonGoogleLogin } from "src/partner/modules/ui/Login";
+import { LogoTitle } from "src/common/ui/LogoTitle";
 
-export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
+export const Login: React.FC<RouteComponentProps> = props => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
 
   const loginWithGoogle = async (res: any) => {
@@ -19,7 +19,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
     } else if (userAuth.jwt && userAuth.user) {
       loginService.setUser(userAuth.user);
       loginService.setJWT(userAuth.jwt);
-      history.push(myOrdersUserRoute);
+      props.history.push(myOrdersUserRoute);
     }
   };
 
@@ -36,21 +36,13 @@ export const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
   };
 
   if (loginService.isUserLogged()) {
-    const { pathname } = location;
-    if (pathname === loginPartnerRoute) {
-      history.push(currentEventsRoute);
-      return null;
-    }
-    if (pathname === loginUserRoute) {
-      history.push(myOrdersUserRoute);
-      return null;
-    }
+    props.history.push(myOrdersUserRoute);
   }
 
   return (
-    <MainDivContainer>
+    <MainDivContainer user={true}>
       <WrapperDiv>
-        <ImgLogo src={require("src/images/poc-chef-logo.svg")} />
+        <LogoTitle title={false} />
         <ImgIcon height="40px" src={require("src/images/group.svg")} />
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}

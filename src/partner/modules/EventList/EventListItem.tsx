@@ -4,9 +4,9 @@ import { ListStyled } from "src/partner/modules/ui";
 import { IEvent } from "src/partner/models/Event";
 import { EventOrdersContainer } from "./EventOrdersContainer";
 import { MenuOptions } from "src/common/ui/MenuOptions/";
-import { currentEventsRoute, eventViewRoute } from "src/partner/routes";
+import { currentEventsRoute, eventDetailsRoute } from "src/partner/routes";
 
-export interface IEventItemProps{
+export interface IEventItemProps {
   eventInfo: IEvent;
   handleCancelEvent: (e: any) => void;
   onEdit: (event: any) => void;
@@ -27,27 +27,29 @@ export const EventListItemComponent: React.SFC<IEventItemProps & RouteComponentP
   };
 
   const isEventViewRoute = () => {
-    return props.match.path === eventViewRoute;
+    return props.match.path === eventDetailsRoute;
   };
 
   return (
     <ListStyled.ListItem key={props.eventInfo.id}>
       <ListStyled.ListItemRow borderBottom>
-        <div style={{padding: '0.5rem 0.75rem'}}>
+        <div style={{ padding: "0.5rem 0.75rem" }}>
           <ListStyled.RowData>
             <ListStyled.H1 align="left">{props.eventInfo.orderNumber}</ListStyled.H1>
             {!isEventViewRoute() && (
               <MenuOptions>
                 <Link to={`events/${props.eventInfo.id}`}>View Event</Link>
                 {isCurrentEventsPartnerRoute() && <a onClick={handleEditEvent}>Edit Event</a>}
-                {isCurrentEventsPartnerRoute() && <a onClick={showModalCancelEvent}>Cancel Event</a>}
+                {isCurrentEventsPartnerRoute() && (
+                  <a onClick={showModalCancelEvent}>Cancel Event</a>
+                )}
               </MenuOptions>
             )}
           </ListStyled.RowData>
         </div>
       </ListStyled.ListItemRow>
       <ListStyled.ListItemRow borderBottom>
-        <div style={{padding: '0.5rem 0.75rem'}}>
+        <div style={{ padding: "0.5rem 0.75rem" }}>
           <ListStyled.H2 align="left">{props.eventInfo.name}</ListStyled.H2>
           <ListStyled.RowData>
             <ListStyled.P align="left">

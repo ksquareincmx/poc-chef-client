@@ -22,11 +22,11 @@ import {
   startFetching,
   fetchingSucess,
   fetchingError,
-  closeModalCancelEvent
+  closeModalCancelEvent,
 } from "../ducks/currentEvent";
 import { NavBar } from "../modules/NavBar";
 
-export const CurrentEventsView: React.FC<{}> = () => {
+const CurrentEventsView: React.FC<{}> = () => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
@@ -100,18 +100,18 @@ export const CurrentEventsView: React.FC<{}> = () => {
     handleCloseModal: handleCloseModal,
     showModal: handleShowModal,
     showModalCancelEvent: handleShowModalCancelEvent,
-    showEditModal: handleShowEditModal
+    showEditModal: handleShowEditModal,
   };
 
   return (
     <React.Fragment>
       <Header title="Current Events" />
-      <EventListContainer
+      {/*<EventListContainer
         handleCancelEvent={handleCancelEvent}
         events={state.events}
         onEdit={handleUpdateEvent}
         modalController={modalController}
-      />
+      />*/}
       <Modal title="Edit Event" show={state.openModal} closeModal={handleCloseModal}>
         <CreateEvent
           editEvent={state.editEvent}

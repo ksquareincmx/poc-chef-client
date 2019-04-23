@@ -13,7 +13,7 @@ export const WrapperDiv = styledComponents.div({
   display: "grid",
   gridRowGap: "1rem",
   textAlign: "center",
-  maxWidth: "260px",
+  width: "343px",
 });
 
 export const ImgIcon = styledComponentsTS(styledComponents.img)`
@@ -21,16 +21,22 @@ export const ImgIcon = styledComponentsTS(styledComponents.img)`
     height: ${({ height }) => height || "auto"};
   `;
 export const InputField = styledComponents.input({
-  ...flatElement,
-  textAlign: "center",
+  width: "240px",
+  height: "40px",
+  fontSize: "14px",
+  borderRadius: "4px",
+  textAlign: "left",
   fontColor: "#fff",
+  border: "solid 1px #cccccc",
+  padding: "0px 10px",
 });
+
 export const ButtonSubmit = styledComponents.button({
   ...flatElement,
-  backgroundColor: "#e83e5d",
   fontSize: "16px",
   fontWeight: "bold",
   color: "#fff",
+  backgroundImage: "linear-gradient(to right, #f8823d, #e83f5d)",
 });
 
 export const ButtonGoogleLogin = styledComponents.button({
@@ -44,7 +50,20 @@ export const ButtonGoogleLogin = styledComponents.button({
 });
 
 export const LoginForm = styledComponents.form({
+  width: "343px",
+  height: "184px",
+  borderRadius: "4px",
+  backgroundColor: "#fff",
+  boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.3)",
+  display: "flex",
+  padding: "15px 0px",
+  boxSizing: "border-box",
+  flexDirection: "column",
+  justifyContent: "space-evenly",
+  alignItems: "center",
+});
+
+export const LoginContainer = styledComponents.div({
   display: "grid",
-  gridTemplateRows: "1fr 1fr 1fr",
   gridRowGap: "16px",
 });
