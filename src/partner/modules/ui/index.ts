@@ -8,6 +8,7 @@ import { ContentWrapper, FloatContentWrapper } from "./ContentWrapper";
 export {
   CardContainer,
   CardRowHeader,
+  CardTextHeaderContainer,
   CardRow,
   CardDescription,
   CardDivActionsContainer,

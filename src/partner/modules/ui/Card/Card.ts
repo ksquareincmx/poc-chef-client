@@ -1,4 +1,5 @@
 import styles from "styled-components";
+import stylesTS from "styled-components-ts";
 import { Link } from "react-router-dom";
 
 export const CardContainer = styles.div`
@@ -16,7 +17,13 @@ export const CardRowHeader = styles.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: .5rem 1rem 0.46875rem 1rem;
+    padding: .222rem 1rem 0.1875rem 1rem;
+`;
+
+export const CardTextHeaderContainer = styles.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const CardRow = styles(CardRowHeader)`
@@ -35,13 +42,23 @@ export const CardDivActionsContainer = styles.div`
   grid-template-columns: 1fr 1fr;
 `;
 
-export const CardIconImg = styles.img({
-  width: "1rem",
-  height: "1rem",
-});
+interface IimgProps {
+  width?: string;
+  height?: string;
+}
 
-export const CardLinkIcon = styles(Link)`
-  height: 16px;
+export const CardIconImg = stylesTS<IimgProps>(styles.img)`
+  width: ${({ width }) => width || "1rem"};
+  height: ${({ height }) => height || "1rem"};
+`;
+
+interface ICardLinkIcon {
+  height?: string;
+  to: string;
+}
+
+export const CardLinkIcon = stylesTS<ICardLinkIcon>(styles(Link))`
+  height: ${({ height }) => height || "1rem"};
 `;
 
 export const CardOrderSection = styles.div`

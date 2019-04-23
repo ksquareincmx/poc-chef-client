@@ -15,7 +15,13 @@ export const CurrentEventsContainer: React.SFC<CurrentEventsContainerProps> = ({
       {events.length > 0 && (
         <div style={{ width: "21.4375rem", textAlign: "right", margin: "1rem auto" }}>
           <GradientButton>
-            <LinkStyled to="create-event">Create Event</LinkStyled>
+            <LinkStyled to="create-event">
+              <img
+                style={{ width: "1rem", height: "1rem", marginRight: ".625rem" }}
+                src={require("src/images/icons/baseline-add_circle_outline-24px_white.svg")}
+              />
+              Create Event
+            </LinkStyled>
           </GradientButton>
         </div>
       )}

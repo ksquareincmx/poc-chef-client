@@ -9,6 +9,7 @@ import {
   CardDivActionsContainer,
   CardRow,
   CardIconImg,
+  CardTextHeaderContainer,
 } from "src/partner/modules/ui";
 import { ProductList } from "./ProductList";
 
@@ -61,10 +62,17 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
   return (
     <CardContainer>
       <CardRowHeader>
-        <TextTableTitleCardEvent>Event Creator</TextTableTitleCardEvent>
+        <CardTextHeaderContainer>
+          <TextTableTitleCardEvent>Event Creator</TextTableTitleCardEvent>
+        </CardTextHeaderContainer>
         <CardDivActionsContainer>
           <span />
-          <CardIconImg src={require("src/images/icons/baseline-delete-24px.svg")} />
+          <CardIconImg
+            width="1.5rem"
+            height="1.5rem"
+            src={require("src/images/icons/baseline-delete-24px.svg")}
+            alt="del-botton"
+          />
         </CardDivActionsContainer>
       </CardRowHeader>
       <CardSection>
