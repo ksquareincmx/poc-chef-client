@@ -1,20 +1,8 @@
 import styledComponents from "styled-components";
 import styledComponentsTS from "styled-components-ts";
 
-// export const HeaderContainer = styledComponents.div({
-//   display: "flex",
-//   flexDirection: "row",
-//   justifyContent: "space-around",
-//   alignItems: "center",
-//   boxSizing: "border-box",
-//   padding: "0.5rem",
-//   background: "linear-gradient(to right, #F8823D, #E83E5D)",
-//   width: "100vw",
-//   height: "6.5rem",
-// });
-
 interface IHeaderContainerProps {
-  user?: boolean;
+  userStyle?: boolean;
 }
 
 export const HeaderContainer = styledComponentsTS<IHeaderContainerProps>(styledComponents.div)`
@@ -25,7 +13,7 @@ export const HeaderContainer = styledComponentsTS<IHeaderContainerProps>(styledC
   box-sizing: border-box;
   padding: 0.5rem;
   background: ${(props: IHeaderContainerProps) =>
-    props.user ? "linear-gradient(to right, #F8823D, #E83E5D)" : "gray"};
+    props.userStyle ? "linear-gradient(to right, #F8823D, #E83E5D)" : "#999"};
   width: 100vw;
   height: 6.5rem;
 `;

@@ -15,15 +15,7 @@ export {
   CardOrderSection,
   RowProducts,
 } from "./Card";
-  
+
 export * from "./Header";
 
-export {
-  NavBarStyled,
-  ListStyled,
-  Modal,
-  Notification,
-  ContentWrapper,
-  FloatContentWrapper,
-};
-
+export { NavBarStyled, ListStyled, Modal, Notification, ContentWrapper, FloatContentWrapper };

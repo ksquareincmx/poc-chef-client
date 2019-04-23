@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { Profile } from "./views/Profile/";
 import { NavBar } from "src/user/modules/Navbar";
@@ -10,14 +10,14 @@ import { Splash } from "src/common/views/Splash";
 import { Login } from "./views/Login";
 
 const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
-  // useEffect(() => {
-  //   const isProtectedRoute = /\/user\/[^login].+/gi.test(location.pathname);
-  //   if (isProtectedRoute && !loginService.isUserLogged()) {
-  //     history.push(loginUserRoute);
-  //   }
-  // }, []);
-  const testRoute = new RegExp(`${loginUserRoute}|/`, "gi");
-  const isSplashOrLoginRoute = testRoute.test(location.pathname);
+  const [isSplashOrLoginRoute, setIsSplashOrLoginRoute] = useState(false);
+
+  useEffect(() => {
+    const testRoute = new RegExp(`${loginUserRoute}|/user(?!.)`, "gi");
+    const isProtectedRoute = testRoute.test(location.pathname);
+    setIsSplashOrLoginRoute(isProtectedRoute);
+  }, [location]);
+
   return (
     <div>
       <Switch>
@@ -28,7 +28,7 @@ const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
         <Route path={orderFormUserRoute} component={Order} />
         <Route path="/" component={Splash} />
       </Switch>
-      {!isSplashOrLoginRoute && <NavBar />}
+      {!isSplashOrLoginRoute && <NavBar location={location} />}
     </div>
   );
 };

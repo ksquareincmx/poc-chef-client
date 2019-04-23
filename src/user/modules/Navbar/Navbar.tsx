@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styledComponents from "styled-components";
 import { NavBarContainer, NavBarItem } from "src/user/modules/ui/NavBar";
-import { profileUserRoute, myOrdersUserRoute, orderViewUserRoute } from "src/user/routes";
+import { profileUserRoute, myOrdersUserRoute, orderFormUserRoute } from "src/user/routes";
 
 const NavBarStyle = {
   display: "flex",
@@ -40,7 +40,7 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
       setHistory("-active");
     }
 
-    if (pathname === orderViewUserRoute) {
+    if (pathname === orderFormUserRoute) {
       setMyOrders("");
       setOrder("-active");
       setHistory("");
@@ -84,7 +84,7 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
       </NavBarItem>
       <NavBarItem>
         {/* Create past-events page */}
-        <NavLink to="/user/order" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
+        <NavLink to="/user/past-events" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           <Img src={require(`src/images/history${history}.png`)} />
         </NavLink>
         <div />

@@ -31,7 +31,7 @@ export const MyOrders: React.SFC = () => {
 
   return (
     <div>
-      <Header title="My Orders" />
+      <Header title="My Orders" userStyle />
       <OrderListContainer
         userId={state.user.id}
         onCancelOrderModalOpen={handleCancelOrderModalOpen}

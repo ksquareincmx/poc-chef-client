@@ -23,7 +23,7 @@ export const Profile: React.FC = () => {
 
   return (
     <div>
-      <Header title="My Profile" user />
+      <Header title="My Profile" userStyle />
       <ProfileCardContainer>
         <ProfileCard>
           <NavIconContainer>
