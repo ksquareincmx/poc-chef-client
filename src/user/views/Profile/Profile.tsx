@@ -12,7 +12,6 @@ import {
   UserInfoContainer,
   UserInfoItem,
 } from "src/user/modules/ui/Profile";
-import { NavBar } from "src/user/modules/Navbar";
 import { Header } from "src/partner/modules/Header";
 
 export const Profile: React.FC = () => {

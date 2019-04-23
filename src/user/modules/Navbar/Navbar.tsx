@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styledComponents from "styled-components";
-import { NavBarStyled } from "src/partner/modules/ui";
+import { NavBarContainer, NavBarItem } from "src/user/modules/ui/NavBar";
 import { profileUserRoute, myOrdersUserRoute, orderViewUserRoute } from "src/user/routes";
 
 const NavBarStyle = {
@@ -60,8 +60,8 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
   }, [location]);
 
   return (
-    <NavBarStyled.NavBarContainer>
-      <NavBarStyled.Item>
+    <NavBarContainer>
+      <NavBarItem>
         <style>
           {".active + div {" +
             "margin: 0;" +
@@ -75,20 +75,20 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
           <Img src={require(`src/images/restaurant-menu${myOrders}.svg`)} />
         </NavLink>
         <div />
-      </NavBarStyled.Item>
-      <NavBarStyled.Item>
+      </NavBarItem>
+      <NavBarItem>
         <NavLink to="/user/order" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           <Img src={require(`src/images/event${order}.png`)} />
         </NavLink>
         <div />
-      </NavBarStyled.Item>
-      <NavBarStyled.Item>
+      </NavBarItem>
+      <NavBarItem>
         {/* Create past-events page */}
         <NavLink to="/user/order" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           <Img src={require(`src/images/history${history}.png`)} />
         </NavLink>
         <div />
-      </NavBarStyled.Item>
-    </NavBarStyled.NavBarContainer>
+      </NavBarItem>
+    </NavBarContainer>
   );
 };
