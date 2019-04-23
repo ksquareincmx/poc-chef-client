@@ -45,11 +45,13 @@ export const CardDivActionsContainer = styles.div`
 interface IimgProps {
   width?: string;
   height?: string;
+  margin?: string;
 }
 
 export const CardIconImg = stylesTS<IimgProps>(styles.img)`
   width: ${({ width }) => width || "1rem"};
   height: ${({ height }) => height || "1rem"};
+  margin: ${({ margin }) => margin || "0px"};
 `;
 
 interface ICardLinkIcon {
