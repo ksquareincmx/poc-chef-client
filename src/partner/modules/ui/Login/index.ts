@@ -6,4 +6,5 @@ export {
   ButtonSubmit,
   ButtonGoogleLogin,
   LoginForm,
+  LoginContainer,
 } from "./LoginForm";
