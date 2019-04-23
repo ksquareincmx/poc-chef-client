@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import {
   TextLabel,
@@ -22,7 +22,7 @@ export const Profile: React.FC = () => {
   };
 
   return (
-    <div>
+    <Fragment>
       <Header title="My Profile" userStyle />
       <ProfileCardContainer>
         <ProfileCard>
@@ -51,6 +51,6 @@ export const Profile: React.FC = () => {
           </UserInfoContainer>
         </ProfileCard>
       </ProfileCardContainer>
-    </div>
+    </Fragment>
   );
 };

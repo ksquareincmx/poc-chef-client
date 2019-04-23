@@ -37,19 +37,20 @@ export const ProfileCardContainer = styledComponents.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background: #f2f2f2;
-  height: calc(100vh - 9rem);
+  position: relative;
+  top: -1rem;
+  height: calc(100vh - 8rem);
 `;
 // The height must be -8rem
 
 export const ProfileCard = styledComponents.div({
   display: "flex",
   flexDirection: "column",
-  width: "343px",
-  height: "253px",
+  width: "21.4375rem",
+  height: "15.8125rem",
   borderRadius: "0.25rem",
   background: "white",
-  margin: "-1rem auto 0",
+  margin: "0 auto",
   boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.3)",
 });
 
