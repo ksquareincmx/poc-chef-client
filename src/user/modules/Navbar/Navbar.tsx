@@ -34,7 +34,7 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
 
   useEffect(() => {
     const { pathname } = location;
-    if (pathname === "past-orders") {
+    if (pathname === "/user/past-events") {
       setMyOrders("");
       setOrder("");
       setHistory("-active");
@@ -72,20 +72,20 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
             "}"}
         </style>
         <NavLink to="/user/my-orders" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
-          <Img src={require(`src/images/restaurant-menu${myOrders}.svg`)} />
+          <Img src={require(`src/images/icons/restaurant-menu${myOrders}.svg`)} />
         </NavLink>
         <div />
       </NavBarItem>
       <NavBarItem>
         <NavLink to="/user/order" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
-          <Img src={require(`src/images/event${order}.png`)} />
+          <Img src={require(`src/images/icons/assignment${order}.svg`)} />
         </NavLink>
         <div />
       </NavBarItem>
       <NavBarItem>
         {/* Create past-events page */}
         <NavLink to="/user/past-events" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
-          <Img src={require(`src/images/history${history}.png`)} />
+          <Img src={require(`src/images/icons/history${history}.svg`)} />
         </NavLink>
         <div />
       </NavBarItem>

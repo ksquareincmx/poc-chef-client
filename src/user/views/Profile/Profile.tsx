@@ -29,23 +29,23 @@ export const Profile: React.FC = () => {
           <NavIconContainer>
             {/* This is going to change */}
             <NavLink to={"/user/my-orders"}>
-              <NavIcon src={require("../../../images/edit.png")} alt="Edit-icon" />
+              <NavIcon src={require("src/images/icons/baseline-edit-24px.svg")} alt="Edit-icon" />
             </NavLink>
           </NavIconContainer>
           <UserProfileImgContainer>
-            <UserProfileImg src={require("../../../images/user-logo.png")} alt="User-img" />
+            <UserProfileImg src={require("src/images/user-logo.svg")} alt="User-img" />
           </UserProfileImgContainer>
           <UserInfoContainer>
             <UserInfoItem>
-              <NormalIcon src={require("../../../images/person.png")} alt="User-icon" />
+              <NormalIcon src={require("src/images/icons/user.svg")} alt="User-icon" />
               <TextLabel bold>David Guillermo Alcocer</TextLabel>
             </UserInfoItem>
             <UserInfoItem>
-              <NormalIcon src={require("../../../images/mail.png")} alt="Email-icon" />
+              <NormalIcon src={require("src/images/icons/mail.svg")} alt="Email-icon" />
               <TextLabel>david.guillermo@ksquareinc.com</TextLabel>
             </UserInfoItem>
             <UserInfoItem>
-              <NormalIcon src={require("../../../images/phone.png")} alt="Phone-icon" />
+              <NormalIcon src={require("src/images/icons/phone.svg")} alt="Phone-icon" />
               <TextLabel>555 185 2597</TextLabel>
             </UserInfoItem>
           </UserInfoContainer>
