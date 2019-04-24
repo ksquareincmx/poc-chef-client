@@ -3,12 +3,13 @@ import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { Profile } from "./views/Profile/";
 import { NavBar } from "src/user/modules/Navbar";
 import { MyOrders } from "src/user/views/MyOrders";
-import { Order } from "src/user/views/Order";
+import { OrderEdit } from "src/user/views/OrderEdit";
 import { Splash } from "src/common/views/Splash";
 import { Login } from "./views/Login";
 import {
   USER_PROFILE_ROUTE,
   USER_MY_ORDERS_ROUTE,
+  USER_ORDER_EDIT_ROUTE,
   USER_LOGIN_ROUTE,
   USER_EVENTS_ROUTE,
 } from "./routes";
@@ -23,16 +24,17 @@ const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
   }, [location]);
 
   return (
-    <div>
+    <React.Fragment>
       <Switch>
         <Route path={USER_PROFILE_ROUTE} component={Profile} />
         <Route path={USER_MY_ORDERS_ROUTE} component={MyOrders} />
+        <Route path={USER_ORDER_EDIT_ROUTE} component={OrderEdit} />
         <Route path={USER_LOGIN_ROUTE} component={Login} />
-        <Route path={USER_EVENTS_ROUTE} component={Order} />
+        <Route path={USER_EVENTS_ROUTE} component={OrderEdit} />
         <Route path="/" component={Splash} />
       </Switch>
       {!isSplashOrLoginRoute && <NavBar location={location} />}
-    </div>
+    </React.Fragment>
   );
 };
 

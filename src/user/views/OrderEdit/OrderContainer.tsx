@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Header } from "src/partner/modules/Header";
 import { RemoveButton } from "src/components/FloatingRemoveButton/FloatingRemoveButton";
 
 const ListItem = styled.div({
@@ -60,8 +59,7 @@ export const GradientButton = styled.button({
   borderRadius: "35px",
   color: " #fff",
   padding: "10px 30px",
-  background:
-    "linear-gradient(to right, rgba(248, 130, 61,1) 0%, rgba(232,63,93, 1) 100%)",
+  background: "linear-gradient(to right, rgba(248, 130, 61,1) 0%, rgba(232,63,93, 1) 100%)",
   border: " 0px",
   width: "200px",
   height: "50px",
@@ -86,45 +84,39 @@ const RemoveButtonContainer = styled.div({
   alignItems: "center",
 });
 
-const handleClickRemoveButton = () => {
-  console.log("remove");
-};
-export const Order = () => {
+export const OrderEditContainer: React.FC = () => {
   return (
-    <div>
-      <Header title="Order" />
-      <OrderContainer>
-        <ListItem>
-          <Title>My Order </Title>
-          <Divider />
-          <TortasContainer>
-            <Row>
-              <p>Torta de poc-chuc</p>
-              <p>$22.00 MXN</p>
-              <RemoveButtonContainer>
-                <RemoveButton onClick={handleClickRemoveButton} />
-              </RemoveButtonContainer>
-              <InputTorta />
-            </Row>
-            <Row>
-              <p>Torta de poc-chuc</p>
-              <p>$22.00 MXN</p>
-              <RemoveButtonContainer>
-                <RemoveButton onClick={handleClickRemoveButton} />
-              </RemoveButtonContainer>
-              <InputTorta />
-            </Row>
-          </TortasContainer>
-          <Divider />
-          <TotalPrice>
-            <p>
-              <b>Total</b>
-            </p>
-            <Price>$69.00 MXN</Price>
-          </TotalPrice>
-          <GradientButton>Submit Happiness</GradientButton>
-        </ListItem>
-      </OrderContainer>
-    </div>
+    <OrderContainer>
+      <ListItem>
+        <Title>My Order </Title>
+        <Divider />
+        <TortasContainer>
+          <Row>
+            <p>Torta de poc-chuc</p>
+            <p>$22.00 MXN</p>
+            <RemoveButtonContainer>
+              <RemoveButton onClick={handleClickRemoveButton} />
+            </RemoveButtonContainer>
+            <InputTorta />
+          </Row>
+          <Row>
+            <p>Torta de poc-chuc</p>
+            <p>$22.00 MXN</p>
+            <RemoveButtonContainer>
+              <RemoveButton onClick={handleClickRemoveButton} />
+            </RemoveButtonContainer>
+            <InputTorta />
+          </Row>
+        </TortasContainer>
+        <Divider />
+        <TotalPrice>
+          <p>
+            <b>Total</b>
+          </p>
+          <Price>$69.00 MXN</Price>
+        </TotalPrice>
+        <GradientButton>Submit Happiness</GradientButton>
+      </ListItem>
+    </OrderContainer>
   );
 };
