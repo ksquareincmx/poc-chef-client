@@ -3,7 +3,7 @@ import { loginService } from "src/common/services";
 import { RouteComponentProps } from "react-router-dom";
 import { NotificationContext } from "src/providers";
 import { MainDivContainer, ImgLogo } from "src/common/ui/MainDivContainer";
-import { myOrdersUserRoute } from "src/user/routes";
+import { USER_MY_ORDERS_ROUTE } from "src/user/routes";
 import { WrapperDiv, ImgIcon } from "src/partner/modules/ui/Login";
 import { GoogleLogin } from "react-google-login";
 import { ButtonGoogleLogin } from "src/partner/modules/ui/Login";
@@ -19,7 +19,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
     } else if (userAuth.jwt && userAuth.user) {
       loginService.setUser(userAuth.user);
       loginService.setJWT(userAuth.jwt);
-      props.history.push(myOrdersUserRoute);
+      props.history.push(USER_MY_ORDERS_ROUTE);
     }
   };
 
@@ -36,7 +36,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
   };
 
   if (loginService.isUserLogged()) {
-    props.history.push(myOrdersUserRoute);
+    props.history.push(USER_MY_ORDERS_ROUTE);
   }
 
   return (

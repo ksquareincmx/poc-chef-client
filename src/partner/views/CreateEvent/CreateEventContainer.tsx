@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import { TextTableTitleCardEvent } from "src/partner/modules/ui/Text";
+import { TextTableTitleCardEvent } from "src/common/ui/Text";
 import styles from "styled-components";
 import { InputLabel } from "src/partner/modules/InputLabel/InputLabel";
 import { ICreateEventState } from "./CreateEvent";
@@ -10,7 +10,7 @@ import {
   CardRow,
   CardIconImg,
   CardTextHeaderContainer,
-} from "src/partner/modules/ui";
+} from "src/common/ui/Card";
 import { ProductList } from "./ProductList";
 
 const CardSection = styles.div({

@@ -1,6 +1,6 @@
 import React from "react";
-import { CardOrderSection, RowProducts } from "../ui";
-import { TextTableProducts, TextPriceTableProducts } from "../ui/Text";
+import { CardOrderSection, RowProducts } from "src/common/ui/Card";
+import { TextTable, TextPriceTableProducts } from "src/common/ui/Text";
 
 export interface IProductsOrderContainerProps {
   products: any; //temporal
@@ -12,7 +12,7 @@ export const ProductsOrderContainer: React.SFC<IProductsOrderContainerProps> = (
       {products.map((p: any) => {
         return (
           <RowProducts key={p.id}>
-            <TextTableProducts style={{ textAlign: "left" }}>{p.name}</TextTableProducts>
+            <TextTable style={{ textAlign: "left" }}>{p.name}</TextTable>
             <TextPriceTableProducts style={{ textAlign: "right", paddingRight: "1rem" }}>
               ${p.amount} MXN
             </TextPriceTableProducts>

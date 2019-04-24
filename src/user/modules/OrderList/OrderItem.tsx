@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import styledComponents from "styled-components";
 import styledComponentsTS from "styled-components-ts";
 import { ListStyled } from "src/partner/modules/ui";
 import { IOrder } from "src/partner/models/Order";
 import { ListItemRow } from "src/partner/modules/ui/List/List";
-import { MenuOptions } from "src/common/ui/MenuOptions";
-import { Cell, RowProducts, RowTitle } from "./OrderStyles";
+import { Cell, RowProducts } from "./OrderStyles";
 import { ProductList } from "./ProductList";
 import { Link } from "react-router-dom";
-import { Text } from '../Text'
+import { Text } from "../Text";
+import { USER_ORDER_EDIT_ROUTE } from "src/user/routes";
 
 const Total = styledComponentsTS(styledComponents.div)`
   display: flex;
@@ -17,9 +17,9 @@ const Total = styledComponentsTS(styledComponents.div)`
 `;
 
 const formatDate = (unix: number) => {
-  const date = new Date(unix)
+  const date = new Date(unix);
   return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
-}
+};
 
 interface IBoldTextProps {
   align?: string;
@@ -30,13 +30,13 @@ const BoldText = styledComponentsTS<IBoldTextProps>(styledComponents.p)`
   font-weight: bold;
   margin: 0;
   color: #515354;
-  text-align: ${props => props.align ? props.align : 'center'}
+  text-align: ${props => (props.align ? props.align : "center")}
 `;
 
 export const Img = styledComponents.img({
   width: "1.2rem",
   height: "1.2em",
-  objectFit: "contain"
+  objectFit: "contain",
 });
 
 export interface IOrderItem {
@@ -45,16 +45,12 @@ export interface IOrderItem {
 }
 
 export const OrderItem: React.SFC<IOrderItem> = props => {
-  const handleModalOpen = () => {
-    props.onCancelOrderModalOpen(props.order.id);
-  };
-
   return (
     <>
       <ListStyled.ListItem>
         <ListItemRow borderBottom>
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-            <div style={{padding: '0.5rem 0.75rem'}}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ padding: "0.5rem 0.75rem" }}>
               <Cell>
                 <BoldText>{props.order.eventName}</BoldText>
               </Cell>
@@ -65,8 +61,10 @@ export const OrderItem: React.SFC<IOrderItem> = props => {
                 <Text>{`Order: ${props.order.id}`}</Text>
               </Cell>
             </div>
-            <div style={{ padding: '0.5rem', boxSizing: 'border-box' }}>
-              <Img src={require(`src/images/edit-24px.svg`)} />
+            <div style={{ padding: "0.5rem", boxSizing: "border-box" }}>
+              <Link to={`${USER_ORDER_EDIT_ROUTE.replace(":id", props.order.id)}`}>
+                <Img src={require(`src/images/edit-24px.svg`)} />
+              </Link>
             </div>
           </div>
         </ListItemRow>
@@ -76,10 +74,10 @@ export const OrderItem: React.SFC<IOrderItem> = props => {
               <BoldText>Tortas</BoldText>
             </Cell>
             <Cell>
-              <BoldText align='center'>Units</BoldText>
+              <BoldText align="center">Units</BoldText>
             </Cell>
             <Cell>
-              <BoldText align='right'>Amount</BoldText>
+              <BoldText align="right">Amount</BoldText>
             </Cell>
           </RowProducts>
         </ListItemRow>

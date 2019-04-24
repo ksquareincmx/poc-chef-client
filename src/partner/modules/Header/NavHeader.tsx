@@ -4,10 +4,9 @@ import {
   HeaderLogoContainer,
   HeaderTitleContainer,
   HeaderUserImgContainer,
-  CardIconImg,
 } from "src/partner/modules/ui";
-import styles from "styled-components";
-import { TextTitleHeader } from "../ui/Text";
+import { CardIconImg } from "src/common/ui/Card";
+import { TextTitleHeader } from "src/common/ui/Text";
 import { LinkStyled } from "src/common/ui/Link";
 
 export interface IHeaderProps {

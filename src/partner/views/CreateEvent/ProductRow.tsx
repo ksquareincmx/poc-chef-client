@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import styles from "styled-components";
-import { CardRow } from "src/partner/modules/ui";
+import { CardRow } from "src/common/ui/Card";
 import { InputLabel } from "src/partner/modules/InputLabel";
 
 const CustomRow = styles(CardRow)`
