@@ -35,9 +35,9 @@ export const TextTableRowCardEvent = styles(TextTableTitleCardEvent)`
     font-weight: normal;
 `;
 
-export const TextTableProducts = styles(TextTableTitleCardEvent)`
+export const TextTable = styles(TextTableTitleCardEvent)`
     font-weight: normal;
 `;
-export const TextPriceTableProducts = styles(TextTableProducts)`
+export const TextPriceTableProducts = styles(TextTable)`
     color: #969897;
 `;

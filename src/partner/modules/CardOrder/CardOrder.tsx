@@ -7,7 +7,7 @@ import {
   RowProducts,
   CardTextHeaderContainer,
 } from "src/common/ui/Card";
-import { TextTableTitleCardEvent, TextTableProducts } from "../ui/Text";
+import { TextTableTitleCardEvent, TextTable } from "../ui/Text";
 import styles from "styled-components";
 import { ProductsOrderContainer } from "./ProductsOrderContainer";
 import { OptionsCardOrder } from "./OptionsCardOrder";
@@ -48,14 +48,14 @@ export const CardOrder: React.FC<ICardOrderProps> = ({ order, updateStatusPaidOr
       <CardOrderSection>
         <TextCreatedBy>{order.orderedBy}</TextCreatedBy>
         <RowProducts>
-          <TextTableProducts style={{ textAlign: "left" }}>Total order</TextTableProducts>
-          <TextTableProducts style={{ textAlign: "right" }}>
+          <TextTable style={{ textAlign: "left" }}>Total order</TextTable>
+          <TextTable style={{ textAlign: "right" }}>
             ${order.total} MXN
             <ArrowIconImg
               onClick={() => setShowProductList(!showProductList)}
               src={require(`src/images/icons/outline-arrow_drop_${iconArrowProductList}-24px.svg`)}
             />
-          </TextTableProducts>
+          </TextTable>
           <OptionsCardOrder paid={order.paid} onClick={updateStatusPaidOrder} />
         </RowProducts>
       </CardOrderSection>

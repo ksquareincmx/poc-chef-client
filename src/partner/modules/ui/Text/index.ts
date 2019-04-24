@@ -4,6 +4,6 @@ export {
   TextTableTitleCardEvent,
   TextTableRowCardEvent,
   TextDescriptionCardEvent,
-  TextTableProducts,
+  TextTable,
   TextPriceTableProducts,
 } from "./Text";
