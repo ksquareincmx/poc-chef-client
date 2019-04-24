@@ -75,7 +75,7 @@ export const OrderEditContainer: React.FC = () => {
           <TextTitleCardEvent style={{ textAlign: "right" }}>${data.total} MXN</TextTitleCardEvent>
         </CardRowHeader>
       </CardContainer>
-      <div style={{ textAlign: "center", marginTop: "1rem" }}>
+      <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
         <GradientButton onClick={saveChanges}>SAVE CHANGES</GradientButton>
       </div>
     </React.Fragment>
