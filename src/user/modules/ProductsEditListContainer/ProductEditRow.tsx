@@ -42,7 +42,7 @@ export const ProductEditRow: React.FC<IProductRowProps> = ({
       <UnitsContainer>
         <Icons
           onClick={handleMinusUnit.bind(null, product.id)}
-          src={require("src/images/icons/remove_circle.svg")}
+          src={require(`src/images/icons/remove_circle${product.units == 0 ? "_gray" : ""}.svg`)}
         />
         <InputUnits onChange={handleOnChangeInput.bind(null, product.id)} value={product.units} />
         <Icons

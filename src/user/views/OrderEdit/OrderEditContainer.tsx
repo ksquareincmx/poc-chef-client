@@ -16,7 +16,7 @@ export const OrderEditContainer: React.FC = () => {
         id: "8a8a8aa",
         name: "Torta de poc-chuc",
         price: "22.00",
-        units: "5",
+        units: "0",
       },
       {
         id: "5a6a6a6",
