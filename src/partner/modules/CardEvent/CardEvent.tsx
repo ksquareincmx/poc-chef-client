@@ -15,7 +15,7 @@ import {
   CardTextHeaderContainer,
   CardIconImg,
   CardLinkIcon,
-} from "../ui/Card";
+} from "src/common/ui/Card";
 
 interface CardEventProps {
   key: string;

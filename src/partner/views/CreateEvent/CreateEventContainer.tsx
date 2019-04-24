@@ -10,7 +10,7 @@ import {
   CardRow,
   CardIconImg,
   CardTextHeaderContainer,
-} from "src/partner/modules/ui";
+} from "src/common/ui/Card";
 import { ProductList } from "./ProductList";
 
 const CardSection = styles.div({

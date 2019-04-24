@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CardIconImg } from "../ui";
+import { CardIconImg } from "src/common/ui/Card";
 import { ArrowOptionsIconImg } from "./CardOrder";
 import styles from "styled-components";
 import { TextPriceTableProducts } from "../ui/Text";

@@ -1,7 +1,7 @@
 import React from "react";
 import { GradientButton } from "src/common/ui/Buttons";
 import { LinkStyled } from "src/common/ui/Link";
-import { CardIconImg } from "src/partner/modules/ui";
+import { CardIconImg } from "src/common/ui/Card";
 
 export const CreateEventButton: React.SFC = () => {
   return (

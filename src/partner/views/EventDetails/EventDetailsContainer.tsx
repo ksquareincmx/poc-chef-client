@@ -4,7 +4,7 @@ import {
   CardRowHeader,
   CardDescription,
   CardTextHeaderContainer,
-} from "src/partner/modules/ui";
+} from "src/common/ui/Card";
 import { TextTitleCardEvent, TextDescriptionCardEvent } from "src/partner/modules/ui/Text";
 import { OrderListContainer } from "./OrderListContainer";
 import { order } from "src/partner/models/Order";

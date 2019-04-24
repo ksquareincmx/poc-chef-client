@@ -1,5 +1,5 @@
 import React from "react";
-import { CardOrderSection, RowProducts } from "../ui";
+import { CardOrderSection, RowProducts } from "src/common/ui/Card";
 import { TextTableProducts, TextPriceTableProducts } from "../ui/Text";
 
 export interface IProductsOrderContainerProps {
