@@ -1,7 +1,7 @@
 import React from "react";
 import { CardContainer, CardRowHeader } from "src/common/ui/Card";
 import { GradientButton } from "src/common/ui/Buttons";
-import { TextTable, TextTitleCardEvent } from "src/partner/modules/ui/Text";
+import { TextTable, TextTitleCardEvent } from "src/common/ui/Text";
 import { ProductsListContainer } from "src/user/modules/ProductsEditListContainer";
 
 export const OrderEditContainer: React.FC = () => {

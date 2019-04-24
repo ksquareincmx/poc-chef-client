@@ -1,6 +1,6 @@
 import React from "react";
 import { CardOrderSection, RowProducts } from "src/common/ui/Card";
-import { TextTable, TextPriceTableProducts } from "../ui/Text";
+import { TextTable, TextPriceTableProducts } from "src/common/ui/Text";
 
 export interface IProductsOrderContainerProps {
   products: any; //temporal

@@ -5,9 +5,8 @@ import {
   CardDescription,
   CardTextHeaderContainer,
 } from "src/common/ui/Card";
-import { TextTitleCardEvent, TextDescriptionCardEvent } from "src/partner/modules/ui/Text";
+import { TextTitleCardEvent, TextDescriptionCardEvent } from "src/common/ui/Text";
 import { OrderListContainer } from "./OrderListContainer";
-import { order } from "src/partner/models/Order";
 
 export const EventDetailsContainer: React.SFC = () => {
   //temporal data fake

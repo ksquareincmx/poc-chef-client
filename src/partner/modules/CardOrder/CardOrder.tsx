@@ -7,7 +7,7 @@ import {
   RowProducts,
   CardTextHeaderContainer,
 } from "src/common/ui/Card";
-import { TextTableTitleCardEvent, TextTable } from "../ui/Text";
+import { TextTableTitleCardEvent, TextTable } from "src/common/ui/Text";
 import styles from "styled-components";
 import { ProductsOrderContainer } from "./ProductsOrderContainer";
 import { OptionsCardOrder } from "./OptionsCardOrder";

@@ -1,10 +1,10 @@
 import React from "react";
-import { TextTitleCardEvent } from "../ui/Text";
 import {
+  TextTitleCardEvent,
   TextDescriptionCardEvent,
   TextTableTitleCardEvent,
   TextTableRowCardEvent,
-} from "../ui/Text/Text";
+} from "src/common/ui/Text";
 import { IEvent } from "src/partner/models";
 import {
   CardContainer,

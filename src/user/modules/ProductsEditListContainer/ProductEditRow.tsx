@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { CardRow } from "src/common/ui/Card";
-import { TextTable } from "src/partner/modules/ui/Text";
+import { TextTable } from "src/common/ui/Text";
 
 const UnitsContainer = styled.div`
   display: grid;
