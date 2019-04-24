@@ -4,16 +4,20 @@ import { Profile } from "./views/Profile/";
 import { NavBar } from "src/user/modules/Navbar";
 import { MyOrders } from "src/user/views/MyOrders";
 import { Order } from "src/user/views/Order";
-import { profileUserRoute, myOrdersUserRoute, orderViewUserRoute } from "./routes";
-import { orderFormUserRoute, loginUserRoute } from "./routes/routes";
 import { Splash } from "src/common/views/Splash";
 import { Login } from "./views/Login";
+import {
+  USER_PROFILE_ROUTE,
+  USER_MY_ORDERS_ROUTE,
+  USER_LOGIN_ROUTE,
+  USER_EVENTS_ROUTE,
+} from "./routes";
 
 const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
   const [isSplashOrLoginRoute, setIsSplashOrLoginRoute] = useState(false);
 
   useEffect(() => {
-    const testRoute = new RegExp(`${loginUserRoute}|/user(?!.)`, "gi");
+    const testRoute = new RegExp(`${USER_LOGIN_ROUTE}|/user(?!.)`, "gi");
     const isProtectedRoute = testRoute.test(location.pathname);
     setIsSplashOrLoginRoute(isProtectedRoute);
   }, [location]);
@@ -21,11 +25,10 @@ const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
   return (
     <div>
       <Switch>
-        <Route path={profileUserRoute} component={Profile} />
-        <Route path={myOrdersUserRoute} component={MyOrders} />
-        <Route path={loginUserRoute} component={Login} />
-        <Route path={orderViewUserRoute} component={Order} />
-        <Route path={orderFormUserRoute} component={Order} />
+        <Route path={USER_PROFILE_ROUTE} component={Profile} />
+        <Route path={USER_MY_ORDERS_ROUTE} component={MyOrders} />
+        <Route path={USER_LOGIN_ROUTE} component={Login} />
+        <Route path={USER_EVENTS_ROUTE} component={Order} />
         <Route path="/" component={Splash} />
       </Switch>
       {!isSplashOrLoginRoute && <NavBar location={location} />}
