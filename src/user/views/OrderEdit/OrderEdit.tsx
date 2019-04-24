@@ -6,7 +6,7 @@ import { OrderEditContainer } from "./OrderEditContainer";
 export const OrderEdit: React.FC = () => {
   return (
     <React.Fragment>
-      <Header title="My Order" />
+      <Header title="My Order" userStyle={true} />
       <FloatContentWrapper>
         <OrderEditContainer />
       </FloatContentWrapper>
