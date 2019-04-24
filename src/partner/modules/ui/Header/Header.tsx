@@ -16,6 +16,9 @@ export const HeaderContainer = styledComponentsTS<IHeaderContainerProps>(styledC
     props.userStyle ? "linear-gradient(to right, #F8823D, #E83E5D)" : "#999"};
   width: 100vw;
   height: 6.5rem;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.3);
+  position:relative;
+  z-index: 1;
 `;
 
 export const HeaderLogoContainer = styledComponents.div({
