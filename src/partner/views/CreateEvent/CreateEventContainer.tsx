@@ -97,7 +97,7 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
             <LabelInput>Time</LabelInput>
             <InputDatePicker
               inputStyle="width: 7rem; box-sizing: border-box; height: 2.5rem"
-              onChange={changeEventExpirationDateHandler}
+              onChange={changeEventTimeHandler}
               selected={state.time}
               showTimeSelect
               showTimeSelectOnly
