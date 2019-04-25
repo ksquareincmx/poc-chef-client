@@ -90,19 +90,9 @@ export const ProductEditRow: React.FC<IProductRowProps> = ({
     setInitialPosition(ev.changedTouches[0].pageX);
   };
 
-  const onTouchEnds = (ev: any) => {
-    //setLeft(0);
-    //setInitialPosition(0);
-  };
-
   return (
     <DivWrapper>
-      <CustomRow
-        onTouchMove={onTouchMove}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnds}
-        style={{ left }}
-      >
+      <CustomRow onTouchMove={onTouchMove} onTouchStart={onTouchStart} style={{ left }}>
         <TextTableProduct textAlign="left">{product.name}</TextTableProduct>
         <TextTableProduct textAlign="right">${product.price} MXN</TextTableProduct>
         <UnitsContainer>
