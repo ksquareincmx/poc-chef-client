@@ -51,7 +51,7 @@ const ExtraButtonInnerDivAbsolute = styled.div`
   background: #ff6200;
 `;
 
-const DivDelate = styled.div`
+const DivDelete = styled.div`
   width: 1rem;
   height: 1rem;
   background-image: url(${require("src/images/icons/delete_white.svg")});
@@ -111,7 +111,7 @@ export const ProductEditRow: React.FC<IProductRowProps> = ({
             style={{ width: -left }}
             onClick={handleRemoveProduct.bind(null, product.id)}
           >
-            <DivDelate />
+            <DivDelete />
           </ExtraButtonInnerDivAbsolute>
         </ExtraButtonDivRelative>
       </CustomRow>
