@@ -23,15 +23,15 @@ export interface IProductData {
 
 export interface ICreateEventState {
   name: string;
-  expirationDate: string;
-  time: string;
+  expirationDate: Date;
+  time: Date;
   productList: IObjectProducts;
 }
 
 const createEventInitialState: ICreateEventState = {
   name: "",
-  expirationDate: "",
-  time: "",
+  expirationDate: new Date(),
+  time: new Date(),
   productList: {},
 };
 
@@ -62,12 +62,12 @@ export const CreateEvent: React.FC = () => {
     setState({ ...state, name: ev.target.value });
   };
 
-  const changeEventExpirationDateHandler = (ev: ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, expirationDate: ev.target.value });
+  const changeEventExpirationDateHandler = (date: Date) => {
+    setState({ ...state, expirationDate: date });
   };
 
-  const changeEventTimeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, time: ev.target.value });
+  const changeEventTimeHandler = (date: Date) => {
+    setState({ ...state, time: date });
   };
 
   const handleSaveEvent = () => {

@@ -12,6 +12,8 @@ import {
   CardTextHeaderContainer,
 } from "src/common/ui/Card";
 import { ProductList } from "./ProductList";
+import { InputDatePicker } from "src/partner/modules/InputDatePicker";
+import { LabelInput, InputContainer } from "src/partner/modules/ui/LabelInput";
 
 const CardSection = styles.div({
   padding: ".90625rem 2rem .5rem 2rem",
@@ -44,8 +46,8 @@ export interface ICreateEventContainerProps {
   onChangeProductDescription: (id: string, ev: ChangeEvent<HTMLInputElement>) => void;
   onChangeProductAmount: (id: string, ev: ChangeEvent<HTMLInputElement>) => void;
   changeEventNameHandler: (ev: ChangeEvent<HTMLInputElement>) => void;
-  changeEventExpirationDateHandler: (ev: ChangeEvent<HTMLInputElement>) => void;
-  changeEventTimeHandler: (ev: ChangeEvent<HTMLInputElement>) => void;
+  changeEventExpirationDateHandler: (date: Date) => void;
+  changeEventTimeHandler: (date: Date) => void;
 }
 
 export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props => {
@@ -83,20 +85,27 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
           />
         </CustomRow>
         <CustomRow>
-          <InputLabel
-            width="9.1875rem"
-            label="Expiration Date"
-            inputAttrs={{
-              value: state.expirationDate,
-              type: "date",
-              onChange: changeEventExpirationDateHandler,
-            }}
-          />
-          <InputLabel
-            width="7rem"
-            label="Time"
-            inputAttrs={{ value: state.time, type: "time", onChange: changeEventTimeHandler }}
-          />
+          <InputContainer>
+            <LabelInput>Date Expiration</LabelInput>
+            <InputDatePicker
+              inputStyle="width: 9.1875rem; box-sizing: border-box; height: 2.5rem"
+              onChange={changeEventExpirationDateHandler}
+              selected={state.expirationDate}
+            />
+          </InputContainer>
+          <InputContainer>
+            <LabelInput>Time</LabelInput>
+            <InputDatePicker
+              inputStyle="width: 7rem; box-sizing: border-box; height: 2.5rem"
+              onChange={changeEventExpirationDateHandler}
+              selected={state.time}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={15}
+              dateFormat="h:mm aa"
+              timeCaption="Time"
+            />
+          </InputContainer>
         </CustomRow>
       </CardSection>
       <CardSection>
