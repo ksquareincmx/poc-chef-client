@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import styledTS from "styled-components-ts";
 import { CardRow } from "src/common/ui/Card";
@@ -74,8 +74,8 @@ export const ProductEditRow: React.FC<IProductRowProps> = ({
   handleRemoveProduct,
   handleOnChangeInput,
 }) => {
-  const [left, setLeft] = React.useState(0);
-  const [initialPosition, setInitialPosition] = React.useState(0);
+  const [left, setLeft] = useState(0);
+  const [initialPosition, setInitialPosition] = useState(0);
 
   const onTouchMove = (ev: any) => {
     const currentPositionX = ev.changedTouches[0].pageX;
