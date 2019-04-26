@@ -14,6 +14,8 @@ import { ProductList } from "./ProductList";
 import { InputDatePicker } from "src/partner/modules/InputDatePicker";
 import { LabelInput, InputContainer } from "src/partner/modules/ui/LabelInput";
 import { IEvent } from "src/partner/models/Event";
+import { Link } from "react-router-dom";
+import { currentEventsRoute } from "src/partner/routes";
 
 const CardSection = styles.div({
   padding: ".90625rem 2rem .5rem 2rem",
@@ -69,12 +71,14 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
         </CardTextHeaderContainer>
         <CardDivActionsContainer>
           <span />
-          <CardIconImg
-            width="1.5rem"
-            height="1.5rem"
-            src={require("src/images/icons/baseline-delete-24px.svg")}
-            alt="del-botton"
-          />
+          <Link to={currentEventsRoute}>
+            <CardIconImg
+              width="1.5rem"
+              height="1.5rem"
+              src={require("src/images/icons/baseline-delete-24px.svg")}
+              alt="del-botton"
+            />
+          </Link>
         </CardDivActionsContainer>
       </CardRowHeader>
       <CardSection>
