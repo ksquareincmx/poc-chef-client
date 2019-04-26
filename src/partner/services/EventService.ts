@@ -10,18 +10,21 @@ export interface IEventService {
   postEvent: (event: IEvent) => Promise<IEventDTO>;
 }
 
-const config = {
-  method: "post",
-  body: "",
-  headers: { "Content-Type": "application/json", Authorization: `Bearer ${loginService.getJWT()}` },
+const headersConfig = {
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${loginService.getJWT()}`,
+  },
 };
+const postConfig = { method: "post", body: "", ...headersConfig };
+const getConfig = { method: "get", ...headersConfig };
 
 export const eventService: IEventService = {
   getCurrentEvents: async () => {
     try {
-      const res = await fetch("/api/current_events.json");
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events`, getConfig);
       const data = await res.json();
-      return data.events.map(EventMapper.toEntity);
+      return data.data.map(EventMapper.toEntity);
     } catch (err) {
       console.error(err);
     }
@@ -52,8 +55,9 @@ export const eventService: IEventService = {
       delete stateEvent["id"]; //do not send to server
       delete stateEvent["products"]; //not allowed on server yet
       stateEvent.total = 10; // temporal fix
-      config.body = JSON.stringify(EventMapper.toDTO(stateEvent));
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events`, config);
+
+      postConfig.body = JSON.stringify(EventMapper.toDTO(stateEvent));
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events`, postConfig);
       const data = await res.json();
       return data;
     } catch (err) {
