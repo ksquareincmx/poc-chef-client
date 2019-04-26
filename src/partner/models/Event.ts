@@ -2,7 +2,7 @@ import { IProduct, product } from "./Product";
 import { IOrder } from "./Order";
 
 export interface IEvent {
-  id: string;
+  id?: string;
   name: string;
   expirationDate: Date;
   endHour: Date;
@@ -12,13 +12,13 @@ export interface IEvent {
   cancelled: boolean;
   createdAt: Date;
   updatedAt: Date;
-  orders?: IOrder[]; //only client app
-  products: { [uuid: string]: IProduct }; //to be added later
+  orders: IOrder[]; //only client app
+  products: { [uuid: string]: IProduct };
 }
 
 export const event = (): IEvent => ({
   id: "",
-  name: "Event",
+  name: "",
   expirationDate: new Date(),
   endHour: new Date(),
   createdBy: "",
@@ -27,12 +27,12 @@ export const event = (): IEvent => ({
   cancelled: false,
   createdAt: new Date(),
   updatedAt: new Date(),
-  //orders: [order()], //only client app
-  products: {}, //to be added later
+  orders: [],
+  products: {},
 });
 
 export interface IEventDTO {
-  id: string;
+  id?: string;
   name: string;
   expiration_date: number;
   end_hour: number;
@@ -42,6 +42,6 @@ export interface IEventDTO {
   cancelled: boolean;
   created_at: number;
   updated_at: number;
-  orders?: IOrder[]; //only client app
-  products: IProduct[]; //to be added later
+  orders: IOrder[];
+  products?: IProduct[];
 }

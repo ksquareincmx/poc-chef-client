@@ -8,6 +8,7 @@ import { TextMessage } from "src/common/ui/Text";
 import { IEvent, event } from "src/partner/models/Event";
 import cuid from "cuid";
 import { product } from "src/partner/models/Product";
+import { eventService } from "src/partner/services/EventService";
 
 const CustomText = styles(TextMessage)`
     color: #fff;
@@ -49,8 +50,8 @@ export const CreateEvent: React.FC = () => {
     setState({ ...state, endHour: date });
   };
 
-  const handleSaveEvent = () => {
-    //save the event
+  const handleSaveEvent = async () => {
+    await eventService.postEvent({ ...state });
   };
 
   return (
