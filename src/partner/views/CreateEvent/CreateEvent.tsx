@@ -9,6 +9,8 @@ import { IEvent, event } from "src/partner/models/Event";
 import cuid from "cuid";
 import { product } from "src/partner/models/Product";
 import { eventService } from "src/partner/services/EventService";
+import { RouteComponentProps } from "react-router";
+import { currentEventsRoute } from "src/partner/routes";
 
 const CustomText = styles(TextMessage)`
     color: #fff;
@@ -16,7 +18,7 @@ const CustomText = styles(TextMessage)`
     font-size: .875rem;
 `;
 
-export const CreateEvent: React.FC = () => {
+export const CreateEvent: React.FC<RouteComponentProps> = ({ history }) => {
   const [state, setState] = useState<IEvent>(event());
   const uuid = cuid();
   const addProductHandler = () => {
@@ -51,7 +53,10 @@ export const CreateEvent: React.FC = () => {
   };
 
   const handleSaveEvent = async () => {
-    await eventService.postEvent({ ...state });
+    const res = await eventService.postEvent({ ...state });
+    if (res) {
+      history.push(currentEventsRoute);
+    }
   };
 
   return (

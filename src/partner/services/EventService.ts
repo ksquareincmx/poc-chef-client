@@ -59,7 +59,11 @@ export const eventService: IEventService = {
       postConfig.body = JSON.stringify(EventMapper.toDTO(stateEvent));
       const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events`, postConfig);
       const data = await res.json();
-      return data;
+      if (data.statusCode == 201) {
+        return data;
+      } else {
+        throw new Error("Error at saving");
+      }
     } catch (err) {
       console.error(err);
     }
