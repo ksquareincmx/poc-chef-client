@@ -1,14 +1,12 @@
 import { IEvent, IEventDTO } from "src/partner/models/Event";
 import { product, IProduct } from "../models/Product";
-import { fillZeros } from "src/common/utils/utils";
 
 export const toEntity = (dto: IEventDTO): IEvent => {
-  // const endHourString = dto.end_hour.toString();
-  // const hours = Number(endHourString.slice(0, 2));
-  // const minutes = Number(endHourString.slice(2));
+  const h = dto.end_hour / 60;
+  const m = dto.end_hour % 60;
   const endHour = new Date();
-  endHour.setHours(14);
-  endHour.setMinutes(30);
+  endHour.setHours(h);
+  endHour.setMinutes(m);
 
   const eventData: IEvent = {
     id: dto.id,
@@ -34,12 +32,11 @@ export const toEntity = (dto: IEventDTO): IEvent => {
 };
 
 export const toDTO = (event: IEvent): IEventDTO => {
-  const endHour = `${fillZeros(event.endHour.getHours())}${fillZeros(event.endHour.getMinutes())}`;
   const eventDTO: IEventDTO = {
     id: event.id,
     name: event.name,
     ["expiration_date"]: event.expirationDate.getTime(),
-    ["end_hour"]: Number(endHour),
+    ["end_hour"]: event.endHour.getHours() * 60 + event.endHour.getMinutes(),
     ["created_by"]: "",
     total: event.total,
     ["marked_as_finished"]: event.markedAsFinished,

@@ -22,7 +22,7 @@ const getConfig = { method: "get", ...headersConfig };
 export const eventService: IEventService = {
   getCurrentEvents: async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events`, getConfig);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events?type=current`, getConfig);
       const data = await res.json();
       return data.data.map(EventMapper.toEntity);
     } catch (err) {
@@ -32,9 +32,9 @@ export const eventService: IEventService = {
 
   getPastEvents: async () => {
     try {
-      const res = await fetch("/api/past_events.json");
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events?type=past`, getConfig);
       const data = await res.json();
-      return data.events.map(EventMapper.toEntity);
+      return data.data.map(EventMapper.toEntity);
     } catch (err) {
       console.error(err);
     }

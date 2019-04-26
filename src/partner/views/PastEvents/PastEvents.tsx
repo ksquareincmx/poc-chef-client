@@ -20,7 +20,7 @@ export const PastEvents: React.FC<{}> = () => {
   const fetchEvents = async () => {
     dispatch(startFetching());
     try {
-      const events = await eventService.getCurrentEvents();
+      const events = await eventService.getPastEvents();
       events.sort(dateComparator);
       dispatch(fetchingSucess(events));
     } catch (err) {
