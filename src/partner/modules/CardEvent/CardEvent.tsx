@@ -21,9 +21,10 @@ import { unixDateToString } from "src/common/mappers/DateMapper";
 interface CardEventProps {
   key: string;
   eventInfo: IEvent.IEvent;
+  isPastEventView?: boolean;
 }
 
-export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
+export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo, isPastEventView }) => {
   const printProducts = () => {
     return Object.keys(eventInfo.products).map((e, idx) => {
       const product = eventInfo.products[e];
@@ -43,6 +44,7 @@ export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
           <TextTitleCardEvent>{eventInfo.name}</TextTitleCardEvent>
         </CardTextHeaderContainer>
         <CardDivActionsContainer>
+          {isPastEventView && <span />}
           <CardLinkIcon height="1.5rem" to={`event-details/${eventInfo.id}`}>
             <CardIconImg
               width="1.5rem"
@@ -51,14 +53,16 @@ export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
               alt="view-button"
             />
           </CardLinkIcon>
-          <CardLinkIcon height="1.5rem" to={`event-edit/${eventInfo.id}`}>
-            <CardIconImg
-              width="1.5rem"
-              height="1.5rem"
-              alt="edit-button"
-              src={require("src/images/icons/baseline-edit-24px.svg")}
-            />
-          </CardLinkIcon>
+          {!isPastEventView && (
+            <CardLinkIcon height="1.5rem" to={`event-edit/${eventInfo.id}`}>
+              <CardIconImg
+                width="1.5rem"
+                height="1.5rem"
+                alt="edit-button"
+                src={require("src/images/icons/baseline-edit-24px.svg")}
+              />
+            </CardLinkIcon>
+          )}
         </CardDivActionsContainer>
       </CardRowHeader>
       <CardDescription>

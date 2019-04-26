@@ -7,17 +7,18 @@ import cuid from "cuid";
 
 export interface IEventListProps {
   events: IEvent[];
+  isPastEventView?: boolean;
 }
 
-export const EventList: React.SFC<IEventListProps> = props => {
-  if (props.events.length === 0) {
+export const EventList: React.SFC<IEventListProps> = ({ events, isPastEventView }) => {
+  if (events.length === 0) {
     return <EmptyEvents />;
   }
 
   return (
     <ListStyled.List>
-      {props.events.map(e => (
-        <CardEvent key={e.id ? e.id : cuid()} eventInfo={e} />
+      {events.map(e => (
+        <CardEvent key={e.id ? e.id : cuid()} eventInfo={e} isPastEventView={isPastEventView} />
       ))}
     </ListStyled.List>
   );

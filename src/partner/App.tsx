@@ -10,6 +10,7 @@ import { NavBar } from "./modules/NavBar";
 import { CurrentEvents } from "./views/CurrentEvents";
 import { CreateEvent } from "./views/CreateEvent";
 import { EventDetails } from "./views/EventDetails";
+import { PastEvents } from "./views/PastEvents";
 
 const PartnerApp: React.FC<RouteComponentProps> = ({ location, history }) => {
   const isProtectedRoute = /\/partner\/[^login].+/gi.test(location.pathname);
@@ -24,7 +25,7 @@ const PartnerApp: React.FC<RouteComponentProps> = ({ location, history }) => {
       <NotificationContext.NotificationProvider>
         <Switch>
           <Route path={currentEventsRoute} component={CurrentEvents} />
-          <Route path={pastEventsRoute} component={CurrentEvents} />
+          <Route path={pastEventsRoute} component={PastEvents} />
           <Route path={eventDetailsRoute} component={EventDetails} />
           <Route path={eventCreateRoute} component={CreateEvent} />
           <Route path={loginPartnerRoute} component={Login} />
