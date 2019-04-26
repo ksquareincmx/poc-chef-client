@@ -5,57 +5,36 @@ import { CreateEventContainer } from "./CreateEventContainer";
 import { GradientButton } from "src/common/ui/Buttons";
 import styles from "styled-components";
 import { TextMessage } from "src/common/ui/Text";
+import { IEvent, event } from "src/partner/models/Event";
 import cuid from "cuid";
+import { product } from "src/partner/models/Product";
 
 const CustomText = styles(TextMessage)`
     color: #fff;
     line-height: normal;
     font-size: .875rem;
 `;
-export interface IObjectProducts {
-  [key: string]: IProductData;
-}
-
-export interface IProductData {
-  description: string;
-  amount: string;
-}
-
-export interface ICreateEventState {
-  name: string;
-  expirationDate: Date;
-  time: Date;
-  productList: IObjectProducts;
-}
-
-const createEventInitialState: ICreateEventState = {
-  name: "",
-  expirationDate: new Date(),
-  time: new Date(),
-  productList: {},
-};
 
 export const CreateEvent: React.FC = () => {
-  const [state, setState] = useState<ICreateEventState>(createEventInitialState);
-
+  const [state, setState] = useState<IEvent>(event());
+  const uuid = cuid();
   const addProductHandler = () => {
-    const uuid = cuid();
     setState({
       ...state,
-      productList: { ...state.productList, [uuid]: { description: "", amount: "0" } },
+      products: { ...state.products, [uuid]: product() },
     });
   };
 
   const onChangeProductDescription = (uuid: string, ev: any) => {
-    const data = state.productList[uuid];
+    const data = state.products[uuid];
     data.description = ev.target.value;
-    setState({ ...state, productList: { ...state.productList, [uuid]: { ...data } } });
+    setState({ ...state, products: { ...state.products, [uuid]: { ...data } } });
   };
 
   const onChangeProductAmount = (uuid: string, ev: any) => {
-    const data = state.productList[uuid];
-    data.amount = ev.target.value;
-    setState({ ...state, productList: { ...state.productList, [uuid]: { ...data } } });
+    const data = state.products[uuid];
+    data.price = ev.target.value;
+    setState({ ...state, products: { ...state.products, [uuid]: { ...data } } });
   };
 
   const changeEventNameHandler = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +46,7 @@ export const CreateEvent: React.FC = () => {
   };
 
   const changeEventTimeHandler = (date: Date) => {
-    setState({ ...state, time: date });
+    setState({ ...state, endHour: date });
   };
 
   const handleSaveEvent = () => {

@@ -2,7 +2,6 @@ import React, { ChangeEvent } from "react";
 import { TextTableTitleCardEvent } from "src/common/ui/Text";
 import styles from "styled-components";
 import { InputLabel } from "src/partner/modules/InputLabel/InputLabel";
-import { ICreateEventState } from "./CreateEvent";
 import {
   CardContainer,
   CardRowHeader,
@@ -14,6 +13,7 @@ import {
 import { ProductList } from "./ProductList";
 import { InputDatePicker } from "src/partner/modules/InputDatePicker";
 import { LabelInput, InputContainer } from "src/partner/modules/ui/LabelInput";
+import { IEvent } from "src/partner/models/Event";
 
 const CardSection = styles.div({
   padding: ".90625rem 2rem .5rem 2rem",
@@ -41,10 +41,10 @@ const ProductListContainer = styles.div({
 });
 
 export interface ICreateEventContainerProps {
-  state: ICreateEventState;
+  state: IEvent;
   addProductHandler: () => void;
   onChangeProductDescription: (id: string, ev: ChangeEvent<HTMLInputElement>) => void;
-  onChangeProductAmount: (id: string, ev: ChangeEvent<HTMLInputElement>) => void;
+  onChangeProductAmount: (uuid: string, ev: ChangeEvent<HTMLInputElement>) => void;
   changeEventNameHandler: (ev: ChangeEvent<HTMLInputElement>) => void;
   changeEventExpirationDateHandler: (date: Date) => void;
   changeEventTimeHandler: (date: Date) => void;
@@ -98,7 +98,7 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
             <InputDatePicker
               inputStyle="width: 7rem; box-sizing: border-box; height: 2.5rem"
               onChange={changeEventTimeHandler}
-              selected={state.time}
+              selected={state.endHour}
               showTimeSelect
               showTimeSelectOnly
               timeIntervals={15}
@@ -118,7 +118,7 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
         </CustomRow>
         <ProductListContainer>
           <ProductList
-            {...{ products: state.productList, onChangeProductDescription, onChangeProductAmount }}
+            {...{ products: state.products, onChangeProductDescription, onChangeProductAmount }}
           />
         </ProductListContainer>
       </CardSection>
