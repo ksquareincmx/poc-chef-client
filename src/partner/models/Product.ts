@@ -21,7 +21,7 @@ export const product = (): IProduct => {
     id: "",
     name: "",
     price: 0,
-    createdAt: 0,
-    updatedAt: 0,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
   };
 };

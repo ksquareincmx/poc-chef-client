@@ -18,8 +18,8 @@ export const toEntity = (dto: IEventDTO): IEvent => {
     total: dto.total,
     markedAsFinished: dto.marked_as_finished,
     cancelled: dto.cancelled,
-    createdAt: new Date(dto.created_at),
-    updatedAt: new Date(dto.updated_at),
+    createdAt: dto.created_at,
+    updatedAt: dto.updated_at,
     orders: [],
     products: {},
   };
@@ -44,8 +44,8 @@ export const toDTO = (event: IEvent): IEventDTO => {
     total: event.total,
     ["marked_as_finished"]: event.markedAsFinished,
     cancelled: event.cancelled,
-    ["created_at"]: event.createdAt.getTime(),
-    ["updated_at"]: event.updatedAt.getTime(),
+    ["created_at"]: event.createdAt,
+    ["updated_at"]: event.updatedAt,
     orders: [],
     products: [],
   };

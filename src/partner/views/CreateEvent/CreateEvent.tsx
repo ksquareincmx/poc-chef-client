@@ -23,7 +23,6 @@ export const CreateEvent: React.FC<RouteComponentProps> = ({ history }) => {
   const addProductHandler = () => {
     const uuid = cuid();
     const newProduct = product();
-    newProduct.id = uuid;
 
     setState({
       ...state,

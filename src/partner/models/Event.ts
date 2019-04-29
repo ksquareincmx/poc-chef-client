@@ -10,8 +10,8 @@ export interface IEvent {
   total: number;
   markedAsFinished: boolean;
   cancelled: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: number;
+  updatedAt: number;
   orders: IOrder[]; //only client app
   products: { [uuid: string]: IProduct };
 }
@@ -25,8 +25,8 @@ export const event = (): IEvent => ({
   total: 0,
   markedAsFinished: false,
   cancelled: false,
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
   orders: [],
   products: {},
 });

@@ -67,7 +67,7 @@ export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo, isPastEventVie
       </CardRowHeader>
       <CardDescription>
         <TextDescriptionCardEvent>
-          Created: {unixDateToString(eventInfo.createdAt.getTime())}
+          Created: {unixDateToString(eventInfo.createdAt)}
         </TextDescriptionCardEvent>
         <TextDescriptionCardEvent>
           Expired: {unixDateToString(eventInfo.expirationDate.getTime())}
