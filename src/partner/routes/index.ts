@@ -4,4 +4,5 @@ export {
   eventDetailsRoute,
   loginPartnerRoute,
   eventCreateRoute,
+  eventEditRoute,
 } from "./routes";
