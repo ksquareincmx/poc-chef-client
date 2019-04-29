@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect } from "react";
+import React, { useState, ChangeEvent, useEffect, useContext } from "react";
 import { NavHeader } from "src/partner/modules/Header";
 import { FloatContentWrapper } from "src/common/ui/ContentWrapper";
 import { CreateEventContainer } from "./CreateEventContainer";
@@ -11,6 +11,7 @@ import { product } from "src/partner/models/Product";
 import { eventService } from "src/partner/services/EventService";
 import { RouteComponentProps } from "react-router";
 import { currentEventsRoute, eventEditRoute } from "src/partner/routes";
+import { NotificationContext } from "src/providers";
 
 const CustomText = styles(TextMessage)`
     color: #fff;
@@ -23,6 +24,7 @@ interface IRouteProps {
 }
 export const CreateEvent: React.FC<RouteComponentProps & IRouteProps> = ({ history, match }) => {
   const [state, setState] = useState<IEvent>(event());
+  const notificationContext = useContext(NotificationContext.NotificationContext);
   const isEditRoute = match.path === eventEditRoute;
 
   const fetchEvent = async () => {
@@ -48,15 +50,15 @@ export const CreateEvent: React.FC<RouteComponentProps & IRouteProps> = ({ histo
   };
 
   const onChangeProductDescription = (uuid: string, ev: any) => {
-    const data = state.products[uuid];
+    const data = { ...state.products[uuid] };
     data.name = ev.target.value;
-    setState({ ...state, products: { ...state.products, [uuid]: { ...data } } });
+    setState({ ...state, products: { ...state.products, [uuid]: data } });
   };
 
   const onChangeProductAmount = (uuid: string, ev: any) => {
-    const data = state.products[uuid];
+    const data = { ...state.products[uuid] };
     data.price = ev.target.value;
-    setState({ ...state, products: { ...state.products, [uuid]: { ...data } } });
+    setState({ ...state, products: { ...state.products, [uuid]: data } });
   };
 
   const changeEventNameHandler = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +73,31 @@ export const CreateEvent: React.FC<RouteComponentProps & IRouteProps> = ({ histo
     setState({ ...state, endHour: date });
   };
 
+  const getFieldErrors = () => {
+    const errors = [];
+    if (state.name === "") {
+      errors.push("Event name is required");
+    }
+    if (Object.keys(state.products).length === 0) {
+      errors.push("Add at least one product");
+    } else {
+      const emptyProduct = Object.keys(state.products).some(
+        uuid => state.products[uuid].name === "" || state.products[uuid].price === 0,
+      );
+      if (emptyProduct) {
+        errors.push("Description and price fields are required");
+      }
+    }
+
+    return errors;
+  };
+
   const handleSaveEvent = async () => {
+    const errors = getFieldErrors();
+    if (errors.length > 0) {
+      notificationContext.handleShowNotification(errors.join(", "));
+      return;
+    }
     let res;
     if (isEditRoute) {
       res = await eventService.putEvent({ ...state });
