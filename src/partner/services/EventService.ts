@@ -51,18 +51,15 @@ export const eventService: IEventService = {
   },
   postEvent: async (event: IEvent) => {
     try {
-      const stateEvent = { ...event };
-      delete stateEvent["id"]; //do not send to server
-      delete stateEvent["products"]; //not allowed on server yet
-      stateEvent.total = 10; // temporal fix
+      delete event["id"]; //not allowed by the server
 
-      postConfig.body = JSON.stringify(EventMapper.toDTO(stateEvent));
+      postConfig.body = JSON.stringify(EventMapper.toDTO(event));
       const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events`, postConfig);
       const data = await res.json();
-      if (data.statusCode == 201) {
+      if (data.statusCode === 201) {
         return data;
       } else {
-        throw new Error("Error at saving");
+        throw new Error("Error at saving new event");
       }
     } catch (err) {
       console.error(err);

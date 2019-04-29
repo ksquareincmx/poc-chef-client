@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { ProductRow } from "./ProductRow";
-import { product, IProduct } from "src/partner/models/Product";
+import { IProduct } from "src/partner/models/Product";
 
 export interface IProductListProps {
   products: { [uuid: string]: IProduct };
@@ -16,13 +16,13 @@ export const ProductList: React.SFC<IProductListProps> = ({
   return (
     <React.Fragment>
       {Object.keys(products).map((uuid: string) => {
-        const { description, price } = products[uuid];
+        const { name, price } = products[uuid];
         return (
           <ProductRow
             key={uuid}
             {...{
               uuid,
-              descriptionValue: description,
+              descriptionValue: name,
               descriptionOnChange: onChangeProductDescription,
               amountValue: price,
               amountOnchange: onChangeProductAmount,

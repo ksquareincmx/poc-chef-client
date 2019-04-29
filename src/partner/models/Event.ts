@@ -1,5 +1,5 @@
-import { IProduct, product } from "./Product";
-import { IOrder } from "./Order";
+import { IProduct, IProductDTO } from "./Product";
+import { IOrder, IOrderDTO } from "./Order";
 
 export interface IEvent {
   id?: string;
@@ -42,6 +42,6 @@ export interface IEventDTO {
   cancelled: boolean;
   created_at: number;
   updated_at: number;
-  orders: IOrder[];
-  products?: IProduct[];
+  orders: IOrderDTO[];
+  products: IProductDTO[];
 }

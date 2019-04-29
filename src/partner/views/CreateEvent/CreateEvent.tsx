@@ -20,17 +20,20 @@ const CustomText = styles(TextMessage)`
 
 export const CreateEvent: React.FC<RouteComponentProps> = ({ history }) => {
   const [state, setState] = useState<IEvent>(event());
-  const uuid = cuid();
   const addProductHandler = () => {
+    const uuid = cuid();
+    const newProduct = product();
+    newProduct.id = uuid;
+
     setState({
       ...state,
-      products: { ...state.products, [uuid]: product() },
+      products: { ...state.products, [uuid]: { ...newProduct } },
     });
   };
 
   const onChangeProductDescription = (uuid: string, ev: any) => {
     const data = state.products[uuid];
-    data.description = ev.target.value;
+    data.name = ev.target.value;
     setState({ ...state, products: { ...state.products, [uuid]: { ...data } } });
   };
 

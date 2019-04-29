@@ -1,5 +1,6 @@
 import { IEvent, IEventDTO } from "src/partner/models/Event";
-import { product, IProduct } from "../models/Product";
+import { IProductDTO } from "../models/Product";
+import { ProductMapper } from ".";
 
 export const toEntity = (dto: IEventDTO): IEvent => {
   const h = dto.end_hour / 60;
@@ -19,12 +20,14 @@ export const toEntity = (dto: IEventDTO): IEvent => {
     cancelled: dto.cancelled,
     createdAt: new Date(dto.created_at),
     updatedAt: new Date(dto.updated_at),
-    orders: [], //only client app
-    products: {}, //to be added later
+    orders: [],
+    products: {},
   };
   if (dto.products) {
-    dto.products.forEach((product: IProduct) => {
-      eventData.products[product.id] = { ...product };
+    dto.products.forEach((product: IProductDTO) => {
+      if (product.id) {
+        eventData.products[product.id] = ProductMapper.toEntity(product);
+      }
     });
   }
 
@@ -43,17 +46,13 @@ export const toDTO = (event: IEvent): IEventDTO => {
     cancelled: event.cancelled,
     ["created_at"]: event.createdAt.getTime(),
     ["updated_at"]: event.updatedAt.getTime(),
-    orders: event.orders, //only client app
-    //products: [], //to be added later
+    orders: [],
+    products: [],
   };
 
-  if (event.products) {
-    /* to be added later
-    Object.keys(event.products).forEach(product => {
-      eventDTO.products.push(event.products[product]);
-    });
-    */
-  }
+  Object.keys(event.products).forEach(product => {
+    eventDTO.products.push(ProductMapper.toDTO(event.products[product]));
+  });
 
   return eventDTO;
 };
