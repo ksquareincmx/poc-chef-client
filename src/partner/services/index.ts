@@ -1,3 +1,1 @@
-import * as EventService from "./EventService";
-
-export { EventService };
+export { eventService } from "./EventService";

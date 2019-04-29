@@ -5,73 +5,60 @@ import { CreateEventContainer } from "./CreateEventContainer";
 import { GradientButton } from "src/common/ui/Buttons";
 import styles from "styled-components";
 import { TextMessage } from "src/common/ui/Text";
+import { IEvent, event } from "src/partner/models/Event";
 import cuid from "cuid";
+import { product } from "src/partner/models/Product";
+import { eventService } from "src/partner/services/EventService";
+import { RouteComponentProps } from "react-router";
+import { currentEventsRoute } from "src/partner/routes";
 
 const CustomText = styles(TextMessage)`
     color: #fff;
     line-height: normal;
     font-size: .875rem;
 `;
-export interface IObjectProducts {
-  [key: string]: IProductData;
-}
 
-export interface IProductData {
-  description: string;
-  amount: string;
-}
-
-export interface ICreateEventState {
-  name: string;
-  expirationDate: string;
-  time: string;
-  productList: IObjectProducts;
-}
-
-const createEventInitialState: ICreateEventState = {
-  name: "",
-  expirationDate: "",
-  time: "",
-  productList: {},
-};
-
-export const CreateEvent: React.FC = () => {
-  const [state, setState] = useState<ICreateEventState>(createEventInitialState);
-
+export const CreateEvent: React.FC<RouteComponentProps> = ({ history }) => {
+  const [state, setState] = useState<IEvent>(event());
   const addProductHandler = () => {
     const uuid = cuid();
+    const newProduct = product();
+
     setState({
       ...state,
-      productList: { ...state.productList, [uuid]: { description: "", amount: "0" } },
+      products: { ...state.products, [uuid]: { ...newProduct } },
     });
   };
 
   const onChangeProductDescription = (uuid: string, ev: any) => {
-    const data = state.productList[uuid];
-    data.description = ev.target.value;
-    setState({ ...state, productList: { ...state.productList, [uuid]: { ...data } } });
+    const data = state.products[uuid];
+    data.name = ev.target.value;
+    setState({ ...state, products: { ...state.products, [uuid]: { ...data } } });
   };
 
   const onChangeProductAmount = (uuid: string, ev: any) => {
-    const data = state.productList[uuid];
-    data.amount = ev.target.value;
-    setState({ ...state, productList: { ...state.productList, [uuid]: { ...data } } });
+    const data = state.products[uuid];
+    data.price = ev.target.value;
+    setState({ ...state, products: { ...state.products, [uuid]: { ...data } } });
   };
 
   const changeEventNameHandler = (ev: ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, name: ev.target.value });
   };
 
-  const changeEventExpirationDateHandler = (ev: ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, expirationDate: ev.target.value });
+  const changeEventExpirationDateHandler = (date: Date) => {
+    setState({ ...state, expirationDate: date });
   };
 
-  const changeEventTimeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, time: ev.target.value });
+  const changeEventTimeHandler = (date: Date) => {
+    setState({ ...state, endHour: date });
   };
 
-  const handleSaveEvent = () => {
-    //save the event
+  const handleSaveEvent = async () => {
+    const res = await eventService.postEvent({ ...state });
+    if (res) {
+      history.push(currentEventsRoute);
+    }
   };
 
   return (

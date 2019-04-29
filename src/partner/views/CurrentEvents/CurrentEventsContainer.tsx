@@ -4,7 +4,6 @@ import { EventList } from "src/partner/modules/EventList/EventList";
 import { ContentWrapper } from "src/common/ui/ContentWrapper";
 import { CreateEventButton } from "src/partner/modules/CreateEventButton";
 
-
 export interface CurrentEventsContainerProps {
   events: IEvent[];
 }

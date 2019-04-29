@@ -12,7 +12,7 @@ interface IProductRowProps {
   uuid: string;
   descriptionValue: string;
   descriptionOnChange: (uuid: string, ev: ChangeEvent<HTMLInputElement>) => void;
-  amountValue: string;
+  amountValue: number;
   amountOnchange: (uuid: string, ev: ChangeEvent<HTMLInputElement>) => void;
 }
 

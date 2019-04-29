@@ -16,19 +16,22 @@ import {
   CardIconImg,
   CardLinkIcon,
 } from "src/common/ui/Card";
+import { unixDateToString } from "src/common/mappers/DateMapper";
 
 interface CardEventProps {
   key: string;
   eventInfo: IEvent.IEvent;
+  isPastEventView?: boolean;
 }
 
-export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
+export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo, isPastEventView }) => {
   const printProducts = () => {
-    return eventInfo.products.map((e, idx) => {
+    return Object.keys(eventInfo.products).map((e, idx) => {
+      const product = eventInfo.products[e];
       return (
-        <CardRow key={idx}>
-          <TextTableRowCardEvent>{e.name}</TextTableRowCardEvent>
-          <TextTableRowCardEvent>{e.price}</TextTableRowCardEvent>
+        <CardRow key={product.id}>
+          <TextTableRowCardEvent>{product.name}</TextTableRowCardEvent>
+          <TextTableRowCardEvent>{product.price}</TextTableRowCardEvent>
         </CardRow>
       );
     });
@@ -41,6 +44,7 @@ export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
           <TextTitleCardEvent>{eventInfo.name}</TextTitleCardEvent>
         </CardTextHeaderContainer>
         <CardDivActionsContainer>
+          {isPastEventView && <span />}
           <CardLinkIcon height="1.5rem" to={`event-details/${eventInfo.id}`}>
             <CardIconImg
               width="1.5rem"
@@ -49,19 +53,25 @@ export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo }) => {
               alt="view-button"
             />
           </CardLinkIcon>
-          <CardLinkIcon height="1.5rem" to={`event-edit/${eventInfo.id}`}>
-            <CardIconImg
-              width="1.5rem"
-              height="1.5rem"
-              alt="edit-button"
-              src={require("src/images/icons/baseline-edit-24px.svg")}
-            />
-          </CardLinkIcon>
+          {!isPastEventView && (
+            <CardLinkIcon height="1.5rem" to={`event-edit/${eventInfo.id}`}>
+              <CardIconImg
+                width="1.5rem"
+                height="1.5rem"
+                alt="edit-button"
+                src={require("src/images/icons/baseline-edit-24px.svg")}
+              />
+            </CardLinkIcon>
+          )}
         </CardDivActionsContainer>
       </CardRowHeader>
       <CardDescription>
-        <TextDescriptionCardEvent>Created: {eventInfo.startDateString}</TextDescriptionCardEvent>
-        <TextDescriptionCardEvent>Expired: {eventInfo.endDateString}</TextDescriptionCardEvent>
+        <TextDescriptionCardEvent>
+          Created: {unixDateToString(eventInfo.createdAt)}
+        </TextDescriptionCardEvent>
+        <TextDescriptionCardEvent>
+          Expired: {unixDateToString(eventInfo.expirationDate.getTime())}
+        </TextDescriptionCardEvent>
       </CardDescription>
       <CardRow>
         <TextTableTitleCardEvent>Product</TextTableTitleCardEvent>

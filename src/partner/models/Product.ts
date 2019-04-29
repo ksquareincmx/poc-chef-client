@@ -1,21 +1,27 @@
 export interface IProduct {
+  id: string;
   name: string;
-  quantity: number;
-  price: string;
+  price: number;
+  createdAt: number;
+  updatedAt: number;
   [key: string]: any;
 }
 
 export interface IProductDTO {
+  id?: string;
   name: string;
-  quantity: number;
   price: number;
+  created_at: number;
+  updated_at: number;
   [key: string]: any;
 }
 
 export const product = (): IProduct => {
   return {
+    id: "",
     name: "",
-    quantity: 0,
-    price: "",
+    price: 0,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
   };
 };
