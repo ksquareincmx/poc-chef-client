@@ -98,14 +98,17 @@ export const CreateEvent: React.FC<RouteComponentProps & IRouteProps> = ({ histo
       notificationContext.handleShowNotification(errors.join(", "));
       return;
     }
+
     let res;
     if (isEditRoute) {
       res = await eventService.putEvent({ ...state });
     } else {
       res = await eventService.postEvent({ ...state });
     }
+
     if (res) {
       history.push(currentEventsRoute);
+      notificationContext.handleShowNotification(`Event ${isEditRoute ? "updated" : "created"}`);
     }
   };
 
