@@ -1,4 +1,4 @@
-import { IEvent, IEventDTO } from "src/partner/models/Event";
+import { IEvent, IEventDTO, event } from "src/partner/models/Event";
 import { EventMapper, OrderMapper } from "src/partner/mappers";
 import { IOrder } from "../models/Order";
 import { loginService } from "src/common/services";
@@ -8,6 +8,8 @@ export interface IEventService {
   getPastEvents: () => Promise<IEvent[]>;
   getOrdersByEventId: (idEvent: string) => Promise<IOrder[]>;
   postEvent: (event: IEvent) => Promise<IEventDTO>;
+  putEvent: (event: IEvent) => Promise<IEventDTO>;
+  getEventById: (eventId: string) => Promise<IEvent>;
 }
 
 const headersConfig = {
@@ -17,6 +19,7 @@ const headersConfig = {
   },
 };
 const postConfig = { method: "post", body: "", ...headersConfig };
+const putConfig = { method: "put", body: "", ...headersConfig };
 const getConfig = { method: "get", ...headersConfig };
 
 export const eventService: IEventService = {
@@ -49,6 +52,21 @@ export const eventService: IEventService = {
       console.error(err);
     }
   },
+  getEventById: async (eventId: string) => {
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events/${eventId}`, getConfig);
+      const data = await res.json();
+      if (data.statusCode === 200) {
+        console.log(data.data);
+        return EventMapper.toEntity(data.data);
+      } else {
+        throw new Error("Error at getting the event");
+      }
+    } catch (err) {
+      console.log(err);
+      return event();
+    }
+  },
   postEvent: async (event: IEvent) => {
     try {
       delete event["id"]; //not allowed by the server
@@ -60,6 +78,23 @@ export const eventService: IEventService = {
         return data;
       } else {
         throw new Error("Error at saving new event");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  putEvent: async (event: IEvent) => {
+    try {
+      const eventId = event.id;
+      delete event["id"]; //not allowed by the server
+
+      putConfig.body = JSON.stringify(EventMapper.toDTO(event));
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events/${eventId}`, putConfig);
+      const data = await res.json();
+      if (data.statusCode === 201) {
+        return data;
+      } else {
+        throw new Error("Error at updating event");
       }
     } catch (err) {
       console.error(err);

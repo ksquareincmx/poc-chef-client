@@ -12,13 +12,11 @@ export const toEntity = (dto: IProductDTO): IProduct => {
 };
 
 export const toDTO = (product: IProduct): IProductDTO => {
-  delete product["id"]; // not allowed on the server;
   const productDTO: IProductDTO = {
     name: product.name,
     price: Number(product.price),
     ["created_at"]: product.createdAt,
     ["updated_at"]: product.updatedAt,
   };
-
   return productDTO;
 };

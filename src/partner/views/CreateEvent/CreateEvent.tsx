@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { NavHeader } from "src/partner/modules/Header";
 import { FloatContentWrapper } from "src/common/ui/ContentWrapper";
 import { CreateEventContainer } from "./CreateEventContainer";
@@ -10,7 +10,7 @@ import cuid from "cuid";
 import { product } from "src/partner/models/Product";
 import { eventService } from "src/partner/services/EventService";
 import { RouteComponentProps } from "react-router";
-import { currentEventsRoute } from "src/partner/routes";
+import { currentEventsRoute, eventEditRoute } from "src/partner/routes";
 
 const CustomText = styles(TextMessage)`
     color: #fff;
@@ -18,8 +18,25 @@ const CustomText = styles(TextMessage)`
     font-size: .875rem;
 `;
 
-export const CreateEvent: React.FC<RouteComponentProps> = ({ history }) => {
+interface IRouteProps {
+  match: { params: { id?: string } };
+}
+export const CreateEvent: React.FC<RouteComponentProps & IRouteProps> = ({ history, match }) => {
   const [state, setState] = useState<IEvent>(event());
+  const isEditRoute = match.path === eventEditRoute;
+
+  const fetchEvent = async () => {
+    if (isEditRoute && match.params.id) {
+      const eventId = match.params.id;
+      const eventData = await eventService.getEventById(eventId);
+      setState({ ...eventData });
+    }
+  };
+
+  useEffect(() => {
+    fetchEvent();
+  }, []);
+
   const addProductHandler = () => {
     const uuid = cuid();
     const newProduct = product();
@@ -55,7 +72,12 @@ export const CreateEvent: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   const handleSaveEvent = async () => {
-    const res = await eventService.postEvent({ ...state });
+    let res;
+    if (isEditRoute) {
+      res = await eventService.putEvent({ ...state });
+    } else {
+      res = await eventService.postEvent({ ...state });
+    }
     if (res) {
       history.push(currentEventsRoute);
     }
@@ -63,7 +85,7 @@ export const CreateEvent: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <React.Fragment>
-      <NavHeader title="New Event" to="current-events" />
+      <NavHeader title={`${isEditRoute ? `Edit` : `New`} Event`} to={currentEventsRoute} />
       <FloatContentWrapper>
         <CreateEventContainer
           {...{
@@ -78,7 +100,7 @@ export const CreateEvent: React.FC<RouteComponentProps> = ({ history }) => {
         />
         <div style={{ marginTop: "2.5rem", textAlign: "center" }}>
           <GradientButton onClick={handleSaveEvent}>
-            <CustomText>SAVE EVENT</CustomText>
+            <CustomText>{isEditRoute ? "UPDATE" : "SAVE"} EVENT</CustomText>
           </GradientButton>
         </div>
       </FloatContentWrapper>
