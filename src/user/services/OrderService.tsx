@@ -12,7 +12,7 @@ export const orderService: IOrderService = {
       const data = await res.json();
       return data.orders.map(orderMapper.toModel);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 };

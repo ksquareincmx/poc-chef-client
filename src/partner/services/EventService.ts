@@ -57,13 +57,12 @@ export const eventService: IEventService = {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events/${eventId}`, getConfig);
       const data = await res.json();
       if (data.statusCode === 200) {
-        console.log(data.data);
         return EventMapper.toEntity(data.data);
       } else {
         throw new Error("Error at getting the event");
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return event();
     }
   },
