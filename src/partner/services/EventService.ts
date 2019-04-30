@@ -53,18 +53,12 @@ export const eventService: IEventService = {
     }
   },
   getEventById: async (eventId: string) => {
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events/${eventId}`, getConfig);
-      const data = await res.json();
-      if (data.statusCode === 200) {
-        return EventMapper.toEntity(data.data);
-      } else {
-        throw new Error("Error at getting the event");
-      }
-    } catch (err) {
-      console.error(err);
-      return event();
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events/${eventId}`, getConfig);
+    const data = await res.json();
+    if (data.statusCode !== 200) {
+      throw new Error("Error at getting the event");
     }
+    return EventMapper.toEntity(data.data);
   },
   postEvent: async (event: IEvent) => {
     delete event["id"]; //not allowed by the server

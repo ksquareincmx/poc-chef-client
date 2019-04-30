@@ -28,10 +28,14 @@ export const CreateEvent: React.FC<RouteComponentProps & IRouteProps> = ({ histo
   const isEditRoute = match.path === eventEditRoute;
 
   const fetchEvent = async () => {
-    if (isEditRoute && match.params.id) {
-      const eventId = match.params.id;
-      const eventData = await eventService.getEventById(eventId);
-      setState({ ...eventData });
+    try {
+      if (isEditRoute && match.params.id) {
+        const eventId = match.params.id;
+        const eventData = await eventService.getEventById(eventId);
+        setState({ ...eventData });
+      }
+    } catch (err) {
+      notificationContext.handleShowNotification(err.message);
     }
   };
 
