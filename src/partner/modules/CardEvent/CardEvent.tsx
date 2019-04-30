@@ -45,7 +45,10 @@ export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo, isPastEventVie
         </CardTextHeaderContainer>
         <CardDivActionsContainer>
           {isPastEventView && <span />}
-          <CardLinkIcon height="1.5rem" to={`event-details/${eventInfo.id}`}>
+          <CardLinkIcon
+            height="1.5rem"
+            to={`event-details${isPastEventView ? "/past" : ""}/${eventInfo.id}`}
+          >
             <CardIconImg
               width="1.5rem"
               height="1.5rem"

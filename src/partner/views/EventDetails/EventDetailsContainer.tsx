@@ -20,17 +20,13 @@ interface IEventDetailsContainerComponentProps {
 
 const EventDetailsContainerComponent: React.FC<
   RouteComponentProps & IEventDetailsContainerComponentProps
-> = ({
-  match: {
-    params: { id },
-  },
-}) => {
+> = ({ match }) => {
   const [eventDetails, setEventDetails] = useState<IEvent.IEvent>(event());
   const notificationContext = useContext(NotificationContext.NotificationContext);
 
   const fetchEvent = async () => {
     try {
-      const event = await eventService.getEventById(id);
+      const event = await eventService.getEventById(match.params.id);
       setEventDetails({ ...event });
     } catch (err) {
       notificationContext.handleShowNotification(err.message);

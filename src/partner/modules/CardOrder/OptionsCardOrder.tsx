@@ -3,6 +3,8 @@ import { CardIconImg } from "src/common/ui/Card";
 import { ArrowOptionsIconImg } from "./CardOrder";
 import styles from "styled-components";
 import { TextPriceTableProducts } from "src/common/ui/Text";
+import { RouteComponentProps, withRouter } from "react-router";
+import { pastEventDetailsRoute } from "src/partner/routes";
 
 const FloatDivOption = styles.div`
     position: absolute;
@@ -23,22 +25,28 @@ export interface IOptionsCardOrder {
   onClick: () => void;
 }
 
-export const OptionsCardOrder: React.FC<IOptionsCardOrder> = ({ paid, onClick }) => {
+const OptionsCardOrderComponent: React.FC<RouteComponentProps & IOptionsCardOrder> = ({
+  paid,
+  onClick,
+  match: { path },
+}) => {
   const [showOptions, setShowOptions] = useState(false);
   const iconShow = paid ? "check" : "remove";
   const iconHide = !paid ? "check" : "remove";
-
   const iconArrowOptions = showOptions ? "up" : "down";
+  const isPastEventDetailsView = pastEventDetailsRoute === path;
   return (
     <div>
       <div style={{ textAlign: "right" }}>
         <CardIconImg
           src={require(`src/images/icons/outline-${iconShow}_circle_outline-24px.svg`)}
         />
-        <ArrowOptionsIconImg
-          onClick={() => setShowOptions(!showOptions)}
-          src={require(`src/images/icons/outline-arrow_drop_${iconArrowOptions}-24px.svg`)}
-        />
+        {!isPastEventDetailsView && (
+          <ArrowOptionsIconImg
+            onClick={() => setShowOptions(!showOptions)}
+            src={require(`src/images/icons/outline-arrow_drop_${iconArrowOptions}-24px.svg`)}
+          />
+        )}
       </div>
       {showOptions && (
         <div style={{ position: "relative" }}>
@@ -56,3 +64,4 @@ export const OptionsCardOrder: React.FC<IOptionsCardOrder> = ({ paid, onClick })
     </div>
   );
 };
+export const OptionsCardOrder = withRouter(OptionsCardOrderComponent);
