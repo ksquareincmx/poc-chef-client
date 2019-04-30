@@ -33,6 +33,16 @@ export const CreateEvent: React.FC<RouteComponentProps & IRouteProps> = ({ histo
         const eventId = match.params.id;
         const eventData = await eventService.getEventById(eventId);
         setState({ ...eventData });
+      } else {
+        // Two fixed products
+        const fixedProducts = [{ ...product(), id: cuid() }, { ...product(), id: cuid() }];
+        setState({
+          ...state,
+          products: {
+            [fixedProducts[0].id]: fixedProducts[0],
+            [fixedProducts[1].id]: fixedProducts[1],
+          },
+        });
       }
     } catch (err) {
       notificationContext.handleShowNotification(err.message);
