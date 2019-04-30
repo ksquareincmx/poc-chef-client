@@ -93,22 +93,22 @@ export const CreateEvent: React.FC<RouteComponentProps & IRouteProps> = ({ histo
   };
 
   const handleSaveEvent = async () => {
-    const errors = getFieldErrors();
-    if (errors.length > 0) {
-      notificationContext.handleShowNotification(errors.join(", "));
-      return;
-    }
+    try {
+      const errors = getFieldErrors();
+      if (errors.length > 0) {
+        return notificationContext.handleShowNotification(errors.join(", "));
+      }
 
-    let res;
-    if (isEditRoute) {
-      res = await eventService.putEvent({ ...state });
-    } else {
-      res = await eventService.postEvent({ ...state });
-    }
+      const res = isEditRoute
+        ? await eventService.putEvent({ ...state })
+        : await eventService.postEvent({ ...state });
 
-    if (res) {
-      history.push(currentEventsRoute);
-      notificationContext.handleShowNotification(`Event ${isEditRoute ? "updated" : "created"}`);
+      if (res.id) {
+        history.push(currentEventsRoute);
+        notificationContext.handleShowNotification(`Event ${isEditRoute ? "updated" : "created"}`);
+      }
+    } catch (err) {
+      notificationContext.handleShowNotification(err.message);
     }
   };
 

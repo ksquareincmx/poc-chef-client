@@ -1,10 +1,10 @@
 import React from "react";
 import styledComponents from "styled-components";
-import { TextTitleHeader, TextMessage } from "src/common/ui/Text";
+import { TextMessage } from "src/common/ui/Text";
 
 export interface INotificationProps {
   text: string;
-  close: Function;
+  close: () => void;
 }
 
 const NotificacionDiv = styledComponents.div`
@@ -40,11 +40,11 @@ const TextNotification = styledComponents(TextMessage)`
   line-height: 1.33;
 `;
 
-export const Notification: React.SFC<INotificationProps> = props => {
+export const Notification: React.SFC<INotificationProps> = ({ text, close }) => {
   return (
     <NotificacionDiv>
-      <TextNotification>{props.text}</TextNotification>
-      <ButtonClose onClick={() => props.close()}>
+      <TextNotification>{text}</TextNotification>
+      <ButtonClose onClick={close}>
         <ImgClose src={require("src/images/icons/clear.svg")} />
       </ButtonClose>
     </NotificacionDiv>

@@ -79,24 +79,23 @@ export const eventService: IEventService = {
         throw new Error("Error at saving new event");
       }
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
     }
   },
   putEvent: async (event: IEvent) => {
     try {
-      const eventId = event.id;
-      delete event["id"]; //not allowed by the server
+      const { id: eventId, ...eventEntity } = event;
 
-      putConfig.body = JSON.stringify(EventMapper.toDTO(event));
+      putConfig.body = JSON.stringify(EventMapper.toDTO(eventEntity));
       const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events/${eventId}`, putConfig);
       const data = await res.json();
-      if (data.statusCode === 201) {
-        return data;
-      } else {
+      if (data.statusCode !== 201) {
         throw new Error("Error at updating event");
       }
+
+      return data;
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
     }
   },
 };
