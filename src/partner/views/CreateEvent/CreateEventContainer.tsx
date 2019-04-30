@@ -113,13 +113,15 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
         </CustomRow>
       </CardSection>
       <CardSection>
-        <CustomRow>
+        {/* //functionality no needed temporaly
+          <CustomRow>
           <span />
           <AddButton onClick={addProductHandler}>
             <CardIconImg src={require("src/images/icons/baseline-add_circle_outline-24px.svg")} />
             Add Item
           </AddButton>
-        </CustomRow>
+          </CustomRow>
+          */}
         <ProductListContainer>
           <ProductList
             {...{ products: state.products, onChangeProductDescription, onChangeProductAmount }}
