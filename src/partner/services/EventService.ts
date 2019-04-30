@@ -67,35 +67,25 @@ export const eventService: IEventService = {
     }
   },
   postEvent: async (event: IEvent) => {
-    try {
-      delete event["id"]; //not allowed by the server
+    delete event["id"]; //not allowed by the server
 
-      postConfig.body = JSON.stringify(EventMapper.toDTO(event));
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events`, postConfig);
-      const data = await res.json();
-      if (data.statusCode === 201) {
-        return data;
-      } else {
-        throw new Error("Error at saving new event");
-      }
-    } catch (err) {
-      throw new Error(err.message);
+    postConfig.body = JSON.stringify(EventMapper.toDTO(event));
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events`, postConfig);
+    const data = await res.json();
+    if (data.statusCode !== 201) {
+      throw new Error("Error at saving new event");
     }
+    return data;
   },
   putEvent: async (event: IEvent) => {
-    try {
-      const { id: eventId, ...eventEntity } = event;
+    const { id: eventId, ...eventEntity } = event;
 
-      putConfig.body = JSON.stringify(EventMapper.toDTO(eventEntity));
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events/${eventId}`, putConfig);
-      const data = await res.json();
-      if (data.statusCode !== 201) {
-        throw new Error("Error at updating event");
-      }
-
-      return data;
-    } catch (err) {
-      throw new Error(err.message);
+    putConfig.body = JSON.stringify(EventMapper.toDTO(eventEntity));
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events/${eventId}`, putConfig);
+    const data = await res.json();
+    if (data.statusCode !== 201) {
+      throw new Error("Error at updating event");
     }
+    return data;
   },
 };
