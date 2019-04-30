@@ -68,7 +68,7 @@ export const eventService: IEventService = {
     if (data.statusCode !== 201) {
       throw new Error("Error at saving new event");
     }
-    return data;
+    return data.data;
   },
   putEvent: async (event: IEvent) => {
     const { id: eventId, ...eventEntity } = event;
@@ -79,6 +79,6 @@ export const eventService: IEventService = {
     if (data.statusCode !== 201) {
       throw new Error("Error at updating event");
     }
-    return data;
+    return data.data;
   },
 };
