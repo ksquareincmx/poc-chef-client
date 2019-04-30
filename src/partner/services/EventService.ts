@@ -42,7 +42,6 @@ export const eventService: IEventService = {
       console.error(err);
     }
   },
-
   getOrdersByEventId: async (eventId: string) => {
     try {
       const res = await fetch("/api/event_orders.json");

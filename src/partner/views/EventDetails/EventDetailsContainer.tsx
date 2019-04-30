@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   CardContainer,
   CardRowHeader,
@@ -7,40 +7,39 @@ import {
 } from "src/common/ui/Card";
 import { TextTitleCardEvent, TextDescriptionCardEvent } from "src/common/ui/Text";
 import { OrderListContainer } from "./OrderListContainer";
+import { IEvent } from "src/partner/models";
+import { event } from "src/partner/models/Event";
+import { eventService } from "src/partner/services";
+import { RouteComponentProps, withRouter } from "react-router";
+import { unixDateToString } from "src/common/mappers/DateMapper";
+import { NotificationContext } from "src/providers";
 
-export const EventDetailsContainer: React.SFC = () => {
-  //temporal data fake
-  const eventDataFake = {
-    name: "Event name 1",
-    created: "27/07/2018",
-    expired: "28/07/2018",
+interface IEventDetailsContainerComponentProps {
+  match: { params: { id: string } };
+}
 
-    orders: [
-      {
-        id: "1asa52",
-        orderedBy: "Michelle Ayala",
-        total: "79.00",
-        paid: true,
-        products: [
-          {
-            id: "p15a52",
-            name: "Product 1",
-            amount: "77.77",
-          },
-          {
-            id: "p15a5aasa2",
-            name: "Product 2",
-            amount: "6.66",
-          },
-          {
-            id: "p15a545a522",
-            name: "Product 3",
-            amount: "69.00",
-          },
-        ],
-      },
-    ],
+const EventDetailsContainerComponent: React.FC<
+  RouteComponentProps & IEventDetailsContainerComponentProps
+> = ({
+  match: {
+    params: { id },
+  },
+}) => {
+  const [eventDetails, setEventDetails] = useState<IEvent.IEvent>(event());
+  const notificationContext = useContext(NotificationContext.NotificationContext);
+
+  const fetchEvent = async () => {
+    try {
+      const event = await eventService.getEventById(id);
+      setEventDetails({ ...event });
+    } catch (err) {
+      notificationContext.handleShowNotification(err.message);
+    }
   };
+
+  useEffect(() => {
+    fetchEvent();
+  }, []);
 
   const updateStatusPaidOrder = () => {
     //update order status
@@ -52,19 +51,25 @@ export const EventDetailsContainer: React.SFC = () => {
         <CardContainer>
           <CardRowHeader>
             <CardTextHeaderContainer>
-              <TextTitleCardEvent>{eventDataFake.name}</TextTitleCardEvent>
+              <TextTitleCardEvent>{eventDetails.name}</TextTitleCardEvent>
             </CardTextHeaderContainer>
           </CardRowHeader>
           <CardDescription>
-            <TextDescriptionCardEvent>Created at: {eventDataFake.created}</TextDescriptionCardEvent>
-            <TextDescriptionCardEvent>Expired at: {eventDataFake.expired}</TextDescriptionCardEvent>
+            <TextDescriptionCardEvent>
+              Created at: {unixDateToString(eventDetails.createdAt)}
+            </TextDescriptionCardEvent>
+            <TextDescriptionCardEvent>
+              Expired at: {unixDateToString(eventDetails.expirationDate.getTime())}
+            </TextDescriptionCardEvent>
           </CardDescription>
         </CardContainer>
         <OrderListContainer
-          orders={eventDataFake.orders}
+          orders={eventDetails.orders}
           updateStatusPaidOrder={updateStatusPaidOrder}
         />
       </div>
     </React.Fragment>
   );
 };
+
+export const EventDetailsContainer = withRouter(EventDetailsContainerComponent);
