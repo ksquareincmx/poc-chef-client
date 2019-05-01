@@ -17,6 +17,7 @@ import { CurrentEvents } from "./views/CurrentEvents";
 import { CreateEvent } from "./views/CreateEvent";
 import { EventDetails } from "./views/EventDetails";
 import { PastEvents } from "./views/PastEvents";
+import { pastEventDetailsRoute } from "./routes/routes";
 
 const PartnerApp: React.FC<RouteComponentProps> = ({ location, history }) => {
   const isProtectedRoute = /\/partner\/[^login].+/gi.test(location.pathname);
@@ -32,6 +33,7 @@ const PartnerApp: React.FC<RouteComponentProps> = ({ location, history }) => {
         <Switch>
           <Route path={currentEventsRoute} component={CurrentEvents} />
           <Route path={pastEventsRoute} component={PastEvents} />
+          <Route exact path={pastEventDetailsRoute} component={EventDetails} />
           <Route path={eventDetailsRoute} component={EventDetails} />
           <Route path={eventCreateRoute} component={CreateEvent} />
           <Route path={eventEditRoute} component={CreateEvent} />
