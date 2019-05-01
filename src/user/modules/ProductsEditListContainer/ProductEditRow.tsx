@@ -21,13 +21,13 @@ const InputUnits = styled.input`
   text-align: center;
 `;
 const DivWrapper = styled.div`
-  clip-path: inset(1px);
+  clip-path: inset(-1px);
 `;
 
 const CustomRow = styled(CardRow)`
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 0px;
+  grid-template-columns: 1fr 1fr fit-content(5.5rem) 0px;
   grid-gap: 0.125rem;
 `;
 
