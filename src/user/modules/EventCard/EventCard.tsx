@@ -1,49 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { CardContainer, CardRowHeader } from "src/common/ui/Card";
 import { GradientButton } from "src/common/ui/Buttons";
-import { TextTable, TextTitleCardEvent } from "src/common/ui/Text";
+import { TextTable, TextTitleCardEvent, TextTableTitleCardEvent } from "src/common/ui/Text";
 import { ProductsListContainer } from "src/user/modules/ProductsEditListContainer";
-import { IEvent } from "src/partner/models";
+import { DateMapper } from "src/common/mappers/";
+import { CustomProductRow } from "../ui/ProductEditRow";
+import { IUserEvent } from "src/user/models/UserEvent";
 
 interface IEventProps {
-  event: IEvent.IEvent;
+  event: IUserEvent;
 }
 
-export const EventCard: React.FC<IEventProps> = () => {
-  //temporal
-  const data = {
-    eventName: "EventName",
-    dateOrdered: "27/07/2018",
-    order: "012",
-    total: "50.00",
-    products: [
-      {
-        id: "8a8a8aa",
-        name: "Torta de poc-chuc",
-        price: "22.00",
-        units: "0",
-      },
-      {
-        id: "5a6a6a6",
-        name: "Torta de poc-chuc",
-        price: "32.00",
-        units: "1",
-      },
-      {
-        id: "5a5a5a666",
-        name: "Torta de poc-chuc",
-        price: "108.00",
-        units: "2",
-      },
-    ],
-  };
+export const EventCard: React.FC<IEventProps> = ({ event }) => {
+  const [state, setState] = useState<IUserEvent>(event);
 
   const handleAddUnit = (idProduct: string) => {
-    //add unit
+    const dataProduct = { ...state.products[idProduct] };
+    dataProduct.quantity += 1;
+    setState({ ...state, products: { ...state.products, [idProduct]: { ...dataProduct } } });
   };
 
   const handleMinusUnit = (idProduct: string) => {
-    //minus unit
+    const dataProduct = { ...state.products[idProduct] };
+
+    if (dataProduct.quantity === 0) {
+      return;
+    }
+
+    dataProduct.quantity -= 1;
+    setState({ ...state, products: { ...state.products, [idProduct]: { ...dataProduct } } });
   };
 
   const handleRemoveProduct = (idProduct: string) => {
@@ -63,19 +48,26 @@ export const EventCard: React.FC<IEventProps> = () => {
       <CardContainer>
         <CardRowHeader style={{ padding: ".5rem 1rem .475rem 1rem" }}>
           <div style={{ display: "grid", gridGap: ".25rem" }}>
-            <TextTitleCardEvent>{data.eventName}</TextTitleCardEvent>
-            <TextTable style={{ textAlign: "left" }}>{data.dateOrdered}</TextTable>
+            <TextTitleCardEvent>{state.name}</TextTitleCardEvent>
+            <TextTable style={{ textAlign: "left" }}>
+              {DateMapper.unixDateToString(state.createdAt)}
+            </TextTable>
           </div>
         </CardRowHeader>
+        <CustomProductRow>
+          <TextTableTitleCardEvent>Product</TextTableTitleCardEvent>
+          <TextTableTitleCardEvent>Price</TextTableTitleCardEvent>
+          <span />
+        </CustomProductRow>
         <ProductsListContainer
-          products={data.products}
+          products={state.products}
           handleAddUnit={handleAddUnit}
           handleMinusUnit={handleMinusUnit}
           handleRemoveProduct={handleRemoveProduct}
           handleOnChangeInput={handleOnChangeInput}
         />
         <div style={{ textAlign: "center", padding: ".5rem 0px" }}>
-          <GradientButton style={{ width: "auto" }} onClick={saveChanges}>
+          <GradientButton style={{ width: "auto", padding: "0px 1rem" }} onClick={saveChanges}>
             SUBMIT HAPPINESS
           </GradientButton>
         </div>

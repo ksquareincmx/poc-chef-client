@@ -1,8 +1,9 @@
 import React from "react";
 import { ProductEditRow } from "./ProductEditRow";
+import { IOrderProduct } from "src/user/models/OrderProduct";
 
 interface IProductsListContainerProps {
-  products: any; //temporal
+  products: { [uuid: string]: IOrderProduct };
   handleAddUnit: (id: string) => void;
   handleMinusUnit: (id: string) => void;
   handleRemoveProduct: (id: string) => void;
@@ -14,8 +15,8 @@ export const ProductsListContainer: React.FC<IProductsListContainerProps> = ({
 }) => {
   return (
     <React.Fragment>
-      {products.map((product: any) => (
-        <ProductEditRow product={product} key={product.id} {...props} />
+      {Object.keys(products).map((uuid: string) => (
+        <ProductEditRow product={products[uuid]} key={products[uuid].id} {...props} />
       ))}
     </React.Fragment>
   );
