@@ -26,7 +26,7 @@ export const EmptyData: React.SFC<IEmptyEventsProps> = ({ title, img, button, te
     <DivContainer>
       <TextMessage>{title}</TextMessage>
       <PorkImage src={img} />
-      {textBottom}
+      {textBottom && <TextMessage>{textBottom}</TextMessage>}
       {button}
     </DivContainer>
   );
