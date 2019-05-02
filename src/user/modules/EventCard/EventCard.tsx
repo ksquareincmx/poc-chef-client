@@ -6,6 +6,15 @@ import { ProductsListContainer } from "src/user/modules/ProductsEditListContaine
 import { DateMapper } from "src/common/mappers/";
 import { CustomProductRow } from "../ui/ProductEditRow";
 import { IUserEvent } from "src/user/models/UserEvent";
+import styled from "styled-components";
+import styledTS from "styled-components-ts";
+
+interface ICustomTextTableTitleCardEvent {
+  align?: string;
+}
+const CustomTextTableTitleCardEvent = styledTS<ICustomTextTableTitleCardEvent>(
+  styled(TextTableTitleCardEvent),
+)` text-align: ${({ align }) => align || "left"};`;
 
 interface IEventProps {
   event: IUserEvent;
@@ -48,15 +57,15 @@ export const EventCard: React.FC<IEventProps> = ({ event }) => {
       <CardContainer>
         <CardRowHeader style={{ padding: ".5rem 1rem .475rem 1rem" }}>
           <div style={{ display: "grid", gridGap: ".25rem" }}>
-            <TextTitleCardEvent>{state.name}</TextTitleCardEvent>
+            <CustomTextTableTitleCardEvent>{state.name}</CustomTextTableTitleCardEvent>
             <TextTable style={{ textAlign: "left" }}>
               {DateMapper.unixDateToString(state.createdAt)}
             </TextTable>
           </div>
         </CardRowHeader>
         <CustomProductRow>
-          <TextTableTitleCardEvent>Product</TextTableTitleCardEvent>
-          <TextTableTitleCardEvent>Price</TextTableTitleCardEvent>
+          <CustomTextTableTitleCardEvent>Product</CustomTextTableTitleCardEvent>
+          <CustomTextTableTitleCardEvent align="right">Price</CustomTextTableTitleCardEvent>
           <span />
         </CustomProductRow>
         <ProductsListContainer
