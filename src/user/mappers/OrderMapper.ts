@@ -1,15 +1,14 @@
 import * as orderProductMapper from "./OrderProductMapper";
-import { IOrder, IOrderDto } from "../models/Order";
+import { IOrder, IOrderDTO } from "../models/Order";
 
-export const toModel = (order: IOrderDto): IOrder => ({
+export const toModel = (order: IOrderDTO): IOrder => ({
   id: order.id,
-  total: order.total,
+  price: order.price,
   cancelled: order.cancelled,
   paid: order.paid,
   products: order.products.map(orderProductMapper.toEntity),
   userId: order.user_id,
   eventId: order.event_id,
-  eventName: order.event_name,
   createdBy: order.created_by,
   createdAt: order.created_at,
   updatedAt: order.updated_at,

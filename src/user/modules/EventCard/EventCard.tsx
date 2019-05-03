@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { CardContainer, CardRowHeader } from "src/common/ui/Card";
 import { GradientButton } from "src/common/ui/Buttons";
 import { TextTable, TextTitleCardEvent, TextTableTitleCardEvent } from "src/common/ui/Text";
@@ -8,6 +8,10 @@ import { CustomProductRow } from "../ui/ProductEditRow";
 import { IUserEvent } from "src/user/models/UserEvent";
 import styled from "styled-components";
 import styledTS from "styled-components-ts";
+import { OrderService } from "src/user/services/OrderService";
+import { NotificationContext } from "src/providers";
+import { withRouter, RouteComponentProps } from "react-router";
+import { USER_MY_ORDERS_ROUTE } from "src/user/routes";
 
 interface ICustomTextTableTitleCardEvent {
   align?: string;
@@ -20,9 +24,9 @@ interface IEventProps {
   event: IUserEvent;
 }
 
-export const EventCard: React.FC<IEventProps> = ({ event }) => {
+const EventCardComponent: React.FC<IEventProps & RouteComponentProps> = ({ event, history }) => {
   const [state, setState] = useState<IUserEvent>(event);
-
+  const notificationContext = useContext(NotificationContext.NotificationContext);
   const handleAddUnit = (idProduct: string) => {
     const dataProduct = { ...state.products[idProduct] };
     dataProduct.quantity += 1;
@@ -44,12 +48,19 @@ export const EventCard: React.FC<IEventProps> = ({ event }) => {
     //handleRemoveProduct
   };
 
-  const saveChanges = () => {
-    //save order changes
+  const saveChanges = async () => {
+    try {
+      const data = await OrderService.postOrder(state);
+      if (data.id) {
+        history.push(USER_MY_ORDERS_ROUTE);
+      }
+    } catch (err) {
+      notificationContext.handleShowNotification(err.message);
+    }
   };
 
   const handleOnChangeInput = (idProduct: string) => {
-    //handle onChange product
+    //handle onChange product or not?
   };
 
   return (
@@ -57,7 +68,7 @@ export const EventCard: React.FC<IEventProps> = ({ event }) => {
       <CardContainer>
         <CardRowHeader style={{ padding: ".5rem 1rem .475rem 1rem" }}>
           <div style={{ display: "grid", gridGap: ".25rem" }}>
-            <CustomTextTableTitleCardEvent>{state.name}</CustomTextTableTitleCardEvent>
+            <TextTitleCardEvent>{state.name}</TextTitleCardEvent>
             <TextTable style={{ textAlign: "left" }}>
               {DateMapper.unixDateToString(state.createdAt)}
             </TextTable>
@@ -84,3 +95,5 @@ export const EventCard: React.FC<IEventProps> = ({ event }) => {
     </React.Fragment>
   );
 };
+
+export const EventCard = withRouter(EventCardComponent);
