@@ -8,6 +8,7 @@ interface IProductsListContainerProps {
   handleMinusUnit: (id: string) => void;
   handleRemoveProduct: (id: string) => void;
   handleOnChangeInput: (id: string) => void;
+  enableDeleteButton?: boolean;
 }
 export const ProductsListContainer: React.FC<IProductsListContainerProps> = ({
   products,

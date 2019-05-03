@@ -1,5 +1,5 @@
 import { IFluxStandardAction, ReduxDispatch } from "src/common/ducks";
-import { orderService } from "src/user/services/OrderService";
+import { OrderService } from "src/user/services/OrderService";
 import { IOrder } from "src/partner/models/Order";
 
 export const module = "user/OrderListContainer/";
@@ -46,7 +46,7 @@ export const fetchOrdersFailured = (error: Error) => {
 export const getOrders = async (userId: string, dispatch: ReduxDispatch) => {
   dispatch(fetchOrdersStarted());
   try {
-    const orders = await orderService.getOrdersByUserId(userId);
+    const orders = await OrderService.getOrdersByUserId(userId);
     if (!orders) {
       throw new Error("Error at fetching orders");
     }

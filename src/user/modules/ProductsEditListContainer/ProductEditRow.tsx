@@ -18,6 +18,7 @@ interface IProductRowProps {
   handleMinusUnit: (id: string) => void;
   handleRemoveProduct: (id: string) => void;
   handleOnChangeInput: (id: string) => void;
+  enableDeleteButton?: boolean;
 }
 
 export const ProductEditRow: React.FC<IProductRowProps> = ({
@@ -26,6 +27,7 @@ export const ProductEditRow: React.FC<IProductRowProps> = ({
   handleAddUnit,
   handleRemoveProduct,
   handleOnChangeInput,
+  enableDeleteButton = false,
 }) => {
   const [left, setLeft] = useState(0);
   const [initialPosition, setInitialPosition] = useState(0);
@@ -43,9 +45,11 @@ export const ProductEditRow: React.FC<IProductRowProps> = ({
     setInitialPosition(ev.changedTouches[0].pageX);
   };
 
+  const touchMovesProps = enableDeleteButton ? { onTouchMove, onTouchStart, style: { left } } : {};
+
   return (
     <DivWrapper>
-      <CustomProductRow onTouchMove={onTouchMove} onTouchStart={onTouchStart} style={{ left }}>
+      <CustomProductRow {...touchMovesProps}>
         <TextTableProduct textAlign="left">{product.name}</TextTableProduct>
         <TextTableProduct textAlign="right">${product.price} MXN</TextTableProduct>
         <UnitsContainer>
@@ -65,12 +69,14 @@ export const ProductEditRow: React.FC<IProductRowProps> = ({
           />
         </UnitsContainer>
         <ExtraButtonDivRelative>
-          <ExtraButtonInnerDivAbsolute
-            style={{ width: -left }}
-            onClick={handleRemoveProduct.bind(null, product.id)}
-          >
-            <DivDelete />
-          </ExtraButtonInnerDivAbsolute>
+          {enableDeleteButton && (
+            <ExtraButtonInnerDivAbsolute
+              style={{ width: -left }}
+              onClick={handleRemoveProduct.bind(null, product.id)}
+            >
+              <DivDelete />
+            </ExtraButtonInnerDivAbsolute>
+          )}
         </ExtraButtonDivRelative>
       </CustomProductRow>
     </DivWrapper>
