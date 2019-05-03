@@ -48,9 +48,26 @@ const EventCardComponent: React.FC<IEventProps & RouteComponentProps> = ({ event
     //handleRemoveProduct
   };
 
+  const getErrors = () => {
+    const errors = [];
+    const noProductsAdded = Object.keys(state.products).every(
+      a => state.products[a].quantity === 0,
+    );
+    if (noProductsAdded) {
+      errors.push("Add at least one product");
+    }
+    return errors;
+  };
+
   const saveChanges = async () => {
     try {
+      const errors = getErrors();
+      if (errors.length > 0) {
+        throw new Error(errors.join(", "));
+      }
+
       const data = await OrderService.postOrder(state);
+
       if (data.id) {
         history.push(USER_MY_ORDERS_ROUTE);
       }
