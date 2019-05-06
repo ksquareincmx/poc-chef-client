@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="a" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="b" fill="#fff">
+      <path d="M 20 4 L 4 4 C 2.9 4 2.01 4.9 2.01 6 L 2 18 C 2 19.1 2.9 20 4 20 L 20 20 C 21.1 20 22 19.1 22 18 L 22 6 C 22 4.9 21.1 4 20 4 Z M 20 8 L 12 13 L 4 8 L 4 6 L 12 11 L 20 6 L 20 8 Z"/>
+    </mask>
+    <path d="M 20 4 L 4 4 C 2.9 4 2.01 4.9 2.01 6 L 2 18 C 2 19.1 2.9 20 4 20 L 20 20 C 21.1 20 22 19.1 22 18 L 22 6 C 22 4.9 21.1 4 20 4 Z M 20 8 L 12 13 L 4 8 L 4 6 L 12 11 L 20 6 L 20 8 Z" style="fill: rgb(232, 62, 93);"/>
+    <g fill="#80868B" mask="url(#b)">
+      <path d="M0 0h24v24H0z" style="fill: rgb(232, 62, 93);"/>
+    </g>
+  </g>
+</svg>

@@ -19,14 +19,14 @@ export const Header: React.FC<IHeaderProps> = ({ title, userStyle }) => {
   return (
     <HeaderContainer userStyle={userStyle}>
       <HeaderLogoContainer>
-        <Logo src={require("../../../images/poc-chef-logo.png")} alt="Poc-Chef" />
+        <Logo src={require("src/images/poc-chef-logo.svg")} alt="Poc-Chef" />
       </HeaderLogoContainer>
       <HeaderTitleContainer>
         <Title>{title}</Title>
       </HeaderTitleContainer>
       <HeaderUserImgContainer>
         <NavLink to="/user/profile">
-          <UserImg src={require("../../../images/person.png")} alt="Poc-Chef" />
+          <UserImg src={require("src/images/icons/user.svg")} alt="Poc-Chef" />
         </NavLink>
       </HeaderUserImgContainer>
     </HeaderContainer>

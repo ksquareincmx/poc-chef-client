@@ -1,6 +1,7 @@
 import { userRoute } from "src/common/routes";
 
 export const USER_PROFILE_ROUTE = `${userRoute}/profile`;
+export const USER_EDIT_PROFILE_ROUTE = `${userRoute}/profile/edit`;
 export const USER_MY_ORDERS_ROUTE = `${userRoute}/my-orders`;
 export const USER_ORDER_EDIT_ROUTE = `${userRoute}/order-edit/:id`;
 export const USER_EVENTS_ROUTE = `${userRoute}/events`;

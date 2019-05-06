@@ -51,9 +51,12 @@ export const Title = styledComponents.h1({
   fontWeight: "bold",
   fontSize: "14px",
   textAlign: "center",
-  color: "white",
-  width: "4.0625rem",
   height: "1.25rem",
+  fontStyle: "normal",
+  fontStretch: "normal",
+  lineHeight: "1.43",
+  letterSpacing: "normal",
+  color: "#ffffff",
 });
 // Not sure if the last two properties are necessary
 
@@ -63,7 +66,7 @@ export const HeaderUserImgContainer = styledComponents.div({
   alignItems: "center",
   justifyContent: "flex-end",
   height: "100%",
-  width: "30%",
+  width: "33%",
   boxSizing: "border-box",
   paddingRight: "5px",
 });
