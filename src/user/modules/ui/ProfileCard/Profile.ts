@@ -1,13 +1,13 @@
 import styledComponents from "styled-components";
 import styledComponentsTS from "styled-components-ts";
 
-interface ITextLabelProps {
+interface ICardTextLabelProps {
   bold?: boolean;
 }
 
-export const TextLabel = styledComponentsTS<ITextLabelProps>(styledComponents.h1)`
+export const CardTextLabel = styledComponentsTS<ICardTextLabelProps>(styledComponents.h1)`
   font-family: Roboto;
-  font-weight: ${(props: ITextLabelProps) => (props.bold ? "bold" : "normal")};
+  font-weight: ${(props: ICardTextLabelProps) => (props.bold ? "bold" : "normal")};
   font-Size: 14px;
   font-style: normal;
   font-stretch: normal;
@@ -24,26 +24,16 @@ const BaseIcon = styledComponents.img({
   objectFit: "contain",
 });
 
-export const NormalIcon = styledComponents(BaseIcon)`
+export const CardNormalIcon = styledComponents(BaseIcon)`
   margin: 0 1.125rem 0.5rem 1.5rem;
 `;
 
-export const NavIcon = styledComponents(BaseIcon)`
+export const CardNavIcon = styledComponents(BaseIcon)`
   margin-top: 1rem;
   margin-right: 1rem; 
 `;
 
-export const ProfileCardContainer = styledComponents.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  position: relative;
-  top: -1rem;
-  height: calc(100vh - 8rem);
-`;
-// The height must be -8rem
-
-export const ProfileCard = styledComponents.div({
+export const Card = styledComponents.div({
   display: "flex",
   flexDirection: "column",
   width: "21.4375rem",
@@ -54,14 +44,14 @@ export const ProfileCard = styledComponents.div({
   boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.3)",
 });
 
-export const NavIconContainer = styledComponents.div({
+export const CardNavIconContainer = styledComponents.div({
   display: "flex",
   height: "2.5rem",
   flexDirection: "row",
   justifyContent: "flex-end",
 });
 
-export const UserProfileImgContainer = styledComponents.div({
+export const CardUserImgContainer = styledComponents.div({
   display: "flex",
   boxSizing: "border-box",
   height: "5rem",
@@ -73,19 +63,19 @@ export const UserProfileImgContainer = styledComponents.div({
   alignItems: "center",
 });
 
-export const UserProfileImg = styledComponents.img({
+export const CardUserImg = styledComponents.img({
   width: "100%",
   height: "100%",
   objectFit: "contain",
 });
 
-export const UserInfoContainer = styledComponents.div({
+export const CardDetails = styledComponents.div({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
 });
 
-export const UserInfoItem = styledComponents.div({
+export const CardItem = styledComponents.div({
   display: "flex",
   flexDirection: "row",
 });
