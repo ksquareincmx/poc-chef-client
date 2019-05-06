@@ -87,7 +87,7 @@ const EventCardComponent: React.FC<IEventProps & RouteComponentProps> = ({ event
           <div style={{ display: "grid", gridGap: ".25rem" }}>
             <TextTitleCardEvent>{state.name}</TextTitleCardEvent>
             <TextTable style={{ textAlign: "left" }}>
-              {DateMapper.unixDateToString(state.createdAt)}
+              {DateMapper.unixDateToString(state.expirationDate.getTime())}
             </TextTable>
           </div>
         </CardRowHeader>
