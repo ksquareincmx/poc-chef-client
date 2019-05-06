@@ -1,1 +1,1 @@
-export { OrderDescription, OrderProductsRow } from "./OrderItem";
+export { OrderDescription, OrderProductsRow, EditIcon } from "./OrderItem";

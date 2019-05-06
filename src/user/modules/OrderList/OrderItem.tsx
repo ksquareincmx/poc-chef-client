@@ -3,15 +3,17 @@ import { CardContainer, CardRowHeader } from "src/common/ui/Card";
 import { TextTable, TextTitleCardEvent, TextTableTitleCardEvent } from "src/common/ui/Text";
 import { DateMapper } from "src/common/mappers/";
 import { IOrder } from "src/user/models/Order";
-import { OrderDescription, OrderProductsRow } from "../ui/OrderItem";
+import { OrderDescription, OrderProductsRow, EditIcon } from "../ui/OrderItem";
 import { ProductList } from "./ProductList";
+import { Link } from "react-router-dom";
+import { USER_ORDER_EDIT_ROUTE } from "src/user/routes";
 
 export interface IOrderItem {
   order: IOrder;
 }
 
 export const OrderItem: React.FC<IOrderItem> = ({
-  order: { eventName, updatedAt, orderNumber, products, total },
+  order: { id, eventName, updatedAt, orderNumber, products, total },
 }) => {
   const units = products.reduce((a, b) => a + b.quantity, 0);
   return (
@@ -22,7 +24,11 @@ export const OrderItem: React.FC<IOrderItem> = ({
           <TextTable align="left">{DateMapper.unixDateToString(updatedAt)}</TextTable>
           <TextTable align="left">order #{orderNumber}</TextTable>
         </OrderDescription>
-        <div>edit button</div>
+        <div>
+          <Link to={USER_ORDER_EDIT_ROUTE.replace(":id", id)}>
+            <EditIcon src={require("src/images/icons/edit_gray.svg")} />
+          </Link>
+        </div>
       </CardRowHeader>
       <OrderProductsRow>
         <TextTableTitleCardEvent align="left">Product</TextTableTitleCardEvent>

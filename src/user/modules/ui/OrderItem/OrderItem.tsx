@@ -11,3 +11,9 @@ export const OrderProductsRow = styled.div`
   grid-gap: 0.5rem;
   padding: 0.46875rem 1rem;
 `;
+
+export const EditIcon = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.5rem;
+`;
