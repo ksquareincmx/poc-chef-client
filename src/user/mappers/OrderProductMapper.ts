@@ -6,7 +6,7 @@ export const toEntity = (dto: IOrderProductDTO): IOrderProduct => {
     id: dto.id || cuid(),
     name: dto.name,
     price: dto.price,
-    quantity: dto.quantity,
+    quantity: dto.quantity || 0,
     subtotal: dto.subtotal,
     createdAt: dto.created_at,
     updatedAt: dto.updated_at,

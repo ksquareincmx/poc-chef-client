@@ -11,10 +11,9 @@ export interface IOrderItem {
 }
 
 export const OrderItem: React.FC<IOrderItem> = ({
-  order: { eventName, updatedAt, orderNumber, products },
+  order: { eventName, updatedAt, orderNumber, products, total },
 }) => {
   const units = products.reduce((a, b) => a + b.quantity, 0);
-  const total = products.reduce((a, b) => a + b.subtotal, 0);
   return (
     <CardContainer>
       <CardRowHeader>
