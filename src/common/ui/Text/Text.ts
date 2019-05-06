@@ -1,15 +1,24 @@
 import styles from "styled-components";
+import stylesTS from "styled-components-ts";
 
-export const TextMessage = styles.p`
+interface ITextMessage {
+  align?: string;
+  color?: string;
+  lineHeight?: string;
+  fontSize?: string;
+  fontWeight?: string;
+}
+
+export const TextMessage = stylesTS<ITextMessage>(styles.p)`
     font-family: Roboto;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: ${({ fontSize }) => fontSize || "1rem"};
+    font-weight: ${({ fontWeight }) => fontWeight || "bold"};
     font-style: normal;
     font-stretch: normal;
-    line-height: 1.25;
+    line-height: ${({ lineHeight }) => lineHeight || "1.25"};
     letter-spacing: normal;
-    text-align: center;
-    color: #999999;
+    text-align: ${({ align }) => align || "center"};
+    color: ${({ color }) => color || "#999999"};
     margin:0px;
     word-break: break-all;
 `;
