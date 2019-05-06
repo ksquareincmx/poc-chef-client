@@ -13,7 +13,7 @@ export const ProductList: React.SFC<IProductListProps> = props => {
       <OrderProductsRow key={product.id}>
         <TextTableRowCardEvent align="left">{product.name}</TextTableRowCardEvent>
         <TextTableRowCardEvent align="right">{product.quantity}</TextTableRowCardEvent>
-        <TextTableRowCardEvent align="right">${product.price} MXN</TextTableRowCardEvent>
+        <TextTableRowCardEvent align="right">${product.subtotal} MXN</TextTableRowCardEvent>
       </OrderProductsRow>
     );
   };

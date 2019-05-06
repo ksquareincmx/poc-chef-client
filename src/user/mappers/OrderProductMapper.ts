@@ -1,14 +1,13 @@
 import cuid from "cuid";
-import { IProductDTO } from "src/partner/models/Product";
 import { IOrderProduct, IOrderProductDTO } from "../models/OrderProduct";
 
-export const toEntity = (dto: IProductDTO): IOrderProduct => {
+export const toEntity = (dto: IOrderProductDTO): IOrderProduct => {
   return {
     id: dto.id || cuid(),
     name: dto.name,
     price: dto.price,
-    quantity: 0,
-    subtotal: 0,
+    quantity: dto.quantity,
+    subtotal: dto.subtotal,
     createdAt: dto.created_at,
     updatedAt: dto.updated_at,
   };

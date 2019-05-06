@@ -1,7 +1,7 @@
 import { IUserEvent, IUserEventDTO } from "../models/UserEvent";
-import { IProductDTO } from "src/partner/models/Product";
 import { OrderProductMapper } from ".";
 import { IOrderDTO } from "../models/Order";
+import { IOrderProductDTO } from "../models/OrderProduct";
 
 export const toEntity = (dto: IUserEventDTO): IUserEvent => {
   const h = dto.end_hour / 60;
@@ -25,7 +25,7 @@ export const toEntity = (dto: IUserEventDTO): IUserEvent => {
     products: {},
   };
   if (dto.products) {
-    dto.products.forEach((product: IProductDTO) => {
+    dto.products.forEach((product: IOrderProductDTO) => {
       if (product.id) {
         eventData.products[product.id] = OrderProductMapper.toEntity(product);
       }

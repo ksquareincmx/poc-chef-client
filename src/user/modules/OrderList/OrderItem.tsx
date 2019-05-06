@@ -14,6 +14,7 @@ export const OrderItem: React.FC<IOrderItem> = ({
   order: { eventName, updatedAt, orderNumber, products },
 }) => {
   const units = products.reduce((a, b) => a + b.quantity, 0);
+  const total = products.reduce((a, b) => a + b.subtotal, 0);
   return (
     <CardContainer>
       <CardRowHeader>
@@ -33,7 +34,7 @@ export const OrderItem: React.FC<IOrderItem> = ({
       <OrderProductsRow>
         <TextTableTitleCardEvent align="left">Total</TextTableTitleCardEvent>
         <TextTableTitleCardEvent align="right">{units}</TextTableTitleCardEvent>
-        <TextTableTitleCardEvent align="right">${}MXN</TextTableTitleCardEvent>
+        <TextTableTitleCardEvent align="right">${total}MXN</TextTableTitleCardEvent>
       </OrderProductsRow>
     </CardContainer>
   );
