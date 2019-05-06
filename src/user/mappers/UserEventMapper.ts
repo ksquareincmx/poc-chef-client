@@ -38,17 +38,17 @@ export const toEntity = (dto: IUserEventDTO): IUserEvent => {
 export const toOrderDTO = (event: IUserEvent): IOrderDTO => {
   const orderDTO: IOrderDTO = {
     id: "",
-    user_name: "",
-    order_number: "",
-    event_id: event.id,
-    event_name: event.name,
+    ["user_name"]: "",
+    ["order_number"]: "",
+    ["event_id"]: event.id,
+    ["event_name"]: event.name,
     total: 0,
     products: [],
-    created_by: "",
+    ["created_by"]: "",
     paid: false,
     cancelled: false,
-    created_at: Date.now(),
-    updated_at: Date.now(),
+    ["created_at"]: Date.now(),
+    ["updated_at"]: Date.now(),
   };
   const productsKeys = Object.keys(event.products);
   if (productsKeys.length > 0) {
