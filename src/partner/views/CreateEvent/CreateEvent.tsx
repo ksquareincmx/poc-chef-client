@@ -35,7 +35,10 @@ export const CreateEvent: React.FC<RouteComponentProps & IRouteProps> = ({ histo
         setState({ ...eventData });
       } else {
         // Two fixed products
-        const fixedProducts = [{ ...product(), id: cuid() }, { ...product(), id: cuid() }];
+        const fixedProducts = [
+          { ...product(), id: "faa65af2-ac6d-4404-9d9d-7423f04eb740" },
+          { ...product(), id: "8eeb4aa5-6f49-43a4-b25f-7987d938f3a7" },
+        ];
         setState({
           ...state,
           products: {
