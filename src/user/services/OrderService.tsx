@@ -20,7 +20,10 @@ export interface IOrderService {
 
 export const OrderService: IOrderService = {
   getUserOrders: async () => {
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/user/api/v1/orders`, getConfig);
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}/user/api/v1/orders?type=current`,
+      getConfig,
+    );
     const data = await res.json();
     if (data.statusCode !== 200) {
       throw new Error("Error at getting orders");

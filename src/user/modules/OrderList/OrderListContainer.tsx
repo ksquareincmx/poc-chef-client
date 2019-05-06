@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer, useContext } from "react";
 import { OrderItem } from "./OrderItem";
-import { IOrder } from "src/partner/models/Order";
 import { List } from "src/partner/modules/ui/List/List";
 import reducer, {
   initialState,
@@ -11,6 +10,7 @@ import reducer, {
 import { EmptyOrders } from "../EmptyOrders";
 import { OrderService } from "src/user/services/OrderService";
 import { NotificationContext } from "src/providers";
+import { IOrder } from "src/user/models/Order";
 
 export const OrderListContainer: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -34,7 +34,9 @@ export const OrderListContainer: React.FC = () => {
   }, []);
 
   const printListOrders = () => {
-    return state.orders.map((order: IOrder, idx: number) => <OrderItem key={idx} order={order} />);
+    return state.orders.map((order: IOrder, idx: number) => (
+      <OrderItem key={order.id} order={order} />
+    ));
   };
 
   return (

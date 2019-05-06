@@ -1,1 +1,1 @@
-export { CustomTextTableTitleCardEvent } from "./OrderItem";
+export { OrderDescription, OrderProductsRow } from "./OrderItem";
