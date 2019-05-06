@@ -1,7 +1,7 @@
-import { IOrder } from "src/partner/models/Order";
 import { loginService } from "src/common/services";
 import { IUserEvent } from "../models/UserEvent";
 import { UserEventMapper, OrderMapper } from "../mappers";
+import { IOrder } from "../models/Order";
 
 const headersConfig = {
   headers: {

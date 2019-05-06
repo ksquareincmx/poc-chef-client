@@ -38,10 +38,11 @@ export const toEntity = (dto: IUserEventDTO): IUserEvent => {
 export const toOrderDTO = (event: IUserEvent): IOrderDTO => {
   const orderDTO: IOrderDTO = {
     id: "",
-    user_id: "",
-    //user_name: ""  //to be added  later
+    user_name: "",
+    order_number: "",
     event_id: event.id,
-    price: 0,
+    event_name: event.name,
+    total: 0,
     products: [],
     created_by: "",
     paid: false,

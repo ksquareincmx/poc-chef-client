@@ -1,5 +1,5 @@
 import { IFluxStandardAction } from "src/common/ducks";
-import { IOrder } from "src/partner/models/Order";
+import { IOrder } from "../models/Order";
 
 export const module = "user/OrderListContainer/";
 export const FETCH_ORDERS_START = `${module}/FETCH_ORDERS_START`;
