@@ -1,12 +1,12 @@
 import React from "react";
 import { CardContainer, CardRowHeader } from "src/common/ui/Card";
 import { TextTable, TextTitleCardEvent, TextTableTitleCardEvent } from "src/common/ui/Text";
-import { DateMapper } from "src/common/mappers/";
 import { IOrder } from "src/user/models/Order";
 import { OrderDescription, OrderProductsRow, EditIcon } from "../ui/OrderItem";
 import { ProductList } from "./ProductList";
 import { Link } from "react-router-dom";
 import { USER_ORDER_EDIT_ROUTE } from "src/user/routes";
+import { DateMapper } from "src/common/mappers";
 
 export interface IOrderItem {
   order: IOrder;
@@ -15,7 +15,7 @@ export interface IOrderItem {
 
 export const OrderItem: React.FC<IOrderItem> = ({
   historyView,
-  order: { id, eventName, updatedAt, orderNumber, products, total },
+  order: { id, eventName, createdAt, orderNumber, products, total },
 }) => {
   const units = products.reduce((a, b) => a + b.quantity, 0);
   return (
@@ -23,7 +23,7 @@ export const OrderItem: React.FC<IOrderItem> = ({
       <CardRowHeader>
         <OrderDescription>
           <TextTitleCardEvent>{eventName}</TextTitleCardEvent>
-          <TextTable align="left">{DateMapper.unixDateToString(updatedAt)}</TextTable>
+          <TextTable align="left">{DateMapper.unixDateToString(createdAt)}</TextTable>
           <TextTable align="left">order #{orderNumber}</TextTable>
         </OrderDescription>
         <div>
