@@ -1,8 +1,7 @@
 import React, { ChangeEvent } from "react";
-import { TextTableTitleCardEvent } from "src/partner/modules/ui/Text";
+import { TextTableTitleCardEvent } from "src/common/ui/Text";
 import styles from "styled-components";
 import { InputLabel } from "src/partner/modules/InputLabel/InputLabel";
-import { ICreateEventState } from "./CreateEvent";
 import {
   CardContainer,
   CardRowHeader,
@@ -10,8 +9,13 @@ import {
   CardRow,
   CardIconImg,
   CardTextHeaderContainer,
-} from "src/partner/modules/ui";
+} from "src/common/ui/Card";
 import { ProductList } from "./ProductList";
+import { InputDatePicker } from "src/partner/modules/InputDatePicker";
+import { LabelInput, InputContainer } from "src/partner/modules/ui/LabelInput";
+import { IEvent } from "src/partner/models/Event";
+import { Link } from "react-router-dom";
+import { currentEventsRoute } from "src/partner/routes";
 
 const CardSection = styles.div({
   padding: ".90625rem 2rem .5rem 2rem",
@@ -39,13 +43,13 @@ const ProductListContainer = styles.div({
 });
 
 export interface ICreateEventContainerProps {
-  state: ICreateEventState;
+  state: IEvent;
   addProductHandler: () => void;
   onChangeProductDescription: (id: string, ev: ChangeEvent<HTMLInputElement>) => void;
-  onChangeProductAmount: (id: string, ev: ChangeEvent<HTMLInputElement>) => void;
+  onChangeProductAmount: (uuid: string, ev: ChangeEvent<HTMLInputElement>) => void;
   changeEventNameHandler: (ev: ChangeEvent<HTMLInputElement>) => void;
-  changeEventExpirationDateHandler: (ev: ChangeEvent<HTMLInputElement>) => void;
-  changeEventTimeHandler: (ev: ChangeEvent<HTMLInputElement>) => void;
+  changeEventExpirationDateHandler: (date: Date) => void;
+  changeEventTimeHandler: (date: Date) => void;
 }
 
 export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props => {
@@ -67,12 +71,14 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
         </CardTextHeaderContainer>
         <CardDivActionsContainer>
           <span />
-          <CardIconImg
-            width="1.5rem"
-            height="1.5rem"
-            src={require("src/images/icons/baseline-delete-24px.svg")}
-            alt="del-botton"
-          />
+          <Link to={currentEventsRoute}>
+            <CardIconImg
+              width="1.5rem"
+              height="1.5rem"
+              src={require("src/images/icons/baseline-delete-24px.svg")}
+              alt="del-botton"
+            />
+          </Link>
         </CardDivActionsContainer>
       </CardRowHeader>
       <CardSection>
@@ -83,33 +89,42 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
           />
         </CustomRow>
         <CustomRow>
-          <InputLabel
-            width="9.1875rem"
-            label="Expiration Date"
-            inputAttrs={{
-              value: state.expirationDate,
-              type: "date",
-              onChange: changeEventExpirationDateHandler,
-            }}
-          />
-          <InputLabel
-            width="7rem"
-            label="Time"
-            inputAttrs={{ value: state.time, type: "time", onChange: changeEventTimeHandler }}
-          />
+          <InputContainer>
+            <LabelInput>Date Expiration</LabelInput>
+            <InputDatePicker
+              inputStyle="width: 9.1875rem; box-sizing: border-box; height: 2.5rem"
+              onChange={changeEventExpirationDateHandler}
+              selected={state.expirationDate}
+            />
+          </InputContainer>
+          <InputContainer>
+            <LabelInput>Time</LabelInput>
+            <InputDatePicker
+              inputStyle="width: 7rem; box-sizing: border-box; height: 2.5rem"
+              onChange={changeEventTimeHandler}
+              selected={state.endHour}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={15}
+              dateFormat="h:mm aa"
+              timeCaption="Time"
+            />
+          </InputContainer>
         </CustomRow>
       </CardSection>
       <CardSection>
-        <CustomRow>
+        {/* //functionality no needed temporaly
+          <CustomRow>
           <span />
           <AddButton onClick={addProductHandler}>
             <CardIconImg src={require("src/images/icons/baseline-add_circle_outline-24px.svg")} />
             Add Item
           </AddButton>
-        </CustomRow>
+          </CustomRow>
+          */}
         <ProductListContainer>
           <ProductList
-            {...{ products: state.productList, onChangeProductDescription, onChangeProductAmount }}
+            {...{ products: state.products, onChangeProductDescription, onChangeProductAmount }}
           />
         </ProductListContainer>
       </CardSection>

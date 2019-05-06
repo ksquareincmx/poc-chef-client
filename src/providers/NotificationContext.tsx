@@ -20,7 +20,7 @@ export const NotificationProvider: React.FC<{}> = props => {
   const handleShowNotification = (text: string) => {
     setNotificationText(text);
     setShowNotification(true);
-    setTimeout(handleCloseNotification, 2500);
+    setTimeout(handleCloseNotification, 3500);
   };
 
   const handleCloseNotification = () => {

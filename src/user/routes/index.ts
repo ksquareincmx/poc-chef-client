@@ -1,8 +1,9 @@
 export {
-  profileUserRoute,
-  myOrdersUserRoute,
-  orderViewUserRoute,
-  loginUserRoute,
-  orderFormUserRoute,
+  USER_PROFILE_ROUTE,
   USER_EDIT_PROFILE_ROUTE,
+  USER_MY_ORDERS_ROUTE,
+  USER_ORDER_EDIT_ROUTE,
+  USER_EVENTS_ROUTE,
+  USER_HISTORY_ROUTE,
+  USER_LOGIN_ROUTE,
 } from "./routes";

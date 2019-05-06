@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styledComponents from "styled-components";
 import { NavBarContainer, NavBarItem } from "src/user/modules/ui/NavBar";
-import { profileUserRoute, myOrdersUserRoute, orderFormUserRoute } from "src/user/routes";
+import {
+  USER_EVENTS_ROUTE,
+  USER_MY_ORDERS_ROUTE,
+  USER_PROFILE_ROUTE,
+  USER_HISTORY_ROUTE,
+} from "src/user/routes";
 
 const NavBarStyle = {
   display: "flex",
@@ -40,19 +45,19 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
       setHistory("-active");
     }
 
-    if (pathname === orderFormUserRoute) {
+    if (pathname === USER_EVENTS_ROUTE) {
       setMyOrders("");
       setOrder("-active");
       setHistory("");
     }
 
-    if (pathname === myOrdersUserRoute) {
+    if (pathname === USER_MY_ORDERS_ROUTE) {
       setMyOrders("-active");
       setOrder("");
       setHistory("");
     }
 
-    if (pathname === profileUserRoute) {
+    if (pathname === USER_PROFILE_ROUTE) {
       setMyOrders("");
       setOrder("");
       setHistory("");
@@ -71,20 +76,20 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
             "background: linear-gradient(to right, #E83E5D, #F8823D);" +
             "}"}
         </style>
-        <NavLink to="/user/my-orders" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
-          <Img src={require(`src/images/icons/restaurant-menu${myOrders}.svg`)} />
+        <NavLink to={USER_MY_ORDERS_ROUTE} activeStyle={NavBarActiveStyle} style={NavBarStyle}>
+          <Img src={require(`src/images/restaurant-menu${myOrders}.svg`)} />
         </NavLink>
         <div />
       </NavBarItem>
       <NavBarItem>
-        <NavLink to="/user/order" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
+        <NavLink to={USER_EVENTS_ROUTE} activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           <Img src={require(`src/images/icons/assignment${order}.svg`)} />
         </NavLink>
         <div />
       </NavBarItem>
       <NavBarItem>
         {/* Create past-events page */}
-        <NavLink to="/user/past-events" activeStyle={NavBarActiveStyle} style={NavBarStyle}>
+        <NavLink to={USER_HISTORY_ROUTE} activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           <Img src={require(`src/images/icons/history${history}.svg`)} />
         </NavLink>
         <div />

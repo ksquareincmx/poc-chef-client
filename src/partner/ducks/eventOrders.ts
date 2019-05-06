@@ -1,5 +1,5 @@
 import { IOrder } from "../models/Order";
-import { EventService } from "../services";
+import { eventService } from "../services";
 import { IFluxStandardAction, ReduxDispatch } from "src/common/ducks/index";
 
 export const MODULE = "partner/eventOrders/";
@@ -135,7 +135,7 @@ export const moveCheckedOrdersToUnpaid = () => {
 export const fetchEventOrders = async (eventId: string, dispatch: ReduxDispatch) => {
   dispatch(fetchEventOrdersStarted());
   try {
-    const orders = await EventService.eventService.getOrdersByEventId(eventId);
+    const orders = await eventService.getOrdersByEventId(eventId);
     dispatch(fetchEventOrdersSucceed(orders));
   } catch (err) {
     dispatch(fetchEventOrdersFailed(new Error("error at fetching event's orders")));
