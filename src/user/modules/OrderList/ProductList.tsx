@@ -1,31 +1,20 @@
 import React from "react";
-import styledComponents from "styled-components";
-import styledComponentsTS from "styled-components-ts";
-import { IProduct } from "src/partner/models/Product";
-import { Cell, RowProducts } from "./OrderStyles";
-import { ListItemRow } from "src/partner/modules/ui/List/List";
-import { Text } from "../Text";
+import { IOrderProduct } from "src/user/models/OrderProduct";
+import { OrderProductsRow } from "../ui/OrderItem";
+import { TextTableRowCardEvent } from "src/common/ui/Text";
 
 interface IProductListProps {
-  products: IProduct[];
+  products: IOrderProduct[];
 }
 
 export const ProductList: React.SFC<IProductListProps> = props => {
-  const getProductRow = (product: IProduct) => {
+  const getProductRow = (product: IOrderProduct) => {
     return (
-      <ListItemRow key={product.orderProductId}>
-        <RowProducts>
-          <Cell key={`name_${product.orderProductId}`}>
-            <Text>{product.name}</Text>
-          </Cell>
-          <Cell key={`quantity_${product.id}`} align="right">
-            <Text>{product.quantity}</Text>
-          </Cell>
-          <Cell key={`price_${product.id}`} align="right">
-            <Text>{product.price}</Text>
-          </Cell>
-        </RowProducts>
-      </ListItemRow>
+      <OrderProductsRow key={product.id}>
+        <TextTableRowCardEvent align="left">{product.name}</TextTableRowCardEvent>
+        <TextTableRowCardEvent align="right">{product.quantity}</TextTableRowCardEvent>
+        <TextTableRowCardEvent align="right">${product.subtotal} MXN</TextTableRowCardEvent>
+      </OrderProductsRow>
     );
   };
 

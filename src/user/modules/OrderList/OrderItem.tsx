@@ -1,98 +1,50 @@
 import React from "react";
-import styledComponents from "styled-components";
-import styledComponentsTS from "styled-components-ts";
-import { ListStyled } from "src/partner/modules/ui";
-import { IOrder } from "src/partner/models/Order";
-import { ListItemRow } from "src/partner/modules/ui/List/List";
-import { Cell, RowProducts } from "./OrderStyles";
+import { CardContainer, CardRowHeader } from "src/common/ui/Card";
+import { TextTable, TextTitleCardEvent, TextTableTitleCardEvent } from "src/common/ui/Text";
+import { DateMapper } from "src/common/mappers/";
+import { IOrder } from "src/user/models/Order";
+import { OrderDescription, OrderProductsRow, EditIcon } from "../ui/OrderItem";
 import { ProductList } from "./ProductList";
 import { Link } from "react-router-dom";
-import { Text } from "../Text";
 import { USER_ORDER_EDIT_ROUTE } from "src/user/routes";
-
-const Total = styledComponentsTS(styledComponents.div)`
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 0.75rem 0 0.75rem;
-`;
-
-const formatDate = (unix: number) => {
-  const date = new Date(unix);
-  return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
-};
-
-interface IBoldTextProps {
-  align?: string;
-}
-
-const BoldText = styledComponentsTS<IBoldTextProps>(styledComponents.p)`
-  font-size: 12px;
-  font-weight: bold;
-  margin: 0;
-  color: #515354;
-  text-align: ${props => (props.align ? props.align : "center")}
-`;
-
-export const Img = styledComponents.img({
-  width: "1.2rem",
-  height: "1.2em",
-  objectFit: "contain",
-});
 
 export interface IOrderItem {
   order: IOrder;
-  onCancelOrderModalOpen: (orderId: string) => void;
+  historyView: boolean;
 }
 
-export const OrderItem: React.SFC<IOrderItem> = props => {
+export const OrderItem: React.FC<IOrderItem> = ({
+  historyView,
+  order: { id, eventName, updatedAt, orderNumber, products, total },
+}) => {
+  const units = products.reduce((a, b) => a + b.quantity, 0);
   return (
-    <>
-      <ListStyled.ListItem>
-        <ListItemRow borderBottom>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div style={{ padding: "0.5rem 0.75rem" }}>
-              <Cell>
-                <BoldText>{props.order.eventName}</BoldText>
-              </Cell>
-              <Cell>
-                <Text>{formatDate(props.order.createdAt)}</Text>
-              </Cell>
-              <Cell align="right">
-                <Text>{`Order: ${props.order.id}`}</Text>
-              </Cell>
-            </div>
-            <div style={{ padding: "0.5rem", boxSizing: "border-box" }}>
-              <Link to={`${USER_ORDER_EDIT_ROUTE.replace(":id", props.order.id)}`}>
-                <Img src={require(`src/images/edit-24px.svg`)} />
-              </Link>
-            </div>
-          </div>
-        </ListItemRow>
-        <ListItemRow>
-          <RowProducts>
-            <Cell>
-              <BoldText>Tortas</BoldText>
-            </Cell>
-            <Cell>
-              <BoldText align="center">Units</BoldText>
-            </Cell>
-            <Cell>
-              <BoldText align="right">Amount</BoldText>
-            </Cell>
-          </RowProducts>
-        </ListItemRow>
-        <ProductList products={props.order.products} />
-        <ListItemRow>
-          <Total>
-            <Cell>
-              <BoldText>TOTAL</BoldText>
-            </Cell>
-            <Cell align="right">
-              <BoldText>${props.order.total} MXN</BoldText>
-            </Cell>
-          </Total>
-        </ListItemRow>
-      </ListStyled.ListItem>
-    </>
+    <CardContainer>
+      <CardRowHeader>
+        <OrderDescription>
+          <TextTitleCardEvent>{eventName}</TextTitleCardEvent>
+          <TextTable align="left">{DateMapper.unixDateToString(updatedAt)}</TextTable>
+          <TextTable align="left">order #{orderNumber}</TextTable>
+        </OrderDescription>
+        <div>
+          {!historyView && (
+            <Link to={USER_ORDER_EDIT_ROUTE.replace(":id", id)}>
+              <EditIcon src={require("src/images/icons/edit_gray.svg")} />
+            </Link>
+          )}
+        </div>
+      </CardRowHeader>
+      <OrderProductsRow>
+        <TextTableTitleCardEvent align="left">Product</TextTableTitleCardEvent>
+        <TextTableTitleCardEvent align="right">Units</TextTableTitleCardEvent>
+        <TextTableTitleCardEvent align="right">Amount</TextTableTitleCardEvent>
+      </OrderProductsRow>
+      <ProductList products={products} />
+      <OrderProductsRow>
+        <TextTableTitleCardEvent align="left">Total</TextTableTitleCardEvent>
+        <TextTableTitleCardEvent align="right">{units}</TextTableTitleCardEvent>
+        <TextTableTitleCardEvent align="right">${total}MXN</TextTableTitleCardEvent>
+      </OrderProductsRow>
+    </CardContainer>
   );
 };

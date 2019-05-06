@@ -1,7 +1,7 @@
 import { IUserEvent, IUserEventDTO } from "../models/UserEvent";
-import { IProductDTO } from "src/partner/models/Product";
 import { OrderProductMapper } from ".";
 import { IOrderDTO } from "../models/Order";
+import { IOrderProductDTO } from "../models/OrderProduct";
 
 export const toEntity = (dto: IUserEventDTO): IUserEvent => {
   const h = dto.end_hour / 60;
@@ -25,7 +25,7 @@ export const toEntity = (dto: IUserEventDTO): IUserEvent => {
     products: {},
   };
   if (dto.products) {
-    dto.products.forEach((product: IProductDTO) => {
+    dto.products.forEach((product: IOrderProductDTO) => {
       if (product.id) {
         eventData.products[product.id] = OrderProductMapper.toEntity(product);
       }
@@ -38,16 +38,17 @@ export const toEntity = (dto: IUserEventDTO): IUserEvent => {
 export const toOrderDTO = (event: IUserEvent): IOrderDTO => {
   const orderDTO: IOrderDTO = {
     id: "",
-    user_id: "",
-    //user_name: ""  //to be added  later
-    event_id: event.id,
-    price: 0,
+    ["user_name"]: "",
+    ["order_number"]: "",
+    ["event_id"]: event.id,
+    ["event_name"]: event.name,
+    total: 0,
     products: [],
-    created_by: "",
+    ["created_by"]: "",
     paid: false,
     cancelled: false,
-    created_at: Date.now(),
-    updated_at: Date.now(),
+    ["created_at"]: Date.now(),
+    ["updated_at"]: Date.now(),
   };
   const productsKeys = Object.keys(event.products);
   if (productsKeys.length > 0) {

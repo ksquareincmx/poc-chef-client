@@ -14,11 +14,13 @@ import {
   USER_ORDER_EDIT_ROUTE,
   USER_LOGIN_ROUTE,
   USER_EVENTS_ROUTE,
+  USER_HISTORY_ROUTE,
 } from "./routes";
 import { Events } from "./views/Events";
 import { NotificationContext } from "src/providers";
+import { HistoryOrders } from "./views/HistoryOrders";
 
-const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
+const UserApp: React.SFC<RouteComponentProps> = ({ location }) => {
   const [isSplashOrLoginRoute, setIsSplashOrLoginRoute] = useState(false);
 
   useEffect(() => {
@@ -37,6 +39,7 @@ const UserApp: React.SFC<RouteComponentProps> = ({ location, history }) => {
           <Route path={USER_ORDER_EDIT_ROUTE} component={OrderEdit} />
           <Route path={USER_LOGIN_ROUTE} component={Login} />
           <Route path={USER_EVENTS_ROUTE} component={Events} />
+          <Route path={USER_HISTORY_ROUTE} component={HistoryOrders} />
           <Route path="/" component={Splash} />
         </Switch>
         {!isSplashOrLoginRoute && <NavBar location={location} />}

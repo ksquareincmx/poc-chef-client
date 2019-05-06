@@ -2,9 +2,11 @@ import { IOrderProduct, IOrderProductDTO } from "./OrderProduct";
 
 export interface IOrder {
   id: string;
-  userId: string;
+  userName: string;
+  eventName: string;
   eventId: string;
-  price: number;
+  total: number;
+  orderNumber: string;
   products: IOrderProduct[];
   createdBy: string;
   paid: boolean;
@@ -15,9 +17,11 @@ export interface IOrder {
 
 export interface IOrderDTO {
   id: string;
-  user_id: string;
+  user_name: string;
   event_id: string;
-  price: number;
+  event_name: string;
+  order_number: string;
+  total: number;
   products: IOrderProductDTO[];
   created_by: string;
   paid: boolean;
