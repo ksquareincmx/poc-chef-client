@@ -1,7 +1,7 @@
 import * as orderProductMapper from "./OrderProductMapper";
 import { IOrder, IOrderDTO } from "../models/Order";
 
-export const toModel = (order: IOrderDTO): IOrder => ({
+export const toEntity = (order: IOrderDTO): IOrder => ({
   id: order.id,
   price: order.price,
   cancelled: order.cancelled,

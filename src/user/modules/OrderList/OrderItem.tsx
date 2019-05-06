@@ -9,17 +9,13 @@ import { ProductList } from "./ProductList";
 import { Link } from "react-router-dom";
 import { Text } from "../Text";
 import { USER_ORDER_EDIT_ROUTE } from "src/user/routes";
+import { DateMapper } from "src/common/mappers";
 
 const Total = styledComponentsTS(styledComponents.div)`
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0.75rem 0 0.75rem;
 `;
-
-const formatDate = (unix: number) => {
-  const date = new Date(unix);
-  return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
-};
 
 interface IBoldTextProps {
   align?: string;
@@ -41,7 +37,6 @@ export const Img = styledComponents.img({
 
 export interface IOrderItem {
   order: IOrder;
-  onCancelOrderModalOpen: (orderId: string) => void;
 }
 
 export const OrderItem: React.SFC<IOrderItem> = props => {
@@ -55,7 +50,7 @@ export const OrderItem: React.SFC<IOrderItem> = props => {
                 <BoldText>{props.order.eventName}</BoldText>
               </Cell>
               <Cell>
-                <Text>{formatDate(props.order.createdAt)}</Text>
+                <Text>{DateMapper.unixDateToString(props.order.createdAt)}</Text>
               </Cell>
               <Cell align="right">
                 <Text>{`Order: ${props.order.id}`}</Text>
@@ -88,7 +83,7 @@ export const OrderItem: React.SFC<IOrderItem> = props => {
               <BoldText>TOTAL</BoldText>
             </Cell>
             <Cell align="right">
-              <BoldText>${props.order.total} MXN</BoldText>
+              <BoldText>${props.order.price} MXN</BoldText>
             </Cell>
           </Total>
         </ListItemRow>

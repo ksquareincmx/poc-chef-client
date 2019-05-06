@@ -1,7 +1,7 @@
 import { IOrder } from "src/partner/models/Order";
 import { loginService } from "src/common/services";
 import { IUserEvent } from "../models/UserEvent";
-import { UserEventMapper } from "../mappers";
+import { UserEventMapper, OrderMapper } from "../mappers";
 
 const headersConfig = {
   headers: {
@@ -14,19 +14,18 @@ const putConfig = { method: "put", body: "", ...headersConfig };
 const getConfig = { method: "get", ...headersConfig };
 
 export interface IOrderService {
-  getOrdersByUserId: (userId: string) => Promise<IOrder[]>;
+  getUserOrders: () => Promise<IOrder[]>;
   postOrder: (order: IUserEvent) => Promise<IOrder>;
 }
 
 export const OrderService: IOrderService = {
-  getOrdersByUserId: async (userId: string) => {
-    try {
-      const res = await fetch(`/api/orders.json`);
-      const data = await res.json();
-      return data;
-    } catch (err) {
-      console.error(err);
+  getUserOrders: async () => {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/user/api/v1/orders`, getConfig);
+    const data = await res.json();
+    if (data.statusCode !== 200) {
+      throw new Error("Error at getting orders");
     }
+    return data.data.map(OrderMapper.toEntity);
   },
   postOrder: async (userEvent: IUserEvent) => {
     postConfig.body = JSON.stringify(UserEventMapper.toOrderDTO(userEvent));
