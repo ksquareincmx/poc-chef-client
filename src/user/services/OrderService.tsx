@@ -14,14 +14,15 @@ const putConfig = { method: "put", body: "", ...headersConfig };
 const getConfig = { method: "get", ...headersConfig };
 
 export interface IOrderService {
-  getUserOrders: () => Promise<IOrder[]>;
+  getUserOrders: (pastOrders: boolean) => Promise<IOrder[]>;
   postOrder: (order: IUserEvent) => Promise<IOrder>;
 }
 
 export const OrderService: IOrderService = {
-  getUserOrders: async () => {
+  getUserOrders: async (pastOrders: boolean) => {
+    const ordersType = pastOrders ? "past" : "current";
     const res = await fetch(
-      `${process.env.REACT_APP_API_URL}/user/api/v1/orders?type=current`,
+      `${process.env.REACT_APP_API_URL}/user/api/v1/orders?type=${ordersType}`,
       getConfig,
     );
     const data = await res.json();

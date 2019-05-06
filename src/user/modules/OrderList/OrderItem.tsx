@@ -10,9 +10,11 @@ import { USER_ORDER_EDIT_ROUTE } from "src/user/routes";
 
 export interface IOrderItem {
   order: IOrder;
+  historyView: boolean;
 }
 
 export const OrderItem: React.FC<IOrderItem> = ({
+  historyView,
   order: { id, eventName, updatedAt, orderNumber, products, total },
 }) => {
   const units = products.reduce((a, b) => a + b.quantity, 0);
@@ -25,9 +27,11 @@ export const OrderItem: React.FC<IOrderItem> = ({
           <TextTable align="left">order #{orderNumber}</TextTable>
         </OrderDescription>
         <div>
-          <Link to={USER_ORDER_EDIT_ROUTE.replace(":id", id)}>
-            <EditIcon src={require("src/images/icons/edit_gray.svg")} />
-          </Link>
+          {!historyView && (
+            <Link to={USER_ORDER_EDIT_ROUTE.replace(":id", id)}>
+              <EditIcon src={require("src/images/icons/edit_gray.svg")} />
+            </Link>
+          )}
         </div>
       </CardRowHeader>
       <OrderProductsRow>

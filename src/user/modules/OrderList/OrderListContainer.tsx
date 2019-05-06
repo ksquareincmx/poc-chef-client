@@ -12,13 +12,18 @@ import { OrderService } from "src/user/services/OrderService";
 import { NotificationContext } from "src/providers";
 import { IOrder } from "src/user/models/Order";
 
-export const OrderListContainer: React.FC = () => {
+interface IOrderListContainerProps {
+  historyView?: boolean;
+}
+
+export const OrderListContainer: React.FC<IOrderListContainerProps> = ({ historyView = false }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const notificationContext = useContext(NotificationContext.NotificationContext);
+
   const getOrders = async () => {
     try {
       dispatch(fetchOrdersStarted());
-      const orders = await OrderService.getUserOrders();
+      const orders = await OrderService.getUserOrders(historyView);
       if (!orders) {
         throw new Error("Error at fetching orders");
       }
@@ -35,7 +40,7 @@ export const OrderListContainer: React.FC = () => {
 
   const printListOrders = () => {
     return state.orders.map((order: IOrder, idx: number) => (
-      <OrderItem key={order.id} order={order} />
+      <OrderItem key={order.id} order={order} historyView={historyView} />
     ));
   };
 
