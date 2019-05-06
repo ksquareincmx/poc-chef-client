@@ -17,10 +17,7 @@ export const EditProfileView: React.FC = () => {
       <FloatContentWrapper>
         <EditProfileCard />
         <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
-          <GradientButton
-            style={{ width: "8.4375rem", color: "#fff", fontWeight: "bold" }}
-            onClick={handleSaveProfileChanges}
-          >
+          <GradientButton style={{ width: "8.4375rem" }} onClick={handleSaveProfileChanges}>
             SAVE CHANGES
           </GradientButton>
         </div>
