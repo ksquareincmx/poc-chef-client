@@ -34,7 +34,7 @@ const UserApp: React.SFC<RouteComponentProps> = ({ location }) => {
       <NotificationContext.NotificationProvider>
         <Switch>
           <Route path={USER_EDIT_PROFILE_ROUTE} component={EditProfileView} />
-          <Route path={USER_PROFILE_ROUTE} component={Profile} />
+          <Route path={USER_PROFILE_ROUTE} component={ProfileView} />
           <Route path={USER_MY_ORDERS_ROUTE} component={MyOrders} />
           <Route path={USER_ORDER_EDIT_ROUTE} component={OrderEdit} />
           <Route path={USER_LOGIN_ROUTE} component={Login} />
