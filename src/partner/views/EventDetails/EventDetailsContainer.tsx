@@ -7,12 +7,13 @@ import {
 } from "src/common/ui/Card";
 import { TextTitleCardEvent, TextDescriptionCardEvent } from "src/common/ui/Text";
 import { OrderListContainer } from "./OrderListContainer";
-import { IEvent } from "src/partner/models";
+import { IEvent, IOrder } from "src/partner/models";
 import { event } from "src/partner/models/Event";
 import { eventService } from "src/partner/services";
 import { RouteComponentProps, withRouter } from "react-router";
 import { unixDateToString } from "src/common/mappers/DateMapper";
 import { NotificationContext } from "src/providers";
+import { OrderService } from "src/partner/services/OrderService";
 
 interface IEventDetailsContainerComponentProps {
   match: { params: { id: string } };
@@ -37,8 +38,16 @@ const EventDetailsContainerComponent: React.FC<
     fetchEvent();
   }, []);
 
-  const updateStatusPaidOrder = () => {
-    //update order status
+  const updateStatusPaidOrder = async (order: IOrder.IOrder) => {
+    try {
+      if (!order.paid) {
+        const updateOrder = await OrderService.markOrderAsPaid(order.id);
+        console.log(updateOrder);
+      }
+    } catch (err) {
+      //show error notification
+      console.log(err.message);
+    }
   };
 
   return (

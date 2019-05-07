@@ -6,7 +6,6 @@ import { loginService } from "src/common/services";
 export interface IEventService {
   getCurrentEvents: () => Promise<IEvent[]>;
   getPastEvents: () => Promise<IEvent[]>;
-  getOrdersByEventId: (idEvent: string) => Promise<IOrder[]>;
   postEvent: (event: IEvent) => Promise<IEventDTO>;
   putEvent: (event: IEvent) => Promise<IEventDTO>;
   getEventById: (eventId: string) => Promise<IEvent>;
@@ -38,15 +37,6 @@ export const eventService: IEventService = {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events?type=past`, getConfig);
       const data = await res.json();
       return data.data.map(EventMapper.toEntity);
-    } catch (err) {
-      console.error(err);
-    }
-  },
-  getOrdersByEventId: async (eventId: string) => {
-    try {
-      const res = await fetch("/api/event_orders.json");
-      const data = await res.json();
-      return data.orders.map(OrderMapper.toEntity);
     } catch (err) {
       console.error(err);
     }

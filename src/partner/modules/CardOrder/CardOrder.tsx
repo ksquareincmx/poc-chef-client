@@ -29,7 +29,7 @@ export const ArrowOptionsIconImg = styles(ArrowIconImg)`
 
 interface ICardOrderProps {
   order: IOrder.IOrder;
-  updateStatusPaidOrder: () => void;
+  updateStatusPaidOrder: (order: IOrder.IOrder) => void;
 }
 
 export const CardOrder: React.FC<ICardOrderProps> = ({ order, updateStatusPaidOrder }) => {
@@ -53,11 +53,11 @@ export const CardOrder: React.FC<ICardOrderProps> = ({ order, updateStatusPaidOr
           <TextTable style={{ textAlign: "right" }}>
             ${order.total} MXN
             <ArrowIconImg
-              onClick={() => setShowProductList(!showProductList)}
+              onClick={setShowProductList.bind(null, !showProductList)}
               src={require(`src/images/icons/outline-arrow_drop_${iconArrowProductList}-24px.svg`)}
             />
           </TextTable>
-          <OptionsCardOrder paid={order.paid} onClick={updateStatusPaidOrder} />
+          <OptionsCardOrder paid={order.paid} onClick={updateStatusPaidOrder.bind(null, order)} />
         </RowProducts>
       </CardOrderSection>
       {showProductList && <ProductsOrderContainer products={order.products} />}
