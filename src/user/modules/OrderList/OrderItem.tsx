@@ -17,7 +17,7 @@ export const OrderItem: React.FC<IOrderItem> = ({
   historyView,
   order: { id, eventName, createdAt, orderNumber, products, total },
 }) => {
-  const units = products.reduce((a, b) => a + b.quantity, 0);
+  const units = Object.keys(products).reduce((a, b) => a + products[b].quantity, 0);
   return (
     <CardContainer>
       <CardRowHeader>

@@ -7,7 +7,7 @@ export interface IOrder {
   eventId: string;
   total: number;
   orderNumber: string;
-  products: IOrderProduct[];
+  products: { [uuid: string]: IOrderProduct };
   createdBy: string;
   paid: boolean;
   cancelled: boolean;
@@ -29,3 +29,18 @@ export interface IOrderDTO {
   created_at: number;
   updated_at: number;
 }
+
+export const order = () => ({
+  id: "",
+  userName: "",
+  eventName: "",
+  eventId: "",
+  total: 0,
+  orderNumber: "",
+  products: {},
+  createdBy: "",
+  paid: false,
+  cancelled: false,
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
+});
