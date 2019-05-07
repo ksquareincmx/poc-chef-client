@@ -11,6 +11,7 @@ import { TextTableTitleCardEvent, TextTable } from "src/common/ui/Text";
 import styles from "styled-components";
 import { ProductsOrderContainer } from "./ProductsOrderContainer";
 import { OptionsCardOrder } from "./OptionsCardOrder";
+import { IOrder } from "src/partner/models";
 
 const TextCreatedBy = styles(TextTableTitleCardEvent)`
   color: #969897;
@@ -27,7 +28,7 @@ export const ArrowOptionsIconImg = styles(ArrowIconImg)`
 `;
 
 interface ICardOrderProps {
-  order: any; //temporal,
+  order: IOrder.IOrder;
   updateStatusPaidOrder: () => void;
 }
 
@@ -46,7 +47,7 @@ export const CardOrder: React.FC<ICardOrderProps> = ({ order, updateStatusPaidOr
         </CardTextHeaderContainer>
       </CardRowHeader>
       <CardOrderSection>
-        <TextCreatedBy>{order.orderedBy}</TextCreatedBy>
+        <TextCreatedBy>{order.userName}</TextCreatedBy>
         <RowProducts>
           <TextTable style={{ textAlign: "left" }}>Total order</TextTable>
           <TextTable style={{ textAlign: "right" }}>

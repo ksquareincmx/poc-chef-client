@@ -7,6 +7,7 @@ export interface IOrder {
   date: number;
   total: string;
   paid: boolean;
+  userName: string;
   checked: boolean;
   [key: string]: any;
 }
@@ -14,6 +15,7 @@ export interface IOrder {
 export interface IOrderDTO {
   id: string;
   order: string;
+  user_name: string;
   products: IProduct[];
   date: number;
   total: number;
@@ -27,6 +29,7 @@ export const order = (): IOrder => {
     products: [product()],
     date: Date.now(),
     total: "",
+    userName: "",
     paid: false,
     checked: false,
   };

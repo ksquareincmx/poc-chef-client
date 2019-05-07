@@ -9,6 +9,7 @@ export const toEntity = (dto: IOrderDTO): IOrder => {
     date: dto.date,
     total: numberDecimals(dto.total),
     paid: dto.paid,
+    userName: dto.user_name,
     checked: false,
   };
 };

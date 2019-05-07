@@ -1,6 +1,6 @@
 import { IEvent, IEventDTO } from "src/partner/models/Event";
 import { IProductDTO } from "../models/Product";
-import { ProductMapper } from ".";
+import { ProductMapper, OrderMapper } from ".";
 
 export const toEntity = (dto: IEventDTO): IEvent => {
   const h = dto.end_hour / 60;
@@ -20,7 +20,7 @@ export const toEntity = (dto: IEventDTO): IEvent => {
     cancelled: dto.cancelled,
     createdAt: dto.created_at,
     updatedAt: dto.updated_at,
-    orders: [],
+    orders: dto.orders.map(OrderMapper.toEntity),
     products: {},
   };
   if (dto.products) {
