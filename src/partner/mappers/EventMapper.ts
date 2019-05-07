@@ -1,6 +1,7 @@
 import { IEvent, IEventDTO } from "src/partner/models/Event";
 import { IProductDTO } from "../models/Product";
 import { ProductMapper, OrderMapper } from ".";
+import moment from "moment";
 
 export const toEntity = (dto: IEventDTO): IEvent => {
   const h = dto.end_hour / 60;
@@ -12,7 +13,7 @@ export const toEntity = (dto: IEventDTO): IEvent => {
   const eventData: IEvent = {
     id: dto.id,
     name: dto.name,
-    expirationDate: new Date(dto.expiration_date),
+    expirationDate: new Date(dto.expiration_date * 1000),
     endHour,
     createdBy: dto.created_by,
     total: dto.total,
@@ -38,7 +39,7 @@ export const toDTO = (event: IEvent): IEventDTO => {
   const eventDTO: IEventDTO = {
     id: event.id,
     name: event.name,
-    ["expiration_date"]: event.expirationDate.getTime(),
+    ["expiration_date"]: moment(event.expirationDate).unix(),
     ["end_hour"]: event.endHour.getHours() * 60 + event.endHour.getMinutes(),
     ["created_by"]: "",
     total: event.total,

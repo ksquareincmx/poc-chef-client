@@ -13,6 +13,7 @@ export const toEntity = (dto: IProductDTO): IProduct => {
 
 export const toDTO = (product: IProduct): IProductDTO => {
   const productDTO: IProductDTO = {
+    id: product.id,
     name: product.name,
     price: Number(product.price),
     ["created_at"]: product.createdAt,
