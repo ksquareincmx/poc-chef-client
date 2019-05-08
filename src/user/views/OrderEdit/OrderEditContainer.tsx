@@ -97,12 +97,10 @@ const OrderEditContainerComponent: React.FC<
       <CardContainer>
         <CardRowHeader style={{ padding: ".5rem 1rem .475rem 1rem" }}>
           <div style={{ display: "grid", gridGap: ".25rem" }}>
-            <TextTitleCardEvent>{orderState.eventName}</TextTitleCardEvent>
-            <TextTable style={{ textAlign: "left" }}>
-              {DateMapper.unixDateToString(orderState.createdAt)}
-            </TextTable>
+            <TextTitleCardEvent align="left">{orderState.eventName}</TextTitleCardEvent>
+            <TextTable align="left">{DateMapper.unixDateToString(orderState.createdAt)}</TextTable>
           </div>
-          <TextTable style={{ textAlign: "left" }}>Order #{orderState.orderNumber}</TextTable>
+          <TextTable align="right">Order #{orderState.orderNumber}</TextTable>
         </CardRowHeader>
         <ProductsListContainer
           products={orderState.products}
@@ -113,10 +111,8 @@ const OrderEditContainerComponent: React.FC<
           enableDeleteButton={true}
         />
         <CardRowHeader style={{ padding: ".5rem 1rem .475rem 1rem" }}>
-          <TextTitleCardEvent style={{ textAlign: "left" }}>Total</TextTitleCardEvent>
-          <TextTitleCardEvent style={{ textAlign: "right" }}>
-            ${orderState.total} MXN
-          </TextTitleCardEvent>
+          <TextTitleCardEvent align="left">Total</TextTitleCardEvent>
+          <TextTitleCardEvent aling="right">${orderState.total} MXN</TextTitleCardEvent>
         </CardRowHeader>
       </CardContainer>
       <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
