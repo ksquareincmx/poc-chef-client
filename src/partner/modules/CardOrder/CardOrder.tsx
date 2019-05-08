@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   CardContainer,
   CardRowHeader,
@@ -21,6 +21,7 @@ const TextCreatedBy = styles(TextTableTitleCardEvent)`
 const ArrowIconImg = styles(CardIconImg)`
     position: relative;
     top: .25rem;
+    cursor: pointer;
 `;
 
 export const ArrowOptionsIconImg = styles(ArrowIconImg)`
@@ -53,7 +54,7 @@ export const CardOrder: React.FC<ICardOrderProps> = ({ order, updateStatusPaidOr
           <TextTable style={{ textAlign: "right" }}>
             ${order.total} MXN
             <ArrowIconImg
-              onClick={setShowProductList.bind(null, !showProductList)}
+              onClick={() => setShowProductList(!showProductList)}
               src={require(`src/images/icons/outline-arrow_drop_${iconArrowProductList}-24px.svg`)}
             />
           </TextTable>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CardIconImg } from "src/common/ui/Card";
 import { ArrowOptionsIconImg } from "./CardOrder";
 import styles from "styled-components";
@@ -8,6 +8,7 @@ import { pastEventDetailsRoute } from "src/partner/routes";
 
 const FloatDivOption = styles.div`
     position: absolute;
+    cursor: pointer;
     text-align: right;
     right: -.5rem;
     top: .4rem;
@@ -35,6 +36,11 @@ const OptionsCardOrderComponent: React.FC<RouteComponentProps & IOptionsCardOrde
   const iconHide = !paid ? "check" : "remove";
   const iconArrowOptions = showOptions ? "up" : "down";
   const isPastEventDetailsView = pastEventDetailsRoute === path;
+
+  useEffect(() => {
+    setShowOptions(false);
+  }, [paid]);
+
   return (
     <div>
       <div style={{ textAlign: "right" }}>
