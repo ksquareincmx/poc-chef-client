@@ -16,6 +16,7 @@ const getConfig = { method: "get", ...headersConfig };
 export interface IOrderService {
   getUserOrders: (pastOrders: boolean) => Promise<IOrder[]>;
   postOrder: (order: IUserEvent) => Promise<IOrder>;
+  getOrder: (orderId: string) => Promise<IOrder>;
 }
 
 export const OrderService: IOrderService = {
@@ -30,6 +31,17 @@ export const OrderService: IOrderService = {
       throw new Error("Error at getting orders");
     }
     return data.data.map(OrderMapper.toEntity);
+  },
+  getOrder: async (orderId: string) => {
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}/user/api/v1/orders/${orderId}`,
+      getConfig,
+    );
+    const data = await res.json();
+    if (data.statusCode !== 200) {
+      throw new Error(data.message);
+    }
+    return OrderMapper.toEntity(data.data);
   },
   postOrder: async (userEvent: IUserEvent) => {
     postConfig.body = JSON.stringify(UserEventMapper.toOrderDTO(userEvent));
