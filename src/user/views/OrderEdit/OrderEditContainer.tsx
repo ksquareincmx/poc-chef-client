@@ -67,8 +67,15 @@ const OrderEditContainerComponent: React.FC<
     //handleRemoveProduct
   };
 
-  const saveChanges = () => {
-    //save order changes
+  const saveChanges = async () => {
+    try {
+      const order = await OrderService.putOrder({ ...orderState });
+      if (order.id) {
+        //redirect to my orders
+      }
+    } catch (err) {
+      notification.handleShowNotification(err.message);
+    }
   };
 
   const handleOnChangeInput = (idProduct: string) => {

@@ -17,6 +17,7 @@ export interface IOrderService {
   getUserOrders: (pastOrders: boolean) => Promise<IOrder[]>;
   postOrder: (order: IUserEvent) => Promise<IOrder>;
   getOrder: (orderId: string) => Promise<IOrder>;
+  putOrder: (order: IOrder) => Promise<IOrder>;
 }
 
 export const OrderService: IOrderService = {
@@ -50,6 +51,17 @@ export const OrderService: IOrderService = {
 
     if (data.statusCode !== 201) {
       throw new Error("Error at creating new order");
+    }
+
+    return data.data;
+  },
+  putOrder: async (order: IOrder) => {
+    putConfig.body = JSON.stringify(OrderMapper.toDTO(order));
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/user/api/v1/orders`, putConfig);
+    const data = await res.json();
+
+    if (data.statusCode !== 201) {
+      throw new Error(data.message);
     }
 
     return data.data;
