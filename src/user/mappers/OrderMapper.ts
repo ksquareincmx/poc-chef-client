@@ -41,6 +41,9 @@ export const toDTO = (order: IOrder): IOrderDTO => {
   };
   if (Object.keys(order.products).length > 0) {
     Object.keys(order.products).forEach(key => {
+      if (order.products[key].quantity < 1) {
+        return;
+      }
       newOrder.products.push(orderProductMapper.toDTO(order.products[key]));
     });
   }

@@ -8,6 +8,7 @@ import { IOrder, order } from "src/user/models/Order";
 import { RouteComponentProps, withRouter } from "react-router";
 import { NotificationContext } from "src/providers";
 import { DateMapper } from "src/common/mappers";
+import { USER_MY_ORDERS_ROUTE } from "src/user/routes";
 
 interface IOrderEditContainerComponentProps {
   match: { params: { id: string } };
@@ -15,7 +16,7 @@ interface IOrderEditContainerComponentProps {
 
 const OrderEditContainerComponent: React.FC<
   RouteComponentProps & IOrderEditContainerComponentProps
-> = ({ match: { params } }) => {
+> = ({ history, match: { params } }) => {
   const [orderState, setOrderState] = useState<IOrder>(order());
   const notification = useContext(NotificationContext.NotificationContext);
 
@@ -64,14 +65,23 @@ const OrderEditContainerComponent: React.FC<
   );
 
   const handleRemoveProduct = (idProduct: string) => {
-    //handleRemoveProduct
+    const products = { ...orderState.products };
+    delete products[idProduct];
+    setOrderState({ ...orderState, products });
   };
 
   const saveChanges = async () => {
     try {
+      if (orderState.total === 0) {
+        return notification.handleShowNotification("add a product to your order");
+      }
+
       const order = await OrderService.putOrder({ ...orderState });
+
       if (order.id) {
-        //redirect to my orders
+        history.push(USER_MY_ORDERS_ROUTE);
+      } else {
+        throw new Error("Error at updating order");
       }
     } catch (err) {
       notification.handleShowNotification(err.message);
