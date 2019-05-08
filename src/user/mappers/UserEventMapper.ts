@@ -37,14 +37,14 @@ export const toEntity = (dto: IUserEventDTO): IUserEvent => {
 
 export const toOrderDTO = (event: IUserEvent): IOrderDTO => {
   const orderDTO: IOrderDTO = {
-    id: "",
-    ["user_name"]: "",
-    ["order_number"]: "",
+    id: event.id,
+    ["user_name"]: "foo user",
+    ["order_number"]: 1,
     ["event_id"]: event.id,
     ["event_name"]: event.name,
     total: 0,
     products: [],
-    ["created_by"]: "",
+    ["created_by"]: "86eb5e2f-12f1-42b3-8003-a7f165b99ac8",
     paid: false,
     cancelled: false,
     ["created_at"]: Date.now(),

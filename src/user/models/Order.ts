@@ -6,8 +6,8 @@ export interface IOrder {
   eventName: string;
   eventId: string;
   total: number;
-  orderNumber: string;
-  products: IOrderProduct[];
+  orderNumber: number;
+  products: { [uuid: string]: IOrderProduct };
   createdBy: string;
   paid: boolean;
   cancelled: boolean;
@@ -20,7 +20,7 @@ export interface IOrderDTO {
   user_name: string;
   event_id: string;
   event_name: string;
-  order_number: string;
+  order_number: number;
   total: number;
   products: IOrderProductDTO[];
   created_by: string;
@@ -29,3 +29,18 @@ export interface IOrderDTO {
   created_at: number;
   updated_at: number;
 }
+
+export const order = () => ({
+  id: "",
+  userName: "",
+  eventName: "",
+  eventId: "",
+  total: 0,
+  orderNumber: 0,
+  products: {},
+  createdBy: "",
+  paid: false,
+  cancelled: false,
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
+});

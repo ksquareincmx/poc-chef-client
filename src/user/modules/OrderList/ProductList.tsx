@@ -4,10 +4,10 @@ import { OrderProductsRow } from "../ui/OrderItem";
 import { TextTableRowCardEvent } from "src/common/ui/Text";
 
 interface IProductListProps {
-  products: IOrderProduct[];
+  products: { [key: string]: IOrderProduct };
 }
 
-export const ProductList: React.SFC<IProductListProps> = props => {
+export const ProductList: React.SFC<IProductListProps> = ({ products }) => {
   const getProductRow = (product: IOrderProduct) => {
     return (
       <OrderProductsRow key={product.id}>
@@ -18,5 +18,9 @@ export const ProductList: React.SFC<IProductListProps> = props => {
     );
   };
 
-  return <>{props.products.map(getProductRow)}</>;
+  return (
+    <React.Fragment>
+      {Object.keys(products).map(key => getProductRow(products[key]))}
+    </React.Fragment>
+  );
 };
