@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   CardContainer,
   CardRowHeader,
@@ -11,6 +11,7 @@ import { TextTableTitleCardEvent, TextTable } from "src/common/ui/Text";
 import styles from "styled-components";
 import { ProductsOrderContainer } from "./ProductsOrderContainer";
 import { OptionsCardOrder } from "./OptionsCardOrder";
+import { IOrder } from "src/partner/models";
 
 const TextCreatedBy = styles(TextTableTitleCardEvent)`
   color: #969897;
@@ -20,6 +21,7 @@ const TextCreatedBy = styles(TextTableTitleCardEvent)`
 const ArrowIconImg = styles(CardIconImg)`
     position: relative;
     top: .25rem;
+    cursor: pointer;
 `;
 
 export const ArrowOptionsIconImg = styles(ArrowIconImg)`
@@ -27,8 +29,8 @@ export const ArrowOptionsIconImg = styles(ArrowIconImg)`
 `;
 
 interface ICardOrderProps {
-  order: any; //temporal,
-  updateStatusPaidOrder: () => void;
+  order: IOrder.IOrder;
+  updateStatusPaidOrder: (order: IOrder.IOrder) => void;
 }
 
 export const CardOrder: React.FC<ICardOrderProps> = ({ order, updateStatusPaidOrder }) => {
@@ -46,7 +48,7 @@ export const CardOrder: React.FC<ICardOrderProps> = ({ order, updateStatusPaidOr
         </CardTextHeaderContainer>
       </CardRowHeader>
       <CardOrderSection>
-        <TextCreatedBy>{order.orderedBy}</TextCreatedBy>
+        <TextCreatedBy>{order.userName}</TextCreatedBy>
         <RowProducts>
           <TextTable style={{ textAlign: "left" }}>Total order</TextTable>
           <TextTable style={{ textAlign: "right" }}>
@@ -56,7 +58,7 @@ export const CardOrder: React.FC<ICardOrderProps> = ({ order, updateStatusPaidOr
               src={require(`src/images/icons/outline-arrow_drop_${iconArrowProductList}-24px.svg`)}
             />
           </TextTable>
-          <OptionsCardOrder paid={order.paid} onClick={updateStatusPaidOrder} />
+          <OptionsCardOrder paid={order.paid} onClick={updateStatusPaidOrder.bind(null, order)} />
         </RowProducts>
       </CardOrderSection>
       {showProductList && <ProductsOrderContainer products={order.products} />}
