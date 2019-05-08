@@ -41,12 +41,17 @@ const EventDetailsContainerComponent: React.FC<
   const updateStatusPaidOrder = async (order: IOrder.IOrder) => {
     try {
       if (!order.paid) {
-        const updateOrder = await OrderService.markOrderAsPaid(order.id);
-        console.log(updateOrder);
+        await OrderService.markOrderAsPaid(order.id);
+      } else {
+        await OrderService.markOrderAsUnpaid(order.id);
       }
+
+      const indexOf = eventDetails.orders.map(o => o.id).indexOf(order.id);
+      const orders = [...eventDetails.orders];
+      orders.splice(indexOf, 1, { ...order, paid: !order.paid });
+      setEventDetails({ ...eventDetails, orders });
     } catch (err) {
-      //show error notification
-      console.log(err.message);
+      notificationContext.handleShowNotification(err.message);
     }
   };
 
