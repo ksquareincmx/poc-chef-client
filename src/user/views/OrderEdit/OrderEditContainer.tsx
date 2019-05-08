@@ -1,52 +1,67 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CardContainer, CardRowHeader } from "src/common/ui/Card";
 import { GradientButton } from "src/common/ui/Buttons";
 import { TextTable, TextTitleCardEvent } from "src/common/ui/Text";
 import { ProductsListContainer } from "src/user/modules/ProductsEditListContainer";
-import { IEvent } from "src/partner/models";
+import { OrderService } from "src/user/services/OrderService";
+import { IOrder, order } from "src/user/models/Order";
+import { RouteComponentProps, withRouter } from "react-router";
+import { NotificationContext } from "src/providers";
+import { DateMapper } from "src/common/mappers";
 
-export const OrderEditContainer: React.FC = () => {
-  //temporal replace with order model
-  const data = {
-    ...IEvent.event(),
-    products: {
-      "8a8a8aa": {
-        id: "8a8a8aa",
-        name: "Torta de poc-chuc",
-        price: 22,
-        quantity: 0,
-        subtotal: 0,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      "5a6a6a6": {
-        id: "5a6a6a6",
-        name: "Torta de poc-chuc",
-        price: 22,
-        quantity: 0,
-        subtotal: 0,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      "5a5a5a666": {
-        id: "5a5a5a666",
-        name: "Torta de poc-chuc",
-        price: 22,
-        quantity: 0,
-        subtotal: 0,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-    },
+interface IOrderEditContainerComponentProps {
+  match: { params: { id: string } };
+}
+
+const OrderEditContainerComponent: React.FC<
+  RouteComponentProps & IOrderEditContainerComponentProps
+> = ({ match: { params } }) => {
+  const [orderState, setOrderState] = useState<IOrder>(order());
+  const notification = useContext(NotificationContext.NotificationContext);
+
+  const fetchOrder = async () => {
+    try {
+      const order = await OrderService.getOrder(params.id);
+      if (order.id) {
+        setOrderState(order);
+      }
+    } catch (err) {
+      notification.handleShowNotification(err.message);
+    }
   };
 
+  useEffect(() => {
+    fetchOrder();
+  }, []);
+
   const handleAddUnit = (idProduct: string) => {
-    //add unit
+    const product = { ...orderState.products[idProduct] };
+    product.quantity += 1;
+    product.subtotal = product.quantity * product.price;
+    setOrderState({ ...orderState, products: { ...orderState.products, [idProduct]: product } });
   };
 
   const handleMinusUnit = (idProduct: string) => {
-    //minus unit
+    const product = { ...orderState.products[idProduct] };
+    if (product.quantity === 0) {
+      return;
+    }
+
+    product.quantity -= 1;
+    product.subtotal = product.quantity * product.price;
+    setOrderState({ ...orderState, products: { ...orderState.products, [idProduct]: product } });
   };
+
+  useEffect(
+    function updateOrderTotal() {
+      const total = Object.keys(orderState.products).reduce(
+        (a, b) => a + orderState.products[b].subtotal,
+        0,
+      );
+      setOrderState({ ...orderState, total });
+    },
+    [orderState.products],
+  );
 
   const handleRemoveProduct = (idProduct: string) => {
     //handleRemoveProduct
@@ -65,21 +80,26 @@ export const OrderEditContainer: React.FC = () => {
       <CardContainer>
         <CardRowHeader style={{ padding: ".5rem 1rem .475rem 1rem" }}>
           <div style={{ display: "grid", gridGap: ".25rem" }}>
-            <TextTitleCardEvent>{data.name}</TextTitleCardEvent>
-            <TextTable style={{ textAlign: "left" }}>{data.createdAt}</TextTable>
+            <TextTitleCardEvent>{orderState.eventName}</TextTitleCardEvent>
+            <TextTable style={{ textAlign: "left" }}>
+              {DateMapper.unixDateToString(orderState.createdAt)}
+            </TextTable>
           </div>
-          <TextTable style={{ textAlign: "left" }}>Order #{data.id}</TextTable>
+          <TextTable style={{ textAlign: "left" }}>Order #{orderState.orderNumber}</TextTable>
         </CardRowHeader>
         <ProductsListContainer
-          products={data.products}
+          products={orderState.products}
           handleAddUnit={handleAddUnit}
           handleMinusUnit={handleMinusUnit}
           handleRemoveProduct={handleRemoveProduct}
           handleOnChangeInput={handleOnChangeInput}
+          enableDeleteButton={true}
         />
         <CardRowHeader style={{ padding: ".5rem 1rem .475rem 1rem" }}>
           <TextTitleCardEvent style={{ textAlign: "left" }}>Total</TextTitleCardEvent>
-          <TextTitleCardEvent style={{ textAlign: "right" }}>${data.total} MXN</TextTitleCardEvent>
+          <TextTitleCardEvent style={{ textAlign: "right" }}>
+            ${orderState.total} MXN
+          </TextTitleCardEvent>
         </CardRowHeader>
       </CardContainer>
       <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
@@ -88,3 +108,5 @@ export const OrderEditContainer: React.FC = () => {
     </React.Fragment>
   );
 };
+
+export const OrderEditContainer = withRouter(OrderEditContainerComponent);
