@@ -45,7 +45,9 @@ export const OrderService: IOrderService = {
     return OrderMapper.toEntity(data.data);
   },
   postOrder: async (userEvent: IUserEvent) => {
-    postConfig.body = JSON.stringify(UserEventMapper.toOrderDTO(userEvent));
+    const order = UserEventMapper.toOrderDTO(userEvent);
+    delete order["id"]; //not required on post and put requests
+    postConfig.body = JSON.stringify(order);
     const res = await fetch(`${process.env.REACT_APP_API_URL}/user/api/v1/orders`, postConfig);
     const data = await res.json();
 
@@ -56,8 +58,13 @@ export const OrderService: IOrderService = {
     return data.data;
   },
   putOrder: async (order: IOrder) => {
-    putConfig.body = JSON.stringify(OrderMapper.toDTO(order));
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/user/api/v1/orders`, putConfig);
+    const orderMapped = OrderMapper.toDTO(order);
+    delete orderMapped["id"]; //not required on post and put requests
+    putConfig.body = JSON.stringify(orderMapped);
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}/user/api/v1/orders/${order.id}`,
+      putConfig,
+    );
     const data = await res.json();
 
     if (data.statusCode !== 201) {
