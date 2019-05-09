@@ -17,6 +17,7 @@ import {
   CardLinkIcon,
 } from "src/common/ui/Card";
 import { unixDateToString } from "src/common/mappers/DateMapper";
+import { getPriceFormat } from "src/common/utils";
 
 interface CardEventProps {
   key: string;
@@ -31,7 +32,7 @@ export const CardEvent: React.SFC<CardEventProps> = ({ eventInfo, isPastEventVie
       return (
         <CardRow key={product.id}>
           <TextTableRowCardEvent>{product.name}</TextTableRowCardEvent>
-          <TextTableRowCardEvent>{product.price}</TextTableRowCardEvent>
+          <TextTableRowCardEvent>{getPriceFormat(product.price)}</TextTableRowCardEvent>
         </CardRow>
       );
     });

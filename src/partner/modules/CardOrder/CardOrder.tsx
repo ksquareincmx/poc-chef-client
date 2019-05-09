@@ -12,6 +12,7 @@ import styles from "styled-components";
 import { ProductsOrderContainer } from "./ProductsOrderContainer";
 import { OptionsCardOrder } from "./OptionsCardOrder";
 import { IOrder } from "src/partner/models";
+import { getPriceFormat } from "src/common/utils";
 
 const TextCreatedBy = styles(TextTableTitleCardEvent)`
   color: #969897;
@@ -52,7 +53,7 @@ export const CardOrder: React.FC<ICardOrderProps> = ({ order, updateStatusPaidOr
         <RowProducts>
           <TextTable style={{ textAlign: "left" }}>Total order</TextTable>
           <TextTable style={{ textAlign: "right" }}>
-            ${order.total} MXN
+            {getPriceFormat(order.total)}
             <ArrowIconImg
               onClick={() => setShowProductList(!showProductList)}
               src={require(`src/images/icons/outline-arrow_drop_${iconArrowProductList}-24px.svg`)}

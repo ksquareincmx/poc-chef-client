@@ -5,7 +5,7 @@ export interface IOrder {
   order: string;
   products: IProduct[];
   date: number;
-  total: string;
+  total: number;
   paid: boolean;
   userName: string;
   checked: boolean;
@@ -28,7 +28,7 @@ export const order = (): IOrder => {
     order: "",
     products: [product()],
     date: Date.now(),
-    total: "",
+    total: 0,
     userName: "",
     paid: false,
     checked: false,
