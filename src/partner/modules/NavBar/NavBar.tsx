@@ -1,95 +1,84 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { NavBarContainer, Item } from "src/partner/modules/ui/NavBar/NavBar";
 import { NavBarStyled } from "src/partner/modules/ui";
 import styledComponents from "styled-components";
+import { currentEventsRoute, pastEventsRoute } from "src/partner/routes";
+import { Location } from "history";
+import { TextMessage } from "src/common/ui/Text";
 
 const NavBarStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   width: "100%",
-  height: "44px",
+  height: "2.5rem",
   fontFamily: "unset",
-  fontSize: "14px",
+  fontSize: ".875rem",
   textDecoration: "none",
   color: "Gray",
 };
 
-const NavBarActiveStyle = {
-  ...NavBarStyle,
-  color: "#E83E5D",
-  background: "WhiteSmoke",
-  fontStyle: "bold",
-};
-
 export const Img = styledComponents.img({
-  width: "2.5em",
-  height: "2.5em",
+  width: "1.5rem",
+  height: "1.5rem",
   objectFit: "contain",
 });
 
+const Text = styledComponents(TextMessage)`
+  font-size: .875rem;
+  font-weight: normal;
+  line-height: 1.71;
+`;
+const GradientLine = styledComponents.div`
+  margin: 0;
+  padding: 0;
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(to right, #E83E5D, #F8823D);
+`;
+
 interface INavBarProps {
-  user?: boolean;
+  location: Location;
 }
 
-export const NavBar: React.FC<INavBarProps> = props => {
-  let leftNav: any = "Current Events";
-  let rightNav: any = "Past Events";
-  let linkLeft = "/partner/current-events";
-  let linkRight = "/partner/past-events";
-  const [rightState, setRightState] = React.useState("");
-  const [leftState, setLeftState] = React.useState("");
+export const NavBar: React.FC<INavBarProps> = ({ location }) => {
+  const [currentEvents, setCurrentEvents] = useState("");
+  const [pastEvents, setPastEvents] = useState("");
 
-  if (props.user) {
-    leftNav = <Img src={require(`src/images/assignment${leftState}.svg`)} />;
-    rightNav = <Img src={require(`src/images/restaurant${rightState}.svg`)} />;
-    linkLeft = "/user/my-orders";
-    linkRight = "/user/order";
-  }
+  useEffect(() => {
+    const { pathname } = location;
+    const isPastRoute = pathname.match(/past/gi);
+    if (!isPastRoute) {
+      setCurrentEvents("-active");
+    } else {
+      setCurrentEvents("");
+    }
 
-  const handleClickRight = () => {
-    setRightState("-active");
-    setLeftState("");
-  };
+    if (isPastRoute) {
+      setPastEvents("-active");
+    } else {
+      setPastEvents("");
+    }
+  }, [location.pathname]);
 
-  const handleClickLeft = () => {
-    setLeftState("-active");
-    setRightState("");
-  };
+  const activeCurrentStyles = currentEvents ? { color: "#E83E5D" } : {};
+  const activePastStyles = pastEvents ? { color: "#E83E5D" } : {};
 
   return (
     <NavBarStyled.NavBarContainer>
       <NavBarStyled.Item>
-        <style>
-          {".active + div{" +
-            "margin: 0;" +
-            "padding: 0;" +
-            "height: 6px;" +
-            "width: 100%;" +
-            "background: linear-gradient(to right, #E83E5D, #F8823D);" +
-            "}"}
-        </style>
-        <NavLink
-          to={linkLeft}
-          activeStyle={NavBarActiveStyle}
-          style={NavBarStyle}
-          onClick={handleClickLeft}
-        >
-          {leftNav}
+        <NavLink to={currentEventsRoute} style={NavBarStyle}>
+          <Img src={require(`src/images/icons/history${currentEvents}.svg`)} />{" "}
+          <Text {...activeCurrentStyles}>Current Events</Text>
         </NavLink>
-        <div />
+        {currentEvents && <GradientLine />}
       </NavBarStyled.Item>
       <NavBarStyled.Item>
-        <NavLink
-          to={linkRight}
-          activeStyle={NavBarActiveStyle}
-          style={NavBarStyle}
-          onClick={handleClickRight}
-        >
-          {rightNav}
+        <NavLink to={pastEventsRoute} style={NavBarStyle}>
+          <Img src={require(`src/images/icons/assignment${pastEvents}.svg`)} />{" "}
+          <Text {...activePastStyles}>Past Events</Text>
         </NavLink>
-        <div />
+        {pastEvents && <GradientLine />}
       </NavBarStyled.Item>
     </NavBarStyled.NavBarContainer>
   );

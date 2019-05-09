@@ -40,7 +40,7 @@ const PartnerApp: React.FC<RouteComponentProps> = ({ location, history }) => {
           <Route path={loginPartnerRoute} component={Login} />
           <Route path="/" component={Splash} />} />
         </Switch>
-        {isProtectedRoute && <NavBar />}
+        {isProtectedRoute && <NavBar location={location} />}
       </NotificationContext.NotificationProvider>
     </div>
   );
