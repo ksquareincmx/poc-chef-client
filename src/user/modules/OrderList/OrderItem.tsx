@@ -7,6 +7,7 @@ import { ProductList } from "./ProductList";
 import { Link } from "react-router-dom";
 import { USER_ORDER_EDIT_ROUTE } from "src/user/routes";
 import { DateMapper } from "src/common/mappers";
+import { getPriceFormat } from "src/common/utils";
 
 export interface IOrderItem {
   order: IOrder;
@@ -43,7 +44,7 @@ export const OrderItem: React.FC<IOrderItem> = ({
       <OrderProductsRow>
         <TextTableTitleCardEvent align="left">Total</TextTableTitleCardEvent>
         <TextTableTitleCardEvent align="right">{units}</TextTableTitleCardEvent>
-        <TextTableTitleCardEvent align="right">${total}MXN</TextTableTitleCardEvent>
+        <TextTableTitleCardEvent align="right">{getPriceFormat(total)}</TextTableTitleCardEvent>
       </OrderProductsRow>
     </CardContainer>
   );

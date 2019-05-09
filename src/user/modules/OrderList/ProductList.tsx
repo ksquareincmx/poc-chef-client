@@ -2,6 +2,7 @@ import React from "react";
 import { IOrderProduct } from "src/user/models/OrderProduct";
 import { OrderProductsRow } from "../ui/OrderItem";
 import { TextTableRowCardEvent } from "src/common/ui/Text";
+import { getPriceFormat } from "src/common/utils";
 
 interface IProductListProps {
   products: { [key: string]: IOrderProduct };
@@ -13,7 +14,9 @@ export const ProductList: React.SFC<IProductListProps> = ({ products }) => {
       <OrderProductsRow key={product.id}>
         <TextTableRowCardEvent align="left">{product.name}</TextTableRowCardEvent>
         <TextTableRowCardEvent align="right">{product.quantity}</TextTableRowCardEvent>
-        <TextTableRowCardEvent align="right">${product.subtotal} MXN</TextTableRowCardEvent>
+        <TextTableRowCardEvent align="right">
+          {getPriceFormat(product.subtotal)}
+        </TextTableRowCardEvent>
       </OrderProductsRow>
     );
   };
