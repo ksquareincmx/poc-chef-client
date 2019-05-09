@@ -8,7 +8,7 @@ export interface ILoginService {
   getCurrentUser: () => IUser;
   setUser: (userData: IUser) => void;
   setJWT: (jwt: string) => void;
-  getJWT: () => any;
+  getJWT: () => string;
   isUserLogged: () => boolean;
   loginWithGoogle: (idToken: string) => Promise<ILoginResponse>;
 }
