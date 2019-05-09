@@ -9,6 +9,7 @@ import { RouteComponentProps, withRouter } from "react-router";
 import { NotificationContext } from "src/providers";
 import { DateMapper } from "src/common/mappers";
 import { USER_MY_ORDERS_ROUTE } from "src/user/routes";
+import { getPriceFormat } from "src/common/utils";
 
 interface IOrderEditContainerComponentProps {
   match: { params: { id: string } };
@@ -112,7 +113,7 @@ const OrderEditContainerComponent: React.FC<
         />
         <CardRowHeader style={{ padding: ".5rem 1rem .475rem 1rem" }}>
           <TextTitleCardEvent align="left">Total</TextTitleCardEvent>
-          <TextTitleCardEvent aling="right">${orderState.total} MXN</TextTitleCardEvent>
+          <TextTitleCardEvent aling="right">{getPriceFormat(orderState.total)}</TextTitleCardEvent>
         </CardRowHeader>
       </CardContainer>
       <div style={{ textAlign: "center", marginTop: "1.5rem" }}>

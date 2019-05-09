@@ -11,6 +11,7 @@ import {
   ExtraButtonInnerDivAbsolute,
   DivDelete,
 } from "../ui/ProductEditRow";
+import { getPriceFormat } from "src/common/utils";
 
 interface IProductRowProps {
   product: IOrderProduct;
@@ -51,7 +52,7 @@ export const ProductEditRow: React.FC<IProductRowProps> = ({
     <DivWrapper>
       <CustomProductRow {...touchMovesProps}>
         <TextTableProduct textAlign="left">{product.name}</TextTableProduct>
-        <TextTableProduct textAlign="right">${product.price} MXN</TextTableProduct>
+        <TextTableProduct textAlign="right">{getPriceFormat(product.price)}</TextTableProduct>
         <UnitsContainer>
           <Icons
             onClick={handleMinusUnit.bind(null, product.id)}
