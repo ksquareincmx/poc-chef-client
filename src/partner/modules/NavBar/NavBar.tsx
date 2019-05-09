@@ -48,17 +48,9 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
   useEffect(() => {
     const { pathname } = location;
     const isPastRoute = pathname.match(/past/gi);
-    if (!isPastRoute) {
-      setCurrentEvents("-active");
-    } else {
-      setCurrentEvents("");
-    }
 
-    if (isPastRoute) {
-      setPastEvents("-active");
-    } else {
-      setPastEvents("");
-    }
+    setCurrentEvents(!isPastRoute ? "" : "-active");
+    setPastEvents(isPastRoute ? "-active" : "");
   }, [location.pathname]);
 
   const activeCurrentStyles = currentEvents ? { color: "#E83E5D" } : {};
