@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { CardContainer, CardRowHeader } from "src/common/ui/Card";
 import { GradientButton } from "src/common/ui/Buttons";
 import { TextTable, TextTitleCardEvent, TextTableTitleCardEvent } from "src/common/ui/Text";
@@ -30,6 +30,7 @@ const EventCardComponent: React.FC<IEventProps & RouteComponentProps> = ({ event
   const handleAddUnit = (idProduct: string) => {
     const dataProduct = { ...state.products[idProduct] };
     dataProduct.quantity += 1;
+    dataProduct.subtotal = dataProduct.quantity * dataProduct.price;
     setState({ ...state, products: { ...state.products, [idProduct]: { ...dataProduct } } });
   };
 
@@ -41,6 +42,7 @@ const EventCardComponent: React.FC<IEventProps & RouteComponentProps> = ({ event
     }
 
     dataProduct.quantity -= 1;
+    dataProduct.subtotal = dataProduct.quantity * dataProduct.price;
     setState({ ...state, products: { ...state.products, [idProduct]: { ...dataProduct } } });
   };
 
@@ -80,6 +82,14 @@ const EventCardComponent: React.FC<IEventProps & RouteComponentProps> = ({ event
     //handle onChange product or not?
   };
 
+  useEffect(
+    function updateOrderTotal() {
+      const total = Object.keys(state.products).reduce((a, b) => a + state.products[b].subtotal, 0);
+      setState({ ...state, total });
+    },
+    [state.products],
+  );
+
   return (
     <React.Fragment>
       <CardContainer>
@@ -104,7 +114,15 @@ const EventCardComponent: React.FC<IEventProps & RouteComponentProps> = ({ event
           handleOnChangeInput={handleOnChangeInput}
         />
         <div style={{ textAlign: "center", padding: ".5rem 0px" }}>
-          <GradientButton style={{ width: "auto", padding: "0px 1rem" }} onClick={saveChanges}>
+          <GradientButton
+            style={{
+              width: "auto",
+              padding: "0px 1rem",
+              backgroundImage: state.total == 0 ? "none" : "",
+              backgroundColor: state.total == 0 ? "#b3b3b3" : "",
+            }}
+            onClick={saveChanges}
+          >
             SUBMIT HAPPINESS
           </GradientButton>
         </div>
