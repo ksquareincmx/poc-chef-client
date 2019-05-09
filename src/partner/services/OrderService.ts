@@ -3,7 +3,7 @@ import { loginService } from "src/common/services";
 const headersConfig = {
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${loginService.getJWT()}`,
+    Authorization: ``,
   },
 };
 const postConfig = { method: "post", body: "", ...headersConfig };
@@ -17,6 +17,7 @@ export interface IOrderService {
 
 export const OrderService: IOrderService = {
   markOrderAsPaid: async (orderId: string) => {
+    postConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
     postConfig.body = JSON.stringify({ action: "mark_as_paid" });
     const res = await fetch(
       `${process.env.REACT_APP_API_URL}/v1/orders/${orderId}/actions`,
@@ -29,6 +30,7 @@ export const OrderService: IOrderService = {
     return data.data;
   },
   markOrderAsUnpaid: async (orderId: string) => {
+    postConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
     postConfig.body = JSON.stringify({ action: "mark_as_not_paid" });
     const res = await fetch(
       `${process.env.REACT_APP_API_URL}/v1/orders/${orderId}/actions`,

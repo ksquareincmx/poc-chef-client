@@ -5,7 +5,7 @@ import { UserEventMapper } from "../mappers";
 const headersConfig = {
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${loginService.getJWT()}`,
+    Authorization: ``,
   },
 };
 const postConfig = { method: "post", body: "", ...headersConfig };
@@ -18,6 +18,7 @@ export interface IUserEventService {
 
 export const UserEventService: IUserEventService = {
   getUserEvents: async () => {
+    getConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
     const res = await fetch(
       `${process.env.REACT_APP_API_URL}/user/api/v1/events?type=current`,
       getConfig,

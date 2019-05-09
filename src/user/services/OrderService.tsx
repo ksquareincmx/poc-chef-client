@@ -6,7 +6,7 @@ import { IOrder } from "../models/Order";
 const headersConfig = {
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${loginService.getJWT()}`,
+    Authorization: ``,
   },
 };
 const postConfig = { method: "post", body: "", ...headersConfig };
@@ -22,6 +22,7 @@ export interface IOrderService {
 
 export const OrderService: IOrderService = {
   getUserOrders: async (pastOrders: boolean) => {
+    getConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
     const ordersType = pastOrders ? "past" : "current";
     const res = await fetch(
       `${process.env.REACT_APP_API_URL}/user/api/v1/orders?type=${ordersType}`,
@@ -34,6 +35,7 @@ export const OrderService: IOrderService = {
     return data.data.map(OrderMapper.toEntity);
   },
   getOrder: async (orderId: string) => {
+    getConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
     const res = await fetch(
       `${process.env.REACT_APP_API_URL}/user/api/v1/orders/${orderId}`,
       getConfig,
@@ -45,6 +47,7 @@ export const OrderService: IOrderService = {
     return OrderMapper.toEntity(data.data);
   },
   postOrder: async (userEvent: IUserEvent) => {
+    postConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
     const order = UserEventMapper.toOrderDTO(userEvent);
     delete order["id"]; //not required on post and put requests
     postConfig.body = JSON.stringify(order);
@@ -58,6 +61,7 @@ export const OrderService: IOrderService = {
     return data.data;
   },
   putOrder: async (order: IOrder) => {
+    putConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
     const orderMapped = OrderMapper.toDTO(order);
     delete orderMapped["id"]; //not required on post and put requests
     putConfig.body = JSON.stringify(orderMapped);
