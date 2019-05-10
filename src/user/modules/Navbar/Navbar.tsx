@@ -8,6 +8,7 @@ import {
   USER_PROFILE_ROUTE,
   USER_HISTORY_ROUTE,
 } from "src/user/routes";
+import { Location } from "history";
 
 const NavBarStyle = {
   display: "flex",
@@ -28,8 +29,16 @@ const Img = styledComponents.img({
   objectFit: "contain",
 });
 
+const GradientLine = styledComponents.div`
+  margin: 0;
+  padding: 0;
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(to right, #E83E5D, #F8823D);
+`;
+
 interface INavBarProps {
-  location?: any;
+  location: Location;
 }
 
 export const NavBar: React.FC<INavBarProps> = ({ location }) => {
@@ -39,7 +48,10 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
 
   useEffect(() => {
     const { pathname } = location;
-    if (pathname === "/user/past-events") {
+
+    const isOrderEditRoute = /order-edit/gi.test(pathname);
+
+    if (pathname === USER_HISTORY_ROUTE) {
       setMyOrders("");
       setOrder("");
       setHistory("-active");
@@ -51,7 +63,7 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
       setHistory("");
     }
 
-    if (pathname === USER_MY_ORDERS_ROUTE) {
+    if (pathname === USER_MY_ORDERS_ROUTE || isOrderEditRoute) {
       setMyOrders("-active");
       setOrder("");
       setHistory("");
@@ -67,32 +79,22 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
   return (
     <NavBarContainer>
       <NavBarItem>
-        <style>
-          {".active + div {" +
-            "margin: 0;" +
-            "padding: 0;" +
-            "height: 6px;" +
-            "width: 100%;" +
-            "background: linear-gradient(to right, #E83E5D, #F8823D);" +
-            "}"}
-        </style>
         <NavLink to={USER_MY_ORDERS_ROUTE} activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           <Img src={require(`src/images/restaurant-menu${myOrders}.svg`)} />
         </NavLink>
-        <div />
+        {myOrders && <GradientLine />}
       </NavBarItem>
       <NavBarItem>
         <NavLink to={USER_EVENTS_ROUTE} activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           <Img src={require(`src/images/icons/assignment${order}.svg`)} />
         </NavLink>
-        <div />
+        {order && <GradientLine />}
       </NavBarItem>
       <NavBarItem>
-        {/* Create past-events page */}
         <NavLink to={USER_HISTORY_ROUTE} activeStyle={NavBarActiveStyle} style={NavBarStyle}>
           <Img src={require(`src/images/icons/history${history}.svg`)} />
         </NavLink>
-        <div />
+        {history && <GradientLine />}
       </NavBarItem>
     </NavBarContainer>
   );
