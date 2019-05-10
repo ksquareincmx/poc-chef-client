@@ -3,7 +3,8 @@ import stylesTS from "styled-components-ts";
 import { Link } from "react-router-dom";
 
 export const CardContainer = styles.div`
-    width: 21.435rem;
+    min-width: 21.435rem;
+    width: calc(100% - 2rem);
     margin: 0px auto;
     background-color: #fff;
     border-radius: .25rem;
