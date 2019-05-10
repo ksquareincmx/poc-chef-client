@@ -89,18 +89,18 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
           />
         </CustomRow>
         <CustomRow>
-          <InputContainer>
+          <InputContainer width="calc(60% - 1rem)" minWidth="9.1875rem">
             <LabelInput>Date Expiration</LabelInput>
             <InputDatePicker
-              inputStyle="width: 9.1875rem; box-sizing: border-box; height: 2.5rem"
+              inputStyle="box-sizing: border-box; height: 2.5rem; width: 100%"
               onChange={changeEventExpirationDateHandler}
               selected={state.expirationDate}
             />
           </InputContainer>
-          <InputContainer>
+          <InputContainer width="30%" minWidth="7rem">
             <LabelInput>Time</LabelInput>
             <InputDatePicker
-              inputStyle="width: 7rem; box-sizing: border-box; height: 2.5rem"
+              inputStyle="box-sizing: border-box; height: 2.5rem; width: 100%"
               onChange={changeEventTimeHandler}
               selected={state.endHour}
               showTimeSelect

@@ -1,4 +1,5 @@
 import styles from "styled-components";
+import stylesTS from "styled-components-ts";
 
 export const Input = styles.input({
   width: "100%",
@@ -25,7 +26,13 @@ export const LabelInput = styles.label({
   padding: "0px .5rem",
 });
 
-export const InputContainer = styles.div({
-  position: "relative",
-  top: "-.5rem",
-});
+interface IInputContainer {
+  width?: string;
+  minWidth?: string;
+}
+export const InputContainer = stylesTS<IInputContainer>(styles.div)`
+  position: relative;
+  top: -.5rem;
+  width: ${({ width }) => width || ""};
+  min-width: ${({ minWidth }) => minWidth || ""};
+`;

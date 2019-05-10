@@ -28,7 +28,7 @@ export const InputDatePicker: React.FC<IInputDatePicker> = props => {
   return (
     <React.Fragment>
       {props.inputStyle && (
-        <style>{`.react-datepicker__input-container{ position: static;}`}</style>
+        <style>{`.react-datepicker-wrapper{display:block} .react-datepicker__input-container{ position: static; display:block;}`}</style>
       )}
       <DatePickerStyled {...props} />
     </React.Fragment>

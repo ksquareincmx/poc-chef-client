@@ -26,7 +26,8 @@ export const ProductRow: React.SFC<IProductRowProps> = ({
   return (
     <CustomRow key={uuid}>
       <InputLabel
-        width="9.1875rem"
+        minWidth="9.1875rem"
+        width="calc(60% - 1rem)"
         label="Description"
         inputAttrs={{
           name: "description",
@@ -35,7 +36,8 @@ export const ProductRow: React.SFC<IProductRowProps> = ({
         }}
       />
       <InputLabel
-        width="7rem"
+        minWidth="7rem"
+        width="30%"
         label="Amount"
         inputAttrs={{
           name: "amount",
