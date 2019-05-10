@@ -135,7 +135,8 @@ export const CreateEvent: React.FC<RouteComponentProps & IRouteProps> = ({ histo
       <FloatContentWrapper>
         <CreateEventContainer
           {...{
-            state,
+            history,
+            event: state,
             addProductHandler,
             onChangeProductDescription,
             onChangeProductAmount,

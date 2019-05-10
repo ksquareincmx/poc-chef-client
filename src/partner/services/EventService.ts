@@ -2,6 +2,7 @@ import { IEvent, IEventDTO, event } from "src/partner/models/Event";
 import { EventMapper, OrderMapper } from "src/partner/mappers";
 import { IOrder } from "../models/Order";
 import { loginService } from "src/common/services";
+import { async } from "q";
 
 export interface IEventService {
   getCurrentEvents: () => Promise<IEvent[]>;
@@ -9,6 +10,7 @@ export interface IEventService {
   postEvent: (event: IEvent) => Promise<IEventDTO>;
   putEvent: (event: IEvent) => Promise<IEventDTO>;
   getEventById: (eventId: string) => Promise<IEvent>;
+  cancelEvent: (eventId: string) => Promise<IEvent>;
 }
 
 const headersConfig = {
@@ -74,5 +76,18 @@ export const eventService: IEventService = {
       throw new Error("Error at updating event");
     }
     return data.data;
+  },
+  cancelEvent: async (eventId: string) => {
+    postConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
+    //change route
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}/v1/events/${eventId}/cancel`,
+      postConfig,
+    );
+    const data = await res.json();
+    if (data.statusCode !== 201) {
+      throw new Error(data.message);
+    }
+    return data;
   },
 };
