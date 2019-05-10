@@ -12,7 +12,14 @@ export const CurrentEventsContainer: React.SFC<CurrentEventsContainerProps> = ({
   return (
     <ContentWrapper>
       {events.length > 0 && (
-        <div style={{ width: "21.4375rem", textAlign: "right", margin: "1rem auto" }}>
+        <div
+          style={{
+            minWidth: "21.4375rem",
+            width: "calc(100% - 4rem)",
+            textAlign: "right",
+            margin: "1rem auto",
+          }}
+        >
           <CreateEventButton />
         </div>
       )}
