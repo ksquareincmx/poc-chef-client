@@ -13,13 +13,17 @@ export const Login: React.FC<RouteComponentProps> = props => {
   const notificationContext = useContext(NotificationContext.NotificationContext);
 
   const loginWithGoogle = async (res: any) => {
-    const userAuth = await loginService.loginWithGoogle(res.tokenId);
-    if (userAuth.errors) {
-      notificationContext.handleShowNotification("Error at login with google, please try again");
-    } else if (userAuth.jwt && userAuth.user) {
-      loginService.setUser(userAuth.user);
-      loginService.setJWT(userAuth.jwt);
-      props.history.push(USER_MY_ORDERS_ROUTE);
+    try {
+      const userAuth = await loginService.loginWithGoogle(res.tokenId);
+      if (userAuth.jwt && userAuth.user && userAuth.user.role === "user") {
+        loginService.setUser(userAuth.user);
+        loginService.setJWT(userAuth.jwt);
+        props.history.push(USER_MY_ORDERS_ROUTE);
+      } else {
+        throw new Error("Error at login with google, please try again");
+      }
+    } catch (err) {
+      notificationContext.handleShowNotification(err.message);
     }
   };
 
