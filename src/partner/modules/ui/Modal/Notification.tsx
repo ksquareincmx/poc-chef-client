@@ -1,6 +1,7 @@
 import React from "react";
 import styledComponents from "styled-components";
 import { TextMessage } from "src/common/ui/Text";
+import { MIN_WIDTH_CONTAINER } from "src/common/consts";
 
 export interface INotificationProps {
   text: string;
@@ -21,6 +22,7 @@ const NotificacionDiv = styledComponents.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  min-width: ${MIN_WIDTH_CONTAINER};
 `;
 
 const ButtonClose = styledComponents.div`
