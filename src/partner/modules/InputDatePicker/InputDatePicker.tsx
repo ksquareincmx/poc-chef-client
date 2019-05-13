@@ -11,9 +11,6 @@ interface IDatePickerStyled {
 
 const DatePickerStyled = styledTS<IDatePickerStyled>(styled(DatePicker))`
   ${({ inputStyle }) => inputStyle || ""}
-  & :after{
-    content: "icon";
-  }
 `;
 
 interface IInputDatePicker {
@@ -28,7 +25,14 @@ export const InputDatePicker: React.FC<IInputDatePicker> = props => {
   return (
     <React.Fragment>
       {props.inputStyle && (
-        <style>{`.react-datepicker__input-container{ position: static;}`}</style>
+        <style>
+          {`.react-datepicker-wrapper{display:block}
+          .react-datepicker__input-container{ position: static;}
+          .react-datepicker__input-container input{
+            color: #515354
+          }
+          `}
+        </style>
       )}
       <DatePickerStyled {...props} />
     </React.Fragment>
