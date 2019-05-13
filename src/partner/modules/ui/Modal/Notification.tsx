@@ -8,7 +8,7 @@ export interface INotificationProps {
 }
 
 const NotificacionDiv = styledComponents.div`
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
   padding: 1rem 1rem 1rem 1.5rem;
   position: fixed;

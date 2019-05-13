@@ -1,4 +1,5 @@
 import styledComponents from "styled-components";
+import { MIN_WIDTH_CONTAINER } from "src/common/consts";
 
 export const NavBarContainer = styledComponents.div({
   position: "fixed",
@@ -9,6 +10,7 @@ export const NavBarContainer = styledComponents.div({
   flexDirection: "row",
   boxShadow: "0 -1px 10px gray",
   background: "white",
+  minWidth: MIN_WIDTH_CONTAINER,
 });
 
 export const Item = styledComponents.div({
