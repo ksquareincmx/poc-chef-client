@@ -2,6 +2,7 @@ import { ILoginResponse } from "../models/Login";
 import { LoginMapper } from "../mappers";
 import { IUser, user } from "../models/User";
 import { storageService } from "./StorageService";
+import { getLoginErrors } from "../mappers/LoginMapper";
 
 export interface ILoginService {
   login: (username: string, password: string) => Promise<ILoginResponse>;
@@ -15,18 +16,18 @@ export interface ILoginService {
 
 export const loginService: ILoginService = {
   login: async (email: string, password: string) => {
-    try {
-      const config = {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      };
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/auth/login`, config);
-      const loginRes = await res.json();
-      return LoginMapper.toEntity(loginRes);
-    } catch (err) {
-      return err;
+    const config = {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: { "Content-Type": "application/json" },
+    };
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/auth/login`, config);
+    const loginRes = await res.json();
+    if (loginRes.statusCode !== 200) {
+      const errors = getLoginErrors(loginRes).join(", ");
+      throw new Error(errors ? errors : loginRes.message);
     }
+    return LoginMapper.toEntity(loginRes);
   },
   setUser: (userData: IUser) => {
     storageService.setItem("user_data", userData);

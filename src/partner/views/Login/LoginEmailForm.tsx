@@ -34,27 +34,32 @@ export const LoginEmailForm: React.FC<ILoginWithEmailProps> = ({
     return true;
   };
 
+  const handleShowErrorMessages = (errors: ILoginErrorField[]) => {
+    const messages = errors.map((error: ILoginErrorField) => error.error).join("");
+    if (messages !== "") {
+      handleShowNotification(messages);
+    }
+  };
+
   const handleSubmit = async (ev: any) => {
     ev.preventDefault();
-    if (!verifyFields()) {
-      handleShowNotification("Fields should not be empty");
-      return;
-    }
 
-    const handleShowErrorMessages = (errors: ILoginErrorField[]) => {
-      const messages = errors.map((error: ILoginErrorField) => error.error).join("");
-      if (messages !== "") {
-        handleShowNotification(messages);
+    try {
+      if (!verifyFields()) {
+        throw new Error("Fields should not be empty");
       }
-    };
 
-    const loginResponse = await loginService.login(email, password);
-    if (loginResponse.errors) {
-      handleShowErrorMessages(loginResponse.errors);
-    } else if (loginResponse.jwt && loginResponse.user) {
-      loginService.setUser(loginResponse.user);
-      loginService.setJWT(loginResponse.jwt);
-      history.push(currentEventsRoute);
+      const loginResponse = await loginService.login(email, password);
+
+      if (loginResponse.jwt && loginResponse.user && loginResponse.user.role === "admin") {
+        loginService.setUser(loginResponse.user);
+        loginService.setJWT(loginResponse.jwt);
+        history.push(currentEventsRoute);
+      } else {
+        throw new Error("Error at loggin, please try again");
+      }
+    } catch (err) {
+      handleShowErrorMessages(err.message);
     }
   };
 

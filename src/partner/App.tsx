@@ -21,11 +21,11 @@ import { pastEventDetailsRoute } from "./routes/routes";
 
 const PartnerApp: React.FC<RouteComponentProps> = ({ location, history }) => {
   const isProtectedRoute = /\/partner\/[^login].+/gi.test(location.pathname);
-  // useEffect(() => {
-  //   if (isProtectedRoute && !loginService.isUserLogged()) {
-  //     history.push(loginPartnerRoute);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (isProtectedRoute && !loginService.isUserLogged()) {
+      history.push(loginPartnerRoute);
+    }
+  }, []);
 
   return (
     <NotificationContext.NotificationProvider>
