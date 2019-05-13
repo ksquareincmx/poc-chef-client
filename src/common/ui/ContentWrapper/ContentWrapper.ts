@@ -6,9 +6,10 @@ interface IContentWrapper {
 }
 
 export const ContentWrapper = styledTS<IContentWrapper>(styled.div)`
-  width: 100vw;
+  width: 100%;
   height: ${({ height }) => height || "calc(100vh - 9rem)"};
   overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export const FloatContentWrapper = styled(ContentWrapper)`

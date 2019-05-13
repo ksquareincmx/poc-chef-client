@@ -14,7 +14,7 @@ export const HeaderContainer = styledComponentsTS<IHeaderContainerProps>(styledC
   padding: 0.5rem;
   background: ${(props: IHeaderContainerProps) =>
     props.userStyle ? "linear-gradient(to right, #F8823D, #E83E5D)" : "#999"};
-  width: 100vw;
+  width: 100%;
   height: 6.5rem;
   box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.3);
   position:relative;

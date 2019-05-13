@@ -28,21 +28,19 @@ const PartnerApp: React.FC<RouteComponentProps> = ({ location, history }) => {
   // }, []);
 
   return (
-    <div>
-      <NotificationContext.NotificationProvider>
-        <Switch>
-          <Route path={currentEventsRoute} component={CurrentEvents} />
-          <Route path={pastEventsRoute} component={PastEvents} />
-          <Route exact path={pastEventDetailsRoute} component={EventDetails} />
-          <Route path={eventDetailsRoute} component={EventDetails} />
-          <Route path={eventCreateRoute} component={CreateEvent} />
-          <Route path={eventEditRoute} component={CreateEvent} />
-          <Route path={loginPartnerRoute} component={Login} />
-          <Route path="/" component={Splash} />} />
-        </Switch>
-        {isProtectedRoute && <NavBar location={location} />}
-      </NotificationContext.NotificationProvider>
-    </div>
+    <NotificationContext.NotificationProvider>
+      <Switch>
+        <Route path={currentEventsRoute} component={CurrentEvents} />
+        <Route path={pastEventsRoute} component={PastEvents} />
+        <Route exact path={pastEventDetailsRoute} component={EventDetails} />
+        <Route path={eventDetailsRoute} component={EventDetails} />
+        <Route path={eventCreateRoute} component={CreateEvent} />
+        <Route path={eventEditRoute} component={CreateEvent} />
+        <Route path={loginPartnerRoute} component={Login} />
+        <Route path="/" component={Splash} />} />
+      </Switch>
+      {isProtectedRoute && <NavBar location={location} />}
+    </NotificationContext.NotificationProvider>
   );
 };
 

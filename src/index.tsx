@@ -7,15 +7,18 @@ import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { rootRoute, userRoute, partnerRoute } from "./common/routes";
 import "dotenv/config";
+import { MIN_WIDTH_CONTAINER } from "./common/consts";
 
 ReactDOM.render(
-  <Router>
-    <Switch>
-      <Route path={partnerRoute} component={PartnerApp} />
-      <Route path={userRoute} component={UserApp} />
-      <Route route={rootRoute} component={() => <Redirect to={userRoute} />} />
-    </Switch>
-  </Router>,
+  <div style={{ minWidth: MIN_WIDTH_CONTAINER }}>
+    <Router>
+      <Switch>
+        <Route path={partnerRoute} component={PartnerApp} />
+        <Route path={userRoute} component={UserApp} />
+        <Route route={rootRoute} component={() => <Redirect to={userRoute} />} />
+      </Switch>
+    </Router>
+  </div>,
   document.getElementById("root"),
 );
 
