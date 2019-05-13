@@ -63,7 +63,7 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
     changeEventTimeHandler,
   } = props;
 
-  const dateStyle = "box-sizing: border-box; padding: .5rem; height: 2.5rem";
+  const dateStyle = "width:100%; box-sizing: border-box; padding: .5rem; height: 2.5rem";
   return (
     <CardContainer>
       <CardRowHeader>
@@ -93,7 +93,7 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
           <InputContainer width="calc(60% - 1rem)" minWidth="9.1875rem">
             <LabelInput>Date Expiration</LabelInput>
             <InputDatePicker
-              inputStyle={`width: 9.1875rem; ${dateStyle}`}
+              inputStyle={`${dateStyle}`}
               onChange={changeEventExpirationDateHandler}
               selected={state.expirationDate}
             />
@@ -101,7 +101,7 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
           <InputContainer width="30%" minWidth="7rem">
             <LabelInput>Time</LabelInput>
             <InputDatePicker
-              inputStyle={`width: 7rem; ${dateStyle}`}
+              inputStyle={`${dateStyle}`}
               onChange={changeEventTimeHandler}
               selected={state.endHour}
               showTimeSelect

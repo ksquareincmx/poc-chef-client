@@ -32,7 +32,9 @@ export const InputDatePicker: React.FC<IInputDatePicker> = props => {
             display:block;
           }
           .react-datepicker__input-container input{
-            color: #515354
+            color: #515354;
+            border: 1px solid #ccc;
+            border-radius: 2px;
           }
           `}
         </style>
