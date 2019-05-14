@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import { TextTableTitleCardEvent } from "src/common/ui/Text";
 import styles from "styled-components";
 import { InputLabel } from "src/partner/modules/InputLabel/InputLabel";
@@ -14,8 +14,10 @@ import { ProductList } from "./ProductList";
 import { InputDatePicker } from "src/partner/modules/InputDatePicker";
 import { LabelInput, InputContainer } from "src/partner/modules/ui/LabelInput";
 import { IEvent } from "src/partner/models/Event";
-import { Link } from "react-router-dom";
 import { currentEventsRoute } from "src/partner/routes";
+import { NotificationContext } from "src/providers";
+import { eventService } from "src/partner/services";
+import { History } from "history";
 
 const CardSection = styles.div({
   padding: ".90625rem 2rem .5rem 2rem",
@@ -43,7 +45,8 @@ const ProductListContainer = styles.div({
 });
 
 export interface ICreateEventContainerProps {
-  state: IEvent;
+  history: History;
+  event: IEvent;
   addProductHandler: () => void;
   onChangeProductDescription: (id: string, ev: ChangeEvent<HTMLInputElement>) => void;
   onChangeProductAmount: (uuid: string, ev: ChangeEvent<HTMLInputElement>) => void;
@@ -54,7 +57,8 @@ export interface ICreateEventContainerProps {
 
 export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props => {
   const {
-    state,
+    event,
+    history,
     addProductHandler,
     onChangeProductDescription,
     onChangeProductAmount,
@@ -63,7 +67,22 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
     changeEventTimeHandler,
   } = props;
 
+  const notification = useContext(NotificationContext.NotificationContext);
+  const handleCancelEvent = async () => {
+    try {
+      if (!event.id) {
+        return history.push(currentEventsRoute);
+      }
+      const data = await eventService.cancelEvent(event.id);
+      notification.handleShowNotification("Event has been cancelled");
+      history.push(currentEventsRoute);
+    } catch (err) {
+      notification.handleShowNotification(err.message);
+    }
+  };
+
   const dateStyle = "width:100%; box-sizing: border-box; padding: .5rem; height: 2.5rem";
+
   return (
     <CardContainer>
       <CardRowHeader>
@@ -72,38 +91,37 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
         </CardTextHeaderContainer>
         <CardDivActionsContainer>
           <span />
-          <Link to={currentEventsRoute}>
-            <CardIconImg
-              width="1.5rem"
-              height="1.5rem"
-              src={require("src/images/icons/baseline-delete-24px.svg")}
-              alt="del-botton"
-            />
-          </Link>
+          <CardIconImg
+            onClick={handleCancelEvent}
+            width="1.5rem"
+            height="1.5rem"
+            src={require("src/images/icons/baseline-delete-24px.svg")}
+            alt="del-botton"
+          />
         </CardDivActionsContainer>
       </CardRowHeader>
       <CardSection>
         <CustomRow>
           <InputLabel
             label="Event Name"
-            inputAttrs={{ value: state.name, onChange: changeEventNameHandler }}
+            inputAttrs={{ value: event.name, onChange: changeEventNameHandler }}
           />
         </CustomRow>
         <CustomRow>
           <InputContainer width="calc(60% - 1rem)" minWidth="9.1875rem">
             <LabelInput>Date Expiration</LabelInput>
             <InputDatePicker
-              inputStyle={`${dateStyle}`}
+              inputStyle={dateStyle}
               onChange={changeEventExpirationDateHandler}
-              selected={state.expirationDate}
+              selected={event.expirationDate}
             />
           </InputContainer>
           <InputContainer width="30%" minWidth="7rem">
             <LabelInput>Time</LabelInput>
             <InputDatePicker
-              inputStyle={`${dateStyle}`}
+              inputStyle={dateStyle}
               onChange={changeEventTimeHandler}
-              selected={state.endHour}
+              selected={event.endHour}
               showTimeSelect
               showTimeSelectOnly
               timeIntervals={15}
@@ -125,7 +143,7 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
           */}
         <ProductListContainer>
           <ProductList
-            {...{ products: state.products, onChangeProductDescription, onChangeProductAmount }}
+            {...{ products: event.products, onChangeProductDescription, onChangeProductAmount }}
           />
         </ProductListContainer>
       </CardSection>

@@ -95,8 +95,8 @@ const EventCardComponent: React.FC<IEventProps & RouteComponentProps> = ({ event
       <CardContainer>
         <CardRowHeader style={{ padding: ".5rem 1rem .475rem 1rem" }}>
           <div style={{ display: "grid", gridGap: ".25rem" }}>
-            <TextTitleCardEvent>{state.name}</TextTitleCardEvent>
-            <TextTable style={{ textAlign: "left" }}>
+            <TextTitleCardEvent align="left">{state.name}</TextTitleCardEvent>
+            <TextTable align="left">
               {DateMapper.unixDateToString(state.expirationDate.getTime())}
             </TextTable>
           </div>
