@@ -9,8 +9,6 @@ import { currentEventsRoute } from "src/partner/routes";
 import { LogoTitle } from "src/common/ui/LogoTitle";
 
 export const Login: React.FC<RouteComponentProps> = props => {
-  const notificationContext = useContext(NotificationContext.NotificationContext);
-
   if (loginService.isUserLogged()) {
     props.history.push(currentEventsRoute);
     return null;
@@ -21,10 +19,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
       <WrapperDiv>
         <LogoTitle title={true} titleText="ADMIN SITE" />
         <ImgIcon height="35px" width="38px" src={require("src/images/group.svg")} />
-        <LoginEmailForm
-          {...props}
-          handleShowNotification={notificationContext.handleShowNotification}
-        />
+        <LoginEmailForm {...props} />
         <ImgIcon height="53px" width="64px" src={require("src/images/group-2.svg")} />
       </WrapperDiv>
     </MainDivContainer>
