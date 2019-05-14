@@ -44,7 +44,6 @@ export const CurrentEvents: React.FC<{}> = () => {
   return (
     <React.Fragment>
       <Header title="Events" />
-      {(state.isLoading || state.error) && <p>is loading</p>}
       {!state.isLoading && <CurrentEventsContainer events={state.events} />}
     </React.Fragment>
   );

@@ -1,21 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { loginService } from "src/common/services";
 import { RouteComponentProps } from "react-router";
 import { currentEventsRoute } from "src/partner/routes";
-import { ILoginErrorField } from "src/common/models/Login";
 import { InputField, ButtonSubmit, LoginForm, LoginContainer } from "src/partner/modules/ui/Login";
 import { LinkStyled } from "src/common/ui/Link";
+import { NotificationContext } from "src/providers";
 
-interface ILoginWithEmailProps extends RouteComponentProps {
-  handleShowNotification: (text: string) => void;
-}
-
-export const LoginEmailForm: React.FC<ILoginWithEmailProps> = ({
-  history,
-  handleShowNotification,
-}) => {
+export const LoginEmailForm: React.FC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = useState("maik@fakegmail.com"); //unique temporal user
   const [password, setPassword] = useState("plainpassword");
+  const notification = useContext(NotificationContext.NotificationContext);
+
   const handleEmail = (ev: any) => {
     setEmail(ev.target.value);
   };
@@ -36,25 +31,22 @@ export const LoginEmailForm: React.FC<ILoginWithEmailProps> = ({
 
   const handleSubmit = async (ev: any) => {
     ev.preventDefault();
-    if (!verifyFields()) {
-      handleShowNotification("Fields should not be empty");
-      return;
-    }
 
-    const handleShowErrorMessages = (errors: ILoginErrorField[]) => {
-      const messages = errors.map((error: ILoginErrorField) => error.error).join("");
-      if (messages !== "") {
-        handleShowNotification(messages);
+    try {
+      if (!verifyFields()) {
+        throw new Error("Fields should not be empty");
       }
-    };
 
-    const loginResponse = await loginService.login(email, password);
-    if (loginResponse.errors) {
-      handleShowErrorMessages(loginResponse.errors);
-    } else if (loginResponse.jwt && loginResponse.user) {
-      loginService.setUser(loginResponse.user);
-      loginService.setJWT(loginResponse.jwt);
-      history.push(currentEventsRoute);
+      const loginResponse = await loginService.login(email, password);
+      if (loginResponse.jwt && loginResponse.user && loginResponse.user.role === "partner") {
+        loginService.setUser(loginResponse.user);
+        loginService.setJWT(loginResponse.jwt);
+        history.push(currentEventsRoute);
+      } else {
+        throw new Error("Error at loggin, please try again");
+      }
+    } catch (err) {
+      notification.handleShowNotification(err.message);
     }
   };
 

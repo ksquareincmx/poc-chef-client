@@ -8,7 +8,7 @@ export interface IMainDivContainerProps {
 
 export const MainDivContainer = stylesComponentsTS<IMainDivContainerProps>(styledComponents.div)`
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   ${({ user }) => user && `background-image: linear-gradient(to bottom, #e83e5d, #f8823d)`};
   ${({ partner }) => partner && `background-color: #999`};
   display: flex;

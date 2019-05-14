@@ -19,15 +19,17 @@ import {
 import { Events } from "./views/Events";
 import { NotificationContext } from "src/providers";
 import { HistoryOrders } from "./views/HistoryOrders";
+import { loginService } from "src/common/services";
 
-const UserApp: React.SFC<RouteComponentProps> = ({ location }) => {
-  const [isSplashOrLoginRoute, setIsSplashOrLoginRoute] = useState(false);
+const UserApp: React.FC<RouteComponentProps> = ({ location, history }) => {
+  const isProtectedRoute = /\/user\/[^login].+/gi.test(location.pathname);
 
   useEffect(() => {
-    const testRoute = new RegExp(`${USER_LOGIN_ROUTE}|/user(?!.)`, "gi");
-    const isProtectedRoute = testRoute.test(location.pathname);
-    setIsSplashOrLoginRoute(isProtectedRoute);
-  }, [location]);
+    const user = loginService.getCurrentUser();
+    if (isProtectedRoute && user.role !== "user") {
+      return history.push(USER_LOGIN_ROUTE);
+    }
+  }, []);
 
   return (
     <React.Fragment>
@@ -42,7 +44,7 @@ const UserApp: React.SFC<RouteComponentProps> = ({ location }) => {
           <Route path={USER_HISTORY_ROUTE} component={HistoryOrders} />
           <Route path="/" component={Splash} />
         </Switch>
-        {!isSplashOrLoginRoute && <NavBar location={location} />}
+        {isProtectedRoute && <NavBar location={location} />}
       </NotificationContext.NotificationProvider>
     </React.Fragment>
   );

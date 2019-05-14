@@ -1,9 +1,11 @@
 import styles from "styled-components";
 import stylesTS from "styled-components-ts";
 import { Link } from "react-router-dom";
+import { MIN_WIDTH_CONTAINER } from "src/common/consts";
 
 export const CardContainer = styles.div`
-    width: 21.435rem;
+    min-width: ${MIN_WIDTH_CONTAINER};
+    width: calc(100% - 2rem);
     margin: 0px auto;
     background-color: #fff;
     border-radius: .25rem;

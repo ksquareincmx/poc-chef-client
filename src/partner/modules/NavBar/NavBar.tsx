@@ -49,7 +49,7 @@ export const NavBar: React.FC<INavBarProps> = ({ location }) => {
     const { pathname } = location;
     const isPastRoute = pathname.match(/past/gi);
 
-    setCurrentEvents(!isPastRoute ? "" : "-active");
+    setCurrentEvents(!isPastRoute ? "-active" : "");
     setPastEvents(isPastRoute ? "-active" : "");
   }, [location.pathname]);
 

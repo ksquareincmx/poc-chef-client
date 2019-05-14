@@ -21,28 +21,27 @@ import { pastEventDetailsRoute } from "./routes/routes";
 
 const PartnerApp: React.FC<RouteComponentProps> = ({ location, history }) => {
   const isProtectedRoute = /\/partner\/[^login].+/gi.test(location.pathname);
-  // useEffect(() => {
-  //   if (isProtectedRoute && !loginService.isUserLogged()) {
-  //     history.push(loginPartnerRoute);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const user = loginService.getCurrentUser();
+    if (isProtectedRoute && user.role !== "partner") {
+      history.push(loginPartnerRoute);
+    }
+  }, []);
 
   return (
-    <div>
-      <NotificationContext.NotificationProvider>
-        <Switch>
-          <Route path={currentEventsRoute} component={CurrentEvents} />
-          <Route path={pastEventsRoute} component={PastEvents} />
-          <Route exact path={pastEventDetailsRoute} component={EventDetails} />
-          <Route path={eventDetailsRoute} component={EventDetails} />
-          <Route path={eventCreateRoute} component={CreateEvent} />
-          <Route path={eventEditRoute} component={CreateEvent} />
-          <Route path={loginPartnerRoute} component={Login} />
-          <Route path="/" component={Splash} />} />
-        </Switch>
-        {isProtectedRoute && <NavBar location={location} />}
-      </NotificationContext.NotificationProvider>
-    </div>
+    <NotificationContext.NotificationProvider>
+      <Switch>
+        <Route path={currentEventsRoute} component={CurrentEvents} />
+        <Route path={pastEventsRoute} component={PastEvents} />
+        <Route exact path={pastEventDetailsRoute} component={EventDetails} />
+        <Route path={eventDetailsRoute} component={EventDetails} />
+        <Route path={eventCreateRoute} component={CreateEvent} />
+        <Route path={eventEditRoute} component={CreateEvent} />
+        <Route path={loginPartnerRoute} component={Login} />
+        <Route path="/" component={Splash} />} />
+      </Switch>
+      {isProtectedRoute && <NavBar location={location} />}
+    </NotificationContext.NotificationProvider>
   );
 };
 
