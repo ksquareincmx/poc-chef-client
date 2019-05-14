@@ -23,7 +23,7 @@ export const OrderItem: React.FC<IOrderItem> = ({
     <CardContainer>
       <CardRowHeader>
         <OrderDescription>
-          <TextTitleCardEvent>{eventName}</TextTitleCardEvent>
+          <TextTitleCardEvent align="left">{eventName}</TextTitleCardEvent>
           <TextTable align="left">{DateMapper.unixDateToString(createdAt)}</TextTable>
           <TextTable align="left">order #{orderNumber}</TextTable>
         </OrderDescription>
