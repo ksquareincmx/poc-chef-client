@@ -1,8 +1,6 @@
-import { IEvent, IEventDTO, event } from "src/partner/models/Event";
-import { EventMapper, OrderMapper } from "src/partner/mappers";
-import { IOrder } from "../models/Order";
+import { IEvent, IEventDTO } from "src/partner/models/Event";
+import { EventMapper } from "src/partner/mappers";
 import { loginService } from "src/common/services";
-import { async } from "q";
 
 export interface IEventService {
   getCurrentEvents: () => Promise<IEvent[]>;
@@ -79,9 +77,9 @@ export const eventService: IEventService = {
   },
   cancelEvent: async (eventId: string) => {
     postConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
-    //change route
+    postConfig.body = JSON.stringify({ action: "mark_as_finish" });
     const res = await fetch(
-      `${process.env.REACT_APP_API_URL}/v1/events/${eventId}/cancel`,
+      `${process.env.REACT_APP_API_URL}/v1/events/${eventId}/actions`,
       postConfig,
     );
     const data = await res.json();

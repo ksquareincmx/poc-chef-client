@@ -14,7 +14,6 @@ import { ProductList } from "./ProductList";
 import { InputDatePicker } from "src/partner/modules/InputDatePicker";
 import { LabelInput, InputContainer } from "src/partner/modules/ui/LabelInput";
 import { IEvent } from "src/partner/models/Event";
-import { Link, Redirect } from "react-router-dom";
 import { currentEventsRoute } from "src/partner/routes";
 import { NotificationContext } from "src/providers";
 import { eventService } from "src/partner/services";
@@ -75,14 +74,14 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
         return history.push(currentEventsRoute);
       }
       const data = await eventService.cancelEvent(event.id);
-      if (data.id) {
-        notification.handleShowNotification("Event has been deleted");
-        history.push(currentEventsRoute);
-      }
+      notification.handleShowNotification("Event has been cancelled");
+      history.push(currentEventsRoute);
     } catch (err) {
       notification.handleShowNotification(err.message);
     }
   };
+
+  const dateStyle = "width:100%; box-sizing: border-box; padding: .5rem; height: 2.5rem";
 
   return (
     <CardContainer>
@@ -109,18 +108,18 @@ export const CreateEventContainer: React.SFC<ICreateEventContainerProps> = props
           />
         </CustomRow>
         <CustomRow>
-          <InputContainer>
+          <InputContainer width="calc(60% - 1rem)" minWidth="9.1875rem">
             <LabelInput>Date Expiration</LabelInput>
             <InputDatePicker
-              inputStyle="width: 9.1875rem; box-sizing: border-box; height: 2.5rem"
+              inputStyle={dateStyle}
               onChange={changeEventExpirationDateHandler}
               selected={event.expirationDate}
             />
           </InputContainer>
-          <InputContainer>
+          <InputContainer width="30%" minWidth="7rem">
             <LabelInput>Time</LabelInput>
             <InputDatePicker
-              inputStyle="width: 7rem; box-sizing: border-box; height: 2.5rem"
+              inputStyle={dateStyle}
               onChange={changeEventTimeHandler}
               selected={event.endHour}
               showTimeSelect
