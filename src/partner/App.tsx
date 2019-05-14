@@ -20,7 +20,8 @@ import { PastEvents } from "./views/PastEvents";
 import { pastEventDetailsRoute } from "./routes/routes";
 
 const PartnerApp: React.FC<RouteComponentProps> = ({ location, history }) => {
-  const isProtectedRoute = /\/partner\/[^login].+/gi.test(location.pathname);
+  const isProtectedRoute = /\/partner(?!\/login$|\/$|$)/gi.test(location.pathname);
+
   useEffect(() => {
     const user = loginService.getCurrentUser();
     if (isProtectedRoute && user.role !== "partner") {

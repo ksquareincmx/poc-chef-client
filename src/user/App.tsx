@@ -22,7 +22,7 @@ import { HistoryOrders } from "./views/HistoryOrders";
 import { loginService } from "src/common/services";
 
 const UserApp: React.FC<RouteComponentProps> = ({ location, history }) => {
-  const isProtectedRoute = /\/user\/[^login].+/gi.test(location.pathname);
+  const isProtectedRoute = /\/user(?!\/login$|\/$|$)/gi.test(location.pathname);
 
   useEffect(() => {
     const user = loginService.getCurrentUser();
