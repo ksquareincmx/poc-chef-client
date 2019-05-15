@@ -10,7 +10,7 @@ export interface ILoginService {
   setUser: (userData: IUser) => void;
   setJWT: (jwt: string) => void;
   getJWT: () => string;
-  isUserLogged: () => boolean;
+  isUserLogged: (role: string) => boolean;
   loginWithGoogle: (idToken: string) => Promise<ILoginResponse>;
 }
 
@@ -45,9 +45,9 @@ export const loginService: ILoginService = {
   getJWT: () => {
     return storageService.getItem("user_jwt");
   },
-  isUserLogged: function() {
-    const userLogged = this.getCurrentUser();
-    return userLogged.id !== "";
+  isUserLogged: function(roleUser: string = "user") {
+    const { role, id } = this.getCurrentUser();
+    return role === roleUser && id !== "";
   },
   loginWithGoogle: async (idToken: string) => {
     const config = {
