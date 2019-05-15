@@ -1,24 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import { Header } from "src/partner/modules/Header";
 import { eventService } from "src/partner/services";
-import { IEvent } from "src/partner/models/Event";
 import { dateComparator } from "src/partner/utils/EventListUtils";
 import { NotificationContext } from "src/providers";
 
 import {
   reducer,
   initialState,
-  cancelEvent,
-  closeModal,
-  createEvent,
-  updateEvent,
-  showModal,
-  showEditModal,
-  showModalCancelEvent,
   startFetching,
   fetchingSucess,
   fetchingError,
-  closeModalCancelEvent,
 } from "../../ducks/currentEvent";
 import { CurrentEventsContainer } from "./CurrentEventsContainer";
 
@@ -33,7 +24,8 @@ export const CurrentEvents: React.FC<{}> = () => {
       events.sort(dateComparator);
       dispatch(fetchingSucess(events));
     } catch (err) {
-      dispatch(fetchingError(err));
+      fetchingError(err);
+      notificationContext.handleShowNotification(state.error.message);
     }
   };
 

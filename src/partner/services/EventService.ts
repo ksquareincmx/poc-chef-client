@@ -24,32 +24,30 @@ const getConfig = { method: "get", ...headersConfig };
 
 export const eventService: IEventService = {
   getCurrentEvents: async () => {
-    try {
-      getConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events?type=current`, getConfig);
-      const data = await res.json();
-      return data.data.map(EventMapper.toEntity);
-    } catch (err) {
-      console.error(err);
+    getConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events?type=current`, getConfig);
+    const data = await res.json();
+    if (data.statusCode !== 200) {
+      throw new Error(data.message);
     }
+    return data.data.map(EventMapper.toEntity);
   },
 
   getPastEvents: async () => {
-    try {
-      getConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events?type=past`, getConfig);
-      const data = await res.json();
-      return data.data.map(EventMapper.toEntity);
-    } catch (err) {
-      console.error(err);
+    getConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events?type=past`, getConfig);
+    const data = await res.json();
+    if (data.statusCode !== 200) {
+      throw new Error(data.message);
     }
+    return data.data.map(EventMapper.toEntity);
   },
   getEventById: async (eventId: string) => {
     getConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
     const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events/${eventId}`, getConfig);
     const data = await res.json();
     if (data.statusCode !== 200) {
-      throw new Error("Error at getting the event");
+      throw new Error(data.message);
     }
     return EventMapper.toEntity(data.data);
   },
@@ -60,7 +58,7 @@ export const eventService: IEventService = {
     const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events`, postConfig);
     const data = await res.json();
     if (data.statusCode !== 201) {
-      throw new Error("Error at saving new event");
+      throw new Error(data.message);
     }
     return data.data;
   },
@@ -71,7 +69,7 @@ export const eventService: IEventService = {
     const res = await fetch(`${process.env.REACT_APP_API_URL}/v1/events/${eventId}`, putConfig);
     const data = await res.json();
     if (data.statusCode !== 201) {
-      throw new Error("Error at updating event");
+      throw new Error(data.message);
     }
     return data.data;
   },

@@ -14,7 +14,7 @@ import {
 import { PastEventsContainer } from "./PastEventsContainer";
 
 export const PastEvents: React.FC<{}> = () => {
-  //const notificationContext = useContext(NotificationContext.NotificationContext);
+  const notificationContext = useContext(NotificationContext.NotificationContext);
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const fetchEvents = async () => {
@@ -24,7 +24,8 @@ export const PastEvents: React.FC<{}> = () => {
       events.sort(dateComparator);
       dispatch(fetchingSucess(events));
     } catch (err) {
-      dispatch(fetchingError(err));
+      fetchingError(err);
+      notificationContext.handleShowNotification(state.error.message);
     }
   };
 
@@ -35,7 +36,6 @@ export const PastEvents: React.FC<{}> = () => {
   return (
     <React.Fragment>
       <Header title="Events" />
-      {(state.isLoading || state.error) && <p>is loading</p>}
       {!state.isLoading && <PastEventsContainer events={state.events} />}
     </React.Fragment>
   );
