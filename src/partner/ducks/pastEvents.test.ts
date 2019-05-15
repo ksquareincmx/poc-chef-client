@@ -4,7 +4,6 @@ import reducer, {
   startFetching,
   fetchingError,
   IState,
-  editEvent
 } from "./pastEvent";
 import { IFluxStandardAction } from "src/common/ducks";
 import { IEvent } from "../models";
@@ -34,16 +33,6 @@ describe("Partner's Past Events", () => {
     const error = new Error("error at fetching");
     const newStateFake: IState = { ...initialState, isLoading: false, error };
     const newState: IState = reducer(initialState, fetchingError(error));
-    expect(newState).toEqual(newStateFake);
-  });
-
-  it("Should return a new state with an event updated", () => {
-    const oldEvent: IEvent.IEvent = { ...event(), id: "2-a2-2", name: "My order #00" };
-    const oldState = { ...initialState, events: [oldEvent] };
-
-    const editedEvent: IEvent.IEvent = { ...oldEvent, name: "My order #1" };
-    const newStateFake: IState = { ...initialState, events: [editedEvent] };
-    const newState: IState = reducer(oldState, editEvent(editedEvent));
     expect(newState).toEqual(newStateFake);
   });
 });

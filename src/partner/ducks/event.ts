@@ -1,6 +1,5 @@
-import { eventService } from "src/partner/services";
 import { IEvent, event } from "src/partner/models/Event";
-import { IFluxStandardAction, ReduxDispatch } from "src/common/ducks/index";
+import { IFluxStandardAction } from "src/common/ducks/index";
 
 export interface IStateEvent {
   isLoading: boolean;
@@ -11,6 +10,7 @@ export interface IStateEvent {
 export const initialState: IStateEvent = {
   isLoading: false,
   localEvent: event(),
+  error: new Error(),
 };
 
 export const MODULE = "partner/eventView/";
@@ -41,15 +41,4 @@ export const fetchEventSucceed = (event: IEvent) => {
 
 export const fetchEventFailed = (error: Error) => {
   return { type: FETCH_EVENT_FAIL, payload: error };
-};
-
-export const fetchEvent = async (eventId: number | string, dispatch: ReduxDispatch) => {
-  dispatch(fetchEventStarted());
-  try {
-    const events = await eventService.getCurrentEvents();
-    const localEvent = events.filter(e => e.id == eventId)[0] || event();
-    dispatch(fetchEventSucceed(localEvent));
-  } catch (err) {
-    dispatch(fetchEventFailed(new Error("error at fetching event")));
-  }
 };
