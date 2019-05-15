@@ -9,7 +9,7 @@ import { currentEventsRoute } from "src/partner/routes";
 import { LogoTitle } from "src/common/ui/LogoTitle";
 
 export const Login: React.FC<RouteComponentProps> = props => {
-  if (loginService.isUserLogged()) {
+  if (loginService.isUserLogged("partner")) {
     props.history.push(currentEventsRoute);
     return null;
   }
