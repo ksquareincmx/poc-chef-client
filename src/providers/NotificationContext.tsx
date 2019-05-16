@@ -1,5 +1,5 @@
 import React from "react";
-import { Notification } from "../partner/modules/ui/Modal/Notification";
+import { Notification } from "../partner/modules/ui/Notification";
 
 export const NotificationContext = React.createContext({
   notifcationText: "",
