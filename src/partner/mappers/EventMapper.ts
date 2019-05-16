@@ -4,20 +4,14 @@ import { ProductMapper, OrderMapper } from ".";
 import moment from "moment";
 
 export const toEntity = (dto: IEventDTO): IEvent => {
-  const h = dto.end_hour / 60;
-  const m = dto.end_hour % 60;
-  const endHour = new Date();
-  endHour.setHours(h);
-  endHour.setMinutes(m);
-
+  const expirationDateTime = new Date(dto.expiration_date_time * 1000);
   const eventData: IEvent = {
     id: dto.id,
     name: dto.name,
-    expirationDate: new Date(dto.expiration_date * 1000),
-    endHour,
+    expirationDate: expirationDateTime,
+    endHour: expirationDateTime,
     createdBy: dto.created_by,
     total: dto.total,
-    markedAsFinished: dto.marked_as_finished,
     cancelled: dto.cancelled,
     createdAt: dto.created_at,
     updatedAt: dto.updated_at,
@@ -36,14 +30,16 @@ export const toEntity = (dto: IEventDTO): IEvent => {
 };
 
 export const toDTO = (event: IEvent): IEventDTO => {
+  const { expirationDate, endHour } = event;
+  expirationDate.setHours(endHour.getHours());
+  expirationDate.setMinutes(endHour.getMinutes());
+
   const eventDTO: IEventDTO = {
     id: event.id,
     name: event.name,
-    ["expiration_date"]: moment(event.expirationDate).unix(),
-    ["end_hour"]: event.endHour.getHours() * 60 + event.endHour.getMinutes(),
+    ["expiration_date_time"]: moment(expirationDate).unix(),
     ["created_by"]: "",
     total: event.total,
-    ["marked_as_finished"]: event.markedAsFinished,
     cancelled: event.cancelled,
     ["created_at"]: event.createdAt,
     ["updated_at"]: event.updatedAt,

@@ -8,7 +8,6 @@ export interface IEvent {
   endHour: Date;
   createdBy: string;
   total: number;
-  markedAsFinished: boolean;
   cancelled: boolean;
   createdAt: number;
   updatedAt: number;
@@ -23,7 +22,6 @@ export const event = (): IEvent => ({
   endHour: new Date(),
   createdBy: "",
   total: 0,
-  markedAsFinished: false,
   cancelled: false,
   createdAt: Date.now(),
   updatedAt: Date.now(),
@@ -34,11 +32,9 @@ export const event = (): IEvent => ({
 export interface IEventDTO {
   id?: string;
   name: string;
-  expiration_date: number;
-  end_hour: number;
+  expiration_date_time: number;
   created_by: string;
   total: number;
-  marked_as_finished: boolean;
   cancelled: boolean;
   created_at: number;
   updated_at: number;

@@ -75,7 +75,7 @@ export const eventService: IEventService = {
   },
   cancelEvent: async (eventId: string) => {
     postConfig.headers.Authorization = `Bearer ${loginService.getJWT()}`;
-    postConfig.body = JSON.stringify({ action: "mark_as_finish" });
+    postConfig.body = JSON.stringify({ action: "mark_as_cancelled" });
     const res = await fetch(
       `${process.env.REACT_APP_API_URL}/v1/events/${eventId}/actions`,
       postConfig,
