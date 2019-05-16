@@ -44,12 +44,5 @@ export const OrderListContainer: React.FC<IOrderListContainerProps> = ({ history
     ));
   };
 
-  return (
-    <List>
-      {state.loading && <>Loading</>}
-      {state.error && <>{state.error.message}</>}
-      {!state.loading && !state.error && state.orders.length === 0 && <EmptyOrders />}
-      {!state.loading && !state.error && state.orders.length > 0 && printListOrders()}
-    </List>
-  );
+  return <List>{state.orders.length === 0 ? <EmptyOrders /> : printListOrders()}</List>;
 };

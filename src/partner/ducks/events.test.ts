@@ -29,10 +29,7 @@ describe(" Test event Reducer", () => {
       isLoading: false,
       localEvent: fetchedEvent,
     };
-    const newState: IStateEvent = reducer(
-      prevState,
-      fetchEventSucceed(fetchedEvent),
-    );
+    const newState: IStateEvent = reducer(prevState, fetchEventSucceed(fetchedEvent));
     expect(newState).toEqual(stateAfterSuccessfulFetching);
   });
 

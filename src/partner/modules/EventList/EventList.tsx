@@ -1,6 +1,6 @@
 import React from "react";
 import { IEvent } from "src/partner/models/Event";
-import { ListStyled } from "src/partner/modules/ui/";
+import { List } from "src/partner/modules/ui/";
 import { EmptyEvents } from "../EmptyEvents";
 import { CardEvent } from "../CardEvent";
 import cuid from "cuid";
@@ -16,10 +16,10 @@ export const EventList: React.SFC<IEventListProps> = ({ events, isPastEventView 
   }
 
   return (
-    <ListStyled.List>
+    <List>
       {events.map(e => (
         <CardEvent key={e.id ? e.id : cuid()} eventInfo={e} isPastEventView={isPastEventView} />
       ))}
-    </ListStyled.List>
+    </List>
   );
 };

@@ -14,7 +14,7 @@ export interface IOrderState {
 export const initialState: IOrderState = {
   orders: [],
   loading: false,
-  error: undefined,
+  error: new Error(),
 };
 
 export default function reducer(state: IOrderState, action: IFluxStandardAction): IOrderState {

@@ -1,8 +1,7 @@
 import * as NavBarStyled from "./NavBar/NavBar";
-import * as ListStyled from "./List/List";
-import { Modal } from "./Modal";
-import * as Notification from "./Modal/Notification";
+import { List } from "./List/List";
+import { Notification } from "./Notification";
 
 export * from "./Header";
 
-export { NavBarStyled, ListStyled, Modal, Notification };
+export { NavBarStyled, List, Notification };
