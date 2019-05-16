@@ -4,20 +4,14 @@ import { IOrderDTO } from "../models/Order";
 import { IOrderProductDTO } from "../models/OrderProduct";
 
 export const toEntity = (dto: IUserEventDTO): IUserEvent => {
-  const h = dto.end_hour / 60;
-  const m = dto.end_hour % 60;
-  const endHour = new Date();
-  endHour.setHours(h);
-  endHour.setMinutes(m);
-
+  const expirationDateTime = new Date(dto.expiration_date_time);
   const eventData: IUserEvent = {
     id: dto.id,
     name: dto.name,
-    expirationDate: new Date(dto.expiration_date),
-    endHour,
+    expirationDate: expirationDateTime,
+    endHour: expirationDateTime,
     createdBy: dto.created_by,
     total: dto.total || 0,
-    markedAsFinished: dto.marked_as_finished,
     cancelled: dto.cancelled,
     createdAt: dto.created_at,
     updatedAt: dto.updated_at,
