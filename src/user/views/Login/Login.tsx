@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { loginService } from "src/common/services";
 import { RouteComponentProps } from "react-router-dom";
 import { NotificationContext } from "src/providers";
-import { MainDivContainer, ImgLogo } from "src/common/ui/MainDivContainer";
+import { MainDivContainer } from "src/common/ui/MainDivContainer";
 import { USER_MY_ORDERS_ROUTE } from "src/user/routes";
 import { WrapperDiv, ImgIcon } from "src/partner/modules/ui/Login";
 import { GoogleLogin } from "react-google-login";
@@ -39,7 +39,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
     return <button {...renderProps}>Login</button>;
   };
 
-  if (loginService.isUserLogged()) {
+  if (loginService.isUserLogged("user")) {
     props.history.push(USER_MY_ORDERS_ROUTE);
   }
 
